@@ -40,3 +40,12 @@ public class ActionForward
 	}
 
 }
+
+
+/*//Logger HowTo
+logger.fatal("log4j:logger.fatal()");
+logger.error("log4j:logger.error()");
+logger.warn("log4j:logger.warn()");
+logger.info("log4j:logger.info()");
+logger.debug("log4j:logger.debug()");
+*/
