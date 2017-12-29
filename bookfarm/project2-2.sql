@@ -173,14 +173,15 @@ CREATE TABLE products_images (
 
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews (
-	idx					int		NOT NULL auto_increment primary key,
-	products_idx		int		NOT NULL,
+	idx					int				NOT NULL auto_increment primary key,
+	products_idx		int				NOT NULL,
 	customers_idx		int,
 	reviews_rating		int(1),
-	reviews_text		text	NOT NULL,
+	review_title		varchar(255)	NOT NULL,
+	review_text			text			NOT NULL,
 	date_added			datetime,
 	last_modified		datetime,
-	reviews_read		int(5)	NOT NULL default '0'
+	reviews_read		int(5)			NOT NULL default '0'
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
