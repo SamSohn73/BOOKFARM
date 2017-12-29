@@ -1,6 +1,5 @@
 package xyz.bookfarm.action;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
