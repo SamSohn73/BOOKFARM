@@ -3,7 +3,10 @@ package xyz.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
+import xyz.bookfarm.model.ReviewsHitUpdateAction;
 import xyz.bookfarm.model.ReviewsListAction;
+import xyz.bookfarm.model.ReviewsSearchAction;
+import xyz.bookfarm.model.ReviewsViewAction;
 
 
 
@@ -94,16 +97,29 @@ public class MallActionFactory
 		//control code for reviewsDB
 		if (cmd.equals("/qReviewsLists.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsSearch.do action create Start.");
-			action = new ReviewsListAction("board/reviewsList.jsp?type=list");
-			log.debug("QQQQQQQQQQ qReviewsSearch.do action create End.");
+			log.debug("QQQQQQQQQQ qReviewsLists.do action create Start.");
+			action = new ReviewsListAction("review/ReviewsList.jsp");
+			log.debug("QQQQQQQQQQ qReviewsLists.do action create End.");
 		}
-		else if(cmd.equals("/qReviewsLists.do"))
+		else if(cmd.equals("/qReviewsSearch.do"))
 		{
 			log.debug("QQQQQQQQQQ qReviewsSearch.do action create Start.");
-			action = new ReviewsListAction("board/reviewsList.jsp");
+			action = new ReviewsSearchAction("review/ReviewsList.jsp");
 			log.debug("QQQQQQQQQQ qReviewsSearch.do action create End.");
 		}
+		else if(cmd.equals("/qReviewsHitUpdate.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsHitUpdate.do action create Start.");
+			action = new ReviewsHitUpdateAction("qReviewsView.do");
+			log.debug("QQQQQQQQQQ qReviewsHitUpdate.do action create End.");
+		}
+		else if(cmd.equals("/qReviewsView.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsView.do action create Start.");
+			action = new ReviewsViewAction("review/ReviewsWrite.jsp");
+			log.debug("QQQQQQQQQQ qReviewsView.do action create End.");
+		}
+		
 
 		
 		return action;

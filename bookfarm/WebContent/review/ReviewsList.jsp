@@ -39,8 +39,8 @@
 		//If connection comes from myPage mode....
 		//If connection comes from myPage or myList, this category must be needed...
 		int		customers_idx	=	0;
-		if(request.getAttribute("customer_idx")!=null)
-				customers_idx	=	Integer.parseInt((String)request.getAttribute("customer_idx"));
+		if(request.getParameter("customers_idx")!=null)
+				customers_idx	=	Integer.parseInt((String)request.getParameter("customers_idx"));
 		
 		//The type must be one of 'list', 'myList' or 'myPage'
 		String	type			=	(String)request.getAttribute("type");
@@ -48,8 +48,8 @@
 		
 		//If connection comes from indivisual item, products_idx must be needed...		
 		int		products_idx	=	0;
-		if(!type.equals("myPage"))
-				products_idx	=	Integer.parseInt((String)request.getAttribute("products_idx"));
+		if(request.getParameter("products_idx")!=null)
+				products_idx	=	Integer.parseInt((String)request.getParameter("products_idx"));
 		
 		
 		//불러올 CSS
