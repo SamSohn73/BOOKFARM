@@ -6,7 +6,7 @@
 
 	//출력 변수
 	String	user_passwd			= "";
-	String	user_id					= "";
+	String	user_id				= "";
 			review_num			= "";
 			
 	//CSS

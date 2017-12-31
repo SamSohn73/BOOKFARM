@@ -3,6 +3,7 @@ package xyz.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
+import xyz.bookfarm.model.ReviewsListAction;
 
 
 
@@ -89,6 +90,20 @@ public class MallActionFactory
 			action = new SearchAction("board/qna_board_list.jsp");
 			log.debug("QQQQQQQQQQ qSearch.do action create End.");
 		}*/
+		
+		//control code for reviewsDB
+		if (cmd.equals("/qReviewsLists.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsSearch.do action create Start.");
+			action = new ReviewsListAction("board/reviewsList.jsp?type=list");
+			log.debug("QQQQQQQQQQ qReviewsSearch.do action create End.");
+		}
+		else if(cmd.equals("/qReviewsLists.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsSearch.do action create Start.");
+			action = new ReviewsListAction("board/reviewsList.jsp");
+			log.debug("QQQQQQQQQQ qReviewsSearch.do action create End.");
+		}
 
 		
 		return action;
