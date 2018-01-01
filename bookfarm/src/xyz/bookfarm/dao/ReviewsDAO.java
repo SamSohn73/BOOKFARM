@@ -29,7 +29,7 @@ public class ReviewsDAO {
 		}
 		catch(Exception e)
 		{
-			log.error("QQQQQQQQ reviewDAO	getConnection error : "+e);
+			log.error("ReviewsDAO	getConnection error : "+e);
 		}
 		return con;
 	}
@@ -43,7 +43,7 @@ public class ReviewsDAO {
 		}
 		catch(Exception e)
 		{
-			log.error("QQQQQQQQ reviewDAO	close(Connection con) error : "+e);
+			log.error("ReviewsDAO	close(Connection con) error : "+e);
 		}
 	}
 	
@@ -56,7 +56,7 @@ public class ReviewsDAO {
 		}
 		catch(Exception e)
 		{
-			log.error("QQQQQQQQ reviewDAO	close(PreparedStatement pstmt) error : "+e);
+			log.error("ReviewsDAO	close(PreparedStatement pstmt) error : "+e);
 		}
 	}
 	
@@ -69,7 +69,7 @@ public class ReviewsDAO {
 		}
 		catch(Exception e)
 		{
-			log.error("QQQQQQQQ reviewDAO	close(ResultSet rs) error : "+e);
+			log.error("ReviewsDAO	close(ResultSet rs) error : "+e);
 		}
 	}
 	
@@ -98,7 +98,7 @@ public class ReviewsDAO {
 		}
 		catch(Exception e)
 		{
-							log.error("QQQQQQQQ reviewDAO	"
+							log.error("ReviewsDAO	"
 									+ "insert(reviewVO vo) error : "+e);
 			try
 			{
@@ -106,7 +106,7 @@ public class ReviewsDAO {
 			}
 			catch(SQLException e1)
 			{
-							log.error("QQQQQQQQ reviewDAO	SQLException error,"
+							log.error("ReviewsDAO	SQLException error,"
 									+ " con.rollback() is not worked : "+e1);
 			}
 		}
@@ -133,7 +133,7 @@ public class ReviewsDAO {
 		}
 		catch(SQLException e)
 		{
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("ReviewsDAO	"
 										+ "totalRows() error : "+e);
 		}
 		finally
@@ -160,7 +160,7 @@ public class ReviewsDAO {
 		}
 		catch(SQLException e)
 		{
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("ReviewsDAO	"
 										+ "oneProductsTotalRows error : "+e);
 		}
 		finally
@@ -187,7 +187,7 @@ public class ReviewsDAO {
 		}
 		catch(SQLException e)
 		{
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("ReviewsDAO	"
 										+ "oneCustomersTotalRows error : "+e);
 		}
 		finally
@@ -232,7 +232,7 @@ public class ReviewsDAO {
 												list.add(vo);
 			}
 		}catch (SQLException e) {			
-												log.error("QQQQQQQQ reviewDAO	"
+												log.error("ReviewsDAO	"
 														+ "getList() error : "+e);
 		}finally {			
 												close(rs);
@@ -277,7 +277,7 @@ public class ReviewsDAO {
 												list.add(vo);
 			}
 		}catch (SQLException e) {			
-												log.error("QQQQQQQQ reviewDAO	"
+												log.error("ReviewsDAO	"
 														+ "getMyList error : "+e);
 		}finally {			
 												close(rs);
@@ -320,7 +320,7 @@ public class ReviewsDAO {
 												list.add(vo);
 			}
 		}catch (SQLException e) {			
-												log.error("QQQQQQQQ reviewDAO	"
+												log.error("ReviewsDAO	"
 														+ "getMyPageList error : "+e);
 		}finally {			
 												close(rs);
@@ -359,7 +359,7 @@ public class ReviewsDAO {
 		}
 		catch (SQLException e)
 		{			
-									log.error("QQQQQQQQ reviewDAO	"
+									log.error("ReviewsDAO	"
 											+ "getRow() error : "+e);
 		}
 		finally
@@ -385,7 +385,7 @@ public class ReviewsDAO {
 		}
 		catch(Exception e)
 		{
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("ReviewsDAO	"
 										+ "hitUpdate() error : "+e);
 		}finally {
 			close(pstmt);
@@ -415,7 +415,7 @@ public class ReviewsDAO {
 		}
 		catch(Exception e)
 		{
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("ReviewsDAO	"
 										+ "pwdCheck error : "+e);
 		}
 		finally
@@ -437,7 +437,7 @@ public class ReviewsDAO {
 								pstmt.setInt(1, idx);
 					result	=	pstmt.executeUpdate();			
 		}catch (SQLException e) {			
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("ReviewsDAO	"
 										+ "delete error : "+e);
 		}finally {
 								close(pstmt);				
@@ -462,7 +462,7 @@ public class ReviewsDAO {
 		}
 		catch (SQLException e)
 		{			
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("ReviewsDAO	"
 										+ "updateRow error : "+e);
 		}
 		finally
@@ -493,7 +493,7 @@ public class ReviewsDAO {
 		}
 		catch (SQLException e)
 		{
-									log.error("QQQQQQQQ reviewDAO	"
+									log.error("ReviewsDAO	"
 											+ "searchList error : "+e);
 		}
 		finally
@@ -528,7 +528,7 @@ public class ReviewsDAO {
 		}
 		catch (SQLException e)
 		{
-									log.error("QQQQQQQQ reviewDAO	"
+									log.error("ReviewsDAO	"
 											+ "searchOneProductList error : "+e);
 		}
 		finally
@@ -576,7 +576,7 @@ public class ReviewsDAO {
 		}
 		catch (SQLException e)
 		{
-												log.error("QQQQQQQQ reviewDAO	"
+												log.error("ReviewsDAO	"
 														+ "getSearchList error : "+e);
 		}
 		finally
@@ -625,7 +625,7 @@ public class ReviewsDAO {
 		}
 		catch (SQLException e)
 		{
-												log.error("QQQQQQQQ reviewDAO	"
+												log.error("ReviewsDAO	"
 														+ "getProductSearchList error : "+e);
 		}
 		finally

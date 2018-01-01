@@ -2,7 +2,7 @@ package xyz.bookfarm.vo;
 
 import java.sql.Date;
 
-public class ReviewsVO {
+public class ReviewVO {
 	int		idx;
 	int		products_idx;
 	int		customers_idx;
@@ -12,6 +12,24 @@ public class ReviewsVO {
 	Date	date_added;
 	Date	last_modified;
 	int		reviews_read;
+	
+	public ReviewVO() {}
+	
+	public ReviewVO(int idx, int products_idx, int customers_idx, int reviews_rating, String review_title,
+			String review_text, Date date_added, Date last_modified, int reviews_read) {
+		super();
+		this.idx			= idx;
+		this.products_idx	= products_idx;
+		this.customers_idx	= customers_idx;
+		this.reviews_rating	= reviews_rating;
+		this.review_title	= review_title;
+		this.review_text	= review_text;
+		this.date_added		= date_added;
+		this.last_modified	= last_modified;
+		this.reviews_read	= reviews_read;
+	}
+
+	
 	public int getIdx() {
 		return idx;
 	}
@@ -66,20 +84,5 @@ public class ReviewsVO {
 	public void setReviews_read(int reviews_read) {
 		this.reviews_read = reviews_read;
 	}
-	public ReviewsVO(int idx, int products_idx, int customers_idx, int reviews_rating, String review_title,
-			String review_text, Date date_added, Date last_modified, int reviews_read) {
-		super();
-		this.idx = idx;
-		this.products_idx = products_idx;
-		this.customers_idx = customers_idx;
-		this.reviews_rating = reviews_rating;
-		this.review_title = review_title;
-		this.review_text = review_text;
-		this.date_added = date_added;
-		this.last_modified = last_modified;
-		this.reviews_read = reviews_read;
-	}
-	public ReviewsVO() {
-		super();
-	}
+
 }
