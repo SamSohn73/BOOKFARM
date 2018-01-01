@@ -9,6 +9,7 @@
 		//입력 받는 변수들
 		//Servlet에서 담아놓은 정보 가져오기
 		
+		
 		//VO새로 만들고 거기에 옮기기
 		Vector<ReviewsVO> list	=	(Vector<ReviewsVO>)request.getAttribute("list");
 		
@@ -111,7 +112,7 @@
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
 					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&customers_idx=<%=customers_idx %>&type=myList">					
+					&page=1&customers_idx=<%=customers_idx %>&type=myList&typeView=view">					
 					<%=vo.getReview_title()%></a></td>										
 					<td><%=/*cDao.getUsername(vo.getCustomers_idx())*/%></td>				
 					<td><%=vo.getReviews_read()%></td>
@@ -127,7 +128,7 @@
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
 					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=<%=currentPage%>&type=<%=type%>
+					&page=<%=currentPage%>&type=<%=type%>&typeView=view
 					&customers_idx=<%=customers_idx %>">					
 					<%=vo.getReview_title()%></a></td>										
 					<td><%=/*cDao.getUsername(vo.getCustomers_idx())*/%></td>				
@@ -144,7 +145,7 @@
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
 					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=<%=currentPage%>&type=<%=type%>
+					&page=<%=currentPage%>&type=<%=type%>&typeView=view
 					&products_idx=<%=products_idx %>">					
 					<%=vo.getReview_title()%></a></td>										
 					<td><%=/*cDao.getUsername(vo.getCustomers_idx())*/%></td>				
@@ -297,9 +298,10 @@ if(!type.equals("myPage"))
 				{
 				%>
 				<td align="right">
-				<a href="review/ReviewsWrite.jsp?page=<%=currentPage%>
-				&products_idx=<%=products_idx %>&customers_idx=<%=customers_idx%>
-				&type=<%=type%>">[글쓰기]</a>
+				<a href="./review/IdPwdChk.jsp?page=<%=currentPage%>
+				&products_idx=<%=products_idx %>
+				&type=<%=type%>
+				&typeView=insert">[글쓰기]</a>
 				</td>
 				<%
 				}

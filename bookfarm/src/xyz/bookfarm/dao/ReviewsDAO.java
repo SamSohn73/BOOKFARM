@@ -88,8 +88,7 @@ public class ReviewsDAO {
 							pstmt.setInt(2, vo.getCustomers_idx());
 							pstmt.setInt(3, vo.getReviews_rating());
 							pstmt.setString(4, vo.getReview_title());
-							pstmt.setString(5, vo.getReview_title());
-							pstmt.setString(6, vo.getReview_text());	
+							pstmt.setString(5, vo.getReview_text());	
 				
 				result	=	pstmt.executeUpdate();
 				
@@ -396,27 +395,66 @@ public class ReviewsDAO {
 	
 	//Actually pwdCheck is not needed but, just in case I wrote this. 
 	//This one is use for customerTB search....not for reviewsTB.. 
-	public int pwdCheck(int idx,String password)
+	public int pwdCheck(int idx, String username, String password)
 	{
 			int		result	=	0;
 		try
 		{
 			String	sql		=	"select * from customer where "
-								+ "idx=? and password=?";
+								+ "username=? and password=?";
 					con		=	getConnection();
 					pstmt	=	con.prepareStatement(sql);
-								pstmt.setInt(1, idx);
+								pstmt.setString(1, username);
 								pstmt.setString(2, password);
 					rs		=	pstmt.executeQuery();
 			if(rs.next())
 			{
+			ReviewsVO	vo	=	new	ReviewsVO();
+								vo.setIdx(rs.getInt(1));
+				if(vo.getIdx()==idx)
 					result	=	1;
+				else
+								log.error("QQQQQQQQ reviewDAO	"
+										+ "pwdCheck error : text's writer is not currect");
 			}
 		}
 		catch(Exception e)
 		{
 								log.error("QQQQQQQQ reviewDAO	"
 										+ "pwdCheck error : "+e);
+		}
+		finally
+		{
+								close(rs);
+								close(pstmt);
+								close(con);
+		}		
+		return result;
+	}
+
+	public int getCustomerIdx(String username, String password)
+	{
+			int		result	=	0;
+		try
+		{
+			String	sql		=	"select idx from customer where "
+								+ "username=? and password=?";
+					con		=	getConnection();
+					pstmt	=	con.prepareStatement(sql);
+								pstmt.setString(1, username);
+								pstmt.setString(2, password);
+					rs		=	pstmt.executeQuery();
+			if(rs.next())
+			{
+			ReviewsVO	vo	=	new	ReviewsVO();
+								vo.setIdx(rs.getInt(1));
+					result	=	1;				
+			}
+		}
+		catch(Exception e)
+		{
+								log.error("QQQQQQQQ reviewDAO	"
+										+ "getCustomerIdx error : "+e);
 		}
 		finally
 		{
@@ -509,7 +547,7 @@ public class ReviewsDAO {
 	public int searchOneProductList(int products_idx, String searchCondition, String searchWord)
 	{
 			String		sql		=	"select count(*) from reviews where ";
-						sql		+=	"products_idx=?, ";
+						sql		+=	"products_idx=? and ";
 						sql		+=	searchCondition + " like ? order by";
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
@@ -544,7 +582,7 @@ public class ReviewsDAO {
 	public int searchOneCustomerList(int customers_idx, String searchCondition, String searchWord)
 	{
 			String		sql		=	"select count(*) from reviews where ";
-						sql		+=	"customers_idx=?, ";
+						sql		+=	"customers_idx=? and ";
 						sql		+=	searchCondition + " like ? order by";
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
@@ -629,7 +667,7 @@ public class ReviewsDAO {
 				int					start	=			(page-1)*10;
 		
 				String				sql		=	"select * from reviews where ";
-									sql		+=	"products_idx=?, ";
+									sql		+=	"products_idx=? and ";
 									sql		+=	searchCondition;
 									sql		+=	" like ? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
@@ -678,7 +716,7 @@ public class ReviewsDAO {
 				int					start	=			(page-1)*10;
 		
 				String				sql		=	"select * from reviews where ";
-									sql		+=	"customers_idx=?, ";
+									sql		+=	"customers_idx=? and ";
 									sql		+=	searchCondition;
 									sql		+=	" like ? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";

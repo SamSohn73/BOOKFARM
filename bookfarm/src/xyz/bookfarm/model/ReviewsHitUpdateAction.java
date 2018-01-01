@@ -21,11 +21,12 @@ public class ReviewsHitUpdateAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String		current_page	=	req.getParameter("page");
+		String		page			=	req.getParameter("page");
 		int			idx				=	Integer.parseInt(req.getParameter("idx"));
 		int			customers_idx	=	Integer.parseInt(req.getParameter("customers_idx"));
 		int			products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
 		String		type			=	req.getParameter("type");
+		String		typeView		=	req.getParameter("typeView");
 		
 		ReviewsDAO	dao				=	new ReviewsDAO();		
 		int 		result			=	dao.hitUpdate(idx);
@@ -33,9 +34,23 @@ public class ReviewsHitUpdateAction implements Action {
 		{
 			
 			if(req.getParameter("customers_idx")!=null)
-					path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
+			{
+										req.setAttribute("idx", idx);
+										req.setAttribute("page", page);
+										req.setAttribute("type", type);
+										req.setAttribute("typeView", typeView);
+										req.setAttribute("customers_idx", customers_idx);
+					//path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
+			}
 			else if(req.getParameter("products_idx")!=null)
-					path			+=	"?idx="+idx+"&products_idx="+products_idx+"type="+type;
+			{
+										req.setAttribute("idx", idx);
+										req.setAttribute("page", page);			
+										req.setAttribute("type", type);
+										req.setAttribute("typeView", typeView);
+										req.setAttribute("products_idx", products_idx);
+					//path			+=	"?idx="+idx+"&products_idx="+products_idx+"type="+type;
+			}
 			else
 			{
 										log.error("QQQQQQQQ ReviewsHitUpdateAction no"
@@ -47,7 +62,7 @@ public class ReviewsHitUpdateAction implements Action {
 										log.error("QQQQQQQQ ReviewsHitUpdateAction error");
 					path			=	"";
 		}
-		return new ActionForward(path, true);
+		return new ActionForward(path, false);
 	}
 
 }

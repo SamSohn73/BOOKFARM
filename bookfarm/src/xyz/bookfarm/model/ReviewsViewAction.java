@@ -20,11 +20,12 @@ public class ReviewsViewAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String		current_page	=	req.getParameter("page");
-		int			idx				=	Integer.parseInt(req.getParameter("idx"));
-		int			customers_idx	=	Integer.parseInt(req.getParameter("customers_idx"));
-		int			products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
-		String		type			=	req.getParameter("type");
+		String		page			=	(String)req.getAttribute("page");
+		int			idx				=	Integer.parseInt((String)req.getAttribute("idx"));
+		int			customers_idx	=	Integer.parseInt((String)req.getAttribute("customers_idx"));
+		int			products_idx	=	Integer.parseInt((String)req.getAttribute("products_idx"));
+		String		type			=	(String)req.getAttribute("type");
+		String		typeView		=	(String)req.getAttribute("typeView");
 		
 		ReviewsDAO 	dao				=	new ReviewsDAO();
 			
@@ -33,12 +34,14 @@ public class ReviewsViewAction implements Action {
 		if(vo!=null) 
 		{
 										req.setAttribute("vo", vo);
-										req.setAttribute("page", current_page);
+										req.setAttribute("page", page);
 										req.setAttribute("type", type);
+										req.setAttribute("typeView", typeView);
+										req.setAttribute("idx", idx);
 			if(req.getParameter("customers_idx")!=null)
-					path			+=	"?customers_idx="+customers_idx;
+										req.setAttribute("customers_idx", customers_idx);
 			else if(req.getParameter("products_idx")!=null)
-					path			+=	"?products_idx="+products_idx;
+										req.setAttribute("products_idx", products_idx);
 			else
 			{
 										log.error("QQQQQQQQ ReviewsViewAction no"
@@ -47,11 +50,11 @@ public class ReviewsViewAction implements Action {
 		}
 		else
 		{
-										log.error("QQQQQQQQ ReviewsViewAction error");
+										log.error("QQQQQQQQ ReviewsViewAction error : vo is empty");
 					path			=	"";
 		}
 		
-		return new ActionForward(path, true);
+		return new ActionForward(path, false);
 	}
 
 }

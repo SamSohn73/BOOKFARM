@@ -3,8 +3,12 @@ package xyz.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
+import xyz.bookfarm.model.ReviewsDeleteAction;
 import xyz.bookfarm.model.ReviewsHitUpdateAction;
+import xyz.bookfarm.model.ReviewsIdPassChkAction;
+import xyz.bookfarm.model.ReviewsInsertAction;
 import xyz.bookfarm.model.ReviewsListAction;
+import xyz.bookfarm.model.ReviewsModifyAction;
 import xyz.bookfarm.model.ReviewsSearchAction;
 import xyz.bookfarm.model.ReviewsViewAction;
 
@@ -119,7 +123,30 @@ public class MallActionFactory
 			action = new ReviewsViewAction("review/ReviewsWrite.jsp");
 			log.debug("QQQQQQQQQQ qReviewsView.do action create End.");
 		}
-		
+		else if(cmd.equals("/qReviewsIdPassChk.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsIdPassChk.do action create Start.");
+			action = new ReviewsIdPassChkAction("qReviewsView.do");
+			log.debug("QQQQQQQQQQ qReviewsIdPassChk.do action create End.");
+		}
+		else if(cmd.equals("/qReviewsInsert.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsInsert.do action create Start.");
+			action = new ReviewsInsertAction("qReviewsLists.do");
+			log.debug("QQQQQQQQQQ qReviewsInsert.do action create End.");
+		}
+		else if(cmd.equals("/qReviewsModify.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsModify.do action create Start.");
+			action = new ReviewsModifyAction("qReviewsView.do");
+			log.debug("QQQQQQQQQQ qReviewsModify.do action create End.");
+		}
+		else if(cmd.equals("/qReviewsDelete.do"))
+		{
+			log.debug("QQQQQQQQQQ qReviewsDelete.do action create Start.");
+			action = new ReviewsDeleteAction("qReviewsLists.do");
+			log.debug("QQQQQQQQQQ qReviewsDelete.do action create End.");
+		}
 
 		
 		return action;
