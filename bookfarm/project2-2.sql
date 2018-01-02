@@ -16,18 +16,18 @@ CREATE TABLE customer (
 	address2		varchar(64)		NOT NULL,
 	
 	phone1			varchar(64)		NOT NULL,
-    phone2			varchar(64),
+	phone2			varchar(64),
 	phone3			varchar(64),
-    email1			varchar(64)		NOT NULL UNIQUE,
-    email2			varchar(64)		UNIQUE,
+	email1			varchar(64)		NOT NULL UNIQUE,
+	email2			varchar(64)		UNIQUE,
 	
 	gender			char(1)			NOT NULL,
 	newsletter		char(1)			NOT NULL,
-	birthday		datetime		NOT NULL,
-    grade			int DEFAULT '0'	NOT NULL,
-	last_login		datetime,
+	birthday		date			NOT NULL,
+	grade			int DEFAULT '0'	NOT NULL,
+	last_login		date,
 	login_cnt		int(5),
-	account_created	datetime,
+	account_created	date,
 	
 	on_line			char(1)			NOT NULL
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci; -- You should use utf8_unicode_ci for using emoji
@@ -43,16 +43,16 @@ CREATE TABLE country (
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS administrators;
-CREATE TABLE administrators (
-  id			int				NOT NULL auto_increment primary key,
-  user_name		varchar(64)		binary NOT NULL,
-  user_password	varchar(64)		NOT NULL
+DROP TABLE IF EXISTS administrator;
+CREATE TABLE administrator (
+	idx				int				NOT NULL auto_increment primary key,
+	user_name		varchar(64)		binary NOT NULL,
+	user_password	varchar(64)		NOT NULL
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS categories;
-CREATE TABLE categories (
+DROP TABLE IF EXISTS category;
+CREATE TABLE category (
 	idx					int				NOT NULL auto_increment primary key,
 	parent_idx			int DEFAULT '0'	NOT NULL,
 --	categories_image	varchar(64),
@@ -62,38 +62,38 @@ CREATE TABLE categories (
 
 DROP TABLE IF EXISTS currency;
 CREATE TABLE currency (
-  idx				int			NOT NULL auto_increment primary key,
-  title				varchar(32)	NOT NULL,
-  code				char(3)		NOT NULL,
-  symbol_left		varchar(12),
-  symbol_right		varchar(12),
-  decimal_point		char(1),
-  thousands_point	char(1),
-  decimal_places	char(1),
-  worth				float(13,8),
-  last_updated		datetime NULL
+	idx				int				NOT NULL auto_increment primary key,
+	title				varchar(32)	NOT NULL,
+	code				char(3)		NOT NULL,
+	symbol_left			varchar(12),
+	symbol_right		varchar(12),
+	decimal_point		char(1),
+	thousands_point		char(1),
+	decimal_places		char(1),
+	worth				float(13,8),
+	last_updated		date NULL
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
 DROP TABLE IF EXISTS basket;
 CREATE TABLE basket (
-  idx			int				NOT NULL auto_increment primary key,
-  customer_idx	int				NOT NULL,
-  product_idx	int				NOT NULL,
-  quantity		int				NOT NULL,
-  options		varchar(255),
-  final_price	decimal(15,4),
-  date_added	datetime
+	idx				int			NOT NULL auto_increment primary key,
+	customer_idx	int			NOT NULL,
+	product_idx		int			NOT NULL,
+	quantity		int			NOT NULL,
+	options			varchar(255),
+	final_price		decimal(15,4),
+	date_added		date
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS newsletters;
-CREATE TABLE newsletters (
+DROP TABLE IF EXISTS newsletter;
+CREATE TABLE newsletter (
 	idx			int auto_increment primary_key,
-	title		varchar(255) NOT NULL,
-	content		text NOT NULL,
-	date_added	datetime NOT NULL,
-	date_sent	datetime,
+	title		varchar(255)	NOT NULL,
+	content		text			NOT NULL,
+	date_added	date			NOT NULL,
+	date_sent	date,
 	status		int(1),
 	locked		int(1) DEFAULT '0'
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
@@ -105,16 +105,16 @@ CREATE TABLE orders (
 	idx						int				NOT NULL auto_increment primary key,
 	customers_idx			int				NOT NULL,
 	
-    delivery_name			varchar(255)	NOT NULL,
-  	delivery_country_idx	int				NOT NULL DEFAULT '113',
+	delivery_name			varchar(255)	NOT NULL,
+	delivery_country_idx	int				NOT NULL DEFAULT '113',
 	delivery_postcode		varchar(64)		NOT NULL,
 	delivery_address1		varchar(64)		NOT NULL,
 	delivery_address2		varchar(64)		NOT NULL,
 	delivery_phone1			varchar(64)		NOT NULL,
-    delivery_phone2			varchar(64),
+	delivery_phone2			varchar(64),
 	delivery_phone3			varchar(64),
-    delivery_email1			varchar(64)		NOT NULL UNIQUE,
-    delivery_email2			varchar(64)		UNIQUE,
+	delivery_email1			varchar(64)		NOT NULL UNIQUE,
+	delivery_email2			varchar(64)		UNIQUE,
 	
 	billing_name			varchar(255)	NOT NULL,
 	billing_country_idx		int				NOT NULL DEFAULT '113',
@@ -130,29 +130,29 @@ CREATE TABLE orders (
 	payment_method			varchar(255)	NOT NULL,
 	final_price				decimal(15,4)	NOT NULL,
 	
-	last_modified			datetime,
-	date_purchased			datetime,
+	last_modified			date,
+	date_purchased			date,
 	orders_status			int(5)			NOT NULL,
-	orders_date_finished	datetime,
+	orders_date_finished	date,
 	currency				char(3),
 	currency_value			decimal(14,6)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS orders_products;
-CREATE TABLE orders_products (
-  idx					int				NOT NULL auto_increment primary key,
-  orders_idx			int				NOT NULL,
-  products_idx			int				NOT NULL,
-   products_quantity	int(2)			NOT NULL,
-  final_price			decimal(15,4)	NOT NULL
+DROP TABLE IF EXISTS orders_product;
+CREATE TABLE orders_product (
+	idx					int				NOT NULL auto_increment primary key,
+	orders_idx			int				NOT NULL,
+	products_idx		int				NOT NULL,
+	products_quantity	int(2)			NOT NULL,
+	final_price			decimal(15,4)	NOT NULL
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS products;
-CREATE TABLE products (
+DROP TABLE IF EXISTS product;
+CREATE TABLE product (
 	idx					int				NOT NULL auto_increment primary key,
-	categories			varchar(255)	NOT NULL,
+	category_idx		int				NOT NULL,
 	products_quantity	int(4)			NOT NULL,
 	products_model		varchar(12),
 	products_image		varchar(64),
@@ -162,8 +162,8 @@ CREATE TABLE products (
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS products_images;
-CREATE TABLE products_images (
+DROP TABLE IF EXISTS product_image;
+CREATE TABLE product_image (
 	idx				int NOT NULL auto_increment primary key,
 	products_idx	int NOT NULL,
 	image			varchar(64),
@@ -171,28 +171,28 @@ CREATE TABLE products_images (
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS reviews;
-CREATE TABLE reviews (
+DROP TABLE IF EXISTS review;
+CREATE TABLE review (
 	idx					int				NOT NULL auto_increment primary key,
 	products_idx		int				NOT NULL,
 	customers_idx		int,
 	reviews_rating		int(1),
 	review_title		varchar(255)	NOT NULL,
 	review_text			text			NOT NULL,
-	date_added			datetime,
-	last_modified		datetime,
+	date_added			date,
+	last_modified		date,
 	reviews_read		int(5)			NOT NULL default '0'
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
 create table postcode (
 	idx				int				auto_increment primary key,
-    zip				int				not null unique,
-    si_do			varchar(20)		not null,
-    si_gu_gun		varchar(20)		not null,
-    eup_myun		varchar(20)		not null,
-    li				varchar(20)		not null,
-    road			varchar(80)		not null,
+	zip				int				not null unique,
+	si_do			varchar(20)		not null,
+	si_gu_gun		varchar(20)		not null,
+	eup_myun		varchar(20)		not null,
+	li				varchar(20)		not null,
+	road			varchar(80)		not null,
 	longaddr		varchar(1000)	not null
 );
 
