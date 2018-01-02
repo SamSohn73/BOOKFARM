@@ -3,6 +3,9 @@ package xyz.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
+import xyz.bookfarm.model.CustomerIdPwdCheckAction;
+import xyz.bookfarm.model.CustomerLogoutAction;
+import xyz.bookfarm.model.CustomerRegistAction;
 import xyz.bookfarm.model.ReviewsDeleteAction;
 import xyz.bookfarm.model.ReviewsHitUpdateAction;
 import xyz.bookfarm.model.ReviewsIdPassChkAction;
@@ -98,6 +101,38 @@ public class MallActionFactory
 			log.debug("QQQQQQQQQQ qSearch.do action create End.");
 		}*/
 		
+		
+		//From here, the code for the login were wrote... - hansol -
+		//customerDB was used...
+		if (cmd.equals("/qCustomerIdPwdCheck.do"))
+		{
+			log.debug("QQQQQQQQQQ qCustomerIdPwdCheck.do action create Start.");
+			action = new CustomerIdPwdCheckAction("member/hansol_main_example.jsp");
+			log.debug("QQQQQQQQQQ qCustomerIdPwdCheck.do action create End.");
+		}
+		else if (cmd.equals("/qCustomerRegist.do"))
+		{
+			log.debug("QQQQQQQQQQ qCustomerRegist.do action create Start.");
+			action = new CustomerRegistAction("index.jsp");
+			log.debug("QQQQQQQQQQ qCustomerRegist.do action create End.");
+		}
+		else if (cmd.equals("/qCustomerFind.do"))
+		{
+			log.debug("QQQQQQQQQQ qCustomerFind.do action create Start.");
+			//action = new CustomerFindAction("member/hansol_main_example.jsp");
+			log.debug("QQQQQQQQQQ qCustomerFind.do action create End.");
+		}
+		else if (cmd.equals("/qCustomerLogout.do"))
+		{
+			log.debug("QQQQQQQQQQ qCustomerLogout.do action create Start.");
+			action = new CustomerLogoutAction("index.jsp");
+			log.debug("QQQQQQQQQQ qCustomerLogout.do action create End.");
+		}
+		
+		
+		
+		
+		//From here, I wrote code for review action... - hansol -
 		//control code for reviewsDB
 		if (cmd.equals("/qReviewsLists.do"))
 		{

@@ -26,7 +26,7 @@ public class CustomerVO
 	private int		grade;
 	private Date	last_login;
 	private int		login_cnt;
-	private boolean	account_created;
+	private Date	account_created;
 	
 	private boolean	on_line;
 
@@ -35,7 +35,7 @@ public class CustomerVO
 	public CustomerVO(int idx, String username, String password, String firstname, String lastname, int country_idx,
 			String postcode, String address1, String address2, String phone1, String phone2, String phone3,
 			String email1, String email2, boolean gender, boolean newsletter, Date birthday, int grade, Date last_login,
-			int login_cnt, boolean account_created, boolean on_line)
+			int login_cnt, Date account_created, boolean on_line)
 	{
 		super();
 		this.idx				= idx;
@@ -242,11 +242,11 @@ public class CustomerVO
 		this.login_cnt = login_cnt;
 	}
 
-	public boolean isAccount_created()
+	public Date isAccount_created()
 	{
 		return account_created;
 	}
-	public void setAccount_created(boolean account_created)
+	public void setAccount_created(Date account_created)
 	{
 		this.account_created = account_created;
 	}

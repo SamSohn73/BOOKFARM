@@ -76,8 +76,9 @@ public class ReviewsDAO {
 	public int insert(ReviewsVO vo)
 	{
 		int		result	=	0;
-		String	sql		=	"insert into reviews values(?,?,?,?,?,?"
-							+",now(),now())";
+		String	sql		=	"insert into reviews values(products_idx=?, customers_idx=?, reviews_rating=?, "
+							+"review_title=?, review_text=?, "
+							+"date_added=now(), last_modified=now())";
 		try
 		{
 				con		=	getConnection();
@@ -487,7 +488,7 @@ public class ReviewsDAO {
 	public int updateRow(int idx, String review_title, String review_text)
 	{
 			String	sql		=	"update review set review_title=?,"
-									+ " review_text=? "
+									+ " review_text=?, last_modified=now() "
 									+ "where idx=?";
 			int		result	=	0;
 		try {

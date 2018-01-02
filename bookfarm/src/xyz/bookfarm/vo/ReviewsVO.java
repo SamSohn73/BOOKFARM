@@ -2,7 +2,7 @@ package xyz.bookfarm.vo;
 
 import java.sql.Date;
 
-public class ReviewVO {
+public class ReviewsVO {
 	int		idx;
 	int		products_idx;
 	int		customers_idx;
@@ -13,9 +13,9 @@ public class ReviewVO {
 	Date	last_modified;
 	int		reviews_read;
 	
-	public ReviewVO() {}
+	public ReviewsVO() {}
 	
-	public ReviewVO(int idx, int products_idx, int customers_idx, int reviews_rating, String review_title,
+	public ReviewsVO(int idx, int products_idx, int customers_idx, int reviews_rating, String review_title,
 			String review_text, Date date_added, Date last_modified, int reviews_read) {
 		super();
 		this.idx			= idx;

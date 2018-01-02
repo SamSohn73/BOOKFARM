@@ -5,8 +5,6 @@
 	String	review_num			= "";
 
 	//출력 변수
-	String	user_passwd			= "";
-	String	user_id				= "";
 			review_num			= "";
 			
 	//CSS
@@ -26,34 +24,28 @@
 <script>
 	function register_check(form){
 	
-		if(form.user_id.value.length==0){
+		if(form.username.value.length==0){
 			alert('아이디를 확인해 주세요');
-			form.user_id.focus();
+			form.username.focus();
 			return;
-		}else if(form.user_passwd.value.length==0){
+		}else if(form.password.value.length==0){
 			alert('비밀번호를 확인해 주세요');
-			form.user_passwd.focus();
+			form.password.focus();
 			return;
 		}else{
 			form.submit();
 		}
 	}
-	function regist(){
-		location.href="../qRegist.do";
-	}
-	function find(){
-		location.href="../qFind.do";
-	}
 </script>
 </head>
 <body onload="pwdCheck.pwd.focus()">
-<form name="pwdCheck" method="post" action="../qPwdCheck.do">
+<form name="pwdCheck" method="post" action="../qCustomerIdPwdCheck.do?type=login">
 	<table>
 		<caption>아이디 비밀번호 입력</caption>
 		
 		<tr>
 			<td>
-				<input type="text" size="20" name="user_id" required="required">
+				<input type="text" size="20" name="username" required="required">
 			</td>
 			<td rowspan="2">
 				<input type="submit" class="login_btn" value="로그인">
@@ -61,14 +53,15 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="password" size="20" name="user_passwd" required="required">				
+				<input type="password" size="20" name="password" required="required">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<input type="button" class="btn" value="회원가입" onclick="regist()">
-				<input type="button" class="btn" value="아이디/비번 확인" onclick="find()">
-				<input type="button" class="btn" value="돌아가기" onclick="javascript:history.back()">
+				<a href="regist_v2.jsp" target="_top">
+				<input type="button" class="btn" value="회원가입"></a>
+				<a href="IdPassFind.jsp" target="_top">
+				<input type="button" class="btn" value="아이디/비번 확인"></a>
 			</td>			
 		</tr>
 	</table>

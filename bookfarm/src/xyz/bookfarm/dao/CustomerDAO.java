@@ -1,0 +1,348 @@
+package xyz.bookfarm.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
+import org.apache.log4j.Logger;
+
+import xyz.bookfarm.vo.CustomerVO;
+
+public class CustomerDAO {
+
+	private final	Logger				log		= Logger.getLogger(this.getClass());
+	private			Connection			con		= null;
+	private			PreparedStatement	pstmt	= null;
+	private			ResultSet			rs		= null;
+	
+	public Connection getConnection()
+	{
+		Context	ctx;
+		try
+		{
+						ctx	=	new				InitialContext();
+			DataSource	ds	=	(DataSource)	ctx.lookup("java:comp/env/jdbc/MySQL");
+						con	=					ds.getConnection();
+		}
+		catch(Exception e)
+		{
+			log.error("CustomerDAO	getConnection error : "+e);
+		}
+		return con;
+	}
+	
+	public void close(Connection con)
+	{
+		try
+		{
+			if(con != null)
+				con.close();
+		}
+		catch(Exception e)
+		{
+			log.error("CustomerDAO	close(Connection con) error : "+e);
+		}
+	}
+	
+	public void close(PreparedStatement pstmt)
+	{
+		try
+		{
+			if(pstmt != null)
+				pstmt.close();
+		}
+		catch(Exception e)
+		{
+			log.error("CustomerDAO	close(PreparedStatement pstmt) error : "+e);
+		}
+	}
+	
+	public void close(ResultSet rs)
+	{
+		try
+		{
+			if(rs != null)
+				rs.close();
+		}
+		catch(Exception e)
+		{
+			log.error("CustomerDAO	close(ResultSet rs) error : "+e);
+		}
+	}
+	
+	public int insert(CustomerVO vo)
+	{
+		int		result	=	0;
+		String	sql		=	"insert into customer values(username=?, password=?, firstname=?, "
+							+ "Postcode=?, Address1=?, Address2=?, Phone1=?, Email1=?, "
+							+ "gender=?, newsletter=?, Birthday=?, "
+							+ "last_login=now(), login_cnt=0, account_created=now()), on_line=?";
+		try
+		{
+				con		=	getConnection();
+				pstmt	=	con.prepareStatement(sql);
+							con.setAutoCommit(false);
+				
+							pstmt.setString(1, vo.getUsername());
+							pstmt.setString(2, vo.getPassword());
+							pstmt.setString(3, vo.getFirstname());
+							pstmt.setString(4, vo.getPostcode());
+							pstmt.setString(5, vo.getAddress1());
+							pstmt.setString(6, vo.getAddress2());
+							pstmt.setString(7, vo.getPhone1());
+							pstmt.setString(8, vo.getEmail1());
+							pstmt.setBoolean(9, vo.isGender());
+							pstmt.setBoolean(10, vo.isNewsletter());
+							pstmt.setDate(11, vo.getBirthday());
+							pstmt.setString(12, "off");
+				
+				result	=	pstmt.executeUpdate();
+				
+				if(result>0)
+							con.commit();			
+		}
+		catch(Exception e)
+		{
+							log.error("CustomerDAO	"
+									+ "insert(CustomerVO vo) error : "+e);
+			try
+			{
+							con.rollback();
+			}
+			catch(SQLException e1)
+			{
+							log.error("CustomerDAO	SQLException error,"
+									+ " con.rollback() is not worked : "+e1);
+			}
+		}
+		finally
+		{
+							close(rs);
+							close(pstmt);
+							close(con);
+		}
+		return result;
+	}
+	
+	public int totalRows()
+	{
+		String	sql			=	"select count(*) from customer";		
+		int		total_rows	=	0;
+		try
+		{
+				con			=	getConnection();
+				pstmt		=	con.prepareStatement(sql);
+				rs			=	pstmt.executeQuery();
+			if(rs.next())
+				total_rows	=	rs.getInt(1);
+		}
+		catch(SQLException e)
+		{
+								log.error("CustomerDAO	"
+										+ "totalRows() error : "+e);
+		}
+		finally
+		{
+								close(rs);
+								close(pstmt);
+								close(con);
+		}
+		return total_rows;
+	}
+	
+	public CustomerVO getRow(int idx)
+	{
+		CustomerVO	vo		=		null;
+		
+		try
+		{
+			String 	sql		=		"select * from Customer where idx=?";
+					con		=		getConnection();
+					pstmt	=		con.prepareStatement(sql);
+									pstmt.setInt(1, idx);
+					rs		=		pstmt.executeQuery();
+			if(rs.next())
+			{
+					vo		=	new	CustomerVO();
+									vo.setIdx(rs.getInt("idx"));
+									vo.setUsername(rs.getString("username"));
+									vo.setPassword(rs.getString("password"));
+									vo.setFirstname(rs.getString("firstname"));
+									vo.setLastname(rs.getString("lastname"));
+									vo.setPostcode(rs.getString("postcode"));
+									vo.setAddress1(rs.getString("address1"));
+									vo.setAddress2(rs.getString("address2"));
+									vo.setPhone1(rs.getString("phone1"));
+									vo.setEmail1(rs.getString("email1"));
+									vo.setGender(rs.getBoolean("gender"));
+									vo.setNewsletter(rs.getBoolean("newsletter"));
+									vo.setBirthday(rs.getDate("birthday"));
+									vo.setGrade(rs.getInt("grade"));
+									vo.setLast_login(rs.getDate("last_login"));
+									vo.setLogin_cnt(rs.getInt("login_cnt"));
+									vo.setAccount_created(rs.getDate("account_created"));
+									
+			}
+		}
+		catch (SQLException e)
+		{			
+									log.error("CustomerDAO	"
+											+ "getRow() error : "+e);
+		}
+		finally
+		{
+									close(rs);
+									close(pstmt);
+									close(con);
+		}		
+		return vo;	
+	}
+
+	public int pwdCheck(String username, String password)
+	{
+			int		result	=	0;
+		try
+		{
+			String	sql		=	"select idx from customer where "
+								+ "username=? and password=?";
+					con		=	getConnection();
+					pstmt	=	con.prepareStatement(sql);
+								pstmt.setString(1, username);
+								pstmt.setString(2, password);
+					rs		=	pstmt.executeQuery();
+			if(rs.next())
+			{
+					result	=	rs.getInt(1);
+			}
+		}
+		catch(Exception e)
+		{
+								log.error("CustomerDAO	"
+										+ "pwdCheck error : "+e);
+		}
+		finally
+		{
+								close(rs);
+								close(pstmt);
+								close(con);
+		}		
+		return result;
+	}
+	
+	public int login(int idx)
+	{
+		int			result		=	0;
+		String		sql			=	"update customer set on_line=?, login_cnt=login_cnt+1 where idx=?";
+		try 
+		{
+					con			=	getConnection();
+					pstmt		=	con.prepareStatement(sql);
+									pstmt.setString(1, "on");
+									pstmt.setInt(2, idx);
+									
+					result		=	pstmt.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+								log.error("CustomerDAO	"
+								+ "login count error : "+e);
+		}
+		finally
+		{
+								close(pstmt);
+								close(con);
+		}		
+		return result;
+	}
+
+	public int logout(int idx)
+	{
+		int			result		=	0;
+		String		sql			=	"update customer set on_line=?, where idx=?";
+		try 
+		{
+					con			=	getConnection();
+					pstmt		=	con.prepareStatement(sql);
+									pstmt.setString(1, "off");
+									pstmt.setInt(2, idx);
+									
+					result		=	pstmt.executeUpdate();
+		}
+		catch(SQLException e)
+		{
+								log.error("CustomerDAO	"
+								+ "logout check error : "+e);
+		}
+		finally
+		{
+								close(pstmt);
+								close(con);
+		}		
+		return result;
+	}
+	
+	public int delete(int idx)
+	{
+			int		result	=	0;
+		try {
+					con		=	getConnection();
+			String	sql		=	"delete from customer where idx=?";
+					pstmt	=	con.prepareStatement(sql);
+								pstmt.setInt(1, idx);
+					result	=	pstmt.executeUpdate();			
+		}catch (SQLException e) {			
+								log.error("CustomerDAO	"
+										+ "delete error : "+e);
+		}finally {
+								close(pstmt);				
+								close(con);			
+		}		
+		return result;
+	}
+
+	public int updateRow(int idx, CustomerVO vo)
+	{
+			String	sql		=	"update customer set username=?, password=?, firstname=?, "
+								+ "Postcode=?, Address1=?, Address2=?, Phone1=?, Email1=?, "
+								+ "gender=?, newsletter=?, Birthday=?, "
+								+ "last_login=now(), where idx=?";
+			int		result	=	0;
+		try {
+					con		=	getConnection();
+					pstmt	=	con.prepareStatement(sql);
+								pstmt.setString(1, vo.getUsername());
+								pstmt.setString(2, vo.getPassword());
+								pstmt.setString(3, vo.getFirstname());
+								pstmt.setString(4, vo.getPostcode());
+								pstmt.setString(5, vo.getAddress1());
+								pstmt.setString(6, vo.getAddress2());
+								pstmt.setString(7, vo.getPhone1());
+								pstmt.setString(8, vo.getEmail1());
+								pstmt.setBoolean(9, vo.isGender());
+								pstmt.setBoolean(10, vo.isNewsletter());
+								pstmt.setDate(11, vo.getBirthday());
+								pstmt.setInt(12, idx);
+								
+					result	=	pstmt.executeUpdate();
+		}
+		catch (SQLException e)
+		{			
+								log.error("CustomerDAO	"
+										+ "updateRow error : "+e);
+		}
+		finally
+		{
+								close(pstmt);
+								close(con);
+		}
+		return result;
+	}
+	
+	
+}

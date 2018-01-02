@@ -2,12 +2,16 @@ package xyz.bookfarm.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
 import xyz.bookfarm.dao.ReviewsDAO;
 
 public class ReviewsIdPassChkAction implements Action {
 	
+	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
 	public ReviewsIdPassChkAction(String path) {
 		super();

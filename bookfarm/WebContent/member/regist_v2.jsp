@@ -1,35 +1,19 @@
+<%@page import="xyz.bookfarm.vo.CustomerVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	//입력 변수
-	String	type				= "view";	//view, insert, modify
-	String	user_id					= "1";
-	String	user_passwd				= "1";
-	String	user_name				= "1";
-	String	user_zip1				= "1";
-	String	user_zip2				= "1";
-	String	user_addr1				= "1";
-	String	user_addr2				= "1";
-	String	user_tel1				= "1";
-	String	user_tel2				= "1";
-	String	user_age				= "1";
-	String	user_email				= "1";
-	String	user_gender				= "male";
-
-	//출력 변수
-	/* 		id					= "";
-			passwd				= "";
-			name				= "";
-			zip1				= "";
-			zip2				= "";
-			addr1				= "";
-			addr2				= "";
-			tel1				= "";
-			tel2				= "";
-			age					= "";
-			email				= "";
-			gender				= "";
-			 */
+	String		type			=	"insert";	//view, insert, modify	
+	CustomerVO	cVo				=	null;
+	
+	
+	if(request.getParameter("type")!=null)
+				type			=	request.getParameter("type");
+	
+	if(type=="modify" || type=="view")
+				cVo				=	(CustomerVO) request.getAttribute("LoginedUserVO");
+	
+	
 	//CSS
 	/*
 	left
@@ -43,55 +27,39 @@
 <meta charset="UTF-8">
 <title>회원가입</title>
 <script>
-	function zip_chk(){
-		location.href="../qZip.do";
-	}
-	
 	function register_check(form){
 		
-		if(form.user_id.value.length==0){
+		if(form.username.value.length==0){
 			alert('아이디를 확인해 주세요');
-			form.user_id.focus();
+			form.username.focus();
 			return;
-		}else if(form.user_passwd.value.length==0){
+		}else if(form.password.value.length==0){
 			alert('비밀번호를 확인해 주세요');
-			form.user_passwd.focus();
+			form.password.focus();
 			return;
-		}else if(form.user_name.value.length==0){
+		}else if(form.firstname.value.length==0){
 			alert('이름을 확인해 주세요');
-			form.user_name.focus();
+			form.firstname.focus();
 			return;
-		}else if(form.user_zip1.value.length==0){
+		}else if(form.address1.value.length==0){
 			alert('주소를 확인해 주세요');
-			form.user_zip1.focus();
+			form.address1.focus();
 			return;
-		}else if(form.user_zip2.value.length==0){
+		}else if(form.address2.value.length==0){
 			alert('주소를 확인해 주세요');
-			form.user_zip2.focus();
+			form.address2.focus();
 			return;
-		}else if(form.addr1.value.length==0){
-			alert('주소를 확인해 주세요');
-			form.addr1.focus();
-			return;
-		}else if(form.user_addr2.value.length==0){
-			alert('주소를 확인해 주세요');
-			form.user_addr2.focus();
-			return;
-		}else if(form.user_tel1.value.length==0){
+		}else if(form.phone1.value.length==0){
 			alert('연락처를 확인해 주세요');
-			form.user_tel1.focus();
+			form.phone1.focus();
 			return;
-		}else if(form.user_tel2.value.length==0){
-			alert('연락처를 확인해 주세요');
-			form.user_tel2.focus();
+		}else if(form.birthday.value.length==0){
+			alert('생년월일을 확인해 주세요');
+			form.birthday.focus();
 			return;
-		}else if(form.user_age.value.length==0){
-			alert('나이를 확인해 주세요');
-			form.user_age.focus();
-			return;
-		}else if(form.user_email.value.length==0){
+		}else if(form.email1.value.length==0){
 			alert('이메일을 확인해 주세요');
-			form.user_email.focus();
+			form.email1.focus();
 			return;
 		}else if(form.user_gender.value.length==0){
 			alert('성별을 확인해 주세요');
@@ -104,7 +72,7 @@
 </script>
 </head>
 <body>
-<form action="regist.do" method="post">
+<form action="qCustomerRegist.do" method="post">
 <table>
 	<%	if(type.equals("view")){ %>
 		<caption>회원 정보 보기</caption>
@@ -115,11 +83,11 @@
 	<%	} %>	
 	<tr>
 		<td><label>아이디</label>
-		<td><input type="text" name="user_id" placeholder="ID"
+		<td><input type="text" name="username" placeholder="아이디"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_id %>
+		readonly="readonly"value=<%=cVo.getUsername() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_id %>
+		readonly="readonly"value=<%=cVo.getUsername() %>
 		<%	}else{ %>
 		
 		<%	} %>
@@ -127,11 +95,11 @@
 	</tr>
 	<tr>
 		<td><label>비밀번호</label>
-		<td><input type="password" name="user_passwd" placeholder="비밀번호"
+		<td><input type="password" name="password" placeholder="비밀번호"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_passwd %>
+		readonly="readonly"value=<%=cVo.getPassword() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_passwd %>
+		value=<%=cVo.getPassword() %>
 		<%	}else{ %>
 		
 		<%	} %>
@@ -139,45 +107,38 @@
 	</tr>
 	<tr>
 		<td><label>이름</label>
-		<td><input type="text" name="user_name" placeholder="이름"
+		<td><input type="text" name="firstname" placeholder="이름"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_name %>
+		readonly="readonly"value=<%=cVo.getFirstname() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_name %>
+		value=<%=cVo.getFirstname() %>
 		<%	}else{ %>
 		
 		<%	} %>
 		></td>
 	</tr>
 	<tr>
-		<td rowspan="2"><label>우편번호</label>
+		<td rowspan="2"><label>주소</label>
 		<td>
-		<input type="text" name="user_zip1"
+		<input type="text" name="postcode"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_zip1 %>
+		readonly="readonly"value=<%=cVo.getPostcode() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_zip1 %>
-		<%	}else{ %>
-		
-		<%	} %>
-		>-<input type="text" name="user_zip2"
-		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_zip2 %>
-		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_zip2 %>
+		value=<%=cVo.getPostcode() %>
 		<%	}else{ %>
 		
 		<%	} %>
 		>
-		<input type="button" class="zip_btn" value="우편번호찾기" onclick="zip_chk()">
+		<a href="#" onclick="window.open('xxx.html','width=500px, height=500px')">
+		<input type="button" class="zip_btn" value="우편번호찾기"></a>
 		</td>
 	</tr>
 	<tr>
-		<td><input type="text" name="user_addr1"
+		<td><input type="text" name="address1"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_addr1 %>
+		readonly="readonly"value=<%=cVo.getAddress1() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_addr1 %>
+		value=<%=cVo.getAddress1() %>
 		<%	}else{ %>
 		
 		<%	} %>
@@ -185,11 +146,11 @@
 	</tr>
 	<tr>
 		<td><label>상세주소</label>
-		<td><input type="text" name="user_addr2" placeholder="상세주소"
+		<td><input type="text" name="address2" placeholder="상세주소"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_addr2 %>
+		readonly="readonly"value=<%=cVo.getAddress2() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_addr2 %>
+		value=<%=cVo.getAddress2() %>
 		<%	}else{ %>
 		
 		<%	} %>
@@ -197,35 +158,23 @@
 	</tr>
 	<tr>
 		<td><label>연락처1</label>
-		<td><input type="text" name="user_tel1" placeholder="연락처1"
+		<td><input type="text" name="phone1" placeholder="연락처1"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_tel1 %>
+		readonly="readonly"value=<%=cVo.getPhone1() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_tel1 %>
+		value=<%=cVo.getPhone1() %>
 		<%	}else{ %>
 		
 		<%	} %>
 		></td>
 	</tr>
 	<tr>
-		<td><label>연락처2</label>
-		<td><input type="text" name="user_tel2" placeholder="연락처2"
+		<td><label>생년월일</label>
+		<td><input type="text" name="birthday" placeholder="yyyy-mm-dd"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_tel2 %>
+		readonly="readonly"value=<%=cVo.getBirthday() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_tel2 %>
-		<%	}else{ %>
-		
-		<%	} %>
-		></td>
-	</tr>
-	<tr>
-		<td><label>나이</label>
-		<td><input type="text" name="user_age" placeholder="나이"
-		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_age %>
-		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_age %>
+		value=<%=cVo.getBirthday() %>
 		<%	}else{ %>
 		
 		<%	} %>
@@ -233,11 +182,11 @@
 	</tr>
 	<tr>
 		<td><label>이메일</label>
-		<td><input type="email" name="user_email" placeholder="이메일"
+		<td><input type="email" name="email1" placeholder="이메일"
 		<%	if(type.equals("view")){ %>
-		readonly="readonly"value=<%=user_email %>
+		readonly="readonly"value=<%=cVo.getEmail1() %>
 		<%	}else if(type.equals("modify")){ %>
-		value=<%=user_email %>
+		value=<%=cVo.getEmail1() %>
 		<%	}else{ %>
 		
 		<%	} %>
@@ -246,8 +195,10 @@
 	<tr>
 		<td><label>성별</label>
 		<td>
-		<%	if(type.equals("view")){
-				if(user_gender.equals("male")){%>
+		<%	
+			if(type.equals("view")){
+				Boolean user_gender	=	cVo.isGender();
+				if(user_gender.equals(true)){%>
 					<input type="radio" name="user_gender" value="남"checked="checked" >남
 					<input type="radio" name="user_gender" value="여"disabled="disabled">여
 		<%		}else{%>
@@ -255,7 +206,8 @@
 					<input type="radio" name="user_gender" value="여"checked="checked">여
 		<%		}
 			}else if(type.equals("modify")){ 
-				if(user_gender.equals("male")){%>
+				Boolean user_gender	=	cVo.isGender();
+				if(user_gender.equals(true)){%>
 					<input type="radio" name="user_gender" value="남"checked="checked">남
 					<input type="radio" name="user_gender" value="여">여
 		<%		}else{%>
@@ -276,6 +228,7 @@
 		</td>
 	</tr>
 </table>
+	<input type="hidden" name="type" value="<%=type %>">
 </form>
 </body>
 </html>
