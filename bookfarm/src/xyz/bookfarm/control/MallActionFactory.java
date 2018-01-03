@@ -3,6 +3,7 @@ package xyz.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
+import xyz.bookfarm.model.CustomerFindAction;
 import xyz.bookfarm.model.CustomerIdPwdCheckAction;
 import xyz.bookfarm.model.CustomerLogoutAction;
 import xyz.bookfarm.model.CustomerRegistAction;
@@ -112,14 +113,16 @@ public class MallActionFactory
 		}
 		else if (cmd.equals("/qCustomerRegist.do"))
 		{
+			System.out.println("회원가입페이지시작");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create Start.");
 			action = new CustomerRegistAction("index.jsp");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create End.");
+			System.out.println("회원가입페이지끝");
 		}
 		else if (cmd.equals("/qCustomerFind.do"))
 		{
 			log.debug("QQQQQQQQQQ qCustomerFind.do action create Start.");
-			//action = new CustomerFindAction("member/hansol_main_example.jsp");
+			action = new CustomerFindAction("./find.jsp");
 			log.debug("QQQQQQQQQQ qCustomerFind.do action create End.");
 		}
 		else if (cmd.equals("/qCustomerLogout.do"))

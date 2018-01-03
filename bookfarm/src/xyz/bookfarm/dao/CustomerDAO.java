@@ -97,8 +97,8 @@ public class CustomerDAO {
 							pstmt.setString(6, vo.getAddress2());
 							pstmt.setString(7, vo.getPhone1());
 							pstmt.setString(8, vo.getEmail1());
-							pstmt.setBoolean(9, vo.isGender());
-							pstmt.setBoolean(10, vo.isNewsletter());
+							pstmt.setString(9, vo.getGender());
+							pstmt.setString(10, "x");
 							pstmt.setDate(11, vo.getBirthday());
 							pstmt.setString(12, "off");
 				
@@ -180,8 +180,8 @@ public class CustomerDAO {
 									vo.setAddress2(rs.getString("address2"));
 									vo.setPhone1(rs.getString("phone1"));
 									vo.setEmail1(rs.getString("email1"));
-									vo.setGender(rs.getBoolean("gender"));
-									vo.setNewsletter(rs.getBoolean("newsletter"));
+									vo.setGender(rs.getString("gender"));
+									vo.setNewsletter(rs.getString("newsletter"));
 									vo.setBirthday(rs.getDate("birthday"));
 									vo.setGrade(rs.getInt("grade"));
 									vo.setLast_login(rs.getDate("last_login"));
@@ -203,13 +203,46 @@ public class CustomerDAO {
 		}		
 		return vo;	
 	}
-
-	public int pwdCheck(String username, String password)
+	
+	public CustomerVO find(String phone1, String firstname)
 	{
-			int		result	=	0;
+		CustomerVO	vo		=		null;
+		
 		try
 		{
-			String	sql		=	"select idx from customer where "
+			String 	sql		=		"select username, password from Customer where phone1=? and firstname=?";
+					con		=		getConnection();
+					pstmt	=		con.prepareStatement(sql);
+									pstmt.setString(1, phone1);
+									pstmt.setString(2, firstname);
+					rs		=		pstmt.executeQuery();
+			if(rs.next())
+			{
+					vo		=	new	CustomerVO();
+									vo.setUsername(rs.getString("username"));
+									vo.setPassword(rs.getString("password"));
+			}
+		}
+		catch (SQLException e)
+		{			
+									log.error("CustomerDAO	"
+											+ "getRow() error : "+e);
+		}
+		finally
+		{
+									close(rs);
+									close(pstmt);
+									close(con);
+		}		
+		return vo;	
+	}
+
+	public CustomerVO pwdCheck(String username, String password)
+	{
+		CustomerVO	vo		=	null;
+		try
+		{
+			String	sql		=	"select * from customer where "
 								+ "username=? and password=?";
 					con		=	getConnection();
 					pstmt	=	con.prepareStatement(sql);
@@ -218,7 +251,23 @@ public class CustomerDAO {
 					rs		=	pstmt.executeQuery();
 			if(rs.next())
 			{
-					result	=	rs.getInt(1);
+					vo		=	new	CustomerVO();
+								vo.setIdx(rs.getInt("idx"));
+								vo.setUsername(rs.getString("username"));
+								vo.setPassword(rs.getString("password"));
+								vo.setFirstname(rs.getString("firstname"));
+								vo.setPostcode(rs.getString("postcode"));
+								vo.setAddress1(rs.getString("address1"));
+								vo.setAddress2(rs.getString("address2"));
+								vo.setPhone1(rs.getString("phone1"));
+								vo.setEmail1(rs.getString("email1"));
+								vo.setGender(rs.getString("gender"));
+								vo.setNewsletter(rs.getString("newsletter"));
+								vo.setBirthday(rs.getDate("birthday"));
+								vo.setGrade(rs.getInt("grade"));
+								vo.setLast_login(rs.getDate("last_login"));
+								vo.setLogin_cnt(rs.getInt("login_cnt"));
+								vo.setAccount_created(rs.getDate("account_created"));
 			}
 		}
 		catch(Exception e)
@@ -232,7 +281,7 @@ public class CustomerDAO {
 								close(pstmt);
 								close(con);
 		}		
-		return result;
+		return vo;
 	}
 	
 	public int login(int idx)
@@ -324,8 +373,8 @@ public class CustomerDAO {
 								pstmt.setString(6, vo.getAddress2());
 								pstmt.setString(7, vo.getPhone1());
 								pstmt.setString(8, vo.getEmail1());
-								pstmt.setBoolean(9, vo.isGender());
-								pstmt.setBoolean(10, vo.isNewsletter());
+								pstmt.setString(9, vo.getGender());
+								pstmt.setString(10, vo.getNewsletter());
 								pstmt.setDate(11, vo.getBirthday());
 								pstmt.setInt(12, idx);
 								

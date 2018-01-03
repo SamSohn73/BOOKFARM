@@ -1,28 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="xyz.bookfarm.vo.CustomerVO" %>
 <%
-		//입력 필요한 변수들
-		//Servlet에서 담아놓은 정보 가져오기
-		//vo						//VO새로 만들고 거기에 옮기기
-		//다른 추가정보도 받음
-
-		
-		String	purchase_num			= "";
-		String	purchase_info			= "";
-		String	purchase_price			= "";
-		String	purchase_count			= "";
-		String	purchase_date			= "";
-		
-		String	user_name				= "1";
-		String	user_addr1				= "1";
-		String	user_addr2				= "1";
-		String	user_tel1				= "1";
-		String	user_tel2				= "1";
-		String	user_email				= "1";
-		
-		String	receiver_name			= "1";
-		String	receiver_addr			= "1";
-		String	total_price				= "1";
+	CustomerVO	vo			=	(CustomerVO)request.getAttribute("LoginedUserVO");
+	
 		
 		
 %>    

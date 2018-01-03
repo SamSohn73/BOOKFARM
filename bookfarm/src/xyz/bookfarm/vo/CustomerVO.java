@@ -20,8 +20,8 @@ public class CustomerVO
 	private String	email1;
 	private String	email2;
 	
-	private boolean	gender;
-	private boolean	newsletter;
+	private String	gender;
+	private String	newsletter;
 	private Date	birthday;
 	private int		grade;
 	private Date	last_login;
@@ -34,7 +34,7 @@ public class CustomerVO
 	
 	public CustomerVO(int idx, String username, String password, String firstname, String lastname, int country_idx,
 			String postcode, String address1, String address2, String phone1, String phone2, String phone3,
-			String email1, String email2, boolean gender, boolean newsletter, Date birthday, int grade, Date last_login,
+			String email1, String email2, String gender, String newsletter, Date birthday, int grade, Date last_login,
 			int login_cnt, Date account_created, boolean on_line)
 	{
 		super();
@@ -188,20 +188,20 @@ public class CustomerVO
 		this.email2 = email2;
 	}
 
-	public boolean isGender()
+	public String getGender()
 	{
 		return gender;
 	}
-	public void setGender(boolean gender)
+	public void setGender(String gender)
 	{
 		this.gender = gender;
 	}
 
-	public boolean isNewsletter()
+	public String getNewsletter()
 	{
 		return newsletter;
 	}
-	public void setNewsletter(boolean newsletter)
+	public void setNewsletter(String newsletter)
 	{
 		this.newsletter = newsletter;
 	}

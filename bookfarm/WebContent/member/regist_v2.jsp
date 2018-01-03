@@ -72,7 +72,7 @@
 </script>
 </head>
 <body>
-<form action="qCustomerRegist.do" method="post">
+<form action="../qCustomerRegist.do" method="post">
 <table>
 	<%	if(type.equals("view")){ %>
 		<caption>회원 정보 보기</caption>
@@ -197,26 +197,26 @@
 		<td>
 		<%	
 			if(type.equals("view")){
-				Boolean user_gender	=	cVo.isGender();
-				if(user_gender.equals(true)){%>
-					<input type="radio" name="user_gender" value="남"checked="checked" >남
-					<input type="radio" name="user_gender" value="여"disabled="disabled">여
+				String user_gender	=	cVo.getGender();
+				if(user_gender.equals("m")){%>
+					<input type="radio" name="user_gender" value="m"checked="checked" >남
+					<input type="radio" name="user_gender" value="f"disabled="disabled">여
 		<%		}else{%>
-					<input type="radio" name="user_gender" value="남"disabled="disabled">남
-					<input type="radio" name="user_gender" value="여"checked="checked">여
+					<input type="radio" name="user_gender" value="m"disabled="disabled">남
+					<input type="radio" name="user_gender" value="f"checked="checked">여
 		<%		}
 			}else if(type.equals("modify")){ 
-				Boolean user_gender	=	cVo.isGender();
-				if(user_gender.equals(true)){%>
-					<input type="radio" name="user_gender" value="남"checked="checked">남
-					<input type="radio" name="user_gender" value="여">여
+				String user_gender	=	cVo.getGender();
+				if(user_gender.equals("m")){%>
+					<input type="radio" name="user_gender" value="m"checked="checked">남
+					<input type="radio" name="user_gender" value="f">여
 		<%		}else{%>
-					<input type="radio" name="user_gender" value="남">남
-					<input type="radio" name="user_gender" value="여"checked="checked">여
+					<input type="radio" name="user_gender" value="m">남
+					<input type="radio" name="user_gender" value="f"checked="checked">여
 		<%		}	
 			}else{ %>
-			<input type="radio" name="user_gender" value="남">남
-			<input type="radio" name="user_gender" value="여">여
+			<input type="radio" name="user_gender" value="m">남
+			<input type="radio" name="user_gender" value="f">여
 		<%	} %>
 			
 		</td>

@@ -2,6 +2,7 @@ package xyz.bookfarm.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -24,22 +25,25 @@ public class CustomerIdPwdCheckAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String		username	=	req.getParameter("username");
 		String		password	=	req.getParameter("password");
-		int			idx			=	0;
 		String		type		=	req.getParameter("type");
 		
 		if(req.getAttribute("type")!=null)
 					type		=	(String)req.getAttribute("type");
 		
 		CustomerDAO	dao			=	new	CustomerDAO();
-					idx			=	dao.pwdCheck(username, password);
-					
-			if(idx>0)
-			{
 		CustomerVO	vo			=	new	CustomerVO();
-					vo			=	dao.getRow(idx);
-									req.setAttribute("LoginedUserVO", vo);
-									req.setAttribute("customer_idx", idx);
-									
+					vo			=	dao.pwdCheck(username, password);
+					
+		if(vo != null)
+		{
+		HttpSession	session		=	req.getSession();
+									session.setAttribute("LoginedUserVO", vo);
+		}
+		else
+		{
+					path		=	"view/error.jsp?cmd=login";
+		}
+					
 				if(vo==null)
 				{
 									log.error("QQQQQQQQ CustomerIdPwdCheckAction error :"
@@ -50,7 +54,7 @@ public class CustomerIdPwdCheckAction implements Action {
 					path		=	"./member/regist_v2.jsp?type=modify";
 				else if(type=="login")
 				{
-				int	result		=	dao.login(idx);
+				int	result		=	dao.login(vo.getIdx());
 					if(result>0)
 					{
 									log.info("Successfully logined...");
@@ -62,13 +66,6 @@ public class CustomerIdPwdCheckAction implements Action {
 					path		=	"";	//에러페이지로 이동, 에러값 가지고
 					}
 				}
-			}
-			else
-			{
-									log.error("QQQQQQQQ CustomerIdPwdCheckAction error : "
-									+ "DB can not get idx");
-					path		=	"";	//에러페이지로 이동, 에러값 가지고
-			}
 			
 		return new ActionForward(path, true);
 	}

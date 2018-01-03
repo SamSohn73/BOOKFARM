@@ -2,6 +2,7 @@ package xyz.bookfarm.model;
 
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +37,15 @@ public class CustomerRegistAction implements Action {
 										vo.setAddress2(req.getParameter("address2"));
 										vo.setPhone1(req.getParameter("phone1"));
 										vo.setEmail1(req.getParameter("email1"));
-										//vo.setBirthday((Date)Integer.parseInt(req.getParameter("birthday")));
-										//vo.isGender(req.getParameter("user_gender"));
+										
+										
+		String		date_s			=	req.getParameter("birthday"); 
+		SimpleDateFormat dt			=	new SimpleDateFormat("yyyy-mm-dd"); 
+		Date		date			=	(Date) dt.parse(date_s);
+										vo.setBirthday(date);
+										System.out.println(dt.format(date));
+
+										vo.setGender(req.getParameter("user_gender"));
 												
 		CustomerDAO	dao				=	new	CustomerDAO();
 		
