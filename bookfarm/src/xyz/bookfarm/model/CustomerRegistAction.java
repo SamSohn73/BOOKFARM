@@ -27,6 +27,7 @@ public class CustomerRegistAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String		type			=	req.getParameter("type");
 		CustomerVO	vo				=	new CustomerVO();
+		if()
 		int			idx				=	Integer.parseInt((String)req.getAttribute("customer_idx"));
 		int			result			=	0;
 		
