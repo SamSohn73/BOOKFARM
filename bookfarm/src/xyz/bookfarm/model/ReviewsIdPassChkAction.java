@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
-import xyz.bookfarm.dao.ReviewsDAO;
+import xyz.bookfarm.dao.ReviewDAO;
 
 public class ReviewsIdPassChkAction implements Action {
 	
@@ -29,7 +29,7 @@ public class ReviewsIdPassChkAction implements Action {
 		String	username		=	req.getParameter("username");
 		String	password		=	req.getParameter("password");
 		
-		ReviewsDAO dao			=	new ReviewsDAO();
+		ReviewDAO dao			=	new ReviewDAO();
 		int 	result			=	dao.pwdCheck(customers_idx, username, password);
 		if(result>0) {
 									req.setAttribute("idx", idx);

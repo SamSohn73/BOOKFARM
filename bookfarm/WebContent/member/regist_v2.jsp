@@ -7,12 +7,11 @@
 	CustomerVO	cVo				=	null;
 	
 	
-	if(request.getParameter("type")!=null)
-				type			=	request.getParameter("type");
+	if(request.getAttribute("type")!=null)
+				type			=	(String)request.getAttribute("type");
 	
 	if(type=="modify" || type=="view")
-				cVo				=	(CustomerVO) request.getAttribute("LoginedUserVO");
-	
+				cVo				=	(CustomerVO) session.getAttribute("LoginedUserVO");
 	
 	//CSS
 	/*
@@ -40,6 +39,10 @@
 		}else if(form.firstname.value.length==0){
 			alert('이름을 확인해 주세요');
 			form.firstname.focus();
+			return;
+		}else if(form.postcode.value.length==0){
+			alert('우편번호를 확인해 주세요');
+			form.postcode.focus();
 			return;
 		}else if(form.address1.value.length==0){
 			alert('주소를 확인해 주세요');
@@ -72,7 +75,7 @@
 </script>
 </head>
 <body>
-<form action="../qCustomerRegist.do" method="post">
+<form action="../qCustomerRegist.do?type=<%=type %>" method="post">
 <table>
 	<%	if(type.equals("view")){ %>
 		<caption>회원 정보 보기</caption>
@@ -228,7 +231,6 @@
 		</td>
 	</tr>
 </table>
-	<input type="hidden" name="type" value="<%=type %>">
 </form>
 </body>
 </html>

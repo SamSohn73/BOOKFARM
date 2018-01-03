@@ -41,7 +41,7 @@ public class CustomerIdPwdCheckAction implements Action {
 		}
 		else
 		{
-					path		=	"view/error.jsp?cmd=login";
+					path		=	"view/error.jsp?type=login";
 		}
 					
 				if(vo==null)

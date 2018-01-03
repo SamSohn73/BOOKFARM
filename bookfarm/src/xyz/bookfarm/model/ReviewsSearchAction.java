@@ -6,9 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
-import xyz.bookfarm.dao.ReviewsDAO;
+import xyz.bookfarm.dao.ReviewDAO;
 import xyz.bookfarm.vo.PageVO;
-import xyz.bookfarm.vo.ReviewsVO;
+import xyz.bookfarm.vo.ReviewVO;
 
 public class ReviewsSearchAction implements Action {
 	private final	Logger				log		= Logger.getLogger(this.getClass());
@@ -36,7 +36,7 @@ public class ReviewsSearchAction implements Action {
 		if(req.getParameter("page")!=null)
 					page		=	Integer.parseInt(req.getParameter("page"));
 					
-			ReviewsDAO dao		=	new ReviewsDAO();
+			ReviewDAO dao		=	new ReviewDAO();
 			PageVO	info		=	new PageVO();
 		
 			if(type.equals("list"))
@@ -55,7 +55,7 @@ public class ReviewsSearchAction implements Action {
 									info.setTotalRows(totalRows);
 									info.setStartPage(startPage);
 									info.setEndPage(endPage);
-		Vector<ReviewsVO> list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
+		Vector<ReviewVO> list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
 				if(list!=null) 
 				{
 									req.setAttribute("list", list);
@@ -88,7 +88,7 @@ public class ReviewsSearchAction implements Action {
 									info.setTotalRows(totalRows);
 									info.setStartPage(startPage);
 									info.setEndPage(endPage);
-		Vector<ReviewsVO> list	=	dao.getCustomerSearchList(customers_idx, page, limit, searchCondition, searchWord);
+		Vector<ReviewVO> list	=	dao.getCustomerSearchList(customers_idx, page, limit, searchCondition, searchWord);
 				if(list!=null) 
 				{
 									req.setAttribute("list", list);

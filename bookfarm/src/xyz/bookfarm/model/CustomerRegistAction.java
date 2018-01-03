@@ -1,11 +1,12 @@
 package xyz.bookfarm.model;
 
 
-import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -26,25 +27,27 @@ public class CustomerRegistAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String		type			=	req.getParameter("type");
+										System.out.println(type);
 		CustomerVO	vo				=	new CustomerVO();
-		if()
-		int			idx				=	Integer.parseInt((String)req.getAttribute("customer_idx"));
+				
 		int			result			=	0;
 		
 										vo.setUsername(req.getParameter("username"));
 										vo.setPassword(req.getParameter("password"));
 										vo.setFirstname(req.getParameter("firstname"));
+										vo.setPostcode(req.getParameter("postcode"));
 										vo.setAddress1(req.getParameter("address1"));
 										vo.setAddress2(req.getParameter("address2"));
 										vo.setPhone1(req.getParameter("phone1"));
 										vo.setEmail1(req.getParameter("email1"));
 										
-										
-		String		date_s			=	req.getParameter("birthday"); 
-		SimpleDateFormat dt			=	new SimpleDateFormat("yyyy-mm-dd"); 
-		Date		date			=	(Date) dt.parse(date_s);
-										vo.setBirthday(date);
-										System.out.println(dt.format(date));
+		
+		String		date_s			=	req.getParameter("birthday");								
+		SimpleDateFormat format		=	new SimpleDateFormat("yyyyMMdd");
+		Date		parsed			=	format.parse(date_s);
+		java.sql.Date	sql			=	new java.sql.Date(parsed.getTime());
+										vo.setBirthday(sql);
+										System.out.println(sql);
 
 										vo.setGender(req.getParameter("user_gender"));
 												
@@ -56,8 +59,15 @@ public class CustomerRegistAction implements Action {
 		}
 		else if(type.equals("modify"))
 		{
-					result			=	dao.updateRow(idx, vo);
+		HttpSession	session			=	req.getSession();
+		CustomerVO	vo1				=	(CustomerVO)session.getAttribute("LoginedUserVO");
+					result			=	dao.updateRow(vo1.getIdx(), vo);
+					
+										log.info("DB개인정보 갱신 후 세션도 갱신...시작 //바뀐 비번 : "+vo1.getPassword());
+					vo				=	dao.pwdCheck(vo1.getUsername(), vo1.getPassword());
+										session.setAttribute("LoginedUserVO", vo);
 					path			=	"./member/mypage.jsp";
+			
 		}
 		else if(type.equals("view"))
 		{

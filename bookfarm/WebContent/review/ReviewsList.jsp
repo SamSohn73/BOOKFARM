@@ -1,7 +1,8 @@
 <%@ page import="java.util.Vector"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="xyz.bookfarm.vo.ReviewsVO" %>
-<%@ page import="xyz.bookfarm.dao.ReviewsDAO" %>
+<%@ page import="xyz.bookfarm.vo.ReviewVO" %>
+<%@ page import="xyz.bookfarm.vo.CustomerVO" %>
+<%@ page import="xyz.bookfarm.dao.ReviewDAO" %>
 <%@ page	import="xyz.bookfarm.vo.PageVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -11,7 +12,7 @@
 		
 		
 		//VO새로 만들고 거기에 옮기기
-		Vector<ReviewsVO> list	=	(Vector<ReviewsVO>)request.getAttribute("list");
+		Vector<ReviewVO> list	=	(Vector<ReviewVO>)request.getAttribute("list");
 		
 		//Informations for Paging		
 		int		totalPages		= 1;
@@ -40,11 +41,14 @@
 		//If connection comes from myPage mode....
 		//If connection comes from myPage or myList, this category must be needed...
 		int		customers_idx	=	0;
-		if(request.getParameter("customers_idx")!=null)
-				customers_idx	=	Integer.parseInt((String)request.getParameter("customers_idx"));
-		
+		CustomerVO	userVO		=	null;
+		if(session.getAttribute("LoginedUserVO")!=null)
+		{	
+				userVO			=	(CustomerVO)session.getAttribute("LoginedUserVO");
+				customers_idx	=	userVO.getIdx();
+		}
 		//The type must be one of 'list', 'myList' or 'myPage'
-		String	type			=	(String)request.getAttribute("type");
+		String	type			=	(String)request.getParameter("type");
 				//type			=	request.getParameter("type");
 		
 		//If connection comes from indivisual item, products_idx must be needed...		
@@ -106,7 +110,7 @@
 			<%
 			if(type.equals("myPage"))
 			{
-				for(ReviewsVO vo:list)
+				for(ReviewVO vo:list)
 				{
 				%>
 				<tr class="클래스_tr_top1">
@@ -114,7 +118,7 @@
 					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
 					&page=1&customers_idx=<%=customers_idx %>&type=myList&typeView=view">					
 					<%=vo.getReview_title()%></a></td>										
-					<td><%=/*cDao.getUsername(vo.getCustomers_idx())*/%></td>				
+					<td><%=userVO.getUsername()%></td>				
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
 				<%
@@ -122,7 +126,7 @@
 			}
 			else if(type.equals("myList"))
 			{
-				for(ReviewsVO vo:list)
+				for(ReviewVO vo:list)
 				{
 				%>
 				<tr class="클래스_tr_top1">
@@ -131,7 +135,7 @@
 					&page=<%=currentPage%>&type=<%=type%>&typeView=view
 					&customers_idx=<%=customers_idx %>">					
 					<%=vo.getReview_title()%></a></td>										
-					<td><%=/*cDao.getUsername(vo.getCustomers_idx())*/%></td>				
+					<td><%=userVO.getUsername()%></td>				
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
 				<%
@@ -139,7 +143,7 @@
 			}
 			else
 			{
-				for(ReviewsVO vo:list)
+				for(ReviewVO vo:list)
 				{
 				%>
 				<tr class="클래스_tr_top1">
@@ -148,7 +152,7 @@
 					&page=<%=currentPage%>&type=<%=type%>&typeView=view
 					&products_idx=<%=products_idx %>">					
 					<%=vo.getReview_title()%></a></td>										
-					<td><%=/*cDao.getUsername(vo.getCustomers_idx())*/%></td>				
+					<td><%=userVO.getUsername()%></td>				
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
 				<%

@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
-import xyz.bookfarm.dao.ReviewsDAO;
-import xyz.bookfarm.vo.ReviewsVO;
+import xyz.bookfarm.dao.ReviewDAO;
+import xyz.bookfarm.vo.ReviewVO;
 
 public class ReviewsInsertAction implements Action {
 	private String path;
@@ -26,8 +26,8 @@ public class ReviewsInsertAction implements Action {
 		String	review_title	=	req.getParameter("review_title");
 		String	review_text		=	req.getParameter("review_text");
 		
-		ReviewsDAO dao			=	new ReviewsDAO();
-		ReviewsVO vo			=	new ReviewsVO();
+		ReviewDAO dao			=	new ReviewDAO();
+		ReviewVO vo			=	new ReviewVO();
 									vo.setReview_text(review_text);
 									vo.setReview_title(review_title);
 									vo.setProducts_idx(products_idx);

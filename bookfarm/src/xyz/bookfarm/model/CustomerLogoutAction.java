@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
 import xyz.bookfarm.dao.CustomerDAO;
+import xyz.bookfarm.vo.CustomerVO;
 
 public class CustomerLogoutAction implements Action {
 	private String path;
@@ -18,18 +19,20 @@ public class CustomerLogoutAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		int			idx		=	Integer.parseInt((String)req.getAttribute("customer_idx"));
-		CustomerDAO	dao		=	new	CustomerDAO();
-								dao.logout(idx);
 		
-		HttpSession	session	=	req.getSession(false);
+		HttpSession		session	=	req.getSession();
+		CustomerVO		vo		=	(CustomerVO)session.getAttribute("LoginedUserVO");
+		int				idx		=	vo.getIdx();
+						session	=	req.getSession(false);
 		if(session.getAttribute("LoginedUserVO") != null)
-		{
-								session.invalidate();
+		{			
+			CustomerDAO	dao		=	new	CustomerDAO();
+									dao.logout(idx);
+									session.invalidate();
 		}
 		else
 		{
-					path	=	"";
+						path	=	"";
 		}
 		
 		return new ActionForward(path, false);

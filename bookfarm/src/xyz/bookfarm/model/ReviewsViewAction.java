@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
-import xyz.bookfarm.dao.ReviewsDAO;
-import xyz.bookfarm.vo.ReviewsVO;
+import xyz.bookfarm.dao.ReviewDAO;
+import xyz.bookfarm.vo.ReviewVO;
 
 public class ReviewsViewAction implements Action {
 	
@@ -27,9 +27,9 @@ public class ReviewsViewAction implements Action {
 		String		type			=	(String)req.getAttribute("type");
 		String		typeView		=	(String)req.getAttribute("typeView");
 		
-		ReviewsDAO 	dao				=	new ReviewsDAO();
+		ReviewDAO 	dao				=	new ReviewDAO();
 			
-		ReviewsVO	vo				=	dao.getRow(idx);
+		ReviewVO	vo				=	dao.getRow(idx);
 		
 		if(vo!=null) 
 		{

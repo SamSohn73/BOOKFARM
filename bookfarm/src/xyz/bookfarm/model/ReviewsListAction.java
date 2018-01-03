@@ -4,9 +4,13 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
-import xyz.bookfarm.dao.ReviewsDAO;
-import xyz.bookfarm.vo.ReviewsVO;
+
+import xyz.bookfarm.dao.ReviewDAO;
+import xyz.bookfarm.vo.ReviewVO;
+import xyz.bookfarm.vo.CustomerVO;
 import xyz.bookfarm.vo.PageVO;
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
@@ -22,20 +26,19 @@ public class ReviewsListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 			int		page		=	1;
-			
-			String	type		=	req.getParameter("type");
-			
 			int		products_idx=	0;
-			int		customers_idx=	0;
+			String	type		=	req.getParameter("type");
+			HttpSession	session	=	req.getSession();
+			CustomerVO	vo		=	(CustomerVO)session.getAttribute("LoginedUserVO");
+			int		customers_idx=	vo.getIdx();
+			
 		if(req.getParameter("products_idx")!=null)	
-					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
-		if(req.getParameter("customers_idx")!=null)	
-					customers_idx=	Integer.parseInt(req.getParameter("customers_idx"));			
+					products_idx=	Integer.parseInt(req.getParameter("products_idx"));		
 					
 		if(req.getParameter("page")!=null)
 					page		=	Integer.parseInt(req.getParameter("page"));
 						
-			ReviewsDAO dao		=	new ReviewsDAO();
+			ReviewDAO dao		=	new ReviewDAO();
 			PageVO	info		=	new PageVO();
 			
 		if(type.equals("list"))
@@ -54,18 +57,17 @@ public class ReviewsListAction implements Action {
 									info.setTotalRows(totalRows);
 									info.setStartPage(startPage);
 									info.setEndPage(endPage);
-		Vector<ReviewsVO> list	=	dao.getList(products_idx, page, limit);
+		Vector<ReviewVO> list	=	dao.getList(products_idx, page, limit);
 				if(list!=null) 
 				{
 									req.setAttribute("list", list);
 									req.setAttribute("info", info);
-									req.setAttribute("type", type);
-					path		+=	"?products_idx="+products_idx;
+					path		+=	"?type="+type+"&products_idx="+products_idx;
 				}
 				else
 				{ 
 									log.error("QQQQQQQQ ReviewsListAction - 'list' error");
-									path="";
+									//path="";
 				}
 		}
 		else if(type.equals("myList"))
@@ -84,35 +86,33 @@ public class ReviewsListAction implements Action {
 									info.setTotalRows(totalRows);
 									info.setStartPage(startPage);
 									info.setEndPage(endPage);
-		Vector<ReviewsVO> list	=	dao.getMyList(customers_idx, page, limit);
+		Vector<ReviewVO> list	=	dao.getMyList(customers_idx, page, limit);
 				if(list!=null) 
 				{
 									req.setAttribute("list", list);
 									req.setAttribute("info", info);
-									req.setAttribute("type", type);
-					path		+=	"?customers_idx="+customers_idx;
+					path		+=	"?type="+type;
 				}
 				else
 				{ 
-									log.error("QQQQQQQQ ReviewsListAction - 'myList' error");
-									path="";
+									log.error("QQQQQQQQ ReviewsListAction - 'myList' error :리스트가 null");
+									//path="";
 				}
 		}
 		else if(type.equals("myPage"))
 		{
 			int		limit		=	5;
 			
-		Vector<ReviewsVO> list	=	dao.getMyPageList(customers_idx, limit);
+		Vector<ReviewVO> list	=	dao.getMyPageList(customers_idx, limit);
 				if(list!=null) 
 				{
-									req.setAttribute("list", list);									
-									req.setAttribute("type", type);
-					path		+=	"?customers_idx="+customers_idx;
+									req.setAttribute("list", list);
+					path		+=	"?type="+type;
 				}
 				else
 				{ 
 									log.error("QQQQQQQQ ReviewsListAction - 'myPage' error");
-									path="";
+									//path="";
 				}
 		}		
 				

@@ -8,10 +8,10 @@ import java.util.Vector;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-import xyz.bookfarm.vo.ReviewsVO;
+import xyz.bookfarm.vo.ReviewVO;
 import org.apache.log4j.Logger;
 
-public class ReviewsDAO {
+public class ReviewDAO {
 	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private			Connection			con		= null;
@@ -73,12 +73,12 @@ public class ReviewsDAO {
 		}
 	}
 	
-	public int insert(ReviewsVO vo)
+	public int insert(ReviewVO vo)
 	{
 		int		result	=	0;
-		String	sql		=	"insert into reviews values(products_idx=?, customers_idx=?, reviews_rating=?, "
-							+"review_title=?, review_text=?, "
-							+"date_added=now(), last_modified=now())";
+		String	sql		=	"insert into review (products_idx, customers_idx, reviews_rating, "
+							+"review_title, review_text, date_added, last_modified) "
+							+"values(?,?,?,?,?,now(), now())";
 		try
 		{
 				con		=	getConnection();
@@ -121,7 +121,7 @@ public class ReviewsDAO {
 	
 	public int totalRows()
 	{
-		String	sql			=	"select count(*) from reviews";		
+		String	sql			=	"select count(*) from review";		
 		int		total_rows	=	0;
 		try
 		{
@@ -147,7 +147,7 @@ public class ReviewsDAO {
 	
 	public int oneProductsTotalRows(int products_idx)
 	{
-		String	sql			=	"select count(*) from reviews where products_idx=?";		
+		String	sql			=	"select count(*) from review where products_idx=?";		
 		int		total_rows	=	0;
 		try
 		{
@@ -174,7 +174,7 @@ public class ReviewsDAO {
 	
 	public int oneCustomersTotalRows(int customers_idx)
 	{
-		String	sql			=	"select count(*) from reviews where customers_idx=?";		
+		String	sql			=	"select count(*) from review where customers_idx=?";		
 		int		total_rows	=	0;
 		try
 		{
@@ -199,14 +199,14 @@ public class ReviewsDAO {
 		return total_rows;
 	}
 	
-	public Vector<ReviewsVO> getList(int products_idx, int page, int limit)
+	public Vector<ReviewVO> getList(int products_idx, int page, int limit)
 	{
 		int					start	=			(page-1)*10;
-		Vector<ReviewsVO>	list	=	new		Vector<ReviewsVO>();
+		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		StringBuffer		sql		=	new		StringBuffer();
-												sql.append("select *  from board order");
-												sql.append(" where products_idx=?");
-												sql.append(" by date_added desc, ");
+												sql.append("select *  from review ");
+												sql.append("where products_idx=? ");
+												sql.append("order by date_added desc, ");
 												sql.append("last_modified desc, ");
 												sql.append("reviews_read asc limit ?,?");
 		try
@@ -219,7 +219,7 @@ public class ReviewsDAO {
 							rs		=			pstmt.executeQuery();
 			while(rs.next())
 			{
-				ReviewsVO	vo		=	new		ReviewsVO();
+				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
 												vo.setCustomers_idx(rs.getInt(3));
@@ -244,14 +244,14 @@ public class ReviewsDAO {
 		
 	}
 	
-	public Vector<ReviewsVO> getMyList(int customers_idx, int page, int limit)
+	public Vector<ReviewVO> getMyList(int customers_idx, int page, int limit)
 	{
 		int					start	=			(page-1)*10;
-		Vector<ReviewsVO>	list	=	new		Vector<ReviewsVO>();
+		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		StringBuffer		sql		=	new		StringBuffer();
-												sql.append("select *  from board order");
-												sql.append(" where customers_idx=?");
-												sql.append(" by date_added desc, ");
+												sql.append("select *  from review ");
+												sql.append("where customers_idx=? ");
+												sql.append("order by date_added desc, ");
 												sql.append("last_modified desc, ");
 												sql.append("reviews_read asc limit ?,?");
 		try
@@ -264,7 +264,7 @@ public class ReviewsDAO {
 							rs		=			pstmt.executeQuery();
 			while(rs.next())
 			{
-				ReviewsVO	vo		=	new		ReviewsVO();
+				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
 												vo.setCustomers_idx(rs.getInt(3));
@@ -289,25 +289,21 @@ public class ReviewsDAO {
 		
 	}
 
-	public Vector<ReviewsVO> getMyPageList(int customers_idx, int limit)
+	public Vector<ReviewVO> getMyPageList(int customers_idx, int limit)
 	{
-		Vector<ReviewsVO>	list	=	new		Vector<ReviewsVO>();
-		StringBuffer		sql		=	new		StringBuffer();
-												sql.append("select *  from board order");
-												sql.append(" where customers_idx=?");
-												sql.append(" by date_added desc, ");
-												sql.append("last_modified desc, ");
-												sql.append("reviews_read asc limit ?");
+		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+		String				sql		=	"select * from review where customers_idx=? order by "
+										+ "date_added desc, last_modified desc, reviews_read asc limit 0,?";
 		try
 		{
 							con		=			getConnection();
-							pstmt	=			con.prepareStatement(sql.toString());
+							pstmt	=			con.prepareStatement(sql);
 												pstmt.setInt(1, customers_idx);
-												pstmt.setInt(3, limit);
+												pstmt.setInt(2, limit);
 							rs		=			pstmt.executeQuery();
 			while(rs.next())
 			{
-				ReviewsVO	vo		=	new		ReviewsVO();
+				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
 												vo.setCustomers_idx(rs.getInt(3));
@@ -332,20 +328,20 @@ public class ReviewsDAO {
 		
 	}
 	
-	public ReviewsVO getRow(int idx)
+	public ReviewVO getRow(int idx)
 	{
-		ReviewsVO	vo		=		null;
+		ReviewVO	vo		=		null;
 		
 		try
 		{
-			String 	sql		=		"select * from reviews where idx=?";
+			String 	sql		=		"select * from review where idx=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setInt(1, idx);
 					rs		=		pstmt.executeQuery();
 			if(rs.next())
 			{
-					vo		=	new	ReviewsVO();
+					vo		=	new	ReviewVO();
 									vo.setIdx(rs.getInt("idx"));
 									vo.setProducts_idx(rs.getInt("products_idx"));
 									vo.setCustomers_idx(rs.getInt("customers_idx"));
@@ -374,7 +370,7 @@ public class ReviewsDAO {
 	public int hitUpdate(int idx)
 	{
 		int			result	=	0;
-		String		sql		=	"update reviews set reviews_read=reviews_read+1";
+		String		sql		=	"update review set reviews_read=reviews_read+1";
 					sql		+=	" where idx=?";
 		try
 		{
@@ -410,7 +406,7 @@ public class ReviewsDAO {
 					rs		=	pstmt.executeQuery();
 			if(rs.next())
 			{
-			ReviewsVO	vo	=	new	ReviewsVO();
+			ReviewVO	vo	=	new	ReviewVO();
 								vo.setIdx(rs.getInt(1));
 				if(vo.getIdx()==idx)
 					result	=	1;
@@ -447,7 +443,7 @@ public class ReviewsDAO {
 					rs		=	pstmt.executeQuery();
 			if(rs.next())
 			{
-			ReviewsVO	vo	=	new	ReviewsVO();
+			ReviewVO	vo	=	new	ReviewVO();
 								vo.setIdx(rs.getInt(1));
 					result	=	1;				
 			}
@@ -471,7 +467,7 @@ public class ReviewsDAO {
 			int		result	=	0;
 		try {
 					con		=	getConnection();
-			String	sql		=	"delete from reviews where idx=?";
+			String	sql		=	"delete from review where idx=?";
 					pstmt	=	con.prepareStatement(sql);
 								pstmt.setInt(1, idx);
 					result	=	pstmt.executeUpdate();			
@@ -514,7 +510,7 @@ public class ReviewsDAO {
 	
 	public int searchList(String searchCondition, String searchWord)
 	{
-			String		sql		=	"select count(*) from reviews where ";
+			String		sql		=	"select count(*) from review where ";
 						sql		+=	searchCondition + " like ? order by";
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
@@ -547,7 +543,7 @@ public class ReviewsDAO {
 	
 	public int searchOneProductList(int products_idx, String searchCondition, String searchWord)
 	{
-			String		sql		=	"select count(*) from reviews where ";
+			String		sql		=	"select count(*) from review where ";
 						sql		+=	"products_idx=? and ";
 						sql		+=	searchCondition + " like ? order by";
 						sql		+=	" date_added desc,last_modified desc,";
@@ -582,7 +578,7 @@ public class ReviewsDAO {
 	
 	public int searchOneCustomerList(int customers_idx, String searchCondition, String searchWord)
 	{
-			String		sql		=	"select count(*) from reviews where ";
+			String		sql		=	"select count(*) from review where ";
 						sql		+=	"customers_idx=? and ";
 						sql		+=	searchCondition + " like ? order by";
 						sql		+=	" date_added desc,last_modified desc,";
@@ -615,12 +611,12 @@ public class ReviewsDAO {
 		return result;		
 	}
 	
-	public Vector<ReviewsVO> getSearchList(int page, int limit, String searchCondition, String searchWord)
+	public Vector<ReviewVO> getSearchList(int page, int limit, String searchCondition, String searchWord)
 	{
-				Vector<ReviewsVO>	list	=	new		Vector<ReviewsVO>();
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
-				String				sql		=	"select * from reviews where ";
+				String				sql		=	"select * from review where ";
 									sql		+=	searchCondition;
 									sql		+=	" like ? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
@@ -635,7 +631,7 @@ public class ReviewsDAO {
 									rs		=	pstmt.executeQuery();
 			while(rs.next()) 
 			{
-				ReviewsVO			vo		=	new	ReviewsVO();
+				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
 												vo.setCustomers_idx(rs.getInt(3));
@@ -662,12 +658,12 @@ public class ReviewsDAO {
 		return list;		
 	}
 	
-	public Vector<ReviewsVO> getProductSearchList(int products_idx, int page, int limit, String searchCondition, String searchWord)
+	public Vector<ReviewVO> getProductSearchList(int products_idx, int page, int limit, String searchCondition, String searchWord)
 	{
-				Vector<ReviewsVO>	list	=	new		Vector<ReviewsVO>();
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
-				String				sql		=	"select * from reviews where ";
+				String				sql		=	"select * from review where ";
 									sql		+=	"products_idx=? and ";
 									sql		+=	searchCondition;
 									sql		+=	" like ? order by date_added desc, ";
@@ -684,7 +680,7 @@ public class ReviewsDAO {
 									rs		=	pstmt.executeQuery();
 			while(rs.next()) 
 			{
-				ReviewsVO			vo		=	new	ReviewsVO();
+				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
 												vo.setCustomers_idx(rs.getInt(3));
@@ -711,12 +707,12 @@ public class ReviewsDAO {
 		return list;		
 	}
 	
-	public Vector<ReviewsVO> getCustomerSearchList(int customers_idx, int page, int limit, String searchCondition, String searchWord)
+	public Vector<ReviewVO> getCustomerSearchList(int customers_idx, int page, int limit, String searchCondition, String searchWord)
 	{
-				Vector<ReviewsVO>	list	=	new		Vector<ReviewsVO>();
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
-				String				sql		=	"select * from reviews where ";
+				String				sql		=	"select * from review where ";
 									sql		+=	"customers_idx=? and ";
 									sql		+=	searchCondition;
 									sql		+=	" like ? order by date_added desc, ";
@@ -733,7 +729,7 @@ public class ReviewsDAO {
 									rs		=	pstmt.executeQuery();
 			while(rs.next()) 
 			{
-				ReviewsVO			vo		=	new	ReviewsVO();
+				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
 												vo.setCustomers_idx(rs.getInt(3));

@@ -22,7 +22,7 @@ function register_check(form){
 </script>
 </head>
 <body>
-<form action="qCustomerFind.do" method="post">
+<form action="../qCustomerFind.do" method="post">
 <table>
 	<tr>
 		<td><label>연락처1</label>

@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
-import xyz.bookfarm.dao.ReviewsDAO;
+import xyz.bookfarm.dao.ReviewDAO;
 
 public class ReviewsHitUpdateAction implements Action {
 	
@@ -28,7 +28,7 @@ public class ReviewsHitUpdateAction implements Action {
 		String		type			=	req.getParameter("type");
 		String		typeView		=	req.getParameter("typeView");
 		
-		ReviewsDAO	dao				=	new ReviewsDAO();		
+		ReviewDAO	dao				=	new ReviewDAO();		
 		int 		result			=	dao.hitUpdate(idx);
 		if(result>0)
 		{

@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.action.ActionForward;
-import xyz.bookfarm.dao.ReviewsDAO;
+import xyz.bookfarm.dao.ReviewDAO;
 
 public class ReviewsDeleteAction implements Action {
 	private final	Logger				log		= Logger.getLogger(this.getClass());
@@ -32,7 +32,7 @@ public class ReviewsDeleteAction implements Action {
 			if(((String)req.getAttribute("page"))!=null)
 					page			=	Integer.parseInt((String)req.getAttribute("page"));
 	
-			ReviewsDAO	dao			=	new	ReviewsDAO();
+			ReviewDAO	dao			=	new	ReviewDAO();
 			int		result			=	dao.delete(idx);
 			
 			if(result>0)

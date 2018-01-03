@@ -39,7 +39,7 @@
 </script>
 </head>
 <body onload="pwdCheck.pwd.focus()">
-<form name="pwdCheck" method="post" action="../qCustomerIdPwdCheck.do?type=login">
+<form name="pwdCheck" method="post" action="../qCustomerIdPwdCheck.do?type=login" target="_top">
 	<table>
 		<caption>아이디 비밀번호 입력</caption>
 		
@@ -48,7 +48,8 @@
 				<input type="text" size="20" name="username" required="required">
 			</td>
 			<td rowspan="2">
-				<input type="submit" class="login_btn" value="로그인">
+				<a href="regist_v2.jsp" target="_top">
+				<input type="submit" class="login_btn" value="로그인"></a>
 			</td>
 		</tr>
 		<tr>
@@ -65,7 +66,6 @@
 			</td>			
 		</tr>
 	</table>
-	<input type="hidden" name="review_num" value="<%=review_num %>">
 </form>
 </body>
 </html>

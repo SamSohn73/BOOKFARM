@@ -115,7 +115,7 @@ public class MallActionFactory
 		{
 			System.out.println("회원가입페이지시작");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create Start.");
-			action = new CustomerRegistAction("index.jsp");
+			action = new CustomerRegistAction("./index.jsp");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create End.");
 			System.out.println("회원가입페이지끝");
 		}

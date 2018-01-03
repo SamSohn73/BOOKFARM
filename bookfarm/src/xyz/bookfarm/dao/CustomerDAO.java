@@ -79,10 +79,10 @@ public class CustomerDAO {
 	public int insert(CustomerVO vo)
 	{
 		int		result	=	0;
-		String	sql		=	"insert into customer values(username=?, password=?, firstname=?, "
-							+ "Postcode=?, Address1=?, Address2=?, Phone1=?, Email1=?, "
-							+ "gender=?, newsletter=?, Birthday=?, "
-							+ "last_login=now(), login_cnt=0, account_created=now()), on_line=?";
+		String	sql		=	"insert into customer (username, password, firstname, postcode, address1, "
+							+ "address2, phone1, email1, gender, newsletter, birthday, last_login, "
+							+ "login_cnt, account_created, on_line) "
+							+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), 0, now(), ?)";
 		try
 		{
 				con		=	getConnection();
@@ -98,9 +98,9 @@ public class CustomerDAO {
 							pstmt.setString(7, vo.getPhone1());
 							pstmt.setString(8, vo.getEmail1());
 							pstmt.setString(9, vo.getGender());
-							pstmt.setString(10, "x");
+							pstmt.setString(10, "X");
 							pstmt.setDate(11, vo.getBirthday());
-							pstmt.setString(12, "off");
+							pstmt.setString(12, "X");
 				
 				result	=	pstmt.executeUpdate();
 				
@@ -269,6 +269,11 @@ public class CustomerDAO {
 								vo.setLogin_cnt(rs.getInt("login_cnt"));
 								vo.setAccount_created(rs.getDate("account_created"));
 			}
+			else
+			{
+								log.error("CustomerDAO	"
+										+ "pwdCheck error : rs.next is not exist!!!!");
+			}
 		}
 		catch(Exception e)
 		{
@@ -292,7 +297,7 @@ public class CustomerDAO {
 		{
 					con			=	getConnection();
 					pstmt		=	con.prepareStatement(sql);
-									pstmt.setString(1, "on");
+									pstmt.setString(1, "O");
 									pstmt.setInt(2, idx);
 									
 					result		=	pstmt.executeUpdate();
@@ -318,7 +323,7 @@ public class CustomerDAO {
 		{
 					con			=	getConnection();
 					pstmt		=	con.prepareStatement(sql);
-									pstmt.setString(1, "off");
+									pstmt.setString(1, "X");
 									pstmt.setInt(2, idx);
 									
 					result		=	pstmt.executeUpdate();

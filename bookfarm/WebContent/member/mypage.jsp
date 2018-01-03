@@ -3,8 +3,8 @@
     pageEncoding="UTF-8"%>
     
 <%
-	CustomerVO		cVo			=	(CustomerVO) request.getAttribute("LoginedUserVO");
-	int				customer_idx=	Integer.parseInt((String)request.getAttribute("customer_idx"));
+	CustomerVO		cVo			=	(CustomerVO) session.getAttribute("LoginedUserVO");
+	int				customer_idx=	cVo.getIdx();
 
 %>
 <!DOCTYPE html>
@@ -53,23 +53,23 @@
 		<%for(/*VO가져온것 돌리기*/int i=0;i<=0;i++)
 		{%>
 			<tr class="클래스_tr_top1">
-				<td class="클래스_td_align1"><a href="qHitUpdate.do?board_num=글번호&page=페이지번호">
+				<td class="클래스_td_align1"><a href="">
 				purchase_num</a></td>
-				<td align="left"><a href="qHitUpdate.do?board_num=글번호&page=페이지번호">
+				<td align="left"><a href="">
 				purchase_info</a></td>										
 				<td>purchase_price</td>
 				<td>purchase_date</td>
 			</tr>
 		<%}%>
 			<tr>
-				<td align="right"><a href="qHitUpdate.do?board_num=글번호&page=페이지번호">
+				<td align="right"><a href="">
 				더보기</a></td>
 			</tr>
 		</table>
 		
-		<iframe src="qReviewsLists.do?type=myPage&customers_idx=<%=customer_idx%>"
+		<iframe src="../qReviewsLists.do?type=myPage"
 				height="450" width="800"></iframe>
 		
-		<a href="/qCustomerLogout.do">logout</a>
+		<a href="../qCustomerLogout.do">logout</a>
 </body>
 </html>
