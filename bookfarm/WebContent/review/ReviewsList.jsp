@@ -56,7 +56,6 @@
 		if(request.getParameter("products_idx")!=null)
 				products_idx	=	Integer.parseInt((String)request.getParameter("products_idx"));
 		
-		
 		//불러올 CSS
 		/*
 		클래스_테이블1
@@ -150,7 +149,7 @@
 					<td><%=vo.getDate_added()%></td>
 					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
 					&page=<%=currentPage%>&type=<%=type%>&typeView=view
-					&products_idx=<%=products_idx %>">					
+					&products_idx=<%=products_idx %>" target="_top">					
 					<%=vo.getReview_title()%></a></td>										
 					<td><%=userVO.getUsername()%></td>				
 					<td><%=vo.getReviews_read()%></td>
@@ -264,7 +263,7 @@
 		else
 		{
 			%>
-			<a href="qReviewsLists.do?&customers_idx=<%=customers_idx %>&type=myList">[더보기]</a>
+			<a href="qReviewsLists.do?&customers_idx=<%=customers_idx %>&type=myList" target="_top">[더보기]</a>
 			<%
 		}
 		

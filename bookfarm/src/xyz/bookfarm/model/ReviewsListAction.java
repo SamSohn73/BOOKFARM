@@ -116,7 +116,7 @@ public class ReviewsListAction implements Action {
 				}
 		}		
 				
-		return new ActionForward(path, true);
+		return new ActionForward(path, false);
 	}
 
 }
