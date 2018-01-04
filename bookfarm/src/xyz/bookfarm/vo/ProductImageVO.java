@@ -3,19 +3,17 @@ package xyz.bookfarm.vo;
 public class ProductImageVO
 {
 	private	int		idx;
-	private	int		products_idx;
-	private	String	image;
-	private	String	htmlcontent;
+	private	int		product_idx;
+	private	String	image_path;
 	
 	public ProductImageVO() {}
 
-	public ProductImageVO(int idx, int products_idx, String image, String htmlcontent)
+	public ProductImageVO(int idx, int product_idx, String image_path)
 	{
 		super();
 		this.idx			= idx;
-		this.products_idx	= products_idx;
-		this.image			= image;
-		this.htmlcontent	= htmlcontent;
+		this.product_idx	= product_idx;
+		this.image_path		= image_path;
 	}
 
 	public int getIdx()
@@ -27,31 +25,22 @@ public class ProductImageVO
 		this.idx = idx;
 	}
 
-	public int getProducts_idx()
+	public int getProduct_idx()
 	{
-		return products_idx;
+		return product_idx;
 	}
-	public void setProducts_idx(int products_idx)
+	public void setProduct_idx(int product_idx)
 	{
-		this.products_idx = products_idx;
-	}
-
-	public String getImage()
-	{
-		return image;
-	}
-	public void setImage(String image)
-	{
-		this.image = image;
+		this.product_idx = product_idx;
 	}
 
-	public String getHtmlcontent()
+	public String getImage_path()
 	{
-		return htmlcontent;
+		return image_path;
 	}
-	public void setHtmlcontent(String htmlcontent)
+	public void setImage_path(String image_path)
 	{
-		this.htmlcontent = htmlcontent;
+		this.image_path = image_path;
 	}
-	
+
 }

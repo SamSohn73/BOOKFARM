@@ -62,7 +62,7 @@ CREATE TABLE category (
 
 DROP TABLE IF EXISTS currency;
 CREATE TABLE currency (
-	idx				int				NOT NULL auto_increment primary key,
+	idx					int				NOT NULL auto_increment primary key,
 	title				varchar(32)	NOT NULL,
 	code				char(3)		NOT NULL,
 	symbol_left			varchar(12),
@@ -89,7 +89,7 @@ CREATE TABLE basket (
 
 DROP TABLE IF EXISTS newsletter;
 CREATE TABLE newsletter (
-	idx			int auto_increment primary_key,
+	idx			int auto_increment primary key,
 	title		varchar(255)	NOT NULL,
 	content		text			NOT NULL,
 	date_added	date			NOT NULL,
@@ -153,12 +153,11 @@ DROP TABLE IF EXISTS product;
 CREATE TABLE product (
 	idx					int				NOT NULL auto_increment primary key,
 	category_idx		int				NOT NULL,
-	products_quantity	int(4)			NOT NULL,
-	products_model		varchar(12),
-	products_image		varchar(64),
-	products_price		decimal(15,4)	NOT NULL,
-	manufacturers_id	int				NOT NULL,
-	products_desc		text
+	product_quantity	int(4)			NOT NULL,
+	product_name		varchar(12),
+	product_image		varchar(64),
+	product_price		decimal(15,4)	NOT NULL,
+	product_desc		text
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
@@ -166,22 +165,21 @@ DROP TABLE IF EXISTS product_image;
 CREATE TABLE product_image (
 	idx				int NOT NULL auto_increment primary key,
 	products_idx	int NOT NULL,
-	image			varchar(64),
-	htmlcontent		text
+	image_path		varchar(64)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
 DROP TABLE IF EXISTS review;
 CREATE TABLE review (
-	idx					int				NOT NULL auto_increment primary key,
-	products_idx		int				NOT NULL,
-	customers_idx		int,
-	reviews_rating		int(1),
-	review_title		varchar(255)	NOT NULL,
-	review_text			text			NOT NULL,
-	date_added			date,
-	last_modified		date,
-	reviews_read		int(5)			NOT NULL default '0'
+	idx				int				NOT NULL auto_increment primary key,
+	products_idx	int				NOT NULL,
+	customers_idx	int,
+	reviews_rating	int(1),
+	review_title	varchar(255)	NOT NULL,
+	review_text		text			NOT NULL,
+	date_added		date,
+	last_modified	date,
+	reviews_read	int(5)			NOT NULL default '0'
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
