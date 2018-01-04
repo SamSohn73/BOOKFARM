@@ -4,17 +4,16 @@ public class CategoryVO
 {
 	private	int		idx;
 	private	int		parent_idx;
-//	private	String	categories_image;
-	private	String	categories_name;
+	private	String	category_name;
 	
 	public CategoryVO() {}
 
-	public CategoryVO(int idx, int parent_idx, String categories_name)
+	public CategoryVO(int idx, int parent_idx, String category_name)
 	{
 		super();
 		this.idx				= idx;
 		this.parent_idx			= parent_idx;
-		this.categories_name	= categories_name;
+		this.category_name		= category_name;
 	}
 
 	public int getIdx()
@@ -35,13 +34,13 @@ public class CategoryVO
 		this.parent_idx = parent_idx;
 	}
 
-	public String getCategories_name()
+	public String getCategory_name()
 	{
-		return categories_name;
+		return category_name;
 	}
-	public void setCategories_name(String categories_name)
+	public void setCategory_name(String category_name)
 	{
-		this.categories_name = categories_name;
+		this.category_name = category_name;
 	}
 	
 }

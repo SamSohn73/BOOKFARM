@@ -56,7 +56,7 @@ CREATE TABLE category (
 	idx					int				NOT NULL auto_increment primary key,
 	parent_idx			int DEFAULT '0'	NOT NULL,
 --	categories_image	varchar(64),
-	categories_name		varchar(32)		NOT NULL
+	category_name		varchar(32)		NOT NULL
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
