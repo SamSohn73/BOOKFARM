@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.Vector"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="xyz.bookfarm.vo.ReviewsVO" %>
-<%@ page import="xyz.bookfarm.dao.ReviewsDAO" %>
+<%@ page import="xyz.bookfarm.vo.ReviewVO" %>
+<%@ page import="xyz.bookfarm.dao.ReviewDAO" %>
 <%@ page	import="xyz.bookfarm.vo.PageVO" %>
 <%	
 	//뷰, 삽입/수정 공용페이지
@@ -41,7 +41,7 @@
 			products_idx		=	Integer.parseInt((String)request.getAttribute("products_idx"));
 			customers_idx		=	Integer.parseInt((String)request.getAttribute("customers_idx"));
 	
-	ReviewsVO vo				=	(ReviewsVO)request.getAttribute("vo");
+	ReviewVO vo				=	(ReviewVO)request.getAttribute("vo");
 			/*reviewUsername	=	cDao.getUsername(vo.getCustomers_idx());*/
 			review_title		=	vo.getReview_title();
 			review_text			=	vo.getReview_text();	
@@ -52,7 +52,7 @@
 			products_idx		=	Integer.parseInt((String)request.getAttribute("products_idx"));
 			customers_idx		=	Integer.parseInt((String)request.getAttribute("customers_idx"));
 			
-	ReviewsVO vo				=	(ReviewsVO)request.getAttribute("vo");
+	ReviewVO vo				=	(ReviewVO)request.getAttribute("vo");
 			review_title		=	vo.getReview_title();
 			review_text			=	vo.getReview_text();
 									request.setAttribute("type", type);
