@@ -395,6 +395,36 @@ public class ReviewDAO {
 		return vo;	
 	}
 	
+	public int getProduct_idx(int idx)
+	{
+			int		p_idx	=		0;
+		
+		try
+		{
+			String 	sql		=		"select products_idx from review where idx=?";
+					con		=		getConnection();
+					pstmt	=		con.prepareStatement(sql);
+									pstmt.setInt(1, idx);
+					rs		=		pstmt.executeQuery();
+			if(rs.next())
+			{
+					p_idx	=		rs.getInt("products_idx");
+			}
+		}
+		catch (SQLException e)
+		{			
+									log.error("ReviewsDAO	"
+											+ "getProduct_idx("+idx+") error : "+e);
+		}
+		finally
+		{
+									close(rs);
+									close(pstmt);
+									close(con);
+		}		
+		return p_idx;	
+	}
+	
 	public int hitUpdate(int idx)
 	{
 		int			result	=	0;
@@ -436,7 +466,10 @@ public class ReviewDAO {
 			{
 			ReviewVO	vo	=	new	ReviewVO();
 								vo.setIdx(rs.getInt(1));
-			int		idx_i	=	vo.getIdx();					
+			int		idx_i	=	vo.getIdx();
+			
+					System.out.println("에러확인idx : "+idx);
+					System.out.println("에러확인idx_i : "+idx_i);
 				if(idx_i==idx)
 					result	=	1;
 				else

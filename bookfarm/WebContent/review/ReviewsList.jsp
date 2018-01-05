@@ -57,6 +57,7 @@
 		if(request.getParameter("products_idx")!=null)
 				products_idx	=	Integer.parseInt((String)request.getParameter("products_idx"));
 		
+		
 		//불러올 CSS
 		/*
 		클래스_테이블1

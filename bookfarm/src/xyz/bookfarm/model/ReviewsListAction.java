@@ -33,7 +33,9 @@ public class ReviewsListAction implements Action {
 			int		customers_idx=	vo.getIdx();
 			
 		if(req.getParameter("products_idx")!=null)	
-					products_idx=	Integer.parseInt(req.getParameter("products_idx"));		
+					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
+		else if(req.getAttribute("products_idx")!=null)
+					products_idx=	(int)req.getAttribute("products_idx");
 					
 		if(req.getParameter("page")!=null)
 					page		=	Integer.parseInt(req.getParameter("page"));
@@ -91,7 +93,7 @@ public class ReviewsListAction implements Action {
 				{
 									req.setAttribute("list", list);
 									req.setAttribute("info", info);
-					path		+=	"?type="+type;
+					path		+=	"?type="+type+"&products_idx="+products_idx;
 				}
 				else
 				{ 

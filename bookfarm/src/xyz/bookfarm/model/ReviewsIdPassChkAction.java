@@ -21,6 +21,7 @@ public class ReviewsIdPassChkAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		int		page			=	Integer.parseInt(req.getParameter("page"));
 		int		idx				=	Integer.parseInt(req.getParameter("idx"));
+		//System.out.println("비번확인에서 리뷰 idx: "+idx);
 		String	type			=	req.getParameter("type");
 		String	typeView		=	req.getParameter("typeView");
 		
@@ -28,7 +29,9 @@ public class ReviewsIdPassChkAction implements Action {
 		String	password		=	req.getParameter("password");
 		
 		ReviewDAO dao			=	new ReviewDAO();
-		int 	result			=	dao.pwdCheck(dao.getReviewWriterIdx(idx), username, password);
+		int		customer_idx	=	dao.getReviewWriterIdx(idx);
+		//System.out.println("구매자 idx:"+customer_idx);
+		int 	result			=	dao.pwdCheck(customer_idx, username, password);
 		if(result>0)
 		{
 									req.setAttribute("idx", idx);
@@ -38,6 +41,8 @@ public class ReviewsIdPassChkAction implements Action {
 									System.out.println("체크?: "+idx+"/"+page);
 			if(typeView.equals("delete"))
 			{
+		int		products_idx	=	dao.getProduct_idx(idx);
+									req.setAttribute("products_idx", products_idx);
 				path			=	"qReviewsDelete.do";	// ?/?
 			}
 		}

@@ -57,7 +57,13 @@
 </script>
 </head>
 <body>
+<%if(typeView.equals("insert")){ %>
 <form action="../qReviewsInsert.do" method="post">
+<%}else if(typeView.equals("modify")){ %>
+<form action="qReviewsInsert.do" method="post">
+<%}else{ %>
+<form action="./qReviewsList.do" method="post">
+<%} %>
 <table>
 	<%	if(typeView.equals("view")){ %>
 		<caption>리뷰 보기</caption>

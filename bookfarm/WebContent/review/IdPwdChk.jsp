@@ -5,7 +5,7 @@
 	int		currentPage		=	Integer.parseInt(request.getParameter("page"));	
 	String	type			=	request.getParameter("type");
 	String	typeView		=	request.getParameter("typeView");
-	int		idx				=	0;
+	int		idx				=	Integer.parseInt(request.getParameter("idx"));
 	int		products_idx	=	Integer.parseInt(request.getParameter("products_idx"));
 	
 	//CSS
