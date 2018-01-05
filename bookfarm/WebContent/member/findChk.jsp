@@ -32,6 +32,10 @@ function register_check(form){
 		<td><label>이름</label>
 		<td><input type="text" name="firstname" placeholder="이름"></td>
 	</tr>
+	<tr>
+		<td><input type="submit" class="btn" value="회원 정보 찾기"></td>
+		<td ><a href="../index.jsp"><input type="button" class="btn" value="뒤로가기"></a></td>
+	</tr>
 </table>
 </form>
 </body>

@@ -122,7 +122,7 @@ public class MallActionFactory
 		else if (cmd.equals("/qCustomerFind.do"))
 		{
 			log.debug("QQQQQQQQQQ qCustomerFind.do action create Start.");
-			action = new CustomerFindAction("./find.jsp");
+			action = new CustomerFindAction("./member/find.jsp");
 			log.debug("QQQQQQQQQQ qCustomerFind.do action create End.");
 		}
 		else if (cmd.equals("/qCustomerLogout.do"))

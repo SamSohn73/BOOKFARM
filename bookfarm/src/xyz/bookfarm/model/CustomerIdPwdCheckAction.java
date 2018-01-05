@@ -27,39 +27,30 @@ public class CustomerIdPwdCheckAction implements Action {
 		String		password	=	req.getParameter("password");
 		String		type		=	req.getParameter("type");
 		int			result		=	0;
-		/*if(req.getAttribute("type")!=null)
-					type		=	(String)req.getAttribute("type");*/		
-		HttpSession	session		=	req.getSession();
+		
 		CustomerDAO	dao			=	new	CustomerDAO();
 		CustomerVO	vo			=	new	CustomerVO();
-					
+		CustomerVO	LoginedVO	=	null;
+		HttpSession	session		=	req.getSession();
 		
-		if(type=="modify")
+		if(type.equals("modify"))
 		{
-					vo			=	(CustomerVO) session.getAttribute("LoginedUserVO");
-									req.setAttribute("vo", vo);
-					path		=	"./member/regist_v2.jsp?type=modify";
-					
-					
-					
+					LoginedVO	=	(CustomerVO)session.getAttribute("LoginedUserVO");
+					vo			=	dao.pwdCheck(username, password);
+			if(LoginedVO.getIdx()==vo.getIdx())
+			{
+									//req.setAttribute("vo", vo);
+					path		=	"./member/regist_v2.jsp";
+					result		=	vo.getIdx();	//아무 수나 넣어줌-> 정상적으로 가져온 것 확인
+			}
 		}
-		else if(type=="login")
+		else if(type.equals("login"))
 		{
 					vo			=	dao.pwdCheck(username, password);
 			if(vo != null)
 			{
 									session.setAttribute("LoginedUserVO", vo);
 					result		=	dao.login(vo.getIdx());
-				if(result>0)
-				{
-									log.info("Successfully logined...");
-				}
-				else
-				{
-									log.error("QQQQQQQQ CustomerIdPwdCheckAction error :"
-									+ " DB can not get customer data");
-					path		=	"";	//에러페이지로 이동, 에러값 가지고
-				}
 			}
 			else
 			{
@@ -67,6 +58,20 @@ public class CustomerIdPwdCheckAction implements Action {
 									+ " DB can not get customer data");
 					path		=	"view/error.jsp?type=login";
 			}
+					
+		}
+		
+		
+		//result check
+		if(result>0)
+		{
+							log.info("Successfully logined...or modify check is Ok!!!!!!");
+		}
+		else
+		{
+							log.error("QQQQQQQQ CustomerIdPwdCheckAction error :"
+							+ " DB can not get customer data or customer's id,pass were wrong..");
+			path		=	"";	//에러페이지로 이동, 에러값 가지고
 		}
 			
 		return new ActionForward(path, true);

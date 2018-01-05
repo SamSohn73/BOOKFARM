@@ -29,6 +29,7 @@ public class CustomerRegistAction implements Action {
 		String		type			=	req.getParameter("type");
 										System.out.println(type);
 		CustomerVO	vo				=	new CustomerVO();
+		CustomerDAO	dao				=	new	CustomerDAO();
 				
 		int			result			=	0;
 		
@@ -40,19 +41,15 @@ public class CustomerRegistAction implements Action {
 										vo.setAddress2(req.getParameter("address2"));
 										vo.setPhone1(req.getParameter("phone1"));
 										vo.setEmail1(req.getParameter("email1"));
+										vo.setGender(req.getParameter("user_gender"));
 										
-		
-		String		date_s			=	req.getParameter("birthday");								
+		String		date_s			=	req.getParameter("birthday");
 		SimpleDateFormat format		=	new SimpleDateFormat("yyyyMMdd");
 		Date		parsed			=	format.parse(date_s);
 		java.sql.Date	sql			=	new java.sql.Date(parsed.getTime());
 										vo.setBirthday(sql);
 										System.out.println(sql);
-
-										vo.setGender(req.getParameter("user_gender"));
-												
-		CustomerDAO	dao				=	new	CustomerDAO();
-		
+										
 		if(type.equals("insert"))
 		{
 					result			=	dao.insert(vo);
@@ -80,15 +77,17 @@ public class CustomerRegistAction implements Action {
 					path			=	"";	//에러페이지로 이동, 에러값 가지고
 		}
 		
-			if(result>0)
+		
+		//result check
+		if(result>0)
 										log.info("Successfully inserted...");
-			else
-			{
+		else
+		{
 										log.error("QQQQQQQQ CustomerRegistAction error :"
 										+ " customerDB was not updated.. ");
-						path		=	"";	//에러페이지로 이동, 에러값 가지고
-			}
+					path			=	"";	//에러페이지로 이동, 에러값 가지고
+		}
 		
-		return new ActionForward(path, false);
+		return new ActionForward(path, true);
 	}
 }

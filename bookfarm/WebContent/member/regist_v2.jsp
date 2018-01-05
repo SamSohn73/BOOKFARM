@@ -3,15 +3,15 @@
     pageEncoding="UTF-8"%>
 <%
 	//입력 변수
-	String		type			=	"insert";	//view, insert, modify	
+	String		type			=	"modify";	//view, insert, modify	
 	CustomerVO	cVo				=	null;
 	
 	
-	if(request.getAttribute("type")!=null)
-				type			=	(String)request.getAttribute("type");
+	if(request.getParameter("type")!=null)
+				type			=	(String)request.getParameter("type");
 	
-	if(type=="modify" || type=="view")
-				cVo				=	(CustomerVO) session.getAttribute("LoginedUserVO");
+	if(type.equals("modify") || type.equals("view"))
+				cVo				=	(CustomerVO)session.getAttribute("LoginedUserVO");
 	
 	//CSS
 	/*
@@ -75,13 +75,17 @@
 </script>
 </head>
 <body>
-<form action="../qCustomerRegist.do?type=<%=type %>" method="post">
-<table>
 	<%	if(type.equals("view")){ %>
+<form action="./qCustomerRegist.do?type=<%=type %>" method="post">
+<table>
 		<caption>회원 정보 보기</caption>
 	<%	}else if(type.equals("modify")){ %>
+<form action="../qCustomerRegist.do?type=<%=type %>" method="post">
+<table>
 		<caption>회원 정보 수정</caption>
 	<%	}else{ %>
+<form action="../qCustomerRegist.do?type=<%=type %>" method="post">
+<table>
 		<caption>회원가입</caption>
 	<%	} %>	
 	<tr>

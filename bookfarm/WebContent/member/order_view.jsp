@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="xyz.bookfarm.vo.CustomerVO" %>
+<%@page import="java.util.Vector" %>
 <%
 	CustomerVO	vo			=	(CustomerVO)request.getAttribute("LoginedUserVO");
-	
+	String		type		=	null;
+	if(request.getParameter("type")!=null)
+				type		=	request.getParameter("type");
 		
 		
 %>    
@@ -15,18 +18,18 @@
 </head>
 <body>
 		<table class="클래스_테이블1">
-			<caption>주문자 정보</caption>
+			<caption>주문 정보</caption>
 			<tr class="클래스_tr_top1">
 				<td class="left">주문하신 분</td>
 				<td colspan="3" class="right">user_name</td>
 			</tr>
 			<tr class="클래스_tr_top1">
 				<td class="left">휴대폰번호</td>
-				<td class="right">user_tel1</td>										
+				<td class="right">user_tel1</td>
 				<td class="left">이메일</td>
 				<td class="right">user_email</td>
 			</tr>
-</table>
+		</table>
 		<table class="클래스_테이블1">
 			<caption>구매 내역 확인</caption>
 			<tr class="클래스_tr타이틀1">
@@ -41,7 +44,7 @@
 				<td class="클래스_td_align1">purchase_num</td>
 				<td align="left"><a href="qHitUpdate.do?board_num=글번호&page=페이지번호">
 				purchase_info</a></td>	
-				<td>purchase_count</td>									
+				<td>purchase_count</td>
 				<td>purchase_price</td>
 				<td>purchase_date</td>
 			</tr>
@@ -54,7 +57,7 @@
 			</tr>
 			<tr class="클래스_tr_top1">
 				<td class="left">휴대폰번호</td>
-				<td class="right">user_tel1</td>										
+				<td class="right">user_tel1</td>
 				<td class="left">전화번호</td>
 				<td class="right">user_tel2</td>
 			</tr>

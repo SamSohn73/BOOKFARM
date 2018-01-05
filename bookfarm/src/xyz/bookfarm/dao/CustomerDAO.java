@@ -364,8 +364,8 @@ public class CustomerDAO {
 	{
 			String	sql		=	"update customer set username=?, password=?, firstname=?, "
 								+ "Postcode=?, Address1=?, Address2=?, Phone1=?, Email1=?, "
-								+ "gender=?, newsletter=?, Birthday=?, "
-								+ "last_login=now(), where idx=?";
+								+ "gender=?, Birthday=?, "
+								+ "last_login=now() where idx=?";
 			int		result	=	0;
 		try {
 					con		=	getConnection();
@@ -379,9 +379,8 @@ public class CustomerDAO {
 								pstmt.setString(7, vo.getPhone1());
 								pstmt.setString(8, vo.getEmail1());
 								pstmt.setString(9, vo.getGender());
-								pstmt.setString(10, vo.getNewsletter());
-								pstmt.setDate(11, vo.getBirthday());
-								pstmt.setInt(12, idx);
+								pstmt.setDate(10, vo.getBirthday());
+								pstmt.setInt(11, idx);
 								
 					result	=	pstmt.executeUpdate();
 		}

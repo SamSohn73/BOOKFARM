@@ -58,7 +58,7 @@
 		<%if(type.equals("login")){ %>
 		<tr>
 			<td>
-				<a href="regist_v2.jsp" target="_top">
+				<a href="regist_v2.jsp?type=insert" target="_top">
 				<input type="button" class="btn" value="회원가입"></a>
 				<a href="findChk.jsp" target="_top">
 				<input type="button" class="btn" value="아이디/비번 확인"></a>

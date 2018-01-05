@@ -37,7 +37,7 @@
 				<td colspan="3" class="right"><%=cVo.getAddress2() %></td>
 			</tr>
 			<tr>
-				<td align="right"><a href="./member/login.jsp?type=modify">
+				<td align="right"><a href="./login.jsp?type=modify">
 				내정보 수정</a></td>
 			</tr>
 		</table>
@@ -71,5 +71,6 @@
 				height="450" width="800"></iframe>
 		
 		<a href="../qCustomerLogout.do">logout</a>
+		<a href="hansol_main_example.jsp">메인으로</a>
 </body>
 </html>

@@ -45,15 +45,18 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script>
-	function returnList(){
+	function returnList1(){
+		location.href="../qReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
+	}
+	function returnList2(){
 		location.href="./qReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
-	}	
-	function modifyList(){	
+	}
+	function modifyList(){
 		location.href="./review/IdPwdChk.jsp?idx=<%=idx%>&page=<%=currentPage%>&type=<%=type%>&typeView=modify&products_idx=<%=products_idx%>";
 	}
 	function deleteRow(){
 		location.href="./review/IdPwdChk.jsp?idx=<%=idx%>&page=<%=currentPage%>&type=<%=type%>&typeView=delete&products_idx=<%=products_idx%>";
-	}	
+	}
 </script>
 </head>
 <body>
@@ -110,8 +113,11 @@
 	<tr>
 		<td colspan="2" class="btn_align">
 		<input class="btn" type="button" value="뒤로가기" onclick="javascript:history.back()">
-		<input class="btn" type="button" value="목록보기"onclick="returnList()">
-		
+		<%		if(type.equals("list")){ %>
+		 <input class="btn" type="button" value="목록보기"onclick="returnList2()">
+		<%		}else if(type.equals("myList")){ %>
+		 <input class="btn" type="button" value="목록보기"onclick="returnList2()">
+		<%		} %>
 		
 		<%		if(vo.getCustomers_idx()==(cVo.getIdx())){ %>
 		 <input class="btn" type="button" value="수정하기"onclick="modifyList()">
@@ -129,8 +135,12 @@
 		<input class="btn" type="submit" value="수정">
 		<%		} %>
 		
-		<%		if(type.equals("list") || type.equals("myList")){ %>
-		 <input class="btn" type="button" value="목록보기"onclick="returnList()">		
+		<%		if(type.equals("list") && typeView.equals("insert")){ %>
+		 <input class="btn" type="button" value="목록보기"onclick="returnList1()">
+		<%		}else if(type.equals("list") && typeView.equals("modify")){ %>
+		 <input class="btn" type="button" value="목록보기"onclick="returnList2()">
+		<%		}else if(type.equals("myList")){ %>
+		 <input class="btn" type="button" value="목록보기"onclick="returnList2()">
 		<%		} %>
 		</td>
 	</tr>
