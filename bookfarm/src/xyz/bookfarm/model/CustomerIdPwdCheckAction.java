@@ -26,46 +26,48 @@ public class CustomerIdPwdCheckAction implements Action {
 		String		username	=	req.getParameter("username");
 		String		password	=	req.getParameter("password");
 		String		type		=	req.getParameter("type");
-		
-		if(req.getAttribute("type")!=null)
-					type		=	(String)req.getAttribute("type");
-		
+		int			result		=	0;
+		/*if(req.getAttribute("type")!=null)
+					type		=	(String)req.getAttribute("type");*/		
+		HttpSession	session		=	req.getSession();
 		CustomerDAO	dao			=	new	CustomerDAO();
 		CustomerVO	vo			=	new	CustomerVO();
-					vo			=	dao.pwdCheck(username, password);
 					
-		if(vo != null)
+		
+		if(type=="modify")
 		{
-		HttpSession	session		=	req.getSession();
-									session.setAttribute("LoginedUserVO", vo);
-		}
-		else
-		{
-					path		=	"view/error.jsp?type=login";
-		}
-					
-				if(vo==null)
-				{
-									log.error("QQQQQQQQ CustomerIdPwdCheckAction error :"
-									+ " DB can not get customer data");
-				}
-				
-				if(type=="modify")
+					vo			=	(CustomerVO) session.getAttribute("LoginedUserVO");
+									req.setAttribute("vo", vo);
 					path		=	"./member/regist_v2.jsp?type=modify";
-				else if(type=="login")
+					
+					
+					
+		}
+		else if(type=="login")
+		{
+					vo			=	dao.pwdCheck(username, password);
+			if(vo != null)
+			{
+									session.setAttribute("LoginedUserVO", vo);
+					result		=	dao.login(vo.getIdx());
+				if(result>0)
 				{
-				int	result		=	dao.login(vo.getIdx());
-					if(result>0)
-					{
 									log.info("Successfully logined...");
-					}
-					else
-					{
+				}
+				else
+				{
 									log.error("QQQQQQQQ CustomerIdPwdCheckAction error :"
 									+ " DB can not get customer data");
 					path		=	"";	//에러페이지로 이동, 에러값 가지고
-					}
 				}
+			}
+			else
+			{
+									log.error("QQQQQQQQ CustomerIdPwdCheckAction error :"
+									+ " DB can not get customer data");
+					path		=	"view/error.jsp?type=login";
+			}
+		}
 			
 		return new ActionForward(path, true);
 	}

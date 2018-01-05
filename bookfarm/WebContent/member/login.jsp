@@ -1,20 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	//입력 변수
-	String	review_num			= "";
+	String	type	=	"login";
+	if(request.getParameter("type")!=null)
+			type	=	request.getParameter("type");
 
-	//출력 변수
-			review_num			= "";
-			
 	//CSS
 	/*
 	login_btn
 	btn
 	*/
-
-	//리뷰 수정시 ? 리뷰 번호 가져오기
-	review_num = request.getParameter("review_num");
 %>
 <!DOCTYPE html>
 <html>
@@ -39,7 +34,7 @@
 </script>
 </head>
 <body onload="pwdCheck.pwd.focus()">
-<form name="pwdCheck" method="post" action="../qCustomerIdPwdCheck.do?type=login" target="_top">
+<form name="pwdCheck" method="post" action="../qCustomerIdPwdCheck.do?type=<%=type %>" target="_top">
 	<table>
 		<caption>아이디 비밀번호 입력</caption>
 		
@@ -47,9 +42,12 @@
 			<td>
 				<input type="text" size="20" name="username" required="required">
 			</td>
-			<td rowspan="2">
-				<a href="regist_v2.jsp" target="_top">
-				<input type="submit" class="login_btn" value="로그인"></a>
+			<td rowspan="2">				
+				<%if(type.equals("login")){ %>
+				<input type="submit" class="login_btn" value="로그인">
+				<%}else if(type.equals("modify")){ %>
+				<input type="submit" class="login_btn" value="확인">
+				<%} %>
 			</td>
 		</tr>
 		<tr>
@@ -57,6 +55,7 @@
 				<input type="password" size="20" name="password" required="required">
 			</td>
 		</tr>
+		<%if(type.equals("login")){ %>
 		<tr>
 			<td>
 				<a href="regist_v2.jsp" target="_top">
@@ -65,6 +64,7 @@
 				<input type="button" class="btn" value="아이디/비번 확인"></a>
 			</td>			
 		</tr>
+		<%} %>
 	</table>
 </form>
 </body>

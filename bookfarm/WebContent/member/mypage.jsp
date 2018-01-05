@@ -37,7 +37,7 @@
 				<td colspan="3" class="right"><%=cVo.getAddress2() %></td>
 			</tr>
 			<tr>
-				<td align="right"><a href="./qCustomerIdPwdCheck.do?type=modify">
+				<td align="right"><a href="./member/login.jsp?type=modify">
 				내정보 수정</a></td>
 			</tr>
 		</table>
