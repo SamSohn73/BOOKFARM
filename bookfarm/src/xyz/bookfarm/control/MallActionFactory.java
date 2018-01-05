@@ -173,12 +173,12 @@ public class MallActionFactory
 			action = new ReviewsInsertAction("qReviewsLists.do");
 			log.debug("QQQQQQQQQQ qReviewsInsert.do action create End.");
 		}
-		else if(cmd.equals("/qReviewsModify.do"))
+		/*else if(cmd.equals("/qReviewsModify.do"))
 		{
 			log.debug("QQQQQQQQQQ qReviewsModify.do action create Start.");
 			action = new ReviewsModifyAction("qReviewsView.do");
 			log.debug("QQQQQQQQQQ qReviewsModify.do action create End.");
-		}
+		}*/
 		else if(cmd.equals("/qReviewsDelete.do"))
 		{
 			log.debug("QQQQQQQQQQ qReviewsDelete.do action create Start.");

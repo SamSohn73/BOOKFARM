@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%
 	//입력 변수
-	String	currentPage		=	request.getParameter("page");
-	int		customers_idx	=	Integer.parseInt(request.getParameter("customers_idx"));
-	int		products_idx	=	Integer.parseInt(request.getParameter("products_idx"));
+	int		currentPage		=	Integer.parseInt(request.getParameter("page"));	
 	String	type			=	request.getParameter("type");
 	String	typeView		=	request.getParameter("typeView");
-
+	int		idx				=	0;
+	int		products_idx	=	Integer.parseInt(request.getParameter("products_idx"));
+	
 	//CSS
 	/*
 	login_btn
@@ -55,10 +55,9 @@
 			</td>
 		</tr>
 	</table>
-	<input type="hidden" name="currentPage" value="<%=currentPage %>">
-	<input type="hidden" name="customers_idx" value="<%=customers_idx %>">
-	<input type="hidden" name="products_idx" value="<%=products_idx %>">
+	<input type="hidden" name="page" value="<%=currentPage %>">
 	<input type="hidden" name="type" value="<%=type %>">
+	<input type="hidden" name="idx" value="<%=idx %>">
 	<input type="hidden" name="typeView" value="<%=typeView %>">
 </form>
 </body>

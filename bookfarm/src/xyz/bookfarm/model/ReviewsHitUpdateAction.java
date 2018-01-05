@@ -21,10 +21,8 @@ public class ReviewsHitUpdateAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String		page			=	req.getParameter("page");
-		int			idx				=	Integer.parseInt(req.getParameter("idx"));
-		int			customers_idx	=	Integer.parseInt(req.getParameter("customers_idx"));
-		int			products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
+		int			page			=	Integer.parseInt(req.getParameter("page"));
+		int			idx				=	Integer.parseInt(req.getParameter("idx"));		
 		String		type			=	req.getParameter("type");
 		String		typeView		=	req.getParameter("typeView");
 		
@@ -32,30 +30,36 @@ public class ReviewsHitUpdateAction implements Action {
 		int 		result			=	dao.hitUpdate(idx);
 		if(result>0)
 		{
-			
-			if(req.getParameter("customers_idx")!=null)
+			if(type.equals("myPage"))
 			{
 										req.setAttribute("idx", idx);
 										req.setAttribute("page", page);
 										req.setAttribute("type", type);
 										req.setAttribute("typeView", typeView);
-										req.setAttribute("customers_idx", customers_idx);
 					//path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
 			}
-			else if(req.getParameter("products_idx")!=null)
+			else if(type.equals("myList"))
+			{
+										req.setAttribute("idx", idx);
+										req.setAttribute("page", page);
+										req.setAttribute("type", type);
+										req.setAttribute("typeView", typeView);
+					//path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
+			}
+			else if(type.equals("list"))
 			{
 										req.setAttribute("idx", idx);
 										req.setAttribute("page", page);			
 										req.setAttribute("type", type);
 										req.setAttribute("typeView", typeView);
-										req.setAttribute("products_idx", products_idx);
 					//path			+=	"?idx="+idx+"&products_idx="+products_idx+"type="+type;
 			}
 			else
 			{
 										log.error("QQQQQQQQ ReviewsHitUpdateAction no"
-												+ " products or customers idx error");
+										+ " type 형태가 틀림 : "+type);				
 			}
+			System.out.println("중간idx확인 : "+idx);
 		}
 		else
 		{

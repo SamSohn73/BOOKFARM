@@ -318,7 +318,7 @@ public class CustomerDAO {
 	public int logout(int idx)
 	{
 		int			result		=	0;
-		String		sql			=	"update customer set on_line=?, where idx=?";
+		String		sql			=	"update customer set on_line=? where idx=?";
 		try 
 		{
 					con			=	getConnection();
@@ -398,5 +398,33 @@ public class CustomerDAO {
 		return result;
 	}
 	
-	
+	public String getName(int idx)
+	{
+		String		name	=		null;
+		
+		try
+		{
+			String 	sql		=		"select username from Customer where idx=?";
+					con		=		getConnection();
+					pstmt	=		con.prepareStatement(sql);
+									pstmt.setInt(1, idx);
+					rs		=		pstmt.executeQuery();
+			if(rs.next())
+			{
+					name	=		rs.getString("username");
+			}
+		}
+		catch (SQLException e)
+		{			
+									log.error("CustomerDAO	"
+											+ "getName error : "+e);
+		}
+		finally
+		{
+									close(rs);
+									close(pstmt);
+									close(con);
+		}		
+		return name;	
+	}
 }

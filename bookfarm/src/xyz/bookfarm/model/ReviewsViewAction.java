@@ -20,39 +20,36 @@ public class ReviewsViewAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String		page			=	(String)req.getAttribute("page");
-		int			idx				=	Integer.parseInt((String)req.getAttribute("idx"));
-		int			customers_idx	=	Integer.parseInt((String)req.getAttribute("customers_idx"));
-		int			products_idx	=	Integer.parseInt((String)req.getAttribute("products_idx"));
+		int		page				=	(int)req.getAttribute("page");
+		int		idx					=	(int) req.getAttribute("idx");
+		int		products_idx		=	0;
 		String		type			=	(String)req.getAttribute("type");
 		String		typeView		=	(String)req.getAttribute("typeView");
 		
-		ReviewDAO 	dao				=	new ReviewDAO();
-			
-		ReviewVO	vo				=	dao.getRow(idx);
-		
-		if(vo!=null) 
+		if(typeView.equals("insert"))
 		{
-										req.setAttribute("vo", vo);
-										req.setAttribute("page", page);
-										req.setAttribute("type", type);
-										req.setAttribute("typeView", typeView);
-										req.setAttribute("idx", idx);
-			if(req.getParameter("customers_idx")!=null)
-										req.setAttribute("customers_idx", customers_idx);
-			else if(req.getParameter("products_idx")!=null)
+				products_idx		=	(int) req.getAttribute("products_idx");
 										req.setAttribute("products_idx", products_idx);
-			else
-			{
-										log.error("QQQQQQQQ ReviewsViewAction no"
-												+ " products or customers idx error");
-			}
 		}
 		else
 		{
+		ReviewDAO 	dao				=	new ReviewDAO();
+		ReviewVO	vo				=	dao.getRow(idx);
+			
+			if(vo!=null) 
+			{
+										req.setAttribute("vo", vo);
+										req.setAttribute("idx", idx);
+					path			+=	"?type="+type+"&typeView="+typeView+"&page="+page;
+				
+			}
+			else
+			{
 										log.error("QQQQQQQQ ReviewsViewAction error : vo is empty");
 					path			=	"";
+			}
 		}
+		
 		
 		return new ActionForward(path, false);
 	}

@@ -3,60 +3,33 @@
 <%@ page import="java.util.Vector"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="xyz.bookfarm.vo.ReviewVO" %>
+<%@ page import="xyz.bookfarm.vo.CustomerVO" %>
 <%@ page import="xyz.bookfarm.dao.ReviewDAO" %>
-<%@ page	import="xyz.bookfarm.vo.PageVO" %>
+<%@ page import="xyz.bookfarm.dao.CustomerDAO" %>
+<%@ page import="xyz.bookfarm.vo.PageVO" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
 <%	
-	//뷰, 삽입/수정 공용페이지
-	//입력,출력 변수들
-	String	type				=	"";	//This is index which indicate where connection from...
-	if(request.getParameter("type")!=null)
-			type				=	request.getParameter("type");
-	else if(request.getAttribute("type")!=null)
-			type				=	(String)request.getAttribute("type");
+	HttpSession	sess			=	request.getSession();
+	String	type				=	request.getParameter("type");
+	String	typeView			=	request.getParameter("typeView");//view,insert,modify
 	
-	String	typeView			=	"";	//view,insert,modify	
-	if(request.getParameter("typeView")!=null)
-			typeView			=	request.getParameter("typeView");
-	else if(request.getAttribute("typeView")!=null)
-			typeView			=	(String)request.getAttribute("typeView");
+	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("LoginedUserVO");
+	ReviewVO	vo				=	null;
+	CustomerDAO	cDao			=	null;
+	int			idx				=	0;
+	int			currentPage		=	1;	
+	int			products_idx	=	0;
 	
-	int		idx					=	Integer.parseInt((String)request.getAttribute("idx"));
-	int		products_idx		=	0;
-	int		customers_idx		=	0;	
-	int		currentPage			=	1;
-	String	reviewUsername		=	"";
-	String	username			=	"";
-			/*username			=	(String)request.getAttribute("username");*/
-	String	review_title		=	null;
-	String	review_text			=	null;
-	
-	if(typeView.equals("insert"))
+	if(typeView.equals("view") || typeView.equals("modify"))
 	{
+				vo				=	(ReviewVO)request.getAttribute("vo");
+				cDao			=	new CustomerDAO();
+				idx				=	(int)request.getAttribute("idx");
+				currentPage		=	Integer.parseInt(request.getParameter("page"));
+				products_idx	=	vo.getProducts_idx();
+	}
+	else if(typeView.equals("insert"))
 			products_idx		=	Integer.parseInt(request.getParameter("products_idx"));
-			currentPage			=	Integer.parseInt(request.getParameter("page"));
-	}
-	else if(typeView.equals("view"))
-	{
-			currentPage			=	Integer.parseInt((String)request.getAttribute("page"));
-			products_idx		=	Integer.parseInt((String)request.getAttribute("products_idx"));
-			customers_idx		=	Integer.parseInt((String)request.getAttribute("customers_idx"));
-	
-	ReviewVO vo				=	(ReviewVO)request.getAttribute("vo");
-			/*reviewUsername	=	cDao.getUsername(vo.getCustomers_idx());*/
-			review_title		=	vo.getReview_title();
-			review_text			=	vo.getReview_text();	
-	}
-	else if(typeView.equals("modify"))
-	{
-			currentPage			=	Integer.parseInt((String)request.getAttribute("page"));
-			products_idx		=	Integer.parseInt((String)request.getAttribute("products_idx"));
-			customers_idx		=	Integer.parseInt((String)request.getAttribute("customers_idx"));
-			
-	ReviewVO vo				=	(ReviewVO)request.getAttribute("vo");
-			review_title		=	vo.getReview_title();
-			review_text			=	vo.getReview_text();
-									request.setAttribute("type", type);
-	}
 
 	/*CSS	
 	left
@@ -73,22 +46,14 @@
 <title>Insert title here</title>
 <script>
 	function returnList(){
-		location.href="../qReviewsList.do?page=<%=currentPage%>&products_idx=<%=products_idx%>&type=<%=type%>";
-	}
-	function returnMyList(){
-		location.href="../qReviewsList.do?page=<%=currentPage%>&customers_idx=<%=customers_idx%>&type=<%=type%>";
-	}
-	function modifyList(){		
-		<% request.setAttribute("typeView", "modify"); %>		
-		location.href="./review/IdPwdChk.jsp?idx=<%=idx%>&page=<%=currentPage%>&customers_idx=<%=customers_idx%>&products_idx=<%=products_idx%>&type=<%=type%>";
+		location.href="./qReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
 	}	
-	function modify(){
-		location.href="../qReviewsModify.do?idx=<%=idx%>&page=<%=currentPage%>&customers_idx=<%=customers_idx%>&products_idx=<%=products_idx%>&type=<%=type%>";
+	function modifyList(){	
+		location.href="./review/IdPwdChk.jsp?idx=<%=idx%>&page=<%=currentPage%>&type=<%=type%>&typeView=modify&products_idx=<%=products_idx%>";
 	}
 	function deleteRow(){
-		<% request.setAttribute("typeView", "delete"); %>
-		location.href="./review/IdPwdChk.jsp?idx=<%=idx%>&page=<%=currentPage%>&customers_idx=<%=customers_idx%>&products_idx=<%=products_idx%>&type=<%=type%>";
-	}
+		location.href="./review/IdPwdChk.jsp?idx=<%=idx%>&page=<%=currentPage%>&type=<%=type%>&typeView=delete&products_idx=<%=products_idx%>";
+	}	
 </script>
 </head>
 <body>
@@ -105,11 +70,11 @@
 		<td class="left">글쓴이</td>
 		<td class="right"><input type="text" name="review_writer" size="15" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly"value=<%=reviewUsername %>
+		readonly="readonly"value=<%=cDao.getName(vo.getCustomers_idx()) %>
 		<%	}else if(typeView.equals("modify")){ %>
-		readonly="readonly"value=<%=reviewUsername %>
+		readonly="readonly"value=<%=cDao.getName(vo.getCustomers_idx()) %>
 		<%	}else{ %>
-		readonly="readonly"value=<%=username %>
+		readonly="readonly"value=<%=cVo.getUsername() %>
 		<%	} %>
 		></td>
 	</tr>
@@ -117,11 +82,11 @@
 		<td class="left">제목</td>
 		<td class="right"><input type="text" name="review_title" size="40" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly" value=<%=review_title %> 
+		readonly="readonly" value=<%=vo.getReview_title() %> 
 		<%	}else if(typeView.equals("modify")){ %>
-		value=<%=review_title %>
+		value=<%=vo.getReview_title() %>
 		<%	}else{ %>
-		
+		placeholder="리뷰 제목"
 		<%	} %>
 		></td>
 	</tr>
@@ -129,26 +94,20 @@
 		<td class="left">내용</td>
 		<td class="right"><textarea name="review_text" rows="15" cols="50" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly"><%=review_text %> 
+		readonly="readonly"><%=vo.getReview_text() %> 
 		<%	}else if(typeView.equals("modify")){ %>
-		><%=review_text %>
+		><%=vo.getReview_text() %>
 		<%	}else{ %>
-		>
-		<%	} %>
-		</textarea></td>
+		placeholder="리뷰 내용"><%}%></textarea></td>
 	</tr>
 		<%	if(typeView.equals("view")){ %>
 	<tr>
 		<td colspan="2" class="btn_align">
 		<input class="btn" type="button" value="뒤로가기" onclick="javascript:history.back()">
+		<input class="btn" type="button" value="목록보기"onclick="returnList()">
 		
-		<%		if(type.equals("list")){ %>
-		 <input class="btn" type="button" value="목록보기"onclick="returnList()">
-		<% 		}else if(type.equals("myList")){ %>
-		 <input class="btn" type="button" value="목록보기"onclick="returnMyList()">
-		<%		} %>
 		
-		<%		if(username.equals(reviewUsername)){ %>
+		<%		if(vo.getCustomers_idx()==(cVo.getIdx())){ %>
 		 <input class="btn" type="button" value="수정하기"onclick="modifyList()">
 		 <input class="btn" type="button" value="삭제하기"onclick="deleteRow()">
 		<%		} %>
@@ -159,26 +118,25 @@
 		<td colspan="2" class="btn_align">
 		<%		if(typeView.equals("insert")){ %>
 		<input class="btn" type="submit" value="등록">
+		<input class="btn" type="button" value="취소" onclick="javascript:history.back()">
 		<% 		}else if(typeView.equals("modify")){ %>
-		<input class="btn" type="button" value="수정"onclick="modify()">
+		<input class="btn" type="submit" value="수정">
 		<%		} %>
 		
-		<input class="btn" type="button" value="취소" onclick="javascript:history.back()">
-		
-		<%		if(type.equals("list")){ %>
-		 <input class="btn" type="button" value="목록보기"onclick="returnList()">
-		<% 		}else if(type.equals("myList")){ %>
-		 <input class="btn" type="button" value="목록보기"onclick="returnMyList()">
+		<%		if(type.equals("list") || type.equals("myList")){ %>
+		 <input class="btn" type="button" value="목록보기"onclick="returnList()">		
 		<%		} %>
 		</td>
 	</tr>
 		<%} %>	
 </table>
 <input type="hidden" name="page" value="<%=currentPage %>">
-<input type="hidden" name="customers_idx" value="<%=customers_idx %>">
-<input type="hidden" name="products_idx" value="<%=products_idx %>">
 <input type="hidden" name="type" value="<%=type %>">
 <input type="hidden" name="typeView" value="<%=typeView %>">
+<input type="hidden" name="products_idx" value="<%=products_idx %>">
+<%	if(typeView.equals("modify")){	%>
+<input type="hidden" name="idx" value="<%=idx %>">
+<%} %>
 </form>
 </body>
 </html>

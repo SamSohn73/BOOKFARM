@@ -123,7 +123,7 @@
 	<tr>
 		<td rowspan="2"><label>주소</label>
 		<td>
-		<input type="text" name="postcode"
+		<input type="text" name="postcode" placeholder="postcode"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getPostcode() %>
 		<%	}else if(type.equals("modify")){ %>
@@ -137,7 +137,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><input type="text" name="address1"
+		<td><input type="text" name="address1" placeholder="주소"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getAddress1() %>
 		<%	}else if(type.equals("modify")){ %>

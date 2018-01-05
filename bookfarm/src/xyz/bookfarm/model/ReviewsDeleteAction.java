@@ -19,28 +19,17 @@ public class ReviewsDeleteAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-			int		page			=	1;
+			int		page			=	(int)req.getAttribute("page");
+			int		idx				=	(int)req.getAttribute("idx");
 			String	type			=	(String)req.getAttribute("type");
-			int		idx				=	Integer.parseInt((String)req.getAttribute("idx"));
-			int		products_idx	=	0;
-			int		customers_idx	=	0;
+			String	typeView		=	(String)req.getAttribute("typeView");
 			
-			if(((String)req.getAttribute("products_idx"))!=null)	
-					products_idx	=	Integer.parseInt((String)req.getAttribute("products_idx"));
-			if(((String)req.getAttribute("customers_idx"))!=null)	
-					customers_idx	=	Integer.parseInt((String)req.getAttribute("customers_idx"));			
-			if(((String)req.getAttribute("page"))!=null)
-					page			=	Integer.parseInt((String)req.getAttribute("page"));
-	
 			ReviewDAO	dao			=	new	ReviewDAO();
 			int		result			=	dao.delete(idx);
 			
 			if(result>0)
 			{
-										req.setAttribute("page", page);
 										req.setAttribute("type", type);
-										req.setAttribute("products_idx", products_idx);
-										req.setAttribute("customers_idx", customers_idx);
 			}
 			else
 			{

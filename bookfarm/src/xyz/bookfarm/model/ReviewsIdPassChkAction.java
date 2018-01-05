@@ -19,31 +19,31 @@ public class ReviewsIdPassChkAction implements Action {
 	}
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		String	page			=	req.getParameter("page");
+		int		page			=	Integer.parseInt(req.getParameter("page"));
 		int		idx				=	Integer.parseInt(req.getParameter("idx"));
-		int		customers_idx	=	Integer.parseInt(req.getParameter("customers_idx"));
-		int		products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
 		String	type			=	req.getParameter("type");
-		String	typeView		=	(String)req.getAttribute("typeView");
+		String	typeView		=	req.getParameter("typeView");
 		
 		String	username		=	req.getParameter("username");
 		String	password		=	req.getParameter("password");
 		
 		ReviewDAO dao			=	new ReviewDAO();
-		int 	result			=	dao.pwdCheck(customers_idx, username, password);
-		if(result>0) {
+		int 	result			=	dao.pwdCheck(dao.getReviewWriterIdx(idx), username, password);
+		if(result>0)
+		{
 									req.setAttribute("idx", idx);
 									req.setAttribute("page", page);
 									req.setAttribute("typeView", typeView);
 									req.setAttribute("type", type);
-									
-			if(req.getParameter("products_idx")!=null)
-									req.setAttribute("products_idx", products_idx);
-			else if(req.getParameter("customers_idx")!=null)
-									req.setAttribute("customers_idx", customers_idx);
-			
+									System.out.println("üũ?: "+idx+"/"+page);
 			if(typeView.equals("delete"))
+			{
 				path			=	"qReviewsDelete.do";	// ?/?
+			}
+		}
+		else
+		{
+				path			=	"";
 		}
 		
 		return new ActionForward(path, false);

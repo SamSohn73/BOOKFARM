@@ -3,6 +3,7 @@
 <%@ page import="xyz.bookfarm.vo.ReviewVO" %>
 <%@ page import="xyz.bookfarm.vo.CustomerVO" %>
 <%@ page import="xyz.bookfarm.dao.ReviewDAO" %>
+<%@ page import="xyz.bookfarm.dao.CustomerDAO" %>
 <%@ page	import="xyz.bookfarm.vo.PageVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -32,7 +33,7 @@
 		}		
 		//다른 추가정보도 받음
 		//DAO declaration for customer username pick up...
-		//CustomerDAO cDao		=	new CustomerDAO();
+		CustomerDAO cDao		=	new CustomerDAO();
 									
 		//If connection comes through search....
 		String	searchCondition	=	(String)request.getAttribute("searchCondition");
@@ -114,10 +115,10 @@
 				%>
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
-					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=1&customers_idx=<%=customers_idx %>&type=myList&typeView=view">					
-					<%=vo.getReview_title()%></a></td>										
-					<td><%=userVO.getUsername()%></td>				
+					<td align="left"><a target="_top" href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
+					&page=1&type=myList&typeView=view">
+					<%=vo.getReview_title()%></a></td>
+					<td><%=cDao.getName(vo.getCustomers_idx())%></td>
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
 				<%
@@ -131,10 +132,9 @@
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
 					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=<%=currentPage%>&type=<%=type%>&typeView=view
-					&customers_idx=<%=customers_idx %>">					
-					<%=vo.getReview_title()%></a></td>										
-					<td><%=userVO.getUsername()%></td>				
+					&page=<%=currentPage%>&type=<%=type%>&typeView=view">
+					<%=vo.getReview_title()%></a></td>
+					<td><%=cDao.getName(vo.getCustomers_idx())%></td>				
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
 				<%
@@ -148,10 +148,9 @@
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
 					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=<%=currentPage%>&type=<%=type%>&typeView=view
-					&products_idx=<%=products_idx %>" target="_top">					
+					&page=<%=currentPage%>&type=<%=type%>&typeView=view">					
 					<%=vo.getReview_title()%></a></td>										
-					<td><%=userVO.getUsername()%></td>				
+					<td><%=cDao.getName(vo.getCustomers_idx())%></td>				
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
 				<%
@@ -297,18 +296,28 @@ if(!type.equals("myPage"))
 					</form>
 				</td>
 				<%
-				if(type.equals("list"))
-				{
+				if(type.equals("list") )
+				{	if(session.getAttribute("LoginedUserVO")!=null){
 				%>
 				<td align="right">
-				<a href="./review/IdPwdChk.jsp?page=<%=currentPage%>
+				<a href="./review/ReviewsWrite.jsp?page=<%=currentPage%>
 				&products_idx=<%=products_idx %>
 				&type=<%=type%>
 				&typeView=insert">[글쓰기]</a>
+				<%} %>				
+				</td>
+				<td align="right">
+				<a href="./member/hansol_main_example.jsp">[메인으로]</a>
 				</td>
 				<%
 				}
+				else if(type.equals("myList"))
+				{
 				%>
+				<td align="right">
+				<a href="./member/mypage.jsp">[마이페이지]</a>
+				</td>
+				<%} %>
 			</tr>
 </table>
 <%

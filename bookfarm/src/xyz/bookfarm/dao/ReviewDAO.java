@@ -87,7 +87,7 @@ public class ReviewDAO {
 				
 							pstmt.setInt(1, vo.getProducts_idx());
 							pstmt.setInt(2, vo.getCustomers_idx());
-							pstmt.setInt(3, vo.getReviews_rating());
+							pstmt.setInt(3, 1);
 							pstmt.setString(4, vo.getReview_title());
 							pstmt.setString(5, vo.getReview_text());	
 				
@@ -143,6 +143,34 @@ public class ReviewDAO {
 								close(con);
 		}
 		return total_rows;
+	}
+	
+	public int getReviewWriterIdx(int idx)
+	{
+		int		result		=	0;
+		String	sql			=	"select customers_idx from review where idx=?";
+		try
+		{
+				con			=	getConnection();
+				pstmt		=	con.prepareStatement(sql);
+								pstmt.setInt(1, idx);
+				rs			=	pstmt.executeQuery();
+			if(rs.next())
+				result		=	rs.getInt(1);
+		}
+		catch(SQLException e)
+		{
+								log.error("ReviewsDAO	"
+										+ "getReviewWriterIdx error : "+e);
+		}
+		finally
+		{
+								close(rs);
+								close(pstmt);
+								close(con);
+		}
+		return result;
+		
 	}
 	
 	public int oneProductsTotalRows(int products_idx)
@@ -397,7 +425,7 @@ public class ReviewDAO {
 			int		result	=	0;
 		try
 		{
-			String	sql		=	"select * from customer where "
+			String	sql		=	"select idx from customer where "
 								+ "username=? and password=?";
 					con		=	getConnection();
 					pstmt	=	con.prepareStatement(sql);
@@ -408,7 +436,8 @@ public class ReviewDAO {
 			{
 			ReviewVO	vo	=	new	ReviewVO();
 								vo.setIdx(rs.getInt(1));
-				if(vo.getIdx()==idx)
+			int		idx_i	=	vo.getIdx();					
+				if(idx_i==idx)
 					result	=	1;
 				else
 								log.error("QQQQQQQQ reviewDAO	"

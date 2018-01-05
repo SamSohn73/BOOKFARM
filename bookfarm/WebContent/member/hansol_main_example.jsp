@@ -16,7 +16,7 @@
 	<h1><%=cVo.getFirstname()%> 님이 로그인 하셨습니다.</h1>
 	<a href="mypage.jsp">myPage</a>
 	<a href="../qCustomerLogout.do">logout</a>
-	<a href="../qReviewsLists.do?type=list&products_idx=<%=product1 %>>"><%=product1 %></a>
+	<a href="../qReviewsLists.do?type=list&products_idx=<%=product1 %>"><%=product1 %></a>
 	product's review2
 	product's review3
 
