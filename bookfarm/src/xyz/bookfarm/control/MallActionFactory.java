@@ -3,6 +3,7 @@ package xyz.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
+import xyz.bookfarm.model.AdminLoginAction;
 import xyz.bookfarm.model.CustomerFindAction;
 import xyz.bookfarm.model.CustomerIdPwdCheckAction;
 import xyz.bookfarm.model.CustomerLogoutAction;
@@ -39,6 +40,11 @@ public class MallActionFactory
 	{
 		Action action = null;
 
+		if (cmd.equals("/AdminLogin.do")) {
+			log.debug("AdminLogin.do action create Start.");
+			action = new AdminLoginAction("admin/adminLogin.jsp");
+			log.debug("AdminLogin.do action create End.");
+		}
 		/*if (cmd.equals("/qWrite.do")) {
 			log.debug("QQQQQQQQ qWrite.do action create Start.");
 			action = new InsertAction("qList.do");
@@ -113,11 +119,11 @@ public class MallActionFactory
 		}
 		else if (cmd.equals("/qCustomerRegist.do"))
 		{
-			System.out.println("È¸¿ø°¡ÀÔÆäÀÌÁö½ÃÀÛ");
+			System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create Start.");
 			action = new CustomerRegistAction("./index.jsp");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create End.");
-			System.out.println("È¸¿ø°¡ÀÔÆäÀÌÁö³¡");
+			System.out.println("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 		else if (cmd.equals("/qCustomerFind.do"))
 		{

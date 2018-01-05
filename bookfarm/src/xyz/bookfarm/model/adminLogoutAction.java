@@ -22,7 +22,7 @@ public class adminLogoutAction implements Action
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		HttpSession		session	=	req.getSession();
-		AdministratorVO		vo		=	(AdministratorVO)session.getAttribute("LoginedUserVO");
+		AdminVO		vo		=	(AdminVO)session.getAttribute("LoginedUserVO");
 		int				idx		=	vo.getIdx();
 						session	=	req.getSession(false);
 		if(session.getAttribute("LoginedUserVO") != null)

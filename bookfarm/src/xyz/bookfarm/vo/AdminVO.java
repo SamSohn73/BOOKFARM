@@ -1,14 +1,14 @@
 package xyz.bookfarm.vo;
 
-public class AdministratorVO
+public class AdminVO
 {
 	private	int		idx;
 	private	String	user_name;
 	private	String	user_password;
 	
-	public AdministratorVO() {}
+	public AdminVO() {}
 
-	public AdministratorVO(int idx, String user_name, String user_password)
+	public AdminVO(int idx, String user_name, String user_password)
 	{
 		super();
 		this.idx			= idx;

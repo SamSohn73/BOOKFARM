@@ -1,6 +1,10 @@
 --
 -- DWIT Class 3 Second java project for Small Shopping mall
 --
+DROP DATABASE IF EXISTS bookfarm;
+CREATE DATABASE bookfarm;
+
+USE bookfarm;
 
 
 DROP TABLE IF EXISTS customer;
@@ -43,11 +47,11 @@ CREATE TABLE country (
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
-DROP TABLE IF EXISTS administrator;
-CREATE TABLE administrator (
+DROP TABLE IF EXISTS admin;
+CREATE TABLE admin (
 	idx				int				NOT NULL auto_increment primary key,
 	user_name		varchar(64)		binary NOT NULL,
-	user_password	varchar(64)		NOT NULL
+	user_pass		varchar(64)		NOT NULL
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
