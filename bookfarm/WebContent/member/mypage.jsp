@@ -1,10 +1,24 @@
+<%@page import="xyz.bookfarm.dao.OrdersDAO" %>
+<%@page import="xyz.bookfarm.dao.OrdersProductDAO" %>
+<%@page import="xyz.bookfarm.dao.ProductDAO" %>
 <%@page import="xyz.bookfarm.vo.CustomerVO"%>
+<%@page import="xyz.bookfarm.vo.OrdersVO"%>
+<%@page import="xyz.bookfarm.vo.ProductVO"%>
+<%@page import="xyz.bookfarm.vo.OrdersProductVO"%>
+<%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
 	CustomerVO		cVo			=	(CustomerVO) session.getAttribute("LoginedUserVO");
 	int				customer_idx=	cVo.getIdx();
+	
+	
+	/* OrdersDAO		dao			=	new OrdersDAO();
+	Vector<OrdersVO> list		=	dao.ordersList(1, 5);
+	OrdersProductDAO opDao		=	new OrdersProductDAO();
+	ProductDAO		pDao		=	new ProductDAO();
+	ProductVO		pVo			=	new ProductVO(); */
 
 %>
 <!DOCTYPE html>
@@ -42,30 +56,8 @@
 			</tr>
 		</table>
 
-		<table class="클래스_테이블1">
-			<caption>구매 내역 확인</caption>
-			<tr class="클래스_tr타이틀1">
-				<th >주문번호</th>
-				<th >상품정보</th>
-				<th >주문금액</th>
-				<th >날짜</th>
-			</tr>
-		<%for(/*VO가져온것 돌리기*/int i=0;i<=0;i++)
-		{%>
-			<tr class="클래스_tr_top1">
-				<td class="클래스_td_align1"><a href="">
-				purchase_num</a></td>
-				<td align="left"><a href="">
-				purchase_info</a></td>										
-				<td>purchase_price</td>
-				<td>purchase_date</td>
-			</tr>
-		<%}%>
-			<tr>
-				<td align="right"><a href="">
-				더보기</a></td>
-			</tr>
-		</table>
+		<iframe src="../qOrdersConfirmAction.do?type=myPage"
+				height="450" width="800"></iframe>
 		
 		<iframe src="../qReviewsLists.do?type=myPage"
 				height="450" width="800"></iframe>

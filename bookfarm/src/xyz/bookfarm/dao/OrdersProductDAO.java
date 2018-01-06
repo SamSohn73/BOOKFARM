@@ -355,4 +355,33 @@ public class OrdersProductDAO
 		
 		return total_rows;
 	}
+	
+	
+	public int SingleOrderTotalRows(int orders_idx)
+	{
+		log.debug("execute ordersProduct Single_Order's_total_rows do the DB work Start.");
+		int					total_rows	= 0;
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		String				sql			= null;
+		
+		try {
+			sql		= "select count(*) from orders_product where orders_idx=?";
+			pstmt	= con.prepareStatement(sql);
+			pstmt.setInt(1, orders_idx);
+			rs		= pstmt.executeQuery();
+			
+			if(rs.next())	
+				total_rows	= rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.fatal("execute ordersProduct total_rows do the DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		}
+		
+		log.debug("execute ordersProduct total_rows do the DB work End. total_rows= " + total_rows);
+		
+		return total_rows;
+	}
 }

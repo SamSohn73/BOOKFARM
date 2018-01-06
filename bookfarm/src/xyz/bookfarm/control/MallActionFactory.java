@@ -7,6 +7,7 @@ import xyz.bookfarm.model.CustomerFindAction;
 import xyz.bookfarm.model.CustomerIdPwdCheckAction;
 import xyz.bookfarm.model.CustomerLogoutAction;
 import xyz.bookfarm.model.CustomerRegistAction;
+import xyz.bookfarm.model.OrdersConfirmAction;
 import xyz.bookfarm.model.ReviewsDeleteAction;
 import xyz.bookfarm.model.ReviewsHitUpdateAction;
 import xyz.bookfarm.model.ReviewsIdPassChkAction;
@@ -133,6 +134,13 @@ public class MallActionFactory
 		}
 		
 		
+		//From here, I wrote the code for actions related OrdersConfirm... - hansol -
+		if (cmd.equals("/qOrdersConfirm.do"))
+		{
+			log.debug("QQQQQQQQQQ qOrdersConfirm.do action create Start.");
+			action = new OrdersConfirmAction("order_comfirm.jsp");
+			log.debug("QQQQQQQQQQ qOrdersConfirm.do action create End.");
+		}
 		
 		
 		//From here, I wrote code for review action... - hansol -

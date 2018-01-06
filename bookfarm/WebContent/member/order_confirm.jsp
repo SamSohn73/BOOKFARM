@@ -1,38 +1,43 @@
+<%@page import="org.apache.catalina.filters.CsrfPreventionFilter"%>
 <%@ page import="xyz.bookfarm.vo.OrdersVO" %>
+<%@ page import="xyz.bookfarm.dao.OrdersProductDAO" %>
+<%@ page import="xyz.bookfarm.vo.OrdersProductVO" %>
 <%@ page import="java.util.Vector" %>
+<%@ page import="java.sql.Date" %>
+<%@ page import="xyz.bookfarm.vo.PageVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-		//입력 필요한 변수들
-									//Servlet에서 담아놓은 정보 가져오기
-		//vo						//VO새로 만들고 거기에 옮기기
-									//다른 추가정보도 받음
-		
-		String	type				= "myList";	//list, myPage, myList
+		Vector<OrdersVO> list		=	(Vector<OrdersVO>)request.getAttribute("list");
+		String	type				= "myList";	//myPage, myList
 		if(request.getParameter("type")!=null)
 				type				=	request.getParameter("type");
-		Vector<OrdersVO> list		= null;
-		int		purchase_num		= 0;
-		int		purchase_num_count	= 1;
 		
+		String	searchCondition		=	(String)request.getAttribute("searchCondition");
+		String	searchWord			=	(String)request.getAttribute("searchWord");
 		
+		Vector<String>	cs			=	null;
+		PageVO			info		=	null;
 		
-		
-		
-		String	purchase_info		= "";
-		String	purchase_price		= "";
-		String	purchase_date		= "";
-		int		purchase_board_num	= 0;
-		int		total_page			= 0;
-		int		current_page		= 0;
-		int		start_page			= 0;
-		int		end_page			= 0;
-		int		total_Rows			= 0;
-		
-		//출력하는 변수들
-		String	searchCondition		= "";
-		String	searchword			= "";
-		String	review_content		= "";
+		int				total_page	=	0;
+		int				current_page=	0;
+		int				endPage		=	0;
+		int				startPage	=	0;
+		int				totalRows	=	0;
+		if(type.equals("myPage"))
+		{
+						cs			=	(Vector<String>)request.getAttribute("cs");
+		}
+		else if(type.equals("myList"))
+		{
+						info		=	(PageVO)request.getAttribute("info");
+			
+						total_page	=	info.getTotalPages();
+						current_page=	info.getPage();
+						endPage		=	info.getEndPage();
+						startPage	=	info.getStartPage();
+						totalRows	=	info.getTotalRows();
+		}
 		
 		//불러올 CSS
 		/*
@@ -45,7 +50,6 @@
 		클래스_btn_align1
 		클래스_btn1
 		*/
-		int		id_num			= total_Rows-(current_page-1)*10;
 %>
 <!DOCTYPE html>
 <html>
@@ -63,14 +67,19 @@
 				<th >주문금액</th>
 				<th >날짜</th>
 			</tr>
-			<%for(/*VO가져온것 돌리기*/int i=0;i<=0;i++){%>
+			<%for(OrdersVO vo:list){
+				int	csCount	=	0;
+			%>
 				<tr class="클래스_tr_top1">
-					<td class="클래스_td_align1"><a href="">
-					purchase_num</a></td>
-					<td align="left"><a href="">
-					purchase_info</a></td>
-					<td>purchase_price</td>
-					<td>purchase_date</td>
+					<td class="클래스_td_align1">
+					<a href="qOrderView.do?idx=<%=vo.getIdx() %>&page=<%=current_page %>" target="_top">
+					<%=vo.getIdx() %></a></td>
+					<td align="left">
+					<a href="qOrderView.do?idx=<%=vo.getIdx() %>&page=<%=current_page %>" target="_top">
+					<%=cs.get(0) %></a></td>
+					<%csCount++; %>
+					<td><%=vo.getFinal_price() %></td>
+					<td><%=vo.getDate_purchased() %></td>
 				</tr>
 			<%}%>
 		<% }else if(type.equals("myList")){%>
@@ -80,26 +89,18 @@
 				<th >주문금액</th>
 				<th >날짜</th>
 			</tr>
-			<% for(OrdersVO vo:list){%>
-				<tr class="클래스_tr_top1">
-				<% if(purchase_num!=vo.getIdx()){
-					purchase_num=vo.getIdx();
-					purchase_num_count=1;
-					%>
-					<td rowspan=
-					<%}else{ 
-					purchase_num_count++;
-					%>
-					
-					<%} %>
-					 ><a href="qOrderView.do?board_num=글번호&page=페이지번호">
-					purchase_num</a></td>
-					<td align="left"><a href="qOrderView.do?board_num=글번호&page=페이지번호">
-					purchase_info</a></td>										
-					<td>purchase_price</td>
-					<td>purchase_date</td>
+			<%for(OrdersVO vo:list){%>
+			<tr class="클래스_tr_top1">
+					<td class="클래스_td_align1">
+					<a href="qOrderView.do?idx=<%=vo.getIdx() %>&page=<%=current_page %>" target="_top">
+					<%= %></a></td>
+					<td align="left">
+					<a href="qOrderView.do?idx=<%=vo.getIdx() %>&page=<%=current_page %>" target="_top">
+					<%= %></a></td>
+					<td><%= %></td>
+					<td><%= %></td>
 				</tr>
-			<% }%>
+			<%}%>
 		<% }%>
 <tr>
 	<td colspan="4">

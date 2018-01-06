@@ -106,11 +106,13 @@ public class OrdersDAO
 	
 	public void close(Connection con , PreparedStatement pstmt, ResultSet rs)
 	{
-		close(con, pstmt);
+		
 		
 		try {
 			log.debug("DB close Start.");
-			if (rs != null)		rs.close();
+			if (rs != null)
+				rs.close();
+			close(con, pstmt);
 			log.debug("DB close End.");
 		} catch (SQLException e) {
 			log.fatal("DB close Failed !!!!!!!!!!");
@@ -189,7 +191,6 @@ public class OrdersDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute orderInsert do the DB work End.");
@@ -256,7 +257,6 @@ public class OrdersDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute ordersUpdate do the DB work End.");
@@ -321,6 +321,7 @@ public class OrdersDAO
 			log.fatal("execute ordersList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
+			close(result);
 			close(con, pstmt);
 		}
 		log.debug("execute ordersList do the DB work End.");
@@ -351,6 +352,9 @@ public class OrdersDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute ordersCountSearchingRows do the DB work failed!!!!!!!!!!");
 			e.printStackTrace();
+		}
+		finally {
+			close(con, pstmt, rs);
 		}
 		
 		log.debug("ordersCountSearchingRows DB work End. total_rows= " + total_rows);
@@ -422,6 +426,7 @@ public class OrdersDAO
 			log.fatal("execute ordersSearch DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
+			close(result);
 			close(con, pstmt);
 		}
 		log.debug("execute ordersSearch DB work End.");
@@ -479,6 +484,7 @@ public class OrdersDAO
 			log.fatal("execute ordersGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
+			close(result);
 			close(con, pstmt);
 		}
 		log.debug("execute ordersGetRow DB work End.");
@@ -508,9 +514,148 @@ public class OrdersDAO
 			log.fatal("execute orders total_rows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		}
+		finally {
+			close(con, pstmt, rs);
+		}
 		
 		log.debug("execute orders total_rows do the DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
+	}
+	
+	
+	public int singleCustomertotalRows(int customers_idx)
+	{
+		log.debug("execute orders single_customer's_total_rows do the DB work Start.");
+		int					total_rows	= 0;
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		String				sql			= null;
+		
+		try {
+			sql		= "select count(*) from orders where customers_idx=?";
+			pstmt	= con.prepareStatement(sql);
+			pstmt.setInt	(1, customers_idx);
+			rs		= pstmt.executeQuery();
+			
+			if(rs.next())	
+				total_rows	= rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.fatal("execute orders total_rows do the DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		}
+		finally {
+			close(con,pstmt,rs);
+		}
+		
+		log.debug("execute orders total_rows do the DB work End. total_rows= " + total_rows);
+		
+		return total_rows;
+	}
+	
+	
+	public Vector<OrdersVO> singleCustomerordersList(int customers_idx,int page, int limit)
+	{
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		Vector<OrdersVO> ordersList	= new Vector<OrdersVO>();
+		
+		Connection			con		= getConnection();
+		ResultSet			result	= null;
+		PreparedStatement	pstmt	= null;
+		
+		try {
+			log.debug("execute single_Customer's_orders_List do the DB work Start.");
+			String sql	= "select * from orders where customers_idx=? order by idx desc, limit ?,?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setInt(1, customers_idx);
+			pstmt		.setInt(2, start);
+			pstmt		.setInt(3, limit);
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				OrdersVO list = new OrdersVO(result.getInt("idx"), 
+											result.getInt("customers_idx"), 
+											result.getString("delivery_name"), 
+											result.getInt("delivery_country_idx"),
+											result.getString("delivery_postcode"), 
+											result.getString("delivery_address1"), 
+											result.getString("delivery_address2"), 
+											result.getString("delivery_phone1"),
+											result.getString("delivery_phone2"), 
+											result.getString("delivery_phone3"), 
+											result.getString("delivery_email1"), 
+											result.getString("delivery_email2"),
+											result.getString("billing_name"), 
+											result.getInt("billing_country_idx"), 
+											result.getString("billing_postcode"), 
+											result.getString("billing_address1"),
+											result.getString("billing_address2"), 
+											result.getString("billing_phone1"), 
+											result.getString("billing_phone2"), 
+											result.getString("billing_phone3"),
+											result.getString("billing_email1"), 
+											result.getString("billing_email2"), 
+											result.getString("payment_method"), 
+											result.getFloat("final_price"), 
+											result.getDate("last_modified"),
+											result.getDate("date_purchased"), 
+											result.getInt("orders_status"), 
+											result.getDate("orders_date_finished"), 
+											result.getString("currency"), 
+											result.getFloat("currency_value"));
+
+				ordersList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute single_Customer's_orders_List do the DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(result);
+			close(con, pstmt);
+		}
+		log.debug("execute single_Customer's_orders_List do the DB work End.");
+		return ordersList;
+	}
+	
+	
+	public Vector<OrdersVO> singleCustomerordersList(int customers_idx)
+	{
+		Vector<OrdersVO> ordersList	= new Vector<OrdersVO>();
+		
+		Connection			con		= getConnection();
+		ResultSet			result	= null;
+		PreparedStatement	pstmt	= null;
+		
+		try {
+			log.debug("execute single_Customer's_orders_List do the DB work Start.");
+			String sql	= "select * from orders where customers_idx=? order by idx desc";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setInt(1, customers_idx);
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				OrdersVO list = new OrdersVO();
+								list.setIdx(result.getInt("idx")); 
+								list.setCustomers_idx(result.getInt("customers_idx")); 
+								list.setFinal_price(result.getFloat("final_price")); 
+								list.setLast_modified(result.getDate("last_modified"));
+								list.setDate_purchased(result.getDate("date_purchased")); 
+								list.setOrders_status(result.getInt("orders_status"));
+								list.setOrders_date_finished(result.getDate("orders_date_finished"));
+								ordersList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute single_Customer's_orders_List do the DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(result);
+			close(con, pstmt);
+		}
+		log.debug("execute single_Customer's_orders_List do the DB work End.");
+		return ordersList;
 	}
 }

@@ -107,11 +107,10 @@ public class ProductDAO
 	
 	public void close(Connection con , PreparedStatement pstmt, ResultSet rs)
 	{
-		close(con, pstmt);
-		
 		try {
 			log.debug("DB close Start.");
 			if (rs != null)		rs.close();
+			close(con, pstmt);
 			log.debug("DB close End.");
 		} catch (SQLException e) {
 			log.fatal("DB close Failed !!!!!!!!!!");
@@ -382,6 +381,7 @@ public class ProductDAO
 			log.fatal("execute productGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
+			close(result);
 			close(con, pstmt);
 		}
 		log.debug("execute productGetRow DB work End.");
@@ -410,6 +410,9 @@ public class ProductDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute product total_rows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(con, pstmt);
 		}
 		
 		log.debug("execute product total_rows do the DB work End. total_rows= " + total_rows);
