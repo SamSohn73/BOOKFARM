@@ -3,6 +3,7 @@ package xyz.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.action.Action;
+import xyz.bookfarm.model.AdminCustomerListAction;
 import xyz.bookfarm.model.AdminLoginAction;
 import xyz.bookfarm.model.CustomerFindAction;
 import xyz.bookfarm.model.CustomerIdPwdCheckAction;
@@ -45,6 +46,11 @@ public class MallActionFactory
 			log.debug("AdminLogin.do action create Start.");
 			action = new AdminLoginAction("admin/adminLogin.jsp");
 			log.debug("AdminLogin.do action create End.");
+		}
+		if (cmd.equals("/adminCustomerList.do")) {
+			log.debug("QQQQQQQQ adminCustomerList.do action create Start.");
+			action = new AdminCustomerListAction("admin/adminCustomerList.jsp");
+			log.debug("QQQQQQQQ adminCustomerList.do action create End.");
 		}
 		/*if (cmd.equals("/qWrite.do")) {
 			log.debug("QQQQQQQQ qWrite.do action create Start.");

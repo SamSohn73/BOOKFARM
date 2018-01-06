@@ -426,4 +426,53 @@ public class CustomerDAO {
 		}		
 		return name;	
 	}
+	
+	
+	public Vector<CustomerVO> customerList(int page, int limit)
+	{
+		// Calc start record through page;
+		int start						= (page - 1) * 10; 
+		
+		Vector<CustomerVO>	customerList	= new Vector<CustomerVO>();
+		
+		try {
+			log.debug("execute customerList do the DB work Start.");
+			String sql	= "select * from category order by idx desc, parent_idx desc limit ?,?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setInt(1, start);
+			pstmt		.setInt(2, limit);
+			rs			= pstmt.executeQuery();
+			
+			while (rs.next()) {
+				CustomerVO list = new CustomerVO();
+				list.setIdx(rs.getInt("idx"));
+				list.setUsername(rs.getString("username"));
+				list.setPassword(rs.getString("password"));
+				list.setFirstname(rs.getString("firstname"));
+				list.setPostcode(rs.getString("postcode"));
+				list.setAddress1(rs.getString("address1"));
+				list.setAddress2(rs.getString("address2"));
+				list.setPhone1(rs.getString("phone1"));
+				list.setEmail1(rs.getString("email1"));
+				list.setGender(rs.getString("gender"));
+				list.setNewsletter(rs.getString("newsletter"));
+				list.setBirthday(rs.getDate("birthday"));
+				list.setGrade(rs.getInt("grade"));
+				list.setLast_login(rs.getDate("last_login"));
+				list.setLogin_cnt(rs.getInt("login_cnt"));
+				list.setAccount_created(rs.getDate("account_created"));
+				
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerList do the DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(con);
+			close(pstmt);
+		}
+		log.debug("execute customerList do the DB work End.");
+		return customerList;
+	}
 }

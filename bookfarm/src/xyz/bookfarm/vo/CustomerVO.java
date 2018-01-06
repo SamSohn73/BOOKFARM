@@ -242,7 +242,7 @@ public class CustomerVO
 		this.login_cnt = login_cnt;
 	}
 
-	public Date isAccount_created()
+	public Date getAccount_created()
 	{
 		return account_created;
 	}
