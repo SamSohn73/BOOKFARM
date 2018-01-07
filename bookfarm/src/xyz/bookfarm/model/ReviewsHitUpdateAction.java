@@ -57,9 +57,8 @@ public class ReviewsHitUpdateAction implements Action {
 			else
 			{
 										log.error("QQQQQQQQ ReviewsHitUpdateAction no"
-										+ " type ÇüÅÂ°¡ Æ²¸² : "+type);				
+										+ " type ï¿½ï¿½ï¿½Â°ï¿½ Æ²ï¿½ï¿½ : "+type);				
 			}
-			System.out.println("Áß°£idxÈ®ÀÎ : "+idx);
 		}
 		else
 		{

@@ -29,14 +29,13 @@ public class AdminLoginAction implements Action
 		log.debug("AdminLoginAction execute Start.");
 		String	user_name	= req.getParameter("user_name");
 		String	user_pass	= req.getParameter("user_pass");
-		log.debug("AdminLoginAction execute Start. 111111");
+
 		AdminDAO	dao		= new AdminDAO();
-		AdminVO		vo		= dao.isLogin(user_name, user_pass);
-		log.debug("AdminLoginAction execute Start. 222222");
+		AdminVO		vo		= dao.isAdmin(user_name, user_pass);
+
 		if(vo!=null) { //null값이 아닌 경우 로그인 성공
 			HttpSession session	= req.getSession();
 			session				.setAttribute("vo", vo);
-			log.debug("AdminLoginAction execute Start. 333333");
 		}else {
 			log.debug("AdminLoginAction execute Admin user_name, password not found. username, password=" + user_name + "," + user_pass);
 			path="error.jsp";

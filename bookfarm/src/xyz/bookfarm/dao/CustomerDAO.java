@@ -437,6 +437,7 @@ public class CustomerDAO {
 		
 		try {
 			log.debug("execute customerList do the DB work Start.");
+			con			=	getConnection();
 			String sql	= "select * from category order by idx desc, parent_idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);

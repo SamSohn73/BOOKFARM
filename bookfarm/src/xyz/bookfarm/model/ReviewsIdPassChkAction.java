@@ -21,7 +21,6 @@ public class ReviewsIdPassChkAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		int		page			=	Integer.parseInt(req.getParameter("page"));
 		int		idx				=	Integer.parseInt(req.getParameter("idx"));
-		//System.out.println("비번확인에서 리뷰 idx: "+idx);
 		String	type			=	req.getParameter("type");
 		String	typeView		=	req.getParameter("typeView");
 		
@@ -30,7 +29,6 @@ public class ReviewsIdPassChkAction implements Action {
 		
 		ReviewDAO dao			=	new ReviewDAO();
 		int		customer_idx	=	dao.getReviewWriterIdx(idx);
-		//System.out.println("구매자 idx:"+customer_idx);
 		int 	result			=	dao.pwdCheck(customer_idx, username, password);
 		if(result>0)
 		{

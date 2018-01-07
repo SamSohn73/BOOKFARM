@@ -248,7 +248,7 @@ public class ProductDAO
 		
 		try {
 			log.debug("execute productList do the DB work Start.");
-			String sql	= "select * from product order by idx desc, limit ?,?";
+			String sql	= "select * from product order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
 			pstmt		.setInt(2, limit);

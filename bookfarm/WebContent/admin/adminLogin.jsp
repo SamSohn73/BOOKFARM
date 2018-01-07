@@ -43,7 +43,7 @@
 <title>관리자 로그인</title>
 </head>
 <body>
-<form method="post" action="../AdminLogin.do">
+<form method="post" action="../adminLogin.do">
 <%if(vo==null){%>
 	<table>
 		<tr>
@@ -56,7 +56,7 @@
 				<button type="button" onclick="check(this.form);">로그인</button>
 			</td>
 		</tr>
-	</table>
+	</table>	
 </form>
 <%}else{%>
 	<%=vo.getUser_name()%> 님 반갑습니다.
@@ -65,12 +65,12 @@
 		<td>
 			<tr class="button_cell">
 				<td colspan='2'>
-					<input type='button' value="고객관리" onClick="customer_list()">
-					<input type="button" value="카테고리관리" onClick="category_list()">
-					<input type='button' value="상품관리" onClick="product_list()">
-					<input type="button" value="주문관리" onClick="orders_list()">
-					<input type="button" value="리뷰관리" onClick="review_list()">
-					<input type="button" value="로그아웃" onClick="logout()">
+					<input type='button' value="고객관리"		onClick="customer_list()">
+					<input type='button' value="상품관리"		onClick="product_list()">
+					<input type="button" value="주문관리"		onClick="orders_list()">
+					<input type="button" value="카테고리관리"	onClick="category_list()">
+					<input type="button" value="리뷰관리"		onClick="review_list()">
+					<input type="button" value="로그아웃"		onClick="logout()">
 				</td>
 			</tr>
 		</td>

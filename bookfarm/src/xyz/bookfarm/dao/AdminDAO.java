@@ -13,7 +13,6 @@ import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 
 import xyz.bookfarm.vo.AdminVO;
-import xyz.bookfarm.vo.ProductVO;
 
 
 public class AdminDAO
@@ -148,8 +147,10 @@ public class AdminDAO
 	}
 
 	
-	public AdminVO isLogin(String user_name,String user_pass)
+	public AdminVO isAdmin(String user_name,String user_pass)
 	{
+		log.debug("execute isAdmin DB work Start.");
+		
 		Connection con=getConnection();
 	
 		ResultSet			result	= null;
@@ -169,12 +170,45 @@ public class AdminDAO
 								result.getString("user_pass"));
 			}
 		} catch (Exception e) {
-			log.fatal("execute adminGetRow DB work Failed!!!!!!!!!!");
+			log.fatal("execute isAdmin DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute adminGetRow DB work End.");
+		log.debug("execute isAdmin DB work End.");
+		
+		return vo;
+	}
+	
+	public AdminVO isAdmin(AdminVO admin)
+	{
+		log.debug("execute isAdmin DB work Start.");
+		
+		Connection con=getConnection();
+	
+		ResultSet			result	= null;
+		PreparedStatement	pstmt	= null;
+		AdminVO				vo		= null;
+		
+		try {
+			String sql	= "select * from admin where user_name=? and user_pass=?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, admin.getUser_name());
+			pstmt		.setString(2, admin.getUser_password());
+			result		= pstmt.executeQuery();
+			
+			if (result.next()) {
+				vo = new AdminVO(result.getInt("idx"),
+								result.getString("user_name"),
+								result.getString("user_pass"));
+			}
+		} catch (Exception e) {
+			log.fatal("execute isAdmin DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt);
+		}
+		log.debug("execute isAdmin DB work End.");
 		
 		return vo;
 	}

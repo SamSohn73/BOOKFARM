@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import xyz.bookfarm.action.Action;
 import xyz.bookfarm.model.AdminCustomerListAction;
 import xyz.bookfarm.model.AdminLoginAction;
+import xyz.bookfarm.model.AdminLogoutAction;
+import xyz.bookfarm.model.AdminProductListAction;
 import xyz.bookfarm.model.CustomerFindAction;
 import xyz.bookfarm.model.CustomerIdPwdCheckAction;
 import xyz.bookfarm.model.CustomerLogoutAction;
@@ -42,15 +44,25 @@ public class MallActionFactory
 	{
 		Action action = null;
 
-		if (cmd.equals("/AdminLogin.do")) {
+		if (cmd.equals("/adminLogin.do")) {
 			log.debug("AdminLogin.do action create Start.");
 			action = new AdminLoginAction("admin/adminLogin.jsp");
 			log.debug("AdminLogin.do action create End.");
 		}
+		if (cmd.equals("/adminLogout.do")) {
+			log.debug("AdminLogout.do action create Start.");
+			action = new AdminLogoutAction("index.jsp");
+			log.debug("AdminLogout.do action create End.");
+		}
 		if (cmd.equals("/adminCustomerList.do")) {
-			log.debug("QQQQQQQQ adminCustomerList.do action create Start.");
+			log.debug("adminCustomerList.do action create Start.");
 			action = new AdminCustomerListAction("admin/adminCustomerList.jsp");
-			log.debug("QQQQQQQQ adminCustomerList.do action create End.");
+			log.debug("adminCustomerList.do action create End.");
+		}
+		if (cmd.equals("/adminProductList.do")) {
+			log.debug("adminProductList.do action create Start.");
+			action = new AdminProductListAction("admin/adminProductList.jsp");
+			log.debug("adminProductList.do action create End.");
 		}
 		/*
 		if (cmd.equals("/qSearch.do")) {
@@ -70,11 +82,9 @@ public class MallActionFactory
 		}
 		else if (cmd.equals("/qCustomerRegist.do"))
 		{
-			System.out.println("ȸ����������������");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create Start.");
 			action = new CustomerRegistAction("./index.jsp");
 			log.debug("QQQQQQQQQQ qCustomerRegist.do action create End.");
-			System.out.println("ȸ��������������");
 		}
 		else if (cmd.equals("/qCustomerFind.do"))
 		{
