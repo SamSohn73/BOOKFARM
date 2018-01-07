@@ -202,6 +202,12 @@ create table postcode (
 --
 -- data
 --
+insert into admin (user_name, user_pass) values ("admin", "12345");
+
+
+
+
+
 INSERT INTO currency VALUES (1,'Korea Won','KRW','W','','',',','','1100', now());
 INSERT INTO currency VALUES (2,'U.S. Dollar','USD','$','','.',',','2','1.0000', now());
 INSERT INTO currency VALUES (3,'Euro','EUR','','€','.',',','2','0.8400', now());
