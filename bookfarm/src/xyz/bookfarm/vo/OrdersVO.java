@@ -8,7 +8,6 @@ public class OrdersVO
 	private	int		customers_idx;
 	
 	private	String	delivery_name;
-	private	int		delivery_country_idx;
 	private	String	delivery_postcode;
 	private	String	delivery_address1;
 	private	String	delivery_address2;
@@ -19,7 +18,6 @@ public class OrdersVO
 	private	String	delivery_email2;
 	
 	private	String	billing_name;
-	private	int		billing_country_idx;
 	private	String	billing_postcode;
 	private	String	billing_address1;
 	private	String	billing_address2;
@@ -36,24 +34,21 @@ public class OrdersVO
 	private	Date	date_purchased;
 	private	int		orders_status;
 	private	Date	orders_date_finished;
-	private	String	currency;
-	private	float	currency_value;
 	
 	public OrdersVO() {}
 
-	public OrdersVO(int idx, int customers_idx, String delivery_name, int delivery_country_idx,
+	public OrdersVO(int idx, int customers_idx, String delivery_name,
 			String delivery_postcode, String delivery_address1, String delivery_address2, String delivery_phone1,
 			String delivery_phone2, String delivery_phone3, String delivery_email1, String delivery_email2,
-			String billing_name, int billing_country_idx, String billing_postcode, String billing_address1,
+			String billing_name, String billing_postcode, String billing_address1,
 			String billing_address2, String billing_phone1, String billing_phone2, String billing_phone3,
 			String billing_email1, String billing_email2, String payment_method, float final_price, Date last_modified,
-			Date date_purchased, int orders_status, Date orders_date_finished, String currency, float currency_value)
+			Date date_purchased, int orders_status, Date orders_date_finished)
 	{
 		super();
 		this.idx = idx;
 		this.customers_idx = customers_idx;
 		this.delivery_name = delivery_name;
-		this.delivery_country_idx = delivery_country_idx;
 		this.delivery_postcode = delivery_postcode;
 		this.delivery_address1 = delivery_address1;
 		this.delivery_address2 = delivery_address2;
@@ -63,7 +58,6 @@ public class OrdersVO
 		this.delivery_email1 = delivery_email1;
 		this.delivery_email2 = delivery_email2;
 		this.billing_name = billing_name;
-		this.billing_country_idx = billing_country_idx;
 		this.billing_postcode = billing_postcode;
 		this.billing_address1 = billing_address1;
 		this.billing_address2 = billing_address2;
@@ -78,8 +72,6 @@ public class OrdersVO
 		this.date_purchased = date_purchased;
 		this.orders_status = orders_status;
 		this.orders_date_finished = orders_date_finished;
-		this.currency = currency;
-		this.currency_value = currency_value;
 	}
 
 	public int getIdx()
@@ -107,15 +99,6 @@ public class OrdersVO
 	public void setDelivery_name(String delivery_name)
 	{
 		this.delivery_name = delivery_name;
-	}
-
-	public int getDelivery_country_idx()
-	{
-		return delivery_country_idx;
-	}
-	public void setDelivery_country_idx(int delivery_country_idx)
-	{
-		this.delivery_country_idx = delivery_country_idx;
 	}
 
 	public String getDelivery_postcode()
@@ -199,14 +182,6 @@ public class OrdersVO
 		this.billing_name = billing_name;
 	}
 
-	public int getBilling_country_idx()
-	{
-		return billing_country_idx;
-	}
-	public void setBilling_country_idx(int billing_country_idx)
-	{
-		this.billing_country_idx = billing_country_idx;
-	}
 
 	public String getBilling_postcode()
 	{
@@ -332,24 +307,6 @@ public class OrdersVO
 	public void setOrders_date_finished(Date orders_date_finished)
 	{
 		this.orders_date_finished = orders_date_finished;
-	}
-
-	public String getCurrency()
-	{
-		return currency;
-	}
-	public void setCurrency(String currency)
-	{
-		this.currency = currency;
-	}
-
-	public float getCurrency_value()
-	{
-		return currency_value;
-	}
-	public void setCurrency_value(float currency_value)
-	{
-		this.currency_value = currency_value;
 	}
 	
 }

@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="xyz.bookfarm.vo.PageVO"%>
 <%@page import="java.util.Vector"%>
+<%@page import="xyz.bookfarm.vo.PageVO"%>
 <%@page import="xyz.bookfarm.vo.AdminVO"%>
-<%@page import="xyz.bookfarm.vo.CustomerVO"%>
+<%@page import="xyz.bookfarm.vo.OrdersVO"%>
 <%@page import="org.apache.log4j.Logger"%>
 
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
 
 <%
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
-	Vector<CustomerVO>	customers	= (Vector<CustomerVO>) request.getAttribute("customers");
+	Vector<OrdersVO>	orders		= (Vector<OrdersVO>) request.getAttribute("orders");
 	
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
@@ -23,13 +23,13 @@
 	int totalRows			= pageInfo.getTotalRows();
 	int totalPages			= pageInfo.getTotalPages();
 	
-	log.debug("adminCustomerList.jsp criteria=" + criteria);
-	log.debug("adminCustomerList.jsp searchWord=" + searchWord);
-	log.debug("adminCustomerList.jsp currentPage=" + currentPage);
-	log.debug("adminCustomerList.jsp startPage=" + startPage);
-	log.debug("adminCustomerList.jsp endPage=" + endPage);
-	log.debug("adminCustomerList.jsp totalRows=" + totalRows);
-	log.debug("adminCustomerList.jsp totalPages=" + totalPages);
+	log.debug("adminOrdersList.jsp criteria="		+ criteria);
+	log.debug("adminOrdersList.jsp searchWord="		+ searchWord);
+	log.debug("adminOrdersList.jsp currentPage="	+ currentPage);
+	log.debug("adminOrdersList.jsp startPage="		+ startPage);
+	log.debug("adminOrdersList.jsp endPage="		+ endPage);
+	log.debug("adminOrdersList.jsp totalRows="		+ totalRows);
+	log.debug("adminOrdersList.jsp totalPages="		+ totalPages);
 %>
 <!DOCTYPE>
 <html>
@@ -45,11 +45,11 @@
 		}
 	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>고객 관리</title>
+<title>주문 관리</title>
 </head>
 <body>
 	<table>
-		<caption>회원 목록</caption>
+		<caption>주문 목록</caption>
 		<tr>
 			<th>No.</th>
 			<th>아이디</th>
@@ -71,25 +71,25 @@
 		</tr>
 <%	
 	int idNum = totalRows - (currentPage-1)*10;
-	for(CustomerVO customer: customers) {	%>
+	for(OrdersVO order: orders) {	%>
 		<tr>
 			<td><%=idNum%></td>
-			<td><%=customer.getUsername()%></td>
-			<td><%=customer.getLastname()%><%=customer.getFirstname()%></td>
-			<td><%=customer.getPostcode()%></td>
-			<td><%=customer.getAddress1()%></td>
-			<td><%=customer.getAddress2()%></td>
-			<td><%=customer.getPhone1()%></td>
-			<td><%=customer.getPhone2()%></td>
-			<td><%=customer.getPhone3()%></td>
-			<td><%=customer.getEmail1()%></td>
-			<td><%=customer.getEmail2()%></td>
-			<td><%=customer.getGender()%></td>
-			<td><%=customer.getBirthday()%></td>
-			<td><%=customer.getGrade()%></td>
-			<td><%=customer.getLast_login()%></td>
-			<td><%=customer.getLogin_cnt()%></td>
-			<td><%=customer.getAccount_created()%></td>
+			<td><%=order.getUsername()%></td>
+			<td><%=order.getLastname()%><%=customer.getFirstname()%></td>
+			<td><%=order.getPostcode()%></td>
+			<td><%=order.getAddress1()%></td>
+			<td><%=order.getAddress2()%></td>
+			<td><%=order.getPhone1()%></td>
+			<td><%=order.getPhone2()%></td>
+			<td><%=order.getPhone3()%></td>
+			<td><%=order.getEmail1()%></td>
+			<td><%=order.getEmail2()%></td>
+			<td><%=order.getGender()%></td>
+			<td><%=order.getBirthday()%></td>
+			<td><%=order.getGrade()%></td>
+			<td><%=order.getLast_login()%></td>
+			<td><%=order.getLogin_cnt()%></td>
+			<td><%=order.getAccount_created()%></td>
 		</tr>
 <%		idNum--;
 	} %>
@@ -97,7 +97,7 @@
 		<td colspan = "17">
 			<%//[prev] display
 				if (currentPage > 1) {
-					out.print("<a href=adminCustomerList.do?page=" + (currentPage-1) + ">");
+					out.print("<a href=adminOrdersList.do?page=" + (currentPage-1) + ">");
 					out.print("[prev] </a>");
 				}
 			%>
@@ -106,14 +106,14 @@
 					if (i == currentPage) {
 						out.print("[" +  i + "] ");
 					} else {
-						out.print("<a href=adminCustomerList.do?page=" + i +">");
+						out.print("<a href=adminOrdersList.do?page=" + i +">");
 						out.print(i + " </a>");
 					}
 				}
 			%>
 			<%//[next] display
 				if (currentPage <= endPage && currentPage < totalPages) {
-					out.print("<a href=adminCustomerList.do?page=" + (currentPage + 1) + ">");
+					out.print("<a href=adminOrdersList.do?page=" + (currentPage + 1) + ">");
 					out.print(" [next]</a>");
 				}
 			%>
@@ -124,7 +124,7 @@
 	<table>
 		<tr>
 			<td class="td_align">
-				<form action='AdminCustomerSearch.do' method='post' name='searchform'>
+				<form action='AdminOrdersearch.do' method='post' name='searchform'>
 					<select name='criteria'>
 						<option value='customer_username'	<%if(criteria.equals("customer_username"))	out.print("selected");%>>아이디</option>
 						<option value='customer_name'		<%if(criteria.equals("customer_name"))		out.print("selected");%>>이름</option>

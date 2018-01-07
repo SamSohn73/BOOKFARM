@@ -9,7 +9,6 @@ public class CustomerVO
 	private String	password;
 	private String	firstname;
 	private String	lastname;
-	private int		country_idx;
 	private String	postcode;
 	private String	address1;
 	private String	address2;
@@ -32,7 +31,7 @@ public class CustomerVO
 
 	public CustomerVO()	{};
 	
-	public CustomerVO(int idx, String username, String password, String firstname, String lastname, int country_idx,
+	public CustomerVO(int idx, String username, String password, String firstname, String lastname,
 			String postcode, String address1, String address2, String phone1, String phone2, String phone3,
 			String email1, String email2, String gender, String newsletter, Date birthday, int grade, Date last_login,
 			int login_cnt, Date account_created, boolean on_line)
@@ -43,7 +42,6 @@ public class CustomerVO
 		this.password			= password;
 		this.firstname			= firstname;
 		this.lastname			= lastname;
-		this.country_idx		= country_idx;
 		this.postcode			= postcode;
 		this.address1			= address1;
 		this.address2			= address2;
@@ -105,15 +103,6 @@ public class CustomerVO
 	public void setLastname(String lastname)
 	{
 		this.lastname = lastname;
-	}
-
-	public int getCountry_idx()
-	{
-		return country_idx;
-	}
-	public void setCountry_idx(int country_idx)
-	{
-		this.country_idx = country_idx;
 	}
 
 	public String getPostcode()

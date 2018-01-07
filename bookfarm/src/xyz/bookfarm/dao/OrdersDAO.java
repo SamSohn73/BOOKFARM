@@ -121,12 +121,12 @@ public class OrdersDAO
 	}
 	
 		
-	public int ordersInsert(int customers_idx, String delivery_name, int delivery_country_idx,
+	public int ordersInsert(int customers_idx, String delivery_name,
 			String delivery_postcode, String delivery_address1, String delivery_address2, 
 			String delivery_phone1, String delivery_phone2, String delivery_phone3, String delivery_email1, String delivery_email2,
-			String billing_name, int billing_country_idx, String billing_postcode, String billing_address1, String billing_address2, 
+			String billing_name, String billing_postcode, String billing_address1, String billing_address2, 
 			String billing_phone1, String billing_phone2, String billing_phone3, String billing_email1, String billing_email2, 
-			String payment_method, float final_price, String currency, float currency_value)
+			String payment_method, float final_price)
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
@@ -142,40 +142,36 @@ public class OrdersDAO
 			log.debug("execute orderInsert do the DB work Start.");
 			con.setAutoCommit(false);
 			
-			String sql		= "insert into orders (customers_idx, delivery_name, delivery_country_idx, " + 
+			String sql		= "insert into orders (customers_idx, delivery_name, " + 
 								"delivery_postcode, delivery_address1, delivery_address2, delivery_phone1, " + 
 								"delivery_phone2, delivery_phone3, delivery_email1, delivery_email2," + 
-								"billing_name, billing_country_idx, billing_postcode, billing_address1, " + 
+								"billing_name, billing_postcode, billing_address1, " + 
 								"billing_address2, billing_phone1, billing_phone2, billing_phone3, " + 
-								"billing_email1, billing_email2, payment_method, final_price, last_modified, date_purchased, " + 
-								"currency, currency_value) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now(),?,?)";
+								"billing_email1, billing_email2, payment_method, final_price, last_modified, date_purchased) " + 
+								"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now())";
 			pstmt			= con.prepareStatement(sql);
 			
 			pstmt.setInt		(1,customers_idx);
 			pstmt.setString		(2,delivery_name);
-			pstmt.setInt		(3,delivery_country_idx);
-			pstmt.setString		(4,delivery_postcode); 
-			pstmt.setString		(5,delivery_address1); 
-			pstmt.setString		(6,delivery_address2); 
-			pstmt.setString		(7,delivery_phone1);
-			pstmt.setString		(8,delivery_phone2);
-			pstmt.setString		(9,delivery_phone3);
-			pstmt.setString		(10,delivery_email1);
-			pstmt.setString		(11,delivery_email2);
-			pstmt.setString		(12,billing_name);
-			pstmt.setInt		(13,billing_country_idx);
-			pstmt.setString		(14,billing_postcode);
-			pstmt.setString		(15,billing_address1);
-			pstmt.setString		(16,billing_address2);
-			pstmt.setString		(17,billing_phone1);
-			pstmt.setString		(18,billing_phone2);
-			pstmt.setString		(19,billing_phone3);
-			pstmt.setString		(20,billing_email1);
-			pstmt.setString		(21,billing_email2);
-			pstmt.setString		(22,payment_method);
-			pstmt.setFloat		(23,final_price);
-			pstmt.setString		(24,currency);
-			pstmt.setFloat		(25,currency_value);
+			pstmt.setString		(3,delivery_postcode);
+			pstmt.setString		(4,delivery_address1);
+			pstmt.setString		(5,delivery_address2);
+			pstmt.setString		(6,delivery_phone1);
+			pstmt.setString		(7,delivery_phone2);
+			pstmt.setString		(8,delivery_phone3);
+			pstmt.setString		(9,delivery_email1);
+			pstmt.setString		(10,delivery_email2);
+			pstmt.setString		(11,billing_name);
+			pstmt.setString		(12,billing_postcode);
+			pstmt.setString		(13,billing_address1);
+			pstmt.setString		(14,billing_address2);
+			pstmt.setString		(15,billing_phone1);
+			pstmt.setString		(16,billing_phone2);
+			pstmt.setString		(17,billing_phone3);
+			pstmt.setString		(18,billing_email1);
+			pstmt.setString		(19,billing_email2);
+			pstmt.setString		(20,payment_method);
+			pstmt.setFloat		(21,final_price);
 			
 			result			= pstmt.executeUpdate();
 			if (result > 0)	con.commit();
@@ -287,7 +283,6 @@ public class OrdersDAO
 				OrdersVO list = new OrdersVO(result.getInt("idx"), 
 											result.getInt("customers_idx"), 
 											result.getString("delivery_name"), 
-											result.getInt("delivery_country_idx"),
 											result.getString("delivery_postcode"), 
 											result.getString("delivery_address1"), 
 											result.getString("delivery_address2"), 
@@ -297,7 +292,6 @@ public class OrdersDAO
 											result.getString("delivery_email1"), 
 											result.getString("delivery_email2"),
 											result.getString("billing_name"), 
-											result.getInt("billing_country_idx"), 
 											result.getString("billing_postcode"), 
 											result.getString("billing_address1"),
 											result.getString("billing_address2"), 
@@ -311,9 +305,7 @@ public class OrdersDAO
 											result.getDate("last_modified"),
 											result.getDate("date_purchased"), 
 											result.getInt("orders_status"), 
-											result.getDate("orders_date_finished"), 
-											result.getString("currency"), 
-											result.getFloat("currency_value"));
+											result.getDate("orders_date_finished"));
 
 				ordersList.add(list);
 			}
@@ -392,7 +384,6 @@ public class OrdersDAO
 				OrdersVO list = new OrdersVO(result.getInt("idx"), 
 											result.getInt("customers_idx"), 
 											result.getString("delivery_name"), 
-											result.getInt("delivery_country_idx"),
 											result.getString("delivery_postcode"), 
 											result.getString("delivery_address1"), 
 											result.getString("delivery_address2"), 
@@ -402,7 +393,6 @@ public class OrdersDAO
 											result.getString("delivery_email1"), 
 											result.getString("delivery_email2"),
 											result.getString("billing_name"), 
-											result.getInt("billing_country_idx"), 
 											result.getString("billing_postcode"), 
 											result.getString("billing_address1"),
 											result.getString("billing_address2"), 
@@ -416,9 +406,7 @@ public class OrdersDAO
 											result.getDate("last_modified"),
 											result.getDate("date_purchased"), 
 											result.getInt("orders_status"), 
-											result.getDate("orders_date_finished"), 
-											result.getString("currency"), 
-											result.getFloat("currency_value"));
+											result.getDate("orders_date_finished"));
 				
 				ordersList.add(list);
 			}
@@ -452,7 +440,6 @@ public class OrdersDAO
 				vo = new OrdersVO(result.getInt("idx"), 
 								result.getInt("customers_idx"), 
 								result.getString("delivery_name"), 
-								result.getInt("delivery_country_idx"),
 								result.getString("delivery_postcode"), 
 								result.getString("delivery_address1"), 
 								result.getString("delivery_address2"), 
@@ -462,7 +449,6 @@ public class OrdersDAO
 								result.getString("delivery_email1"), 
 								result.getString("delivery_email2"),
 								result.getString("billing_name"), 
-								result.getInt("billing_country_idx"), 
 								result.getString("billing_postcode"), 
 								result.getString("billing_address1"),
 								result.getString("billing_address2"), 
@@ -476,9 +462,7 @@ public class OrdersDAO
 								result.getDate("last_modified"),
 								result.getDate("date_purchased"), 
 								result.getInt("orders_status"), 
-								result.getDate("orders_date_finished"), 
-								result.getString("currency"), 
-								result.getFloat("currency_value"));
+								result.getDate("orders_date_finished"));
 			}
 		} catch (Exception e) {
 			log.fatal("execute ordersGetRow DB work Failed!!!!!!!!!!");
@@ -580,7 +564,6 @@ public class OrdersDAO
 				OrdersVO list = new OrdersVO(result.getInt("idx"), 
 											result.getInt("customers_idx"), 
 											result.getString("delivery_name"), 
-											result.getInt("delivery_country_idx"),
 											result.getString("delivery_postcode"), 
 											result.getString("delivery_address1"), 
 											result.getString("delivery_address2"), 
@@ -590,7 +573,6 @@ public class OrdersDAO
 											result.getString("delivery_email1"), 
 											result.getString("delivery_email2"),
 											result.getString("billing_name"), 
-											result.getInt("billing_country_idx"), 
 											result.getString("billing_postcode"), 
 											result.getString("billing_address1"),
 											result.getString("billing_address2"), 
@@ -604,9 +586,7 @@ public class OrdersDAO
 											result.getDate("last_modified"),
 											result.getDate("date_purchased"), 
 											result.getInt("orders_status"), 
-											result.getDate("orders_date_finished"), 
-											result.getString("currency"), 
-											result.getFloat("currency_value"));
+											result.getDate("orders_date_finished"));
 
 				ordersList.add(list);
 			}

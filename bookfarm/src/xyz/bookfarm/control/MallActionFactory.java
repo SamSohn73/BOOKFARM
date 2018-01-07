@@ -64,6 +64,11 @@ public class MallActionFactory
 			action = new AdminProductListAction("admin/adminProductList.jsp");
 			log.debug("adminProductList.do action create End.");
 		}
+		if (cmd.equals("/adminOrdersList.do")) {
+			log.debug("adminOrdersList.do action create Start.");
+			action = new AdminProductListAction("admin/adminOrdersList.jsp");
+			log.debug("adminOrdersList.do action create End.");
+		}
 		/*
 		if (cmd.equals("/qSearch.do")) {
 			log.debug("QQQQQQQQQQ qSearch.do action create Start.");

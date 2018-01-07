@@ -108,7 +108,7 @@
 						<option value='product_name'			<%if(criteria.equals("product_name"))	out.print("selected");%>>제목</option>
 						<option value='product_price'			<%if(criteria.equals("product_price"))	out.print("selected");%>>가격</option>
 						<option value='product_quantity'		<%if(criteria.equals("product_quantity"))out.print("selected");%>>재고수량</option>
-						<option value='product_desc'			<%if(cradmin/adminLogin.jspiteria.equals("product_desc"))	out.print("selected");%>>내용</option>
+						<option value='product_desc'			<%if(criteria.equals("product_desc"))	out.print("selected");%>>내용</option>
 					</select>
 					<input type='text' name='searchWord' value="<%=searchWord%>">
 					<input type='button' value='검색' onclick="search()">						
