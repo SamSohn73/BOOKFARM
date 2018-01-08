@@ -10,7 +10,7 @@
 <%
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
 	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
-	
+	//request.setAttribute("categories", categories);
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
 	
@@ -45,11 +45,11 @@
 		}
 	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>고객 관리</title>
+<title>카테고리 관리</title>
 </head>
 <body>
 	<table>
-		<caption>회원 목록</caption>
+		<caption>카테고리 목록</caption>
 		<tr>
 			<th>No.</th>
 			<th>카테고리 번호</th>
@@ -71,7 +71,7 @@
 		<td colspan = "17">
 			<%//[prev] display
 				if (currentPage > 1) {
-					out.print("<a href=adminCustomerList.do?page=" + (currentPage-1) + ">");
+					out.print("<a href=adminCategoryList.do?page=" + (currentPage-1) + ">");
 					out.print("[prev] </a>");
 				}
 			%>
@@ -80,14 +80,14 @@
 					if (i == currentPage) {
 						out.print("[" +  i + "] ");
 					} else {
-						out.print("<a href=adminCustomerList.do?page=" + i +">");
+						out.print("<a href=adminCategoryList.do?page=" + i +">");
 						out.print(i + " </a>");
 					}
 				}
 			%>
 			<%//[next] display
 				if (currentPage <= endPage && currentPage < totalPages) {
-					out.print("<a href=adminCustomerList.do?page=" + (currentPage + 1) + ">");
+					out.print("<a href=adminCategoryList.do?page=" + (currentPage + 1) + ">");
 					out.print(" [next]</a>");
 				}
 			%>
@@ -108,7 +108,7 @@
 				</form>
 			</td>
 			<td align='right'><a href="admin/adminCategoryAdd.jsp?page=<%=currentPage%>">[카테고리 추가]</a></td>
-		</tr>
+		</tr>	
 	</table>
 	<h2><a href="admin/adminLogin.jsp">처음으로</a></h2>
 </body>

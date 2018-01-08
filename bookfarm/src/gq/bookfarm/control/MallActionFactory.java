@@ -76,6 +76,7 @@ public class MallActionFactory
 			action = new AdminCategoryListAction("admin/adminCategoryList.jsp");
 			log.debug("adminCategoryList.do action create End.");
 		}
+		
 		/*
 		if (cmd.equals("/qSearch.do")) {
 			log.debug("QQQQQQQQQQ qSearch.do action create Start.");

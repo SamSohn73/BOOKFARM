@@ -62,7 +62,7 @@ public class AdminOrdersListAction implements Action
 		log.debug("AdminCustomerListAction execute page= "			+ page);
 		
 		Vector<OrdersVO>	orders	= dao.ordersList(page, limit);
-		log.debug("QQQQQQQQQQQQQQQ AdminCustomerListAction execute orders.size()= "		+ orders.size());
+
 		if (orders != null)			req.setAttribute("orders", orders);
 		// if result failed change path here
 		else {
