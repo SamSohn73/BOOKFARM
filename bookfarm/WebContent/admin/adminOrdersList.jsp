@@ -10,6 +10,7 @@
 <%
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
 	Vector<OrdersVO>	orders		= (Vector<OrdersVO>) request.getAttribute("orders");
+	log.debug("adminOrdersList.jsp orders.size()="		+ orders.size());
 	
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
@@ -145,13 +146,11 @@
 			<td class="td_align">
 				<form action='AdminOrdersearch.do' method='post' name='searchform'>
 					<select name='criteria'>
-						<option value='customer_username'	<%if(criteria.equals("customer_username"))	out.print("selected");%>>아이디</option>
-						<option value='customer_name'		<%if(criteria.equals("customer_name"))		out.print("selected");%>>이름</option>
-						<option value='customer_address'	<%if(criteria.equals("customer_address"))	out.print("selected");%>>주소</option>
-						<option value='customer_phone'		<%if(criteria.equals("customer_phone"))		out.print("selected");%>>전화번호</option>
-						<option value='customer_email'		<%if(criteria.equals("customer_email"))		out.print("selected");%>>이메일</option>
-						<option value='customer_birthday'	<%if(criteria.equals("customer_birthday"))	out.print("selected");%>>생일</option>
-						<option value='customer_grade'		<%if(criteria.equals("customer_grade"))		out.print("selected");%>>등급</option>
+						<option value='orders_name'				<%if(criteria.equals("orders_name"))			out.print("selected");%>>이름</option>
+						<option value='orders_address'			<%if(criteria.equals("orders_address"))			out.print("selected");%>>주소</option>
+						<option value='orders_phone'			<%if(criteria.equals("orders_phone"))			out.print("selected");%>>전화번호</option>
+						<option value='orders_email'			<%if(criteria.equals("orders_email"))			out.print("selected");%>>이메일</option>
+						<option value='orders_payment_method'	<%if(criteria.equals("orders_payment_method"))	out.print("selected");%>>결제방법</option>
 					</select>
 					<input type='text' name='searchWord' value="<%=searchWord%>">
 					<input type='button' value='검색' onclick="search()">						

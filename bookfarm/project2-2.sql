@@ -13,7 +13,7 @@ CREATE TABLE customer (
 	username		varchar(64)		NOT NULL,
 	password		varchar(64)		NOT NULL,
 	firstname		varchar(64)		NOT NULL,
-	lastname		varchar(64)		NOT NULL,
+	lastname		varchar(64),
 	postcode		varchar(64)		NOT NULL,
 	address1		varchar(64)		NOT NULL,
 	address2		varchar(64)		NOT NULL,

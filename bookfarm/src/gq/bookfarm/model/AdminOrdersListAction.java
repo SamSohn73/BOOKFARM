@@ -9,17 +9,17 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
-import gq.bookfarm.dao.CustomerDAO;
-import gq.bookfarm.vo.CustomerVO;
+import gq.bookfarm.dao.OrdersDAO;
+import gq.bookfarm.vo.OrdersVO;
 import gq.bookfarm.vo.PageVO;
 
-public class AdminCustomerListAction implements Action
+public class AdminOrdersListAction implements Action
 {
 	private final Logger log = Logger.getLogger(this.getClass());
 	
 	private String path;
 
-	public AdminCustomerListAction(String path) 
+	public AdminOrdersListAction(String path) 
 	{
 		super();
 		this.path = path;
@@ -27,13 +27,13 @@ public class AdminCustomerListAction implements Action
 	
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)
 	{
-		log.debug("AdminCustomerListAction execute Start.");
+		log.debug("AdminOrdersList execute Start.");
 		// get Page number
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
 		
-		CustomerDAO			dao		= new CustomerDAO();
+		OrdersDAO			dao		= new OrdersDAO();
 		
 		// get Total rows & number of writings in a page
 		int totalRows				= dao.totalRows();
@@ -48,12 +48,12 @@ public class AdminCustomerListAction implements Action
 		if (endPage > totalPages)	endPage = totalPages;
 		
 		PageVO pageInfo				= new PageVO();
-		pageInfo					.setPage(page);
-		pageInfo					.setStartPage(startPage);
-		pageInfo					.setEndPage(endPage);
-		pageInfo					.setTotalRows(totalRows);
-		pageInfo					.setTotalPages(totalPages);
-		req							.setAttribute("pageInfo", pageInfo);
+		pageInfo.setPage(page);
+		pageInfo.setStartPage(startPage);
+		pageInfo.setEndPage(endPage);
+		pageInfo.setTotalRows(totalRows);
+		pageInfo.setTotalPages(totalPages);
+		req.setAttribute("pageInfo", pageInfo);
 		
 		log.debug("AdminCustomerListAction execute totalRows= "		+ totalRows);
 		log.debug("AdminCustomerListAction execute totalPages= "	+ totalPages);
@@ -61,12 +61,17 @@ public class AdminCustomerListAction implements Action
 		log.debug("AdminCustomerListAction execute endPage= "		+ endPage);
 		log.debug("AdminCustomerListAction execute page= "			+ page);
 		
-		Vector<CustomerVO>	customers	= dao.customerList(page, limit);
-		if (customers != null)			req.setAttribute("customers", customers);
+		Vector<OrdersVO>	orders	= dao.ordersList(page, limit);
+		log.debug("QQQQQQQQQQQQQQQ AdminCustomerListAction execute orders.size()= "		+ orders.size());
+		if (orders != null)			req.setAttribute("orders", orders);
 		// if result failed change path here
-		else					path="error.jsp";
+		else {
+			log.debug("AdminCustomerListAction execute orders Vector value null");
+			path="error.jsp";
+		}
 		
-		log.debug("AdminCustomerListAction execute End.");
+		log.debug("AdminOrdersList execute End.");
 		return new ActionForward(path, false);
 	}
 }
+
