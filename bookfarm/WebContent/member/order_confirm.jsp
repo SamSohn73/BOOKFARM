@@ -1,10 +1,10 @@
 <%@page import="org.apache.catalina.filters.CsrfPreventionFilter"%>
-<%@ page import="xyz.bookfarm.vo.OrdersVO" %>
-<%@ page import="xyz.bookfarm.dao.OrdersProductDAO" %>
-<%@ page import="xyz.bookfarm.vo.OrdersProductVO" %>
 <%@ page import="java.util.Vector" %>
 <%@ page import="java.sql.Date" %>
-<%@ page import="xyz.bookfarm.vo.PageVO" %>
+<%@ page import="gq.bookfarm.vo.OrdersVO" %>
+<%@ page import="gq.bookfarm.dao.OrdersProductDAO" %>
+<%@ page import="gq.bookfarm.vo.OrdersProductVO" %>
+<%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
-<%@page import="xyz.bookfarm.vo.PageVO"%>
-<%@page import="xyz.bookfarm.vo.AdminVO"%>
-<%@page import="xyz.bookfarm.vo.OrdersVO"%>
+<%@page import="gq.bookfarm.vo.PageVO"%>
+<%@page import="gq.bookfarm.vo.AdminVO"%>
+<%@page import="gq.bookfarm.vo.OrdersVO"%>
 <%@page import="org.apache.log4j.Logger"%>
 
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
@@ -52,8 +52,8 @@
 		<caption>주문 목록</caption>
 		<tr>
 			<th>No.</th>
-			<th>아이디</th>
-			<th>이름</th>
+			<th>주문자</th>
+			<th>수신인</th>
 			<th>우편번호</th>
 			<th>주소1</th>
 			<th>주소2</th>
@@ -62,34 +62,53 @@
 			<th>전화번호 3</th>
 			<th>이메일 1</th>
 			<th>이메일 2</th>
-			<th>성별</th>
-			<th>생일</th>
-			<th>등급</th>
-			<th>마지막 로그인</th>
-			<th>로그인 카운트</th>
-			<th>계정 생성일</th>
+			<th>결재자</th>
+			<th>수신인</th>
+			<th>우편번호</th>
+			<th>주소1</th>
+			<th>주소2</th>
+			<th>전화번호 1</th>
+			<th>전화번호 2</th>
+			<th>전화번호 3</th>
+			<th>이메일 1</th>
+			<th>이메일 2</th>
+			<th>결재방법</th>
+			<th>결재가격</th>
+			<th>최종수정일</th>
+			<th>구매일</th>
+			<th>주문상태</th>
+			<th>주문환료일</th>
 		</tr>
-<%	
+<%
 	int idNum = totalRows - (currentPage-1)*10;
 	for(OrdersVO order: orders) {	%>
 		<tr>
 			<td><%=idNum%></td>
-			<td><%=order.getUsername()%></td>
-			<td><%=order.getLastname()%><%=customer.getFirstname()%></td>
-			<td><%=order.getPostcode()%></td>
-			<td><%=order.getAddress1()%></td>
-			<td><%=order.getAddress2()%></td>
-			<td><%=order.getPhone1()%></td>
-			<td><%=order.getPhone2()%></td>
-			<td><%=order.getPhone3()%></td>
-			<td><%=order.getEmail1()%></td>
-			<td><%=order.getEmail2()%></td>
-			<td><%=order.getGender()%></td>
-			<td><%=order.getBirthday()%></td>
-			<td><%=order.getGrade()%></td>
-			<td><%=order.getLast_login()%></td>
-			<td><%=order.getLogin_cnt()%></td>
-			<td><%=order.getAccount_created()%></td>
+			<td><%=order.getCustomers_idx()%></td>
+			<td><%=order.getDelivery_name()%></td>
+			<td><%=order.getDelivery_postcode()%></td>
+			<td><%=order.getDelivery_address1()%></td>
+			<td><%=order.getDelivery_address2()%></td>
+			<td><%=order.getDelivery_phone1()%></td>
+			<td><%=order.getDelivery_phone2()%></td>
+			<td><%=order.getDelivery_phone3()%></td>
+			<td><%=order.getDelivery_email1()%></td>
+			<td><%=order.getDelivery_email2()%></td>
+			<td><%=order.getBilling_name()%></td>
+			<td><%=order.getBilling_postcode()%></td>
+			<td><%=order.getBilling_address1()%></td>
+			<td><%=order.getBilling_address2()%></td>
+			<td><%=order.getBilling_phone1()%></td>
+			<td><%=order.getBilling_phone2()%></td>
+			<td><%=order.getBilling_phone3()%></td>
+			<td><%=order.getBilling_email1()%></td>
+			<td><%=order.getBilling_email2()%></td>
+			<td><%=order.getPayment_method()%></td>
+			<td><%=order.getFinal_price()%></td>
+			<td><%=order.getLast_modified()%></td>
+			<td><%=order.getDate_purchased()%></td>
+			<td><%=order.getOrders_status()%></td>
+			<td><%=order.getOrders_date_finished()%></td>
 		</tr>
 <%		idNum--;
 	} %>

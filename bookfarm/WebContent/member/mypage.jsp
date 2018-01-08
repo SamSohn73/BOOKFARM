@@ -1,10 +1,10 @@
-<%@page import="xyz.bookfarm.dao.OrdersDAO" %>
-<%@page import="xyz.bookfarm.dao.OrdersProductDAO" %>
-<%@page import="xyz.bookfarm.dao.ProductDAO" %>
-<%@page import="xyz.bookfarm.vo.CustomerVO"%>
-<%@page import="xyz.bookfarm.vo.OrdersVO"%>
-<%@page import="xyz.bookfarm.vo.ProductVO"%>
-<%@page import="xyz.bookfarm.vo.OrdersProductVO"%>
+<%@page import="gq.bookfarm.dao.OrdersDAO" %>
+<%@page import="gq.bookfarm.dao.OrdersProductDAO" %>
+<%@page import="gq.bookfarm.dao.ProductDAO" %>
+<%@page import="gq.bookfarm.vo.CustomerVO"%>
+<%@page import="gq.bookfarm.vo.OrdersVO"%>
+<%@page import="gq.bookfarm.vo.ProductVO"%>
+<%@page import="gq.bookfarm.vo.OrdersProductVO"%>
 <%@page import="java.util.Vector"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

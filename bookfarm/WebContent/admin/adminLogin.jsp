@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="xyz.bookfarm.vo.AdminVO"%>
+<%@page import="gq.bookfarm.vo.AdminVO"%>
 <% AdminVO vo = (AdminVO)session.getAttribute("vo"); %>    
 <!DOCTYPE html>
 <html>

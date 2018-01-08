@@ -1,10 +1,10 @@
 <%@ page import="java.util.Vector"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="xyz.bookfarm.vo.ReviewVO" %>
-<%@ page import="xyz.bookfarm.vo.CustomerVO" %>
-<%@ page import="xyz.bookfarm.dao.ReviewDAO" %>
-<%@ page import="xyz.bookfarm.dao.CustomerDAO" %>
-<%@ page	import="xyz.bookfarm.vo.PageVO" %>
+<%@ page import="gq.bookfarm.vo.ReviewVO" %>
+<%@ page import="gq.bookfarm.vo.CustomerVO" %>
+<%@ page import="gq.bookfarm.dao.ReviewDAO" %>
+<%@ page import="gq.bookfarm.dao.CustomerDAO" %>
+<%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%

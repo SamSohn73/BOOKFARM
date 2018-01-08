@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"	import = "adminVO.ProductVO"%>
+<%@page import="gq.bookfarm.vo.ProductVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% 	 		
 	ProductVO vo=(ProductVO)request.getAttribute("vo");	
 	String current_page = (String)request.getAttribute("page");
