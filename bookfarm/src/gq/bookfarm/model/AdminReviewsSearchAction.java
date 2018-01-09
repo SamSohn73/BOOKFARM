@@ -38,7 +38,7 @@ public class AdminReviewsSearchAction implements Action {
 			if(searchCondition.equals("customers_idx"))
 			{
 				CustomerDAO cDao	=	new CustomerDAO();
-				
+										cDao.findIdx(searchWord);	//여기까지함
 			}
 			Vector<ReviewVO> list	=	new Vector<ReviewVO>();
 			

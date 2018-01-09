@@ -478,5 +478,35 @@ public class CustomerDAO {
 	}
 	
 	
-	
+	public Vector<CustomerVO> findIdx(String searchWord)
+	{
+		Vector<CustomerVO> list=		null;
+		
+		try
+		{
+			String 	sql		=		"select idx from Customer where username like ?";
+					con		=		getConnection();
+					pstmt	=		con.prepareStatement(sql);
+									pstmt.setString(1, "%"+searchWord+"%");
+					rs		=		pstmt.executeQuery();
+			while(rs.next())
+			{
+				CustomerVO	vo		=	new	CustomerVO();
+									vo.setIdx(rs.getInt("idx"));
+									list.add(vo);
+			}
+		}
+		catch (SQLException e)
+		{			
+									log.error("CustomerDAO	"
+											+ "getRow() error : "+e);
+		}
+		finally
+		{
+									close(rs);
+									close(pstmt);
+									close(con);
+		}		
+		return list;	
+	}
 }
