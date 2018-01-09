@@ -431,14 +431,14 @@ public class ProductDAO
 		
 		try {
 			log.debug("execute productTotalIdx DB work Start.");
-			String sql	= "select idx, category_idx from product where category_idx=?";
+			String sql	= "select idx, product_name from product where category_idx=?";
 			pstmt			= con.prepareStatement(sql);
 							  pstmt.setInt(1, category_idx);
 			result			= pstmt.executeQuery();			
 			while (result.next()) {
 				ProductVO vo = new ProductVO();
 								vo.setIdx(result.getInt("idx"));
-								vo.setCategory_idx(result.getInt("category_idx"));
+								vo.set(result.getString("category_idx"));
 								list.add(vo);
 			}
 		} catch (Exception e) {

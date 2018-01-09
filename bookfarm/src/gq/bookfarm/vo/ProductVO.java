@@ -54,7 +54,7 @@ public class ProductVO
 	{
 		return product_name;
 	}
-	public void setProduct_model(String product_name)
+	public void setProduct_name(String product_name)
 	{
 		this.product_name = product_name;
 	}
