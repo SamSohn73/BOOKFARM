@@ -64,7 +64,10 @@ public class AdminProductListAction implements Action
 		Vector<ProductVO>	products	= dao.productList(page, limit);
 		if (products != null)			req.setAttribute("products", products);
 		// if result failed change path here
-		else					path="error.jsp";
+		else {
+			log.debug("AdminProductListAction execute products Vector value null");
+			path="error.jsp";
+		}
 		
 		log.debug("AdminProductListAction execute End.");
 		return new ActionForward(path, false);

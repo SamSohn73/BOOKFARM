@@ -3,10 +3,12 @@ package gq.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
+import gq.bookfarm.model.AdminCategoryListAction;
 import gq.bookfarm.model.AdminCustomerListAction;
 import gq.bookfarm.model.AdminLoginAction;
 import gq.bookfarm.model.AdminLogoutAction;
 import gq.bookfarm.model.AdminProductListAction;
+import gq.bookfarm.model.AdminOrdersListAction;
 import gq.bookfarm.model.CustomerFindAction;
 import gq.bookfarm.model.CustomerIdPwdCheckAction;
 import gq.bookfarm.model.CustomerLogoutAction;
@@ -66,9 +68,15 @@ public class MallActionFactory
 		}
 		if (cmd.equals("/adminOrdersList.do")) {
 			log.debug("adminOrdersList.do action create Start.");
-			action = new AdminProductListAction("admin/adminOrdersList.jsp");
+			action = new AdminOrdersListAction("admin/adminOrdersList.jsp");
 			log.debug("adminOrdersList.do action create End.");
 		}
+		if (cmd.equals("/adminCategoryList.do")) {
+			log.debug("adminCategoryList.do action create Start.");
+			action = new AdminCategoryListAction("admin/adminCategoryList.jsp");
+			log.debug("adminCategoryList.do action create End.");
+		}
+		
 		/*
 		if (cmd.equals("/qSearch.do")) {
 			log.debug("QQQQQQQQQQ qSearch.do action create Start.");

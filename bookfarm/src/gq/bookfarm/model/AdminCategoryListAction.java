@@ -9,17 +9,17 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
-import gq.bookfarm.dao.OrdersDAO;
-import gq.bookfarm.vo.OrdersVO;
+import gq.bookfarm.dao.CategoryDAO;
+import gq.bookfarm.vo.CategoryVO;
 import gq.bookfarm.vo.PageVO;
 
-public class AdminOrdersList implements Action
+public class AdminCategoryListAction implements Action
 {
 	private final Logger log = Logger.getLogger(this.getClass());
 	
 	private String path;
 
-	public AdminOrdersList(String path) 
+	public AdminCategoryListAction(String path) 
 	{
 		super();
 		this.path = path;
@@ -27,13 +27,13 @@ public class AdminOrdersList implements Action
 	
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)
 	{
-		log.debug("AdminOrdersList execute Start.");
+		log.debug("AdminCategoryListAction execute Start.");
 		// get Page number
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
 		
-		OrdersDAO			dao		= new OrdersDAO();
+		CategoryDAO			dao		= new CategoryDAO();
 		
 		// get Total rows & number of writings in a page
 		int totalRows				= dao.totalRows();
@@ -48,26 +48,25 @@ public class AdminOrdersList implements Action
 		if (endPage > totalPages)	endPage = totalPages;
 		
 		PageVO pageInfo				= new PageVO();
-		pageInfo.setPage(page);
-		pageInfo.setStartPage(startPage);
-		pageInfo.setEndPage(endPage);
-		pageInfo.setTotalRows(totalRows);
-		pageInfo.setTotalPages(totalPages);
-		req.setAttribute("pageInfo", pageInfo);
+		pageInfo					.setPage(page);
+		pageInfo					.setStartPage(startPage);
+		pageInfo					.setEndPage(endPage);
+		pageInfo					.setTotalRows(totalRows);
+		pageInfo					.setTotalPages(totalPages);
+		req							.setAttribute("pageInfo", pageInfo);
 		
-		log.debug("AdminCustomerListAction execute totalRows= "		+ totalRows);
-		log.debug("AdminCustomerListAction execute totalPages= "	+ totalPages);
-		log.debug("AdminCustomerListAction execute startPage= "		+ startPage);
-		log.debug("AdminCustomerListAction execute endPage= "		+ endPage);
-		log.debug("AdminCustomerListAction execute page= "			+ page);
+		log.debug("AdminCategoryListAction execute totalRows= "		+ totalRows);
+		log.debug("AdminCategoryListAction execute totalPages= "	+ totalPages);
+		log.debug("AdminCategoryListAction execute startPage= "		+ startPage);
+		log.debug("AdminCategoryListAction execute endPage= "		+ endPage);
+		log.debug("AdminCategoryListAction execute page= "			+ page);
 		
-		Vector<OrdersVO>	orders	= dao.ordersList(page, limit);
-		if (orders != null)			req.setAttribute("orders", orders);
+		Vector<CategoryVO>	categories	= dao.categoryList(page, limit);
+		if (categories != null)			req.setAttribute("categories", categories);
 		// if result failed change path here
 		else					path="error.jsp";
 		
-		log.debug("AdminOrdersList execute End.");
+		log.debug("AdminCategoryListAction execute End.");
 		return new ActionForward(path, false);
 	}
 }
-
