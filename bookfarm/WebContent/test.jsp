@@ -8,5 +8,6 @@
 </head>
 <body>
 	<p> 고구마 </p>
+	<h1>고구마 추가</h1>
 </body>
 </html>
