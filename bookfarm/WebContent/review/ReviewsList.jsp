@@ -159,7 +159,7 @@
 			}
 			%>
 <tr>
-	<td colspan="5">
+	<td colspan="5" align="center">
 		<%
 		if(type.equals("list"))
 		{

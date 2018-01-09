@@ -31,17 +31,10 @@ public class AdminReviewsListAction implements Action {
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 			int		page		=	1;
 			int		products_idx=	0;
-			int		customers_idx=	0;
 			int		parent_idx	=	0;
 			int		category_idx=	0;
 			Vector<ReviewVO> list=	new Vector<ReviewVO>();
-			//HttpSession	session	=	req.getSession();
-			//CustomerVO	vo		=	(CustomerVO)session.getAttribute("adminVO");
 			
-			
-			
-			if(req.getParameter("customers_idx")!=null)	
-					customers_idx=	Integer.parseInt(req.getParameter("customers_idx"));
 			if(req.getParameter("products_idx")!=null)	
 					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
 			if(req.getParameter("parent_idx")!=null)	
@@ -107,11 +100,6 @@ public class AdminReviewsListAction implements Action {
 				}
 			}
 		}
-		else if(parent_idx==0 && customers_idx!=0)
-		{
-					list		=	dao.getListByCustomer(customers_idx, page, limit);
-					totalRows	=	dao.oneCustomersTotalRows(customers_idx);
-		}
 		else
 		{
 					list		=	dao.getList(page, limit);
@@ -142,7 +130,7 @@ public class AdminReviewsListAction implements Action {
 									req.setAttribute("VpVo", VpVo);
 									req.setAttribute("catVo1", catVo1);
 									req.setAttribute("catVo2", catVo2);
-					path		+=	"?products_idx="+products_idx+"&customers_idx="+customers_idx
+					path		+=	"?products_idx="+products_idx
 									+"&parent_idx="+parent_idx+"&category_idx="+category_idx;
 			}
 			else

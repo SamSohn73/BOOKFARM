@@ -89,7 +89,7 @@
 				</tr>
 			<%}%>
 <tr>
-	<td colspan="4">
+	<td colspan="4" align="center">
 		<%if(type.equals("myList"))
 		{
 			if(current_page<=1){

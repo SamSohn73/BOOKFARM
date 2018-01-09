@@ -476,4 +476,7 @@ public class CustomerDAO {
 		log.debug("execute customerList do the DB work End.");
 		return customerList;
 	}
+	
+	
+	
 }

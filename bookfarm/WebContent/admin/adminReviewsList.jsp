@@ -29,12 +29,9 @@
 		String	searchWord		=	(String)request.getAttribute("searchWord");
 		
 		
-		int		customers_idx	=	0;
 		int		products_idx	=	0;
 		int		category_idx	=	0;
 		int		parent_idx		=	0;
-			if(request.getParameter("customers_idx")!=null)	
-				customers_idx	=	Integer.parseInt((String)request.getParameter("customers_idx"));
 			if(request.getParameter("products_idx")!=null)	
 				products_idx	=	Integer.parseInt((String)request.getParameter("products_idx"));
 			if(request.getParameter("category_idx")!=null)	
@@ -111,7 +108,9 @@
 					</form>
 				</td>
 				<td class="클래스_btn_align1">
-					<form action="adminReviewsList.do?" method="post" name="searchform">
+					<form action="adminReviewsSearch.do?page=<%=currentPage%>&products_idx=<%=products_idx %>
+					&parent_idx=<%=parent_idx %>&category_idx=<%=category_idx %>"
+					method="post" name="searchform">
 						<select class="btn" name="searchCondition">
 							<option value="customers_idx">작성자</option>
 							<option value="review_title">제목</option>
@@ -145,7 +144,7 @@
 				</tr>
 				<%}%>
 <tr>
-	<td colspan="5">
+	<td colspan="4" align="center">
 		<%	if(searchWord == null)
 			{
 				if(currentPage<=1)
@@ -155,7 +154,7 @@
 				else
 				{
 						out.print("<a href=./adminReviewsList.do?page="+(currentPage-1)+
-								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								"&products_idx="+products_idx
 								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print("[이전]</a>");
 				}
@@ -168,7 +167,7 @@
 					else
 					{					
 						out.print("<a href=./adminReviewsList.do?page="+i+
-								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								"&products_idx="+products_idx
 								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print(i+"</a>");
 					}
@@ -180,7 +179,7 @@
 				else
 				{
 						out.print("<a href=./adminReviewsList.do?page="+(currentPage+1)+
-								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								"&products_idx="+products_idx
 								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print("[다음]</a>");
 				}
@@ -196,7 +195,7 @@
 					out.print("<a href=./adminReviewsSearch.do?page="+(currentPage-1)+
 							"&searchCondition="+searchCondition+
 							"&searchWord="+searchWord+
-							"&products_idx="+products_idx+"&customers_idx="+customers_idx
+							"&products_idx="+products_idx
 							+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 					out.print("[이전]</a>");
 				}
@@ -211,7 +210,7 @@
 						out.print("<a href=./adminReviewsSearch.do?page="+i+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
-								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								"&products_idx="+products_idx
 								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print(i+"</a>");
 					}
@@ -225,33 +224,18 @@
 						out.print("<a href=./adminReviewsSearch.do?page="+(currentPage+1)+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
-								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								"&products_idx="+products_idx
 								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print("[다음]</a>");
 				}
 			}%>
 	</td>
 </tr>
-</table>
-<table	class="클래스_bottom_table1">
-			<tr>
-				<td class="클래스_btn_align1">
-					<form action="adminReviewsSearch.do?products_idx=<%=products_idx %>"
-					method="post" name="searchform">
-						<select class="btn" name="searchCondition">
-							<option value="customers_idx">작성자</option>
-							<option value="review_title">제목</option>
-							<option value="review_text">글내용</option>
-						</select>
-						<input type="text" class="클래스_btn1" size="10" name="searchWord" required="required"/>
-						<input type="button" class="클래스_btn1" value="검색" onclick="search()">
-					</form>
-				</td>
-				<td align="right">
+			<tr align="right">
+				<td align="right" colspan="4">
 				<a href="./admin/adminReviewsWrite.jsp?page=<%=currentPage%>
-				&products_idx=<%=products_idx %>">[글쓰기]</a>
-				</td>
-				<td align="right">
+				&products_idx=<%=products_idx %>&parent_idx=<%=parent_idx %>
+				&category_idx=<%=category_idx %>">[글쓰기]</a>
 				<a href="./admin/adminLogin.jsp">[메인으로]</a>
 				</td>
 			</tr>

@@ -888,7 +888,7 @@ public class ReviewDAO {
 												vo.setReview_text(rs.getString(6));
 												vo.setDate_added(rs.getDate(7));
 												vo.setLast_modified(rs.getDate(8));
-												vo.setReviews_read(rs.getInt(9));				
+												vo.setReviews_read(rs.getInt(9));
 												list.add(vo);
 			}
 		}
