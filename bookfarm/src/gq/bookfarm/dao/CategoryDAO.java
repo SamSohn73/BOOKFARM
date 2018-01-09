@@ -224,6 +224,38 @@ public class CategoryDAO
 	}
 	
 	
+	
+	public Vector<CategoryVO> categoryList()
+	{
+		Vector<CategoryVO> categoryList	= new Vector<CategoryVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		try {
+			log.debug("execute categoryList do the DB work Start.");
+			String sql	= "select * from category order by idx desc, parent_idx desc";
+			pstmt		= con.prepareStatement(sql);
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CategoryVO list = new CategoryVO(result.getInt("idx"),
+											result.getInt("parent_idx"),
+											result.getString("category_name"));
+				
+				categoryList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute categoryList do the DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt);
+		}
+		log.debug("execute categoryList do the DB work End.");
+		return categoryList;
+	}
+	
 	public Vector<CategoryVO> categoryList(int page, int limit)
 	{
 		// Calc start record through page;

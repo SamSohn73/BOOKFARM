@@ -3,6 +3,8 @@ package gq.bookfarm.control;
 import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
+import gq.bookfarm.model.AdminCategoryAddAction;
+import gq.bookfarm.model.AdminCategoryAddViewAction;
 import gq.bookfarm.model.AdminCategoryListAction;
 import gq.bookfarm.model.AdminCustomerListAction;
 import gq.bookfarm.model.AdminLoginAction;
@@ -53,6 +55,7 @@ public class MallActionFactory
 	{
 		Action action = null;
 
+		// Admin Login Logout
 		if (cmd.equals("/adminLogin.do")) {
 			log.debug("AdminLogin.do action create Start.");
 			action = new AdminLoginAction("admin/adminLogin.jsp");
@@ -63,26 +66,36 @@ public class MallActionFactory
 			action = new AdminLogoutAction("index.jsp");
 			log.debug("AdminLogout.do action create End.");
 		}
+		// Admin Customer Management
 		if (cmd.equals("/adminCustomerList.do")) {
 			log.debug("adminCustomerList.do action create Start.");
 			action = new AdminCustomerListAction("admin/adminCustomerList.jsp");
 			log.debug("adminCustomerList.do action create End.");
 		}
+		// Admin Product Management
 		if (cmd.equals("/adminProductList.do")) {
 			log.debug("adminProductList.do action create Start.");
 			action = new AdminProductListAction("admin/adminProductList.jsp");
 			log.debug("adminProductList.do action create End.");
 		}
+		// Admin Orders Management
 		if (cmd.equals("/adminOrdersList.do")) {
 			log.debug("adminOrdersList.do action create Start.");
 			action = new AdminOrdersListAction("admin/adminOrdersList.jsp");
 			log.debug("adminOrdersList.do action create End.");
 		}
+		// Admin Category Management
 		if (cmd.equals("/adminCategoryList.do")) {
 			log.debug("adminCategoryList.do action create Start.");
 			action = new AdminCategoryListAction("admin/adminCategoryList.jsp");
 			log.debug("adminCategoryList.do action create End.");
 		}
+		if (cmd.equals("/adminCategoryAddView.do")) {
+			log.debug("adminCategoryAddView.do action create Start.");
+			action = new AdminCategoryAddViewAction("admin/adminCategoryAdd.jsp");
+			log.debug("adminCategoryAddView.do action create End.");
+		}
+		
 		if (cmd.equals("/productList.do")) {
 			log.debug("productList.do action create Start.");
 			action = new ProductListAction("product/productList.jsp");

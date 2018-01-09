@@ -8,10 +8,8 @@
 <%
 	String				currentPage	= request.getParameter("page");
 	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
-	for(CategoryVO category: categories) {
-		log.debug(category.getParent_idx());
-	}
 %>
+QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
 <!DOCTYPE>
 <html>
 <head>
@@ -20,7 +18,7 @@
 <script>
 	function register_check(form){
 		if (form.category_name.value.length==0) {
-			alert('글쓴이를 확인해 주세요');
+			alert('카테고리명을 입력해주세요.');
 			form.id.focus();
 			return;
 		} else {

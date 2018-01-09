@@ -29,7 +29,7 @@ public class MallControlServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
 	{
-		log.debug("MallControlServlet Start.");
+		log.debug("********** MallControlServlet Start. **********");
 		//Korean Language Processing
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
@@ -70,7 +70,7 @@ public class MallControlServlet extends HttpServlet {
 			rd.forward(req, res);
 		}
 		log.debug("MallControlServlet Redirect/Forward End.");
-		log.debug("MallControlServlet End.");
+		log.debug("********** MallControlServlet End. **********");
 	}
 
 	/**
