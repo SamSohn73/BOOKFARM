@@ -8,6 +8,11 @@ import gq.bookfarm.model.AdminCustomerListAction;
 import gq.bookfarm.model.AdminLoginAction;
 import gq.bookfarm.model.AdminLogoutAction;
 import gq.bookfarm.model.AdminProductListAction;
+import gq.bookfarm.model.AdminReviewsDeleteAction;
+import gq.bookfarm.model.AdminReviewsListAction;
+import gq.bookfarm.model.AdminReviewsModifyAction;
+import gq.bookfarm.model.AdminReviewsViewAction;
+import gq.bookfarm.model.AdminReviewsWriteAction;
 import gq.bookfarm.model.AdminOrdersListAction;
 import gq.bookfarm.model.CustomerFindAction;
 import gq.bookfarm.model.CustomerIdPwdCheckAction;
@@ -183,7 +188,37 @@ public class MallActionFactory
 			log.debug("QQQQQQQQQQ qReviewsDelete.do action create End.");
 		}
 		
-		
+		//hansol's administrator control commend list....
+		if(cmd.equals("/adminReviewsList.do"))
+		{
+			log.debug("QQQQQQQQQQ qAdminReviewsList.do action create Start.");
+			action = new AdminReviewsListAction("./admin/adminReviewsList.jsp");
+			log.debug("QQQQQQQQQQ qAdminReviewsList.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsView.do"))
+		{
+			log.debug("QQQQQQQQQQ qAdminReviewsView.do action create Start.");
+			action = new AdminReviewsViewAction("./admin/adminReviewsView.jsp");
+			log.debug("QQQQQQQQQQ qAdminReviewsView.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsWrite.do"))
+		{
+			log.debug("QQQQQQQQQQ qAdminReviewsWrite.do action create Start.");
+			action = new AdminReviewsWriteAction("./admin/adminReviewsWrite.jsp");
+			log.debug("QQQQQQQQQQ qAdminReviewsWrite.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsDelete.do"))
+		{
+			log.debug("QQQQQQQQQQ qAdminReviewsDelete.do action create Start.");
+			action = new AdminReviewsDeleteAction("./admin/adminReviewsDelete.jsp");
+			log.debug("QQQQQQQQQQ qAdminReviewsDelete.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsModify.do"))
+		{
+			log.debug("QQQQQQQQQQ qAdminReviewsDelete.do action create Start.");
+			action = new AdminReviewsModifyAction("./admin/adminReviewsModify.jsp");
+			log.debug("QQQQQQQQQQ qAdminReviewsModify.do action create End.");
+		}
 		return action;
 	}
 }

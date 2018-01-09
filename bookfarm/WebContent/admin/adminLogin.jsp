@@ -33,7 +33,7 @@
 		location.href="../adminOrdersList.do";
 	}
 	function review_list(){
-		location.href="../adminReviewList.do";
+		location.href="../adminReviewsList.do";
 	}
 	function logout(){
 		location.href="../adminLogout.do";

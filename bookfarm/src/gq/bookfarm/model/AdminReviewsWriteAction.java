@@ -10,9 +10,9 @@ import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.ReviewVO;
 
-public class AdminReviewsInsertAction implements Action {
+public class AdminReviewsWriteAction implements Action {
 	private String path;
-	public AdminReviewsInsertAction(String path) {
+	public AdminReviewsWriteAction(String path) {
 		super();
 		this.path = path;
 	}
