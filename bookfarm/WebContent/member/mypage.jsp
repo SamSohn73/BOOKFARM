@@ -56,7 +56,7 @@
 			</tr>
 		</table>
 
-		<iframe src="../qOrdersConfirmAction.do?type=myPage"
+		<iframe src="../qOrdersConfirm.do?type=myPage"
 				height="450" width="800"></iframe>
 		
 		<iframe src="../qReviewsLists.do?type=myPage"

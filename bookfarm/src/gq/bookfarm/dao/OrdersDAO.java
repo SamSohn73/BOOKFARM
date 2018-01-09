@@ -432,7 +432,7 @@ public class OrdersDAO
 		
 		try {
 			log.debug("execute ordersGetRow DB work Start.");
-			String sql	= "select * where idx = ?";
+			String sql	= "select * from orders where idx = ?";
 			pstmt			= con.prepareStatement(sql);
 			pstmt.setInt	(1, idx);
 			result			= pstmt.executeQuery();			
@@ -553,7 +553,7 @@ public class OrdersDAO
 		
 		try {
 			log.debug("execute single_Customer's_orders_List do the DB work Start.");
-			String sql	= "select * from orders where customers_idx=? order by idx desc, limit ?,?";
+			String sql	= "select * from orders where customers_idx=? order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, customers_idx);
 			pstmt		.setInt(2, start);

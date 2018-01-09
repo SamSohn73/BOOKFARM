@@ -3,11 +3,14 @@ package gq.bookfarm.model;
 import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.ReviewDAO;
+import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
 import gq.bookfarm.vo.ReviewVO;
 
@@ -22,17 +25,23 @@ public class ReviewsSearchAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 			int		page		=	1;
+			
+			HttpSession	session	=	req.getSession();
+			CustomerVO	vo		=	(CustomerVO)session.getAttribute("LoginedUserVO");
+			int		customers_idx=	vo.getIdx();
 		
 			String	type		=	req.getParameter("type");
+			System.out.println("여기 문제?:"+type);
 			String	searchCondition=req.getParameter("searchCondition");
 			String	searchWord	=	req.getParameter("searchWord");
 		
 			int		products_idx=	0;
-			int		customers_idx=	0;
-		if(req.getParameter("products_idx")!=null)	
+			if(req.getParameter("products_idx")!=null)	
 					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
-		if(req.getParameter("customers_idx")!=null)	
-					customers_idx=	Integer.parseInt(req.getParameter("customers_idx"));			
+			else if(req.getAttribute("products_idx")!=null)
+					products_idx=	(int)req.getAttribute("products_idx");
+
+
 				
 		if(req.getParameter("page")!=null)
 					page		=	Integer.parseInt(req.getParameter("page"));
@@ -40,8 +49,8 @@ public class ReviewsSearchAction implements Action {
 			ReviewDAO dao		=	new ReviewDAO();
 			PageVO	info		=	new PageVO();
 		
-			if(type.equals("list"))
-			{
+		if(type.equals("list"))
+		{
 			int		totalRows	=	dao.searchOneProductList(products_idx, searchCondition, searchWord);
 			int		limit		=	10;
 			int		totalPages	=	(int)((double)totalRows/limit+0.95);
@@ -61,10 +70,9 @@ public class ReviewsSearchAction implements Action {
 				{
 									req.setAttribute("list", list);
 									req.setAttribute("info", info);
-									req.setAttribute("type", type);
 									req.setAttribute("searchCondition", searchCondition);
 									req.setAttribute("searchWord", searchWord);
-					path		+=	"?products_idx="+products_idx;
+					path		+=	"?type="+type+"&products_idx="+products_idx;
 									
 				}
 				else
@@ -72,9 +80,9 @@ public class ReviewsSearchAction implements Action {
 									log.error("QQQQQQQQ ReviewsSearchAction - 'list' error");
 									path="";
 				}
-			}
-			else if(type.equals("myList"))
-			{
+		}
+		else if(type.equals("myList"))
+		{
 			int		totalRows	=	dao.searchOneCustomerList(customers_idx, searchCondition, searchWord);
 			int		limit		=	10;
 			int		totalPages	=	(int)((double)totalRows/limit+0.95);
@@ -94,18 +102,17 @@ public class ReviewsSearchAction implements Action {
 				{
 									req.setAttribute("list", list);
 									req.setAttribute("info", info);
-									req.setAttribute("type", type);
 									req.setAttribute("searchCondition", searchCondition);
 									req.setAttribute("searchWord", searchWord);
-					path		+=	"?customers_idx="+customers_idx;
+					path		+=	"?type="+type+"&customers_idx="+customers_idx;
 				}
 				else
 				{ 
 									log.error("QQQQQQQQ ReviewsSearchAction - 'myList' error");
 									path="";
 				}
-			}													
-		return new ActionForward(path, true);
+		}
+		return new ActionForward(path, false);
 	}
 
 }

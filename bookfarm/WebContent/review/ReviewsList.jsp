@@ -161,7 +161,7 @@
 <tr>
 	<td colspan="5">
 		<%
-		if(type.equals("list") || type.equals("myList"))
+		if(type.equals("list"))
 		{
 			if(searchWord == null)
 			{
@@ -171,7 +171,100 @@
 				}
 				else
 				{
-						out.print("<a href=qReviewsList.do?page="+(currentPage-1)+
+						out.print("<a href=./qReviewsLists.do?page="+(currentPage-1)+
+								"&products_idx="+products_idx+
+								"&type="+type+
+								">");
+						out.print("[이전]</a>");
+				}
+				for(int i=startPage;i<=endPage;i++)
+				{
+					if(i==currentPage)
+					{
+						out.print("["+i+"]");
+					}
+					else
+					{					
+						out.print("<a href=./qReviewsLists.do?page="+i+
+								"&products_idx="+products_idx+
+								"&type="+type+
+								">");
+						out.print(i+"</a>");
+					}
+				}
+				if(currentPage>=totalPages)
+				{
+						out.print("");
+				}
+				else
+				{
+						out.print("<a href=./qReviewsLists.do?page="+(currentPage+1)+
+								"&products_idx="+products_idx+
+								"&type="+type+
+								">");
+						out.print("[다음]</a>");
+				}
+			}
+			else
+			{
+				if(currentPage<=1)
+				{
+					out.print("");
+				}
+				else
+				{
+					out.print("<a href=./qReviewsSearch.do?page="+(currentPage-1)+
+							"&searchCondition="+searchCondition+
+							"&searchWord="+searchWord+
+							"&products_idx="+products_idx+
+							"&type="+type+
+							">");
+					out.print("[이전]</a>");
+				}
+				for(int i=startPage;i<=endPage;i++)
+				{
+					if(i==currentPage)
+					{
+						out.print("["+i+"]");
+					}
+					else
+					{					
+						out.print("<a href=./qReviewsSearch.do?page="+i+
+								"&searchCondition="+searchCondition+
+								"&searchWord="+searchWord+
+								"&products_idx="+products_idx+
+								"&type="+type+
+								">");
+						out.print(i+"</a>");
+					}
+				}
+				if(currentPage>=totalPages)
+				{
+						out.print("");
+				}
+				else
+				{
+						out.print("<a href=./qReviewsSearch.do?page="+(currentPage+1)+
+								"&searchCondition="+searchCondition+
+								"&searchWord="+searchWord+
+								"&products_idx="+products_idx+
+								"&type="+type+
+								">");
+						out.print("[다음]</a>");
+				}
+			}
+		}
+		else if(type.equals("myList"))
+		{
+			if(searchWord == null)
+			{
+				if(currentPage<=1)
+				{
+						out.print("");
+				}
+				else
+				{
+						out.print("<a href=../qReviewsLists.do?page="+(currentPage-1)+
 								"&products_idx="+products_idx+
 								"&customers_idx="+customers_idx+
 								"&type="+type+
@@ -186,9 +279,9 @@
 					}
 					else
 					{					
-						out.print("<a href=qReviewsList.do?page="+i+
+						out.print("<a href=../qReviewsLists.do?page="+i+
 								"&products_idx="+products_idx+
-								"&customers_idx="+customers_idx+								
+								"&customers_idx="+customers_idx+
 								"&type="+type+
 								">");
 						out.print(i+"</a>");
@@ -200,7 +293,7 @@
 				}
 				else
 				{
-						out.print("<a href=qReviewsList.do?page="+(currentPage+1)+
+						out.print("<a href=../qReviewsLists.do?page="+(currentPage+1)+
 								"&products_idx="+products_idx+
 								"&customers_idx="+customers_idx+
 								"&type="+type+
@@ -216,7 +309,7 @@
 				}
 				else
 				{
-					out.print("<a href=qReviewsSearch.do?page="+(currentPage-1)+
+					out.print("<a href=../qReviewsSearch.do?page="+(currentPage-1)+
 							"&searchCondition="+searchCondition+
 							"&searchWord="+searchWord+
 							"&products_idx="+products_idx+
@@ -233,7 +326,7 @@
 					}
 					else
 					{					
-						out.print("<a href=qReviewsSearch.do?page="+i+
+						out.print("<a href=../qReviewsSearch.do?page="+i+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
 								"&products_idx="+products_idx+
@@ -249,7 +342,7 @@
 				}
 				else
 				{
-						out.print("<a href=qReviewsSearch.do?page="+(currentPage+1)+
+						out.print("<a href=../qReviewsSearch.do?page="+(currentPage+1)+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
 								"&products_idx="+products_idx+
@@ -263,7 +356,7 @@
 		else
 		{
 			%>
-			<a href="qReviewsLists.do?&customers_idx=<%=customers_idx %>&type=myList" target="_top">[더보기]</a>
+			<a href="qReviewsLists.do?customers_idx=<%=customers_idx %>&type=myList" target="_top">[더보기]</a>
 			<%
 		}
 		
@@ -284,9 +377,8 @@ if(!type.equals("myPage"))
 				<td>
 				</td>
 				<td colspan="5" class="클래스_btn_align1">
-					<form action="qReviewsSearch.do?products_idx=<%=products_idx %>
-					&type=<%=type%>
-					&customers_idx=<%=customers_idx%> method="post" name="searchform">
+					<form action="qReviewsSearch.do?products_idx=<%=products_idx %>&type=<%=type%>"
+					method="post" name="searchform">
 						<select class="btn" name="searchCondition">
 							<option value="customers_idx">작성자</option>
 							<option value="review_title">제목</option>

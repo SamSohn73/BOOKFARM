@@ -200,7 +200,7 @@ public class OrdersProductDAO
 		
 		try {
 			log.debug("execute ordersProductList do the DB work Start.");
-			String sql	= "select * from orders_product order by idx desc, limit ?,?";
+			String sql	= "select * from orders_product order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
 			pstmt		.setInt(2, limit);
@@ -383,5 +383,45 @@ public class OrdersProductDAO
 		log.debug("execute ordersProduct total_rows do the DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
+	}
+	
+	
+	public Vector<OrdersProductVO> ordersProductGetRowsbyOrders(int orders_idx, int page, int limit)
+	{
+		Vector<OrdersProductVO> ordersProductList	= new Vector<OrdersProductVO>();
+		
+		int start									= (page - 1) * 10; 
+		
+		Connection			con		= getConnection();
+		ResultSet			result	= null;
+		PreparedStatement	pstmt	= null;
+		
+		try {
+			log.debug("execute ordersProductGetRowsbyOrders DB work Start.");
+			String sql	= "select * from orders_product where orders_idx = ? order by idx desc limit ?,?";
+			pstmt			= con.prepareStatement(sql);
+			pstmt.setInt(1, orders_idx);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, limit);
+			result			= pstmt.executeQuery();			
+			while (result.next()) {
+				OrdersProductVO list = new OrdersProductVO(result.getInt("idx"), 
+											result.getInt("orders_idx"), 
+											result.getInt("products_idx"), 
+											result.getInt("products_quantity"),
+											result.getFloat("final_price"));
+
+				ordersProductList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute ordersProductGetRowsbyOrders DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(result);
+			close(con, pstmt);
+		}
+		log.debug("execute ordersProductGetRowsbyOrders DB work End.");
+		
+		return ordersProductList;
 	}
 }

@@ -38,12 +38,17 @@ public class OrdersConfirmAction implements Action {
 		String			type		=	"";
 		if(req.getParameter("type")!=null)
 						type		=	req.getParameter("type");
+		
+		int				idx			=	0;
+		if(req.getParameter("idx")!=null)
+						idx			=	Integer.parseInt(req.getParameter("idx"));
+		
 		int				page		=	1;
 		OrdersDAO		dao			=	new OrdersDAO();
 		OrdersProductDAO opDao		=	new OrdersProductDAO();
 		ProductDAO		pDao		=	new ProductDAO();
 		ProductVO		pVo			=	new ProductVO();
-		Vector<String>	cs			=	null;
+		Vector<String>	cs			=	new Vector<String>();
 		
 		
 		if(type.equals("myPage"))
@@ -53,15 +58,16 @@ public class OrdersConfirmAction implements Action {
 			for(OrdersVO vo:list)
 			{
 			Vector<OrdersProductVO>	opList	=	opDao.ordersProductGetRowsbyOrders(vo.getIdx());
-			OrdersProductVO			opVo	=	opList.get(1);
+			OrdersProductVO			opVo	=	opList.get(0);
 			int						opLCount=	opList.size() - 1;
 			String					addTag	=	"";
 			if(opLCount > 0)
-									addTag	=	" �� "+opLCount;
+									addTag	=	" 그 외 "+opLCount;
 									pVo		=	pDao.productGetRow(opVo.getProducts_idx());
 			
-			String					c1		=	pVo.getProduct_name()+"  "/*+pVo.getProduct_image()+" "*/+addTag;
-												cs.addElement(c1);
+			String					c1		=	pVo.getProduct_name()+"  "+addTag;
+			System.out.println("텍스트 확인 : "+c1);
+												cs.add(c1);
 			}
 				if(list!=null) 
 				{
@@ -75,54 +81,90 @@ public class OrdersConfirmAction implements Action {
 												//path="";
 				}
 		}
-		else if(type.equals("myList"))
+		else if(type.equals("singleList"))
 		{
 			if(req.getParameter("page")!=null)
-				page		=	Integer.parseInt(req.getParameter("page"));
+								page		=	Integer.parseInt(req.getParameter("page"));
 			PageVO					info	=	new PageVO();
-			Vector<OrdersVO>		olist	=	dao.singleCustomerordersList(customer_idx);
-			Vector<OrdersProductVO>	opList	=	null;
-			int					totalRows	=	0;
-				for(OrdersVO vo:olist)
-				{
-					int				id		=	vo.getIdx();
-					Date			date	=	vo.getDate_purchased();
-									opList	=	opDao.ordersProductGetRowsbyOrders(vo.getIdx());
-					for(OrdersProductVO oVo:opList)
-					{
-												//vo ���� ����� �ű⿡ ���ʴ�� ���
-										/*	=	id;
-											=	date;
-											=	pDao.productGetRow(oVo.getProducts_idx()).getProduct_name();
-											=	oVo.getProducts_quantity();
-											=	oVo.getFinal_price();*/
-					}
-								totalRows	+=	opDao.SingleOrderTotalRows(vo.getIdx());
-				}
 			int						limit	=	10;
+
+			OrdersVO				oList	=	dao.ordersGetRow(idx);
+			Vector<OrdersProductVO>	opList	=	opDao.ordersProductGetRowsbyOrders(oList.getIdx(),page,limit);
+				
+			int					totalRows	=	opDao.SingleOrderTotalRows(oList.getIdx());
 			int					totalPages	=	(int)((double)totalRows/limit+0.95);
 			int					startPage	=	((int)((double)page/10+0.9)-1)*10+1;
 			int					endPage		=	startPage+10-1;
-					
-				if(endPage>totalPages)
-								endPage		=	totalPages;		
-				
+	
+			if(endPage>totalPages)
+								endPage		=	totalPages;
+			
 												info.setPage(page);
 												info.setTotalPages(totalPages);
 												info.setTotalRows(totalRows);
 												info.setStartPage(startPage);
 												info.setEndPage(endPage);
+				if(opList!=null) 
+				{
+												req.setAttribute("oList", oList);
+												req.setAttribute("opList", opList);
+												req.setAttribute("info", info);
+									path	+=	"?type="+type;
+				}
+				else
+				{ 
+												log.error("QQQQQQQQ OrdersConfirmAction - 'singleList' error");
+												//path="";
+				}
+		}
+		else if(type.equals("myList"))
+		{
+			if(req.getParameter("page")!=null)
+								page		=	Integer.parseInt(req.getParameter("page"));
+			PageVO					info	=	new PageVO();
+			int						limit	=	10;
 			
-			Vector<OrdersVO>		list	=	dao.singleCustomerordersList(customer_idx, endPage, limit);
+			Vector<OrdersVO>		list	=	dao.singleCustomerordersList(customer_idx, page, limit);
+			
+			for(OrdersVO vo:list)
+			{
+			Vector<OrdersProductVO>	opList	=	opDao.ordersProductGetRowsbyOrders(vo.getIdx());
+			OrdersProductVO			opVo	=	opList.get(0);
+			int						opLCount=	opList.size() - 1;
+			String					addTag	=	"";
+			if(opLCount > 0)
+									addTag	=	" 그 외 "+opLCount;
+									pVo		=	pDao.productGetRow(opVo.getProducts_idx());
+			
+			String					c1		=	pVo.getProduct_name()+"  "+addTag;
+			System.out.println("텍스트 확인 : "+c1);
+												cs.add(c1);
+			}
+			
+			
+			int					totalRows	=	dao.singleCustomertotalRows(customer_idx);
+			int					totalPages	=	(int)((double)totalRows/limit+0.95);
+			int					startPage	=	((int)((double)page/10+0.9)-1)*10+1;
+			int					endPage		=	startPage+10-1;
+	
+			if(endPage>totalPages)
+								endPage		=	totalPages;
+			
+												info.setPage(page);
+												info.setTotalPages(totalPages);
+												info.setTotalRows(totalRows);
+												info.setStartPage(startPage);
+												info.setEndPage(endPage);
 				if(list!=null) 
 				{
+												req.setAttribute("cs", cs);
 												req.setAttribute("list", list);
 												req.setAttribute("info", info);
 									path	+=	"?type="+type;
 				}
 				else
 				{ 
-												log.error("QQQQQQQQ OrdersConfirmAction - 'myList' error");
+												log.error("QQQQQQQQ OrdersConfirmAction - 'myPage' error");
 												//path="";
 				}
 		}
