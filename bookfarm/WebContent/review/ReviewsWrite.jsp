@@ -24,7 +24,8 @@
 	{
 				vo				=	(ReviewVO)request.getAttribute("vo");
 				cDao			=	new CustomerDAO();
-				idx				=	(int)request.getAttribute("idx");
+				idx				=	vo.getIdx();
+				//idx				=	(int)request.getAttribute("idx");
 				currentPage		=	Integer.parseInt(request.getParameter("page"));
 				products_idx	=	vo.getProducts_idx();
 	}

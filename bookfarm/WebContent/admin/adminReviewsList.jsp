@@ -48,9 +48,8 @@
 				userVO			=	(CustomerVO)session.getAttribute("LoginedUserVO");
 				customers_idx	=	userVO.getIdx();
 		}
-		//The type must be one of 'list', 'myList' or 'myPage'
+		
 		String	type			=	(String)request.getParameter("type");
-				//type			=	request.getParameter("type");
 		
 		//If connection comes from indivisual item, products_idx must be needed...		
 		int		products_idx	=	0;
@@ -91,16 +90,7 @@
 <body>
 		<table class="클래스_테이블1">
 			<caption>
-			<%
-			if(type.equals("list"))
-			{
-				out.print("리뷰 게시판");
-			}
-			else
-			{
-				out.print("내 리뷰 목록");
-			}
-			%>
+			리뷰게시판
 			</caption>
 			<tr class="클래스_tr타이틀1">
 				<th >날짜</th>
@@ -108,62 +98,20 @@
 				<th >작성자</th>
 				<th >조회수</th>
 			</tr>
-			<%
-			if(type.equals("myPage"))
-			{
-				for(ReviewVO vo:list)
-				{
-				%>
+			<%for(ReviewVO vo:list)
+				{%>
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
-					<td align="left"><a target="_top" href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=1&type=myList&typeView=view">
+					<td align="left"><a href="qAdminReviewsView.do?idx=<%=vo.getIdx()%>
+					&page=<%=currentPage%>&type=<%=type%>">
 					<%=vo.getReview_title()%></a></td>
 					<td><%=cDao.getName(vo.getCustomers_idx())%></td>
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
-				<%
-				}
-			}
-			else if(type.equals("myList"))
-			{
-				for(ReviewVO vo:list)
-				{
-				%>
-				<tr class="클래스_tr_top1">
-					<td><%=vo.getDate_added()%></td>
-					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=<%=currentPage%>&type=<%=type%>&typeView=view">
-					<%=vo.getReview_title()%></a></td>
-					<td><%=cDao.getName(vo.getCustomers_idx())%></td>				
-					<td><%=vo.getReviews_read()%></td>
-				</tr>
-				<%
-				}
-			}
-			else
-			{
-				for(ReviewVO vo:list)
-				{
-				%>
-				<tr class="클래스_tr_top1">
-					<td><%=vo.getDate_added()%></td>
-					<td align="left"><a href="qReviewsHitUpdate.do?idx=<%=vo.getIdx()%>
-					&page=<%=currentPage%>&type=<%=type%>&typeView=view">					
-					<%=vo.getReview_title()%></a></td>										
-					<td><%=cDao.getName(vo.getCustomers_idx())%></td>				
-					<td><%=vo.getReviews_read()%></td>
-				</tr>
-				<%
-				}
-			}
-			%>
+				<%}%>
 <tr>
 	<td colspan="5">
-		<%
-		if(type.equals("list"))
-		{
-			if(searchWord == null)
+		<%	if(searchWord == null)
 			{
 				if(currentPage<=1)
 				{
@@ -171,7 +119,7 @@
 				}
 				else
 				{
-						out.print("<a href=./qReviewsLists.do?page="+(currentPage-1)+
+						out.print("<a href=./qAdminReviewsLists.do?page="+(currentPage-1)+
 								"&products_idx="+products_idx+
 								"&type="+type+
 								">");
@@ -185,7 +133,7 @@
 					}
 					else
 					{					
-						out.print("<a href=./qReviewsLists.do?page="+i+
+						out.print("<a href=./qAdminReviewsLists.do?page="+i+
 								"&products_idx="+products_idx+
 								"&type="+type+
 								">");
@@ -198,7 +146,7 @@
 				}
 				else
 				{
-						out.print("<a href=./qReviewsLists.do?page="+(currentPage+1)+
+						out.print("<a href=./qAdminReviewsLists.do?page="+(currentPage+1)+
 								"&products_idx="+products_idx+
 								"&type="+type+
 								">");
@@ -213,7 +161,7 @@
 				}
 				else
 				{
-					out.print("<a href=./qReviewsSearch.do?page="+(currentPage-1)+
+					out.print("<a href=./qAdminReviewsSearch.do?page="+(currentPage-1)+
 							"&searchCondition="+searchCondition+
 							"&searchWord="+searchWord+
 							"&products_idx="+products_idx+
@@ -229,7 +177,7 @@
 					}
 					else
 					{					
-						out.print("<a href=./qReviewsSearch.do?page="+i+
+						out.print("<a href=./qAdminReviewsSearch.do?page="+i+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
 								"&products_idx="+products_idx+
@@ -244,7 +192,7 @@
 				}
 				else
 				{
-						out.print("<a href=./qReviewsSearch.do?page="+(currentPage+1)+
+						out.print("<a href=./qAdminReviewsSearch.do?page="+(currentPage+1)+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
 								"&products_idx="+products_idx+
@@ -252,122 +200,10 @@
 								">");
 						out.print("[다음]</a>");
 				}
-			}
-		}
-		else if(type.equals("myList"))
-		{
-			if(searchWord == null)
-			{
-				if(currentPage<=1)
-				{
-						out.print("");
-				}
-				else
-				{
-						out.print("<a href=../qReviewsLists.do?page="+(currentPage-1)+
-								"&products_idx="+products_idx+
-								"&customers_idx="+customers_idx+
-								"&type="+type+
-								">");
-						out.print("[이전]</a>");
-				}
-				for(int i=startPage;i<=endPage;i++)
-				{
-					if(i==currentPage)
-					{
-						out.print("["+i+"]");
-					}
-					else
-					{					
-						out.print("<a href=../qReviewsLists.do?page="+i+
-								"&products_idx="+products_idx+
-								"&customers_idx="+customers_idx+
-								"&type="+type+
-								">");
-						out.print(i+"</a>");
-					}
-				}
-				if(currentPage>=totalPages)
-				{
-						out.print("");
-				}
-				else
-				{
-						out.print("<a href=../qReviewsLists.do?page="+(currentPage+1)+
-								"&products_idx="+products_idx+
-								"&customers_idx="+customers_idx+
-								"&type="+type+
-								">");
-						out.print("[다음]</a>");
-				}
-			}
-			else
-			{
-				if(currentPage<=1)
-				{
-					out.print("");
-				}
-				else
-				{
-					out.print("<a href=../qReviewsSearch.do?page="+(currentPage-1)+
-							"&searchCondition="+searchCondition+
-							"&searchWord="+searchWord+
-							"&products_idx="+products_idx+
-							"&customers_idx="+customers_idx+
-							"&type="+type+
-							">");
-					out.print("[이전]</a>");
-				}
-				for(int i=startPage;i<=endPage;i++)
-				{
-					if(i==currentPage)
-					{
-						out.print("["+i+"]");
-					}
-					else
-					{					
-						out.print("<a href=../qReviewsSearch.do?page="+i+
-								"&searchCondition="+searchCondition+
-								"&searchWord="+searchWord+
-								"&products_idx="+products_idx+
-								"&customers_idx="+customers_idx+
-								"&type="+type+
-								">");
-						out.print(i+"</a>");
-					}
-				}
-				if(currentPage>=totalPages)
-				{
-						out.print("");
-				}
-				else
-				{
-						out.print("<a href=../qReviewsSearch.do?page="+(currentPage+1)+
-								"&searchCondition="+searchCondition+
-								"&searchWord="+searchWord+
-								"&products_idx="+products_idx+
-								"&customers_idx="+customers_idx+
-								"&type="+type+
-								">");
-						out.print("[다음]</a>");
-				}
-			}
-		}
-		else
-		{
-			%>
-			<a href="qReviewsLists.do?customers_idx=<%=customers_idx %>&type=myList" target="_top">[더보기]</a>
-			<%
-		}
-		
-		%>
+			}%>
 	</td>
 </tr>
 </table>
-<%
-if(!type.equals("myPage"))
-{
-%>
 <table	class="클래스_bottom_table1">
 			<tr>
 				<td colspan="5" class="클래스_td_align1">
@@ -377,7 +213,7 @@ if(!type.equals("myPage"))
 				<td>
 				</td>
 				<td colspan="5" class="클래스_btn_align1">
-					<form action="qReviewsSearch.do?products_idx=<%=products_idx %>&type=<%=type%>"
+					<form action="qAdminReviewsSearch.do?products_idx=<%=products_idx %>&type=<%=type%>"
 					method="post" name="searchform">
 						<select class="btn" name="searchCondition">
 							<option value="customers_idx">작성자</option>
@@ -388,33 +224,15 @@ if(!type.equals("myPage"))
 						<input type="button" class="클래스_btn1" value="검색" onclick="search()">
 					</form>
 				</td>
-				<%
-				if(type.equals("list") )
-				{	if(session.getAttribute("LoginedUserVO")!=null){
-				%>
 				<td align="right">
-				<a href="./review/ReviewsWrite.jsp?page=<%=currentPage%>
+				<a href="./admin/adminReviewsWrite.jsp?page=<%=currentPage%>
 				&products_idx=<%=products_idx %>
-				&type=<%=type%>
-				&typeView=insert">[글쓰기]</a>
-				<%} %>				
+				&type=<%=type%>">[글쓰기]</a>
 				</td>
 				<td align="right">
 				<a href="./member/hansol_main_example.jsp">[메인으로]</a>
 				</td>
-				<%
-				}
-				else if(type.equals("myList"))
-				{
-				%>
-				<td align="right">
-				<a href="./member/mypage.jsp">[마이페이지]</a>
-				</td>
-				<%} %>
 			</tr>
 </table>
-<%
-}
-%>
 </body>
 </html>

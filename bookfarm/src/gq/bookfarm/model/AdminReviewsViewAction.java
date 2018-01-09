@@ -9,12 +9,12 @@ import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.ReviewVO;
 
-public class ReviewsViewAction implements Action {
+public class AdminReviewsViewAction implements Action {
 	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
 	
-	public ReviewsViewAction(String path) {
+	public AdminReviewsViewAction(String path) {
 		super();
 		this.path = path;
 	}
@@ -40,7 +40,7 @@ public class ReviewsViewAction implements Action {
 			if(vo!=null) 
 			{
 										req.setAttribute("vo", vo);
-										//req.setAttribute("idx", idx);
+										req.setAttribute("idx", idx);
 					path			+=	"?type="+type+"&typeView="+typeView+"&page="+page;
 				
 			}

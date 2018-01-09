@@ -380,7 +380,7 @@ public class ReviewDAO {
 									vo.setReview_text(rs.getString("review_text"));
 									vo.setDate_added(rs.getDate("date_added"));
 									vo.setLast_modified(rs.getDate("last_modified"));
-									vo.setReviews_read(rs.getInt("reviews_read"));									
+									vo.setReviews_read(rs.getInt("reviews_read"));
 			}
 		}
 		catch (SQLException e)
