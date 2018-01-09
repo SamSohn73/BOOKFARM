@@ -438,7 +438,7 @@ public class CustomerDAO {
 		try {
 			log.debug("execute customerList do the DB work Start.");
 			con			=	getConnection();
-			String sql	= "select * from category order by idx desc, parent_idx desc limit ?,?";
+			String sql	= "select * from Customer order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
 			pstmt		.setInt(2, limit);
@@ -453,7 +453,7 @@ public class CustomerDAO {
 				list.setPostcode(rs.getString("postcode"));
 				list.setAddress1(rs.getString("address1"));
 				list.setAddress2(rs.getString("address2"));
-				list.setPhone1(rs.getString("phone1"));
+				list.setPhone1(	rs.getString("phone1"));
 				list.setEmail1(rs.getString("email1"));
 				list.setGender(rs.getString("gender"));
 				list.setNewsletter(rs.getString("newsletter"));

@@ -273,7 +273,7 @@ public class OrdersDAO
 		
 		try {
 			log.debug("execute ordersList do the DB work Start.");
-			String sql	= "select * from orders order by idx desc, limit ?,?";
+			String sql	= "select * from Orders order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
 			pstmt		.setInt(2, limit);

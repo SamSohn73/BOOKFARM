@@ -36,6 +36,7 @@ public class AdminLoginAction implements Action
 		if(adminVO != null) {
 			HttpSession session	= req.getSession();
 			session				.setAttribute("adminVO", adminVO);
+			session				.setMaxInactiveInterval(60*30);
 		}else {
 			log.debug("AdminLoginAction execute Admin user_name, password not found. username, password=" + user_name + "," + user_pass);
 			path="error.jsp";
