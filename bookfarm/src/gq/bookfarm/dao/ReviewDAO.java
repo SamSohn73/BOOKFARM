@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import gq.bookfarm.vo.ProductVO;
 import gq.bookfarm.vo.ReviewVO;
 
 public class ReviewDAO {

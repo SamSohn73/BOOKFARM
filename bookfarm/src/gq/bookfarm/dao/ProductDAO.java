@@ -438,7 +438,7 @@ public class ProductDAO
 			while (result.next()) {
 				ProductVO vo = new ProductVO();
 								vo.setIdx(result.getInt("idx"));
-								vo.set(result.getString("category_idx"));
+								vo.setProduct_name(result.getString("product_name"));
 								list.add(vo);
 			}
 		} catch (Exception e) {

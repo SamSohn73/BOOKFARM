@@ -82,6 +82,7 @@
 				<td class="클래스_btn_align1">
 					<form action="adminReviewsList.do?" method="post">
 						<select class="btn" name="parent_idx">
+							<option value="0">전체</option>
 						<% for(CategoryVO cat_Vo1 :catVo1){ %>
 							<option value="<%=cat_Vo1.getIdx()%>"
 							<%if(parent_idx==cat_Vo1.getIdx()){%> selected<%}%>>
@@ -90,6 +91,7 @@
 						</select>
 						<%if(parent_idx!=0){ %>
 						<select class="btn" name="category_idx">
+							<option value="0">전체</option>
 						<% for(CategoryVO cat_Vo2 :catVo2){ %>
 							<option value="<%=cat_Vo2.getIdx()%>"
 							<%if(category_idx==cat_Vo2.getIdx()){%> selected<%}%>>
@@ -99,6 +101,7 @@
 						<%} 
 						  if(category_idx!=0){%>
 						<select class="btn" name="products_idx">
+							<option value="0">전체</option>
 						<% for(ProductVO pVo :VpVo){ %>
 							<option value="<%=pVo.getIdx()%>"><%= pVo.getProduct_name()%></option>
 							<%} %>
@@ -152,7 +155,8 @@
 				else
 				{
 						out.print("<a href=./adminReviewsList.do?page="+(currentPage-1)+
-								"&products_idx="+products_idx+">");
+								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print("[이전]</a>");
 				}
 				for(int i=startPage;i<=endPage;i++)
@@ -164,7 +168,8 @@
 					else
 					{					
 						out.print("<a href=./adminReviewsList.do?page="+i+
-								"&products_idx="+products_idx+">");
+								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print(i+"</a>");
 					}
 				}
@@ -175,7 +180,8 @@
 				else
 				{
 						out.print("<a href=./adminReviewsList.do?page="+(currentPage+1)+
-								"&products_idx="+products_idx+">");
+								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print("[다음]</a>");
 				}
 			}
@@ -190,7 +196,8 @@
 					out.print("<a href=./adminReviewsSearch.do?page="+(currentPage-1)+
 							"&searchCondition="+searchCondition+
 							"&searchWord="+searchWord+
-							"&products_idx="+products_idx+">");
+							"&products_idx="+products_idx+"&customers_idx="+customers_idx
+							+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 					out.print("[이전]</a>");
 				}
 				for(int i=startPage;i<=endPage;i++)
@@ -204,7 +211,8 @@
 						out.print("<a href=./adminReviewsSearch.do?page="+i+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
-								"&products_idx="+products_idx+">");
+								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print(i+"</a>");
 					}
 				}
@@ -217,7 +225,8 @@
 						out.print("<a href=./adminReviewsSearch.do?page="+(currentPage+1)+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
-								"&products_idx="+products_idx+">");
+								"&products_idx="+products_idx+"&customers_idx="+customers_idx
+								+"&parent_idx="+parent_idx+"&category_idx="+category_idx+">");
 						out.print("[다음]</a>");
 				}
 			}%>

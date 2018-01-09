@@ -58,7 +58,9 @@ public class AdminReviewsListAction implements Action {
 						VpVo		=	pDao.productTotalIdx(category_idx);
 			if(parent_idx!=0)
 						catVo2		=	catDao.categoryGetTotalRow(parent_idx);
-			System.out.println("여기 확인 : "+parent_idx);
+			System.out.println("여기 확인 parent_idx : "+parent_idx);
+			System.out.println("여기 확인 category_idx : "+category_idx);
+			System.out.println("여기 확인 products_idx : "+products_idx);
 			
 			
 		if(req.getParameter("page")!=null)
@@ -66,31 +68,73 @@ public class AdminReviewsListAction implements Action {
 			ReviewDAO dao		=	new ReviewDAO();
 			PageVO	info		=	new PageVO();
 			
-			int		totalRows	=	dao.oneProductsTotalRows(products_idx);
 			int		limit		=	10;
+			int		totalRows	=	0;
+			
+			
+			
+		if(parent_idx!=0)
+		{
+			if(category_idx!=0)
+			{
+				if(products_idx!=0)
+				{
+					list		=	dao.getList(products_idx, page, limit);
+					totalRows	=	dao.oneProductsTotalRows(products_idx);
+				}
+				else
+				{
+					Vector<ProductVO> VpVo1 = pDao.productTotalIdx(category_idx);
+					for(ProductVO pVo1 : VpVo1)
+					{
+						list.addAll(dao.getList(pVo1.getIdx(), page, limit));
+						totalRows	+=	dao.oneProductsTotalRows(pVo1.getIdx());
+					}
+					
+				}
+			}
+			else
+			{
+				Vector<CategoryVO> VcatVo1 = catDao.categoryGetTotalRow(parent_idx);
+				for(CategoryVO catVo3 : VcatVo1)
+				{
+					Vector<ProductVO> VpVo1 = pDao.productTotalIdx(catVo3.getIdx());
+					for(ProductVO pVo1 : VpVo1)
+					{
+						list.addAll(dao.getList(pVo1.getIdx(), page, limit));
+						totalRows	+=	dao.oneProductsTotalRows(pVo1.getIdx());
+					}
+				}
+			}
+		}
+		else if(parent_idx==0 && customers_idx!=0)
+		{
+					list		=	dao.getListByCustomer(customers_idx, page, limit);
+					totalRows	=	dao.oneCustomersTotalRows(customers_idx);
+		}
+		else
+		{
+					list		=	dao.getList(page, limit);
+					totalRows	=	dao.totalRows();
+		}
+		
+		
+		
+			
 			int		totalPages	=	(int)((double)totalRows/limit+0.95);
 			int		startPage	=	((int)((double)page/10+0.9)-1)*10+1;
 			int		endPage		=	startPage+10-1;
-					
-		if(endPage>totalPages)
-					endPage		=	totalPages;		
 				
-									info.setPage(page);
-									info.setTotalPages(totalPages);
-									info.setTotalRows(totalRows);
-									info.setStartPage(startPage);
-									info.setEndPage(endPage);
-									
-		if(products_idx!=0 && customers_idx==0)
-					list		=	dao.getList(products_idx, page, limit);
-		else if(products_idx==0 && customers_idx!=0)
-					list		=	dao.getListByCustomer(customers_idx, endPage, limit);
-		else if(products_idx!=0 && customers_idx!=0)
-					list		=	dao.getList(products_idx, customers_idx, endPage, limit);
-		else
-					list		=	dao.getList(page, limit);
+		if(endPage>totalPages)
+					endPage		=	totalPages;
+								info.setPage(page);
+								info.setTotalPages(totalPages);
+								info.setTotalRows(totalRows);
+								info.setStartPage(startPage);
+								info.setEndPage(endPage);
 		
-		
+								
+								
 			if(list!=null) 
 			{
 									req.setAttribute("list", list);
