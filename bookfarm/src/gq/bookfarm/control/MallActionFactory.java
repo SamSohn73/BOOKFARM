@@ -14,6 +14,8 @@ import gq.bookfarm.model.CustomerIdPwdCheckAction;
 import gq.bookfarm.model.CustomerLogoutAction;
 import gq.bookfarm.model.CustomerRegistAction;
 import gq.bookfarm.model.OrdersConfirmAction;
+import gq.bookfarm.model.ProductListAction;
+import gq.bookfarm.model.ProductViewAction;
 import gq.bookfarm.model.ReviewsDeleteAction;
 import gq.bookfarm.model.ReviewsHitUpdateAction;
 import gq.bookfarm.model.ReviewsIdPassChkAction;
@@ -76,7 +78,16 @@ public class MallActionFactory
 			action = new AdminCategoryListAction("admin/adminCategoryList.jsp");
 			log.debug("adminCategoryList.do action create End.");
 		}
-		
+		if (cmd.equals("/productList.do")) {
+			log.debug("productList.do action create Start.");
+			action = new ProductListAction("product/productList.jsp");
+			log.debug("productList.do action create End.");
+		}
+		if (cmd.equals("/productView.do")) {
+			log.debug("productView.do action create Start.");
+			action = new ProductViewAction("product/productView.jsp");
+			log.debug("productView.do action create End.");
+		}
 		/*
 		if (cmd.equals("/qSearch.do")) {
 			log.debug("QQQQQQQQQQ qSearch.do action create Start.");
@@ -171,8 +182,9 @@ public class MallActionFactory
 			action = new ReviewsDeleteAction("qReviewsLists.do");
 			log.debug("QQQQQQQQQQ qReviewsDelete.do action create End.");
 		}
-
+		
 		
 		return action;
 	}
 }
+
