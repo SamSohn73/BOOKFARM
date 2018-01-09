@@ -117,10 +117,15 @@ public class MallActionFactory
 		if (cmd.equals("/qOrdersConfirm.do"))
 		{
 			log.debug("QQQQQQQQQQ qOrdersConfirm.do action create Start.");
-			action = new OrdersConfirmAction("order_comfirm.jsp");
+			action = new OrdersConfirmAction("member/order_confirm.jsp");
 			log.debug("QQQQQQQQQQ qOrdersConfirm.do action create End.");
 		}
-		
+		else if (cmd.equals("/qOrderView.do"))
+		{
+			log.debug("QQQQQQQQQQ qOrderView.do action create Start.");
+			action = new OrdersConfirmAction("member/order_view.jsp");
+			log.debug("QQQQQQQQQQ qOrderView.do action create End.");
+		}
 		
 		//From here, I wrote code for review action... - hansol -
 		//control code for reviewsDB
