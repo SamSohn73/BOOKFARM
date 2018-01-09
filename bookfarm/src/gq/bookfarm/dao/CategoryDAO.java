@@ -393,4 +393,39 @@ public class CategoryDAO
 		
 		return total_rows;
 	}
+	
+	
+	public Vector<CategoryVO> categoryGetTotalRow(int parent_idx)	
+	{
+		Vector<CategoryVO>	list	= new Vector<CategoryVO>();
+		
+		Connection			con		= getConnection();
+		ResultSet			result	= null;
+		PreparedStatement	pstmt	= null;
+		
+		try {
+			log.debug("execute categoryGetTotalRow DB work Start.");
+			String sql	= "select * from category where parent_idx=?";
+			pstmt			= con.prepareStatement(sql);
+			pstmt.setInt(1, parent_idx);
+			result			= pstmt.executeQuery();		
+			
+			while (result.next()) {
+				CategoryVO vo = new CategoryVO();
+								vo.setIdx(result.getInt("idx"));
+								vo.setParent_idx(result.getInt("parent_idx"));
+								vo.setCategory_name(result.getString("category_name"));
+								list.add(vo);
+			}
+		} catch (Exception e) {
+			log.fatal("execute categoryGetTotalRow DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(result);
+			close(con, pstmt);
+		}
+		log.debug("execute categoryGetTotalRow DB work End.");
+		
+		return list;
+	}
 }

@@ -11,6 +11,7 @@ import gq.bookfarm.model.AdminProductListAction;
 import gq.bookfarm.model.AdminReviewsDeleteAction;
 import gq.bookfarm.model.AdminReviewsListAction;
 import gq.bookfarm.model.AdminReviewsModifyAction;
+import gq.bookfarm.model.AdminReviewsSearchAction;
 import gq.bookfarm.model.AdminReviewsViewAction;
 import gq.bookfarm.model.AdminReviewsWriteAction;
 import gq.bookfarm.model.AdminOrdersListAction;
@@ -215,10 +216,17 @@ public class MallActionFactory
 		}
 		else if(cmd.equals("/adminReviewsModify.do"))
 		{
-			log.debug("QQQQQQQQQQ qAdminReviewsDelete.do action create Start.");
+			log.debug("QQQQQQQQQQ qAdminReviewsModify.do action create Start.");
 			action = new AdminReviewsModifyAction("./admin/adminReviewsModify.jsp");
 			log.debug("QQQQQQQQQQ qAdminReviewsModify.do action create End.");
 		}
+		else if(cmd.equals("/adminReviewsSearch.do"))
+		{
+			log.debug("QQQQQQQQQQ qAdminReviewsSearch.do action create Start.");
+			action = new AdminReviewsSearchAction("./admin/adminReviewsList.jsp");
+			log.debug("QQQQQQQQQQ qAdminReviewsSearch.do action create End.");
+		}
+		
 		return action;
 	}
 }

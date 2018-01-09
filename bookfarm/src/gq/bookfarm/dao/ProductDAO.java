@@ -392,7 +392,7 @@ public class ProductDAO
 	
 	public int totalRows()
 	{
-		log.debug("execute product total_rows do the DB work Start.");
+		log.debug("execute product totalRows do the DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -408,15 +408,51 @@ public class ProductDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute product total_rows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute product totalRows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(rs);
 			close(con, pstmt);
 		}
 		
-		log.debug("execute product total_rows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute product totalRows do the DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}
+	
+	
+	public Vector<ProductVO> productTotalIdx(int category_idx)
+	{
+		Vector<ProductVO>	list		= new Vector<ProductVO>();
+		
+		Connection			con		= getConnection();
+		ResultSet			result	= null;
+		PreparedStatement	pstmt	= null;
+		
+		try {
+			log.debug("execute productTotalIdx DB work Start.");
+			String sql	= "select idx, category_idx from product where category_idx=?";
+			pstmt			= con.prepareStatement(sql);
+							  pstmt.setInt(1, category_idx);
+			result			= pstmt.executeQuery();			
+			while (result.next()) {
+				ProductVO vo = new ProductVO();
+								vo.setIdx(result.getInt("idx"));
+								vo.setCategory_idx(result.getInt("category_idx"));
+								list.add(vo);
+			}
+		} catch (Exception e) {
+			log.fatal("execute productTotalIdx DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(result);
+			close(con, pstmt);
+		}
+		log.debug("execute productTotalIdx DB work End.");
+		
+		return list;
+	}
+	
+	
+	
 }

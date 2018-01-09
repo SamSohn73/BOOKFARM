@@ -229,6 +229,52 @@ public class ReviewDAO {
 		return total_rows;
 	}
 	
+	public Vector<ReviewVO> getList(int products_idx, int customers_idx, int page, int limit)
+	{
+		int					start	=			(page-1)*10;
+		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+		StringBuffer		sql		=	new		StringBuffer();
+												sql.append("select *  from review ");
+												sql.append("where products_idx=? and customers_idx=? ");
+												sql.append("order by date_added desc, ");
+												sql.append("last_modified desc, ");
+												sql.append("reviews_read asc limit ?,?");
+		try
+		{
+							con		=			getConnection();
+							pstmt	=			con.prepareStatement(sql.toString());
+												pstmt.setInt(1, products_idx);
+												pstmt.setInt(2, customers_idx);
+												pstmt.setInt(3, start);
+												pstmt.setInt(4, limit);
+							rs		=			pstmt.executeQuery();
+			while(rs.next())
+			{
+				ReviewVO	vo		=	new		ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));
+												list.add(vo);
+			}
+		}catch (SQLException e) {			
+												log.error("ReviewsDAO	"
+														+ "getList() error : "+e);
+		}finally {			
+												close(rs);
+												close(pstmt);
+												close(con);			
+		}	
+		
+		return list;
+		
+	}
+	
 	public Vector<ReviewVO> getList(int products_idx, int page, int limit)
 	{
 		int					start	=			(page-1)*10;
@@ -244,6 +290,94 @@ public class ReviewDAO {
 							con		=			getConnection();
 							pstmt	=			con.prepareStatement(sql.toString());
 												pstmt.setInt(1, products_idx);
+												pstmt.setInt(2, start);
+												pstmt.setInt(3, limit);
+							rs		=			pstmt.executeQuery();
+			while(rs.next())
+			{
+				ReviewVO	vo		=	new		ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));				
+												list.add(vo);
+			}
+		}catch (SQLException e) {			
+												log.error("ReviewsDAO	"
+														+ "getList() error : "+e);
+		}finally {			
+												close(rs);
+												close(pstmt);
+												close(con);			
+		}	
+		
+		return list;
+		
+	}
+	
+	public Vector<ReviewVO> getList(int page, int limit)
+	{
+		int					start	=			(page-1)*10;
+		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+		StringBuffer		sql		=	new		StringBuffer();
+												sql.append("select * from review ");
+												sql.append("order by date_added desc, ");
+												sql.append("last_modified desc, ");
+												sql.append("reviews_read asc limit ?,?");
+		try
+		{
+							con		=			getConnection();
+							pstmt	=			con.prepareStatement(sql.toString());
+												pstmt.setInt(1, start);
+												pstmt.setInt(2, limit);
+							rs		=			pstmt.executeQuery();
+			while(rs.next())
+			{
+				ReviewVO	vo		=	new		ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));
+												list.add(vo);
+			}
+		}catch (SQLException e) {			
+												log.error("ReviewsDAO	"
+														+ "getList() error : "+e);
+		}finally {			
+												close(rs);
+												close(pstmt);
+												close(con);			
+		}	
+		
+		return list;
+		
+	}
+	
+	public Vector<ReviewVO> getListByCustomer(int customers_idx, int page, int limit)
+	{
+		int					start	=			(page-1)*10;
+		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+		StringBuffer		sql		=	new		StringBuffer();
+												sql.append("select *  from review ");
+												sql.append("where customers_idx=? ");
+												sql.append("order by date_added desc, ");
+												sql.append("last_modified desc, ");
+												sql.append("reviews_read asc limit ?,?");
+		try
+		{
+							con		=			getConnection();
+							pstmt	=			con.prepareStatement(sql.toString());
+												pstmt.setInt(1, customers_idx);
 												pstmt.setInt(2, start);
 												pstmt.setInt(3, limit);
 							rs		=			pstmt.executeQuery();
