@@ -51,6 +51,7 @@
 	<table>
 		<caption>회원 목록</caption>
 		<tr>
+			<th>수정/삭제</th>
 			<th>No.</th>
 			<th>아이디</th>
 			<th>이름</th>
@@ -73,6 +74,14 @@
 	int idNum = totalRows - (currentPage-1)*10;
 	for(CustomerVO customer: customers) {	%>
 		<tr>
+			<td>
+				<a href="adminCustomerModifyView.do?idx=<%=customer.getIdx() %>&page=<%=currentPage %>">
+					<input type='button' value="수정">
+				</a>
+				<a href="adminCustomerDelete.do?idx=<%=customer.getIdx() %>&page=<%=currentPage %>">
+					<input type='button' value="삭제">
+				</a>
+			</td>
 			<td><%=idNum%></td>
 			<td><%=customer.getUsername()%></td>
 			<td><%=customer.getLastname()%><%=customer.getFirstname()%></td>
