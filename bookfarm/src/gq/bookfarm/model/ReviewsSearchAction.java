@@ -15,16 +15,19 @@ import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
 import gq.bookfarm.vo.ReviewVO;
 
-public class ReviewsSearchAction implements Action {
+public class ReviewsSearchAction implements Action 
+{
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
-	public ReviewsSearchAction(String path) {
+	public ReviewsSearchAction(String path) 
+	{
 		super();
 		this.path = path;
 	}
 	
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception 
+	{
 			int		page		=	1;
 			
 			HttpSession	session	=	req.getSession();
@@ -35,8 +38,7 @@ public class ReviewsSearchAction implements Action {
 			String	searchCondition=req.getParameter("searchCondition");
 			String	searchWord	=	req.getParameter("searchWord");
 			Vector<CustomerVO> VcVo	=	new Vector<CustomerVO>();
-			if(searchCondition.equals("customers_idx"))
-			{
+			if(searchCondition.equals("customers_idx")){
 				CustomerDAO cDao	=	new CustomerDAO();
 							VcVo	=	cDao.findIdx(searchWord);
 										
@@ -56,8 +58,7 @@ public class ReviewsSearchAction implements Action {
 			ReviewDAO dao		=	new ReviewDAO();
 			PageVO	info		=	new PageVO();
 		
-		if(type.equals("list"))
-		{
+		if(type.equals("list")){
 			int		totalRows	=	dao.searchOneProductList(products_idx, searchCondition, searchWord);
 			int		limit		=	10;
 			int		totalPages	=	(int)((double)totalRows/limit+0.95);
@@ -73,34 +74,27 @@ public class ReviewsSearchAction implements Action {
 									info.setStartPage(startPage);
 									info.setEndPage(endPage);
 		Vector<ReviewVO> list	=	new Vector<ReviewVO>();
-				if(searchCondition.equals("customers_idx"))
-				{
-					for(CustomerVO cVo : VcVo)
-					{
+				if(searchCondition.equals("customers_idx")){
+					for(CustomerVO cVo : VcVo){
 						list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, cVo.getIdx());
 					}
-				}
-				else
-				{
+				}else{
 					list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
 				}
-				if(list!=null) 
-				{
+				
+				if(list!=null) {
 									req.setAttribute("list", list);
 									req.setAttribute("info", info);
 									req.setAttribute("searchCondition", searchCondition);
 									req.setAttribute("searchWord", searchWord);
 					path		+=	"?type="+type+"&products_idx="+products_idx;
 									
-				}
-				else
-				{ 
+				}else{ 
 									log.error("QQQQQQQQ ReviewsSearchAction - 'list' error");
 									path="";
 				}
 		}
-		else if(type.equals("myList"))
-		{
+		else if(type.equals("myList")){
 			int		totalRows	=	dao.searchOneCustomerList(customers_idx, searchCondition, searchWord);
 			int		limit		=	10;
 			int		totalPages	=	(int)((double)totalRows/limit+0.95);
@@ -116,16 +110,13 @@ public class ReviewsSearchAction implements Action {
 									info.setStartPage(startPage);
 									info.setEndPage(endPage);
 		Vector<ReviewVO> list	=	dao.getCustomerSearchList(customers_idx, page, limit, searchCondition, searchWord);
-				if(list!=null) 
-				{
+				if(list!=null) {
 									req.setAttribute("list", list);
 									req.setAttribute("info", info);
 									req.setAttribute("searchCondition", searchCondition);
 									req.setAttribute("searchWord", searchWord);
 					path		+=	"?type="+type+"&customers_idx="+customers_idx;
-				}
-				else
-				{ 
+				}else{ 
 									log.error("QQQQQQQQ ReviewsSearchAction - 'myList' error");
 									path="";
 				}

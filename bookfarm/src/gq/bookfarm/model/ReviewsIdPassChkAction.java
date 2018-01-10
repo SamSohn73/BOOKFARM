@@ -9,16 +9,19 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.ReviewDAO;
 
-public class ReviewsIdPassChkAction implements Action {
+public class ReviewsIdPassChkAction implements Action 
+{
 	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
-	public ReviewsIdPassChkAction(String path) {
+	public ReviewsIdPassChkAction(String path) 
+	{
 		super();
 		this.path = path;
 	}
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception 
+	{
 		int		page			=	Integer.parseInt(req.getParameter("page"));
 		int		idx				=	Integer.parseInt(req.getParameter("idx"));
 		String	type			=	req.getParameter("type");
@@ -30,22 +33,18 @@ public class ReviewsIdPassChkAction implements Action {
 		ReviewDAO dao			=	new ReviewDAO();
 		int		customer_idx	=	dao.getReviewWriterIdx(idx);
 		int 	result			=	dao.pwdCheck(customer_idx, username, password);
-		if(result>0)
-		{
+		if(result>0){
 									req.setAttribute("idx", idx);
 									req.setAttribute("page", page);
 									req.setAttribute("typeView", typeView);
 									req.setAttribute("type", type);
 									System.out.println("üũ?: "+idx+"/"+page);
-			if(typeView.equals("delete"))
-			{
+			if(typeView.equals("delete")){
 		int		products_idx	=	dao.getProduct_idx(idx);
 									req.setAttribute("products_idx", products_idx);
 				path			=	"qReviewsDelete.do";	// ?/?
 			}
-		}
-		else
-		{
+		}else{
 				path			=	"";
 		}
 		

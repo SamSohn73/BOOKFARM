@@ -14,7 +14,8 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.vo.CustomerVO;
 
-public class CustomerDAO {
+public class CustomerDAO 
+{
 
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private			Connection			con		= null;
@@ -24,14 +25,11 @@ public class CustomerDAO {
 	public Connection getConnection()
 	{
 		Context	ctx;
-		try
-		{
+		try{
 						ctx	=	new				InitialContext();
 			DataSource	ds	=	(DataSource)	ctx.lookup("java:comp/env/jdbc/MySQL");
 						con	=					ds.getConnection();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	getConnection error : "+e);
 		}
 		return con;
@@ -39,26 +37,20 @@ public class CustomerDAO {
 	
 	public void close(Connection con)
 	{
-		try
-		{
+		try{
 			if(con != null)
 				con.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	close(Connection con) error : "+e);
 		}
 	}
 	
 	public void close(PreparedStatement pstmt)
 	{
-		try
-		{
+		try{
 			if(pstmt != null)
 				pstmt.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	close(PreparedStatement pstmt) error : "+e);
 		}
 	}
