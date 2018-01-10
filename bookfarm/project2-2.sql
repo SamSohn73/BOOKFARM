@@ -55,10 +55,10 @@ CREATE TABLE category (
 
 DROP TABLE IF EXISTS basket;
 CREATE TABLE basket (
-	idx				int			NOT NULL auto_increment primary key,
-	customer_idx	int			NOT NULL,
-	product_idx		int			NOT NULL,
-	quantity		int			NOT NULL,
+	idx				int				NOT NULL auto_increment primary key,
+	customer_idx	int DEFAULT '0'	NOT NULL,
+	product_idx		int				NOT NULL,
+	quantity		int				NOT NULL,
 	options			varchar(255),
 	final_price		decimal(15,4),
 	date_added		date

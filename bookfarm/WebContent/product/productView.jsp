@@ -17,7 +17,7 @@
 		location.href="productBuy.do?idx=<%=vo.getIdx()%>&page=<%=current_page%>";
 	}
 	function basket_submit(){
-		location.href="productBasket.do?idx=<%=vo.getIdx()%>&page=<%=current_page%>";
+		location.href="basketAdd.do?idx=<%=vo.getIdx()%>&page=<%=current_page%>";
 	}
 </script>
 </head>

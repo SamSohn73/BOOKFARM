@@ -4,6 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8" >
+<script language=JavaScript>
+	function check(code) {
+		document.location.href = "cartcontrol.jsp?action=edit&code=" + code;
+	}
+	function order() {
+		document.location.href = "cartcontrol.jsp?action=order";
+	}
+</script>
 <title>Insert title here</title>
 </head>
 <body>
