@@ -14,7 +14,6 @@ import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CategoryVO;
-import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
 
 public class AdminCategoryListAction implements Action

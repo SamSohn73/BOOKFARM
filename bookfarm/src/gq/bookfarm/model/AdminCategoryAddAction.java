@@ -1,7 +1,5 @@
 package gq.bookfarm.model;
 
-import java.util.Vector;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,12 +10,7 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
-import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
-import gq.bookfarm.vo.CategoryVO;
-import gq.bookfarm.vo.CustomerVO;
-import gq.bookfarm.vo.PageVO;
-import gq.bookfarm.vo.ReviewVO;
 
 public class AdminCategoryAddAction implements Action
 {

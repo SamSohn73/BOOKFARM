@@ -16,7 +16,6 @@ import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CategoryVO;
-import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
 import gq.bookfarm.vo.ProductVO;
 import gq.bookfarm.vo.ReviewVO;
