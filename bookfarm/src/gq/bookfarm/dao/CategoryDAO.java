@@ -418,7 +418,7 @@ public class CategoryDAO
 			log.fatal("execute category totalRows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt, result);
+			close(con, pstmt, rs);
 		}
 		
 		log.debug("execute category totalRows do the DB work End. total_rows= " + total_rows);
