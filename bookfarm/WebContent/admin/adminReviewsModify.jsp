@@ -9,22 +9,15 @@
 <%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%	
-	HttpSession	sess			=	request.getSession();
-	String	type				=	request.getParameter("type");
-	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("LoginedUserVO");
 	ReviewVO	vo				=	(ReviewVO)request.getAttribute("vo");
+	int		current_page		=	Integer.parseInt(request.getParameter("page"));
+	int		idx					=	Integer.parseInt(request.getParameter("idx"));
+	int		products_idx		=	Integer.parseInt(request.getParameter("p"));
+	int		parent_idx			=	Integer.parseInt(request.getParameter("par"));
+	int		category_idx		=	Integer.parseInt(request.getParameter("cat"));
+	String	searchCondition		=	request.getParameter("con");
+	String	searchWord			=	request.getParameter("word");
 	CustomerDAO	cDao			=	new CustomerDAO();
-	int			idx				=	vo.getIdx();
-	int			currentPage		=	Integer.parseInt(request.getParameter("page"));
-	int			products_idx	=	vo.getProducts_idx();
-
-	
-	/*CSS	
-	left
-	right
-	file_t
-	btn
-	*/
 
 %>
 <!DOCTYPE html>
@@ -34,7 +27,7 @@
 <title>Insert title here</title>
 <script>
 	function returnList2(){
-		location.href="./qAdminReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
+		location.href="./qAdminReviewsLists.do?page=<%=current_page%>&products_idx=<%=products_idx%>";
 </script>
 </head>
 <body>
@@ -63,8 +56,7 @@
 		</td>
 	</tr>
 </table>
-<input type="hidden" name="page" value="<%=currentPage%>">
-<input type="hidden" name="type" value="<%=type%>">
+<input type="hidden" name="page" value="<%=current_page%>">
 <input type="hidden" name="products_idx" value="<%=products_idx%>">
 <input type="hidden" name="idx" value="<%=idx %>">
 </form>

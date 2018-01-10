@@ -249,7 +249,7 @@ public class MallActionFactory
 		else if(cmd.equals("/adminReviewsModify.do"))
 		{
 			log.debug("QQQQQQQQQQ qAdminReviewsModify.do action create Start.");
-			action = new AdminReviewsModifyAction("./admin/adminReviewsModify.jsp");
+			action = new AdminReviewsViewAction("./admin/adminReviewsModify.jsp");
 			log.debug("QQQQQQQQQQ qAdminReviewsModify.do action create End.");
 		}
 		else if(cmd.equals("/adminReviewsSearch.do"))
