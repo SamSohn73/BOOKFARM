@@ -32,7 +32,8 @@ public class AdminReviewsSearchAction implements Action {
 	}
 	
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
+	{
 		HttpSession	session	= req.getSession();
 		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO= new AdminDAO();

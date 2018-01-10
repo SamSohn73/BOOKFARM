@@ -118,8 +118,6 @@ public class AdminReviewsListAction implements Action
 		info.setTotalRows(totalRows);
 		info.setStartPage(startPage);
 		info.setEndPage(endPage);
-	
-							
 							
 		if(list!=null) {
 			req.setAttribute("list", list);

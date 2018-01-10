@@ -24,7 +24,8 @@ public class AdminReviewsViewAction implements Action {
 	}
 	
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
+	{
 		HttpSession	session	= req.getSession();
 		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO= new AdminDAO();
@@ -41,21 +42,17 @@ public class AdminReviewsViewAction implements Action {
 		String	searchCondition		=	req.getParameter("con");
 		String	searchWord			=	req.getParameter("word");
 		
-		
 		ReviewDAO 	dao				=	new ReviewDAO();
 		ReviewVO	vo				=	dao.getRow(idx);
 			
-		if(vo!=null) 
-		{
-										req.setAttribute("vo", vo);
-					path			+=	"?idx="+idx+"&page="+page+"&p="+products_idx+"&par="+parents_idx
-										+"&cat="+category_idx+"&con="+searchCondition+"&word="+searchWord;
+		if(vo!=null) {
+			req.setAttribute("vo", vo);
+			path			+=	"?idx="+idx+"&page="+page+"&p="+products_idx+"&par="+parents_idx
+								+"&cat="+category_idx+"&con="+searchCondition+"&word="+searchWord;
 				
-		}
-		else
-		{
-										log.error("QQQQQQQQ ReviewsViewAction error : vo is empty");
-					path			=	"";
+		} else {
+			log.error("QQQQQQQQ ReviewsViewAction error : vo is empty");
+			path			=	"";
 		}
 		
 		return new ActionForward(path, false);

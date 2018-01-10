@@ -25,7 +25,8 @@ public class AdminReviewsWriteAction implements Action {
 		log.debug("AdminReviewsWriteAction Constructor. Destination path = " + path);
 	}
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
+	{
 		HttpSession	session	= req.getSession();
 		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO= new AdminDAO();
@@ -66,10 +67,10 @@ public class AdminReviewsWriteAction implements Action {
 				
 			if(result>0) {
 				typeView		=	"view";
-										req.setAttribute("idx", idx);
-										req.setAttribute("type", type);
-										req.setAttribute("page", page);
-										req.setAttribute("typeView", typeView);
+				req.setAttribute("idx", idx);
+				req.setAttribute("type", type);
+				req.setAttribute("page", page);
+				req.setAttribute("typeView", typeView);
 				path			=	"qReviewsView.do";
 			} else {
 				System.out.println("���ٷ��ڤӤä�������������");
