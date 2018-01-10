@@ -16,17 +16,20 @@ import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CustomerVO;
 
-public class AdminCustomerModifyAction implements Action {
+public class AdminCustomerModifyAction implements Action
+{
 	private final	Logger		log		=	Logger.getLogger(this.getClass());
 	private 		String		path;
 	
-	public AdminCustomerModifyAction(String path) {
+	public AdminCustomerModifyAction(String path)
+	{
 		super();
 		this.path  = path;
 		log.debug("AdminCustomerModifyAction Constructor. Destination path = " + path);
 	}
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
+	{
 		log.debug("AdminCustomerModifyAction execute Start.");
 		
 		HttpSession	session		= req.getSession();

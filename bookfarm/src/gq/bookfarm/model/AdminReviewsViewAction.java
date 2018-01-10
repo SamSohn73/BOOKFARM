@@ -13,11 +13,13 @@ import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.ReviewVO;
 
-public class AdminReviewsViewAction implements Action {
+public class AdminReviewsViewAction implements Action
+{
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
 	
-	public AdminReviewsViewAction(String path) {
+	public AdminReviewsViewAction(String path)
+	{
 		super();
 		this.path = path;
 		log.debug("AdminReviewsViewAction Constructor. Destination path = " + path);

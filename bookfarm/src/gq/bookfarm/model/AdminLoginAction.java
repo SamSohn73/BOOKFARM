@@ -16,7 +16,8 @@ public class AdminLoginAction implements Action
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private			String				path;
 	
-	public AdminLoginAction(String path) {
+	public AdminLoginAction(String path)
+	{
 		super();
 		this.path  = path;
 		log.debug("AdminLoginAction Constructor. Destination path = " + path);

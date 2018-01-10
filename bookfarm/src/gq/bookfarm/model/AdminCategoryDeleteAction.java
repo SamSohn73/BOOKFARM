@@ -12,12 +12,13 @@ import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
 import gq.bookfarm.vo.AdminVO;
 
-public class AdminCategoryDeleteAction implements Action {
-	
+public class AdminCategoryDeleteAction implements Action
+{
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private			String				path;
 	
-	public AdminCategoryDeleteAction(String path) {
+	public AdminCategoryDeleteAction(String path)
+	{
 		super();
 		this.path  = path;
 		log.debug("AdminCategoryDeleteAction Constructor. Destination path = " + path);

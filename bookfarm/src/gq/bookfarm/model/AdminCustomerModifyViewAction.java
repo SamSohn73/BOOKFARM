@@ -13,11 +13,13 @@ import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CustomerVO;
 
-public class AdminCustomerModifyViewAction implements Action {
+public class AdminCustomerModifyViewAction implements Action
+{
 	private final	Logger		log		=	Logger.getLogger(this.getClass());
 	private 		String		path;
 	
-	public AdminCustomerModifyViewAction(String path) {
+	public AdminCustomerModifyViewAction(String path)
+	{
 		super();
 		this.path  = path;
 		log.debug("AdminCustomerModifyViewAction Constructor. Destination path = " + path);

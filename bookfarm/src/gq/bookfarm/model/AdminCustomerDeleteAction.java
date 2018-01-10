@@ -12,12 +12,14 @@ import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.vo.AdminVO;
 
-public class AdminCustomerDeleteAction implements Action {
+public class AdminCustomerDeleteAction implements Action
+{
 	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private			String				path;
 	
-	public AdminCustomerDeleteAction(String path) {
+	public AdminCustomerDeleteAction(String path)
+	{
 		super();
 		this.path  = path;
 		log.debug("AdminCustomerDeleteAction Constructor. Destination path = " + path);
