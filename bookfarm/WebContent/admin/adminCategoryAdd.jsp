@@ -7,9 +7,10 @@
 
 <%
 	String				currentPage	= request.getParameter("page");
+	log.debug("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ currentPage=" + currentPage);
 	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
 %>
-QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+
 <!DOCTYPE>
 <html>
 <head>
@@ -27,18 +28,14 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
 	}
 	
 	function adminCategoryList() {
-		location.href="../adminCategoryList.do?page=<%=currentPage%>";
+		location.href="./adminCategoryList.do?page=<%=currentPage%>";
 	}
 </script>
 </head>
 <body>
-	<form action="../AdminCategoryAdd.do" method="post">
+	<form action="./adminCategoryAdd.do" method="post">
 		<table>
 			<caption>카테고리 추가</caption>	
-			<tr>
-				<td><label>카테고리 이름</label>
-				<td><input type="text" name="category_name" placeholder="카테고리명을 입력하세요" required="required"></td>
-			</tr>
 			<tr>
 				<td><label>상위 카테고리</label>
 				<td>
@@ -50,10 +47,14 @@ QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
 				</td>
 			</tr>
 			<tr>
+				<td><label>카테고리 이름</label>
+				<td><input type="text" name="category_name" placeholder="카테고리명을 입력하세요" required="required"></td>
+			</tr>
+			<tr>
 				<td colspan="2" class="btn_align">
-					<input type="button" name="add" value="추가" onclick="register_check(this.form)">
-					<input type="button" value="취소" onclick="javascript:history.back()">
-					<input type="button" name="list" value="카테고리 목록" onclick="adminCategoryList()">
+					<input type="button" name="add"		value="추가"			onclick="register_check(this.form)">
+					<input type="button" name="cancel"	value="취소"			onclick="javascript:history.back()">
+					<input type="button" name="list"	value="카테고리 목록"	onclick="adminCategoryList()">
 				</td>
 			</tr>
 		</table>

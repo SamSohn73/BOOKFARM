@@ -12,9 +12,12 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
+import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CategoryVO;
+import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
+import gq.bookfarm.vo.ReviewVO;
 
 public class AdminCategoryAddAction implements Action
 {
@@ -26,10 +29,46 @@ public class AdminCategoryAddAction implements Action
 	{
 		super();
 		this.path = path;
+		log.debug("AdminCategoryAddAction Constructor. path = " + path);
 	}
 	
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)
 	{
+		log.debug("AdminCategoryAddAction execute Start.");
+
+		HttpSession	session		= req.getSession();
+		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
+		AdminDAO	adminDAO	= new AdminDAO();
+		log.debug("AdminCategoryAddAction execute 000000000000000000000.");
+		if (adminDAO.isAdmin(adminVO) == null) {
+			log.info("AdminCategoryAddAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			path="error.jsp";
+		}
+		log.debug("AdminCategoryAddAction execute 1111111111111111.");
+		
+		
+		log.debug("QQQQQQQQQQQQQQQQQQQQQQQQqq req.getParameter(\"page\")=" + req.getParameter("page"));
+		log.debug("QQQQQQQQQQQQQQQQQQQQQQQQqq req.getParameter(\"partent_idx\")=" + req.getParameter("partent_idx"));
+		int		curPage			= Integer.parseInt(req.getParameter("page"));
+		log.debug("AdminCategoryAddAction execute 222222222222222222.");
+		int		partent_idx		= Integer.parseInt(req.getParameter("partent_idx"));
+		log.debug("AdminCategoryAddAction execute 333333333333333333.");
+		String	category_name	= req.getParameter("category_name");
+		int		result			= 0;
+		
+		CategoryDAO	dao			=	new CategoryDAO();
+
+		result					=	dao.categoryInsert(partent_idx, category_name);
+			
+		if(result>0) {
+			path += "?page=" + curPage;
+		}
+		else {
+			log.debug("AdminCategoryAddAction execute Failed!!!!!!!!!!!!!!!!!!!!");
+			path="error.jsp";
+		}
+
+		log.debug("AdminCategoryAddAction execute End.");
 		return new ActionForward(path, false);
 	}
 }

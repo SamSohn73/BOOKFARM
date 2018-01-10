@@ -96,7 +96,13 @@ public class MallActionFactory
 			action = new AdminCategoryAddViewAction("admin/adminCategoryAdd.jsp");
 			log.debug("adminCategoryAddView.do action create End.");
 		}
+		if (cmd.equals("/adminCategoryAdd.do")) {
+			log.debug("adminCategoryAdd.do action create Start.");
+			action = new AdminCategoryAddAction("admin/adminCategoryList.jsp");
+			log.debug("adminCategoryAdd.do action create End.");
+		}
 		
+		// Product Windows
 		if (cmd.equals("/productList.do")) {
 			log.debug("productList.do action create Start.");
 			action = new ProductListAction("product/productList.jsp");

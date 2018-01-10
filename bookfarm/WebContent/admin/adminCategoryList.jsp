@@ -87,7 +87,7 @@
 			%>
 			<%//[next] display
 				if (currentPage <= endPage && currentPage < totalPages) {
-					out.print("<a href=adminCategoryList.do?page=" + (currentPage + 1) + ">");
+					out.print("<a href=../adminCategoryList.do?page=" + (currentPage + 1) + ">");
 					out.print(" [next]</a>");
 				}
 			%>
@@ -107,7 +107,7 @@
 					<input type='button' value='검색' onclick="search()">						
 				</form>
 			</td>
-			<td align='right'><a href="admin/adminCategoryAddView.do?page=<%=currentPage%>">[카테고리 추가]</a></td>
+			<td align='right'><a href="adminCategoryAddView.do?page=<%=currentPage%>">[카테고리 추가]</a></td>
 		</tr>	
 	</table>
 	<h2><a href="admin/adminLogin.jsp">처음으로</a></h2>

@@ -45,9 +45,9 @@ public class MallControlServlet extends HttpServlet {
 		
 		// Create Action through cmd value
 		log.debug("MallControlServlet Action creat Start.");
-		MallActionFactory baFactory	= MallActionFactory.getInstance();
+		MallActionFactory maFactory	= MallActionFactory.getInstance();
 		Action action = null;
-		action = baFactory.action(cmd);
+		action = maFactory.action(cmd);
 		log.debug("MallControlServlet Action creat End.");
 		
 		// Do each Action work
@@ -70,7 +70,7 @@ public class MallControlServlet extends HttpServlet {
 			rd.forward(req, res);
 		}
 		log.debug("MallControlServlet Redirect/Forward End.");
-		log.debug("********** MallControlServlet End. **********");
+		log.debug("********** MallControlServlet End.   **********");
 	}
 
 	/**

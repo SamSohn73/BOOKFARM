@@ -32,26 +32,27 @@ public class AdminCategoryAddViewAction implements Action
 	{
 		log.debug("AdminCategoryListAction execute Start.");
 
-		HttpSession	session	= req.getSession();
-		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
-		AdminDAO	adminDAO= new AdminDAO();
+		HttpSession	session		= req.getSession();
+		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
+		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
 		}
 		
-		int curPage = Integer.parseInt(req.getParameter("page"));
+		int curPage						= Integer.parseInt(req.getParameter("page"));
 		
-		CategoryDAO			dao		= new CategoryDAO();
-		
-		
+		CategoryDAO			dao			= new CategoryDAO();
 		Vector<CategoryVO>	categories	= dao.categoryList();
 		if (categories != null) {
 			req.setAttribute("categories", categories);
 			path += "?page=" + curPage;
 		}
 		// if result failed change path here
-		else							path="error.jsp";
+		else {
+			log.debug("AdminCategoryListAction execute Failed!!!!!!!!!!!!!!!!!!!!");
+			path="error.jsp";
+		}
 		
 		log.debug("AdminCategoryListAction execute End.");
 		return new ActionForward(path, false);
