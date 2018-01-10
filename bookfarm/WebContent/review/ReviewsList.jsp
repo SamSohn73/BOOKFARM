@@ -43,9 +43,9 @@
 		//If connection comes from myPage or myList, this category must be needed...
 		int		customers_idx	=	0;
 		CustomerVO	userVO		=	null;
-		if(session.getAttribute("LoginedUserVO")!=null)
+		if(session.getAttribute("loggedInUserVO")!=null)
 		{	
-				userVO			=	(CustomerVO)session.getAttribute("LoginedUserVO");
+				userVO			=	(CustomerVO)session.getAttribute("loggedInUserVO");
 				customers_idx	=	userVO.getIdx();
 		}
 		//The type must be one of 'list', 'myList' or 'myPage'
@@ -396,7 +396,7 @@ if(!type.equals("myPage"))
 				</td>
 				<%
 				if(type.equals("list") )
-				{	if(session.getAttribute("LoginedUserVO")!=null){
+				{	if(session.getAttribute("loggedInUserVO")!=null){
 				%>
 				<td align="right">
 				<a href="./review/ReviewsWrite.jsp?page=<%=currentPage%>

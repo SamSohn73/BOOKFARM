@@ -31,7 +31,7 @@ public class ReviewsInsertAction implements Action
 		int		result			=	0;
 		
 		HttpSession session		=	req.getSession();
-		CustomerVO cVo			=	(CustomerVO)session.getAttribute("LoginedUserVO");
+		CustomerVO cVo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
 		
 		ReviewDAO dao			=	new ReviewDAO();
 		ReviewVO vo				=	new ReviewVO();

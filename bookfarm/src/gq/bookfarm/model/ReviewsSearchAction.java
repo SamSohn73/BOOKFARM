@@ -31,7 +31,7 @@ public class ReviewsSearchAction implements Action
 			int		page		=	1;
 			
 			HttpSession	session	=	req.getSession();
-			CustomerVO	vo		=	(CustomerVO)session.getAttribute("LoginedUserVO");
+			CustomerVO	vo		=	(CustomerVO)session.getAttribute("loggedInUserVO");
 			int		customers_idx=	vo.getIdx();
 		
 			String	type		=	req.getParameter("type");

@@ -13,7 +13,7 @@
 	String	type				=	request.getParameter("type");
 	String	typeView			=	request.getParameter("typeView");//view,insert,modify
 	
-	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("LoginedUserVO");
+	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("loggedInUserVO");
 	ReviewVO	vo				=	null;
 	CustomerDAO	cDao			=	null;
 	int			idx				=	0;

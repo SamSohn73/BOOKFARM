@@ -32,7 +32,7 @@ public class ReviewsListAction implements Action
 			int		products_idx=	0;
 			String	type		=	req.getParameter("type");
 			HttpSession	session	=	req.getSession();
-			CustomerVO	vo		=	(CustomerVO)session.getAttribute("LoginedUserVO");
+			CustomerVO	vo		=	(CustomerVO)session.getAttribute("loggedInUserVO");
 			int		customers_idx=	vo.getIdx();
 			
 		if(req.getParameter("products_idx")!=null)	

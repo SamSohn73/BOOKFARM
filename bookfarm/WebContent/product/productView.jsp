@@ -14,10 +14,10 @@
 		location.href="productList.do?&page=<%=current_page%>";
 	}
 	function buy_submit(){
-		location.href="productBuy.do?idx=<%=vo.getIdx()%>&page=<%=current_page%>";
+		location.href="productBuy.do?idx=<%=vo.getIdx()%>";
 	}
 	function basket_submit(){
-		location.href="basketAdd.do?idx=<%=vo.getIdx()%>&page=<%=current_page%>";
+		location.href="basketAdd.do?idx=<%=vo.getIdx()%>";
 	}
 </script>
 </head>

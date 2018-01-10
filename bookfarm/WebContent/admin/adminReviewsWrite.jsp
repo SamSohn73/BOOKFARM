@@ -11,7 +11,7 @@
 <%	
 	HttpSession	sess			=	request.getSession();
 	String	type				=	request.getParameter("type");
-	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("LoginedUserVO");
+	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("loggedInUserVO");
 	int			products_idx	=	Integer.parseInt(request.getParameter("products_idx"));
 
 	/*CSS	

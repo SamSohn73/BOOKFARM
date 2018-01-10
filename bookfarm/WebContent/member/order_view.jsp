@@ -8,7 +8,7 @@
 <%@page import="java.util.Vector" %>
 <%
 	
-	CustomerVO				vo			=	(CustomerVO)session.getAttribute("LoginedUserVO");
+	CustomerVO				vo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
 	String					type		=	null;
 	int						Page		=	1;
 	if(request.getParameter("page")!=null)

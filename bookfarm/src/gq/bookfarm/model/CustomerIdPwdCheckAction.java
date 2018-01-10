@@ -35,7 +35,7 @@ public class CustomerIdPwdCheckAction implements Action {
 		
 		if(type.equals("modify"))
 		{
-					LoginedVO	=	(CustomerVO)session.getAttribute("LoginedUserVO");
+					LoginedVO	=	(CustomerVO)session.getAttribute("loggedInUserVO");
 					vo			=	dao.pwdCheck(username, password);
 			if(LoginedVO.getIdx()==vo.getIdx())
 			{
@@ -49,7 +49,7 @@ public class CustomerIdPwdCheckAction implements Action {
 					vo			=	dao.pwdCheck(username, password);
 			if(vo != null)
 			{
-									session.setAttribute("LoginedUserVO", vo);
+									session.setAttribute("loggedInUserVO", vo);
 					result		=	dao.login(vo.getIdx());
 			}
 			else

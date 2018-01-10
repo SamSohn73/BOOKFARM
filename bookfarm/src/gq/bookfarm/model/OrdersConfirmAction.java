@@ -32,7 +32,7 @@ public class OrdersConfirmAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		HttpSession		session		=	req.getSession();
-		CustomerVO		cVo			=	(CustomerVO) session.getAttribute("LoginedUserVO");
+		CustomerVO		cVo			=	(CustomerVO) session.getAttribute("loggedInUserVO");
 		int				customer_idx=	cVo.getIdx();
 		
 		String			type		=	"";

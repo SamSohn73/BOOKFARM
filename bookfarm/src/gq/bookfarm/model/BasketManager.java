@@ -11,9 +11,7 @@ public class BasketManager {
 	//Hashtable : key, value 형식으로 데이터를 처리
 
 	private Hashtable<String,ProductVO> Basket = new Hashtable<String,ProductVO>();
-
 	
-
 	//카트에 추가
 
 	public void addBasket(ProductVO list){
@@ -57,7 +55,6 @@ public class BasketManager {
 				tempBean.setProduct_quantity(product_quantity);
 
 				
-
 				//카트에 추가
 
 				Basket.get(getBasketList());

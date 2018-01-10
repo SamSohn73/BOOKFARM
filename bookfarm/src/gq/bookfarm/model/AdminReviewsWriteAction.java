@@ -45,7 +45,7 @@ public class AdminReviewsWriteAction implements Action
 		int		products_idx	=	0;
 		int		result			=	0;
 		
-		CustomerVO cVo			=	(CustomerVO)session.getAttribute("LoginedUserVO");
+		CustomerVO cVo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
 		ReviewDAO dao			=	new ReviewDAO();
 		ReviewVO vo				=	new ReviewVO();
 		

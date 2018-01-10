@@ -11,7 +11,7 @@
 				type			=	(String)request.getParameter("type");
 	
 	if(type.equals("modify") || type.equals("view"))
-				cVo				=	(CustomerVO)session.getAttribute("LoginedUserVO");
+				cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
 	
 	//CSS
 	/*

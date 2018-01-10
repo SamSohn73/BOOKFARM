@@ -57,12 +57,12 @@ public class CustomerRegistAction implements Action {
 		else if(type.equals("modify"))
 		{
 		HttpSession	session			=	req.getSession();
-		CustomerVO	vo1				=	(CustomerVO)session.getAttribute("LoginedUserVO");
+		CustomerVO	vo1				=	(CustomerVO)session.getAttribute("loggedInUserVO");
 					result			=	dao.updateRow(vo1.getIdx(), vo);
 					
 										log.info("DB�������� ���� �� ���ǵ� ����...���� //�ٲ� ��� : "+vo1.getPassword());
 					vo				=	dao.pwdCheck(vo1.getUsername(), vo1.getPassword());
-										session.setAttribute("LoginedUserVO", vo);
+										session.setAttribute("loggedInUserVO", vo);
 					path			=	"./member/mypage.jsp";
 			
 		}

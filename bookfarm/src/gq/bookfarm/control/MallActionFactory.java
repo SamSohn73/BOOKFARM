@@ -22,6 +22,8 @@ import gq.bookfarm.model.AdminReviewsModifyAction;
 import gq.bookfarm.model.AdminReviewsSearchAction;
 import gq.bookfarm.model.AdminReviewsViewAction;
 import gq.bookfarm.model.AdminReviewsWriteAction;
+import gq.bookfarm.model.BasketAddAction;
+import gq.bookfarm.model.BasketListAction;
 import gq.bookfarm.model.AdminOrdersListAction;
 import gq.bookfarm.model.CustomerFindAction;
 import gq.bookfarm.model.CustomerIdPwdCheckAction;
@@ -191,6 +193,18 @@ public class MallActionFactory
 			log.debug("QQQQQQQQQQ qCustomerLogout.do action create End.");
 		}
 		
+		
+		//Basket Management
+		if (cmd.equals("/basketAdd.do")) {
+			log.debug("basketAdd.do action create Start.");
+			action = new BasketAddAction("/basketList.do");
+			log.debug("basketAdd.do action create End.");
+		}
+		if (cmd.equals("/basketList.do")) {
+			log.debug("basketList.do action create Start.");
+			action = new BasketListAction("product/basketList.jsp");
+			log.debug("basketList.do action create End.");
+		}
 		
 		//From here, I wrote the code for actions related OrdersConfirm... - hansol -
 		if (cmd.equals("/qOrdersConfirm.do"))
