@@ -21,6 +21,7 @@ public class CustomerDAO
 	
 	public Connection getConnection()
 	{
+		
 		Context	ctx;
 		try{
 						ctx	=	new				InitialContext();
