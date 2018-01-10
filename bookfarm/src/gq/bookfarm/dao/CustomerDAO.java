@@ -18,12 +18,11 @@ public class CustomerDAO
 {
 
 	private final	Logger				log		= Logger.getLogger(this.getClass());
-	private			Connection			con		= null;
-	private			PreparedStatement	pstmt	= null;
-	private			ResultSet			rs		= null;
 	
 	public Connection getConnection()
 	{
+		Connection			con			= null;
+		
 		Context	ctx;
 		try{
 						ctx	=	new				InitialContext();
@@ -67,6 +66,10 @@ public class CustomerDAO
 	
 	public int insert(CustomerVO vo)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int		result	=	0;
 		String	sql		=	"insert into customer (username, password, firstname, postcode, address1, "
 							+ "address2, phone1, email1, gender, newsletter, birthday, last_login, "
@@ -113,6 +116,10 @@ public class CustomerDAO
 	
 	public int totalRows()
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		String	sql			=	"select count(*) from customer";		
 		int		total_rows	=	0;
 		try{
@@ -134,6 +141,10 @@ public class CustomerDAO
 	
 	public CustomerVO getRow(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		CustomerVO	vo		=		null;
 		
 		try{
@@ -176,6 +187,10 @@ public class CustomerDAO
 	
 	public CustomerVO find(String phone1, String firstname)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		CustomerVO	vo		=		null;
 		
 		try{
@@ -203,6 +218,10 @@ public class CustomerDAO
 
 	public CustomerVO pwdCheck(String username, String password)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		CustomerVO	vo		=	null;
 		try{
 			String	sql		=	"select * from customer where "
@@ -247,6 +266,9 @@ public class CustomerDAO
 	
 	public int login(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		
 		int			result		=	0;
 		String		sql			=	"update customer set on_line=?, login_cnt=login_cnt+1 where idx=?";
 		try {
@@ -268,6 +290,9 @@ public class CustomerDAO
 
 	public int logout(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		
 		int			result		=	0;
 		String		sql			=	"update customer set on_line=? where idx=?";
 		try {
@@ -289,6 +314,9 @@ public class CustomerDAO
 	
 	public int delete(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		
 			int		result	=	0;
 		try {
 					con		=	getConnection();
@@ -308,6 +336,9 @@ public class CustomerDAO
 
 	public int updateRow(int idx, CustomerVO vo)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		
 			String	sql		=	"update customer set username=?, password=?, firstname=?, "
 								+ "Postcode=?, Address1=?, Address2=?, Phone1=?, Email1=?, "
 								+ "gender=?, Birthday=?, "
@@ -341,6 +372,10 @@ public class CustomerDAO
 	
 	public String getName(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		String		name	=		null;
 		
 		try{
@@ -366,6 +401,10 @@ public class CustomerDAO
 	
 	public Vector<CustomerVO> customerList(int page, int limit)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		// Calc start record through page;
 		int start						= (page - 1) * 10; 
 		
@@ -416,6 +455,10 @@ public class CustomerDAO
 	
 	public Vector<CustomerVO> findIdx(String searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		Vector<CustomerVO> list=	new Vector<CustomerVO>();
 		
 		try{

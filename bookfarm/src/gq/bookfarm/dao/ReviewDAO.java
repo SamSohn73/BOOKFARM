@@ -18,12 +18,10 @@ public class ReviewDAO
 {
 	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
-	private			Connection			con		= null;
-	private			PreparedStatement	pstmt	= null;
-	private			ResultSet			rs		= null;
 	
 	public Connection getConnection()
 	{
+		Connection		con	=	null;
 		Context	ctx;
 		try{
 						ctx	=	new				InitialContext();
@@ -67,6 +65,10 @@ public class ReviewDAO
 	
 	public int insert(ReviewVO vo)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int		result	=	0;
 		String	sql		=	"insert into review (products_idx, customers_idx, reviews_rating, "
 							+"review_title, review_text, date_added, last_modified) "
@@ -105,6 +107,10 @@ public class ReviewDAO
 	
 	public int totalRows()
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		String	sql			=	"select count(*) from review";		
 		int		total_rows	=	0;
 		try{
@@ -126,6 +132,10 @@ public class ReviewDAO
 	
 	public int getReviewWriterIdx(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int		result		=	0;
 		String	sql			=	"select customers_idx from review where idx=?";
 		try{
@@ -149,6 +159,10 @@ public class ReviewDAO
 	
 	public int oneProductsTotalRows(int products_idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		String	sql			=	"select count(*) from review where products_idx=?";		
 		int		total_rows	=	0;
 		try{
@@ -171,6 +185,10 @@ public class ReviewDAO
 	
 	public int oneCustomersTotalRows(int customers_idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		String	sql			=	"select count(*) from review where customers_idx=?";		
 		int		total_rows	=	0;
 		try{
@@ -193,6 +211,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getList(int products_idx, int customers_idx, int page, int limit)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int					start	=			(page-1)*10;
 		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		StringBuffer		sql		=	new		StringBuffer();
@@ -237,6 +259,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getList(int products_idx, int page, int limit)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int					start	=			(page-1)*10;
 		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		StringBuffer		sql		=	new		StringBuffer();
@@ -280,6 +306,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getList(int page, int limit)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int					start	=			(page-1)*10;
 		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		StringBuffer		sql		=	new		StringBuffer();
@@ -321,6 +351,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getListByCustomer(int customers_idx, int page, int limit)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int					start	=			(page-1)*10;
 		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		StringBuffer		sql		=	new		StringBuffer();
@@ -364,6 +398,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getMyList(int customers_idx, int page, int limit)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		int					start	=			(page-1)*10;
 		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		StringBuffer		sql		=	new		StringBuffer();
@@ -407,6 +445,10 @@ public class ReviewDAO
 
 	public Vector<ReviewVO> getMyPageList(int customers_idx, int limit)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		String				sql		=	"select * from review where customers_idx=? order by "
 										+ "date_added desc, last_modified desc, reviews_read asc limit 0,?";
@@ -444,6 +486,10 @@ public class ReviewDAO
 	
 	public ReviewVO getRow(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 		ReviewVO	vo		=		null;
 		
 		try{
@@ -477,6 +523,10 @@ public class ReviewDAO
 	
 	public int getProduct_idx(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			int		p_idx	=		0;
 		
 		try{
@@ -501,6 +551,9 @@ public class ReviewDAO
 	
 	public int hitUpdate(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		
 		int			result	=	0;
 		String		sql		=	"update review set reviews_read=reviews_read+1";
 					sql		+=	" where idx=?";
@@ -523,6 +576,10 @@ public class ReviewDAO
 	//This one is use for customerTB search....not for reviewsTB.. 
 	public int pwdCheck(int idx, String username, String password)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			int		result	=	0;
 		try{
 			String	sql		=	"select idx from customer where "
@@ -558,6 +615,10 @@ public class ReviewDAO
 
 	public int getCustomerIdx(String username, String password)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			int		result	=	0;
 		try{
 			String	sql		=	"select idx from customer where "
@@ -585,6 +646,9 @@ public class ReviewDAO
 	
 	public int delete(int idx)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		
 			int		result	=	0;
 		try {
 					con		=	getConnection();
@@ -604,6 +668,9 @@ public class ReviewDAO
 
 	public int updateRow(int idx, String review_title, String review_text)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		
 			String	sql		=	"update review set review_title=?,"
 									+ " review_text=?, last_modified=now() "
 									+ "where idx=?";
@@ -627,6 +694,10 @@ public class ReviewDAO
 	
 	public int searchList(String searchCondition, String searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			String		sql		=	"select count(*) from review where ";
 						sql		+=	searchCondition + " like ? order by";
 						sql		+=	" date_added desc,last_modified desc,";
@@ -654,6 +725,10 @@ public class ReviewDAO
 	
 	public int searchList(String searchCondition, int searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			String		sql		=	"select count(*) from review where ";
 						sql		+=	searchCondition + "=? order by";
 						sql		+=	" date_added desc,last_modified desc,";
@@ -681,6 +756,10 @@ public class ReviewDAO
 	
 	public int searchOneProductList(int products_idx, String searchCondition, String searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			String		sql		=	"select count(*) from review where ";
 						sql		+=	"products_idx=? and ";
 						sql		+=	searchCondition + " like ? order by";
@@ -710,6 +789,10 @@ public class ReviewDAO
 	
 	public int searchOneProductList(int products_idx, String searchCondition, int searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			String		sql		=	"select count(*) from review where ";
 						sql		+=	"products_idx=? and ";
 						sql		+=	searchCondition + "=? order by";
@@ -739,6 +822,10 @@ public class ReviewDAO
 	
 	public int searchOneCustomerList(int customers_idx, String searchCondition, String searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 			String		sql		=	"select count(*) from review where ";
 						sql		+=	"customers_idx=? and ";
 						sql		+=	searchCondition + " like ? order by";
@@ -768,6 +855,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getSearchList(int page, int limit, String searchCondition, String searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
@@ -809,6 +900,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getSearchList(int page, int limit, String searchCondition, int searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
@@ -850,6 +945,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getProductSearchList(int products_idx, int page, int limit, String searchCondition, String searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
@@ -893,6 +992,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getProductSearchList(int products_idx, int page, int limit, String searchCondition, int searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
@@ -936,6 +1039,10 @@ public class ReviewDAO
 	
 	public Vector<ReviewVO> getCustomerSearchList(int customers_idx, int page, int limit, String searchCondition, String searchWord)
 	{
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		
 				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
