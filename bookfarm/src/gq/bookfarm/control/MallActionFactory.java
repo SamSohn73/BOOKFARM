@@ -6,7 +6,10 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.model.AdminCategoryAddAction;
 import gq.bookfarm.model.AdminCategoryAddViewAction;
 import gq.bookfarm.model.AdminCategoryListAction;
+import gq.bookfarm.model.AdminCustomerDeleteAction;
 import gq.bookfarm.model.AdminCustomerListAction;
+import gq.bookfarm.model.AdminCustomerModifyAction;
+import gq.bookfarm.model.AdminCustomerModifyViewAction;
 import gq.bookfarm.model.AdminLoginAction;
 import gq.bookfarm.model.AdminLogoutAction;
 import gq.bookfarm.model.AdminProductListAction;
@@ -113,6 +116,22 @@ public class MallActionFactory
 			action = new ProductViewAction("product/productView.jsp");
 			log.debug("productView.do action create End.");
 		}
+		
+		if (cmd.equals("/adminCustomerModifyView.do")) {
+			log.debug("adminCustomerModifyView.do action create Start.");
+			action = new AdminCustomerModifyViewAction("admin/adminCustomerModify.jsp");
+			log.debug("adminCustomerModifyView.do action create End.");
+		}
+		if (cmd.equals("/adminCustomerModify.do")) {
+			log.debug("adminCustomerModify.do action create Start.");
+			action = new AdminCustomerModifyAction("adminCustomerList.do");
+			log.debug("adminCustomerModify.do action create End.");
+		}
+		if (cmd.equals("/adminCustomerDelete.do")) {
+			log.debug("adminCustomerDelete.do action create Start.");
+			action = new AdminCustomerDeleteAction("adminCustomerList.do");
+			log.debug("adminCustomerDelete.do action create End.");
+		}		
 		/*
 		if (cmd.equals("/qSearch.do")) {
 			log.debug("QQQQQQQQQQ qSearch.do action create Start.");
