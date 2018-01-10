@@ -17,6 +17,7 @@
 		Vector<CategoryVO> catVo1=	(Vector<CategoryVO>)request.getAttribute("catVo1");
 		Vector<CategoryVO> catVo2=	(Vector<CategoryVO>)request.getAttribute("catVo2");
 		Vector<ProductVO> VpVo	=	(Vector<ProductVO>)request.getAttribute("VpVo");
+		/* Vector<String>nameList	=	(Vector<String>)request.getAttribute("nameList"); */
 		int		totalPages		=	info.getTotalPages();
 		int		currentPage		=	info.getPage();
 		int		startPage		=	info.getStartPage();

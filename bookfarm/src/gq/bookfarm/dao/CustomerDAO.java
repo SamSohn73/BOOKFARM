@@ -349,6 +349,10 @@ public class CustomerDAO
 					rs		=		pstmt.executeQuery();
 			if(rs.next()){
 					name	=		rs.getString("username");
+			}else {
+									log.error("CustomerDAO	"
+									+ "getName error : Name is not found");
+					/*name	=		"NoNamed";*/
 			}
 		}catch (SQLException e){
 									log.error("CustomerDAO	"

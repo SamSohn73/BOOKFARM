@@ -12,6 +12,7 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
+import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
@@ -117,6 +118,13 @@ public class AdminReviewsListAction implements Action
 		info.setTotalRows(totalRows);
 		info.setStartPage(startPage);
 		info.setEndPage(endPage);
+		
+		/*CustomerDAO cDao	=	new CustomerDAO();
+		Vector<String>nameList= new Vector<String>();
+		for(ReviewVO vo:list) {
+			String	name	=	cDao.getName(vo.getCustomers_idx());
+							nameList.add(name);
+		}*/
 							
 		if(list!=null) {
 			req.setAttribute("list", list);
@@ -124,6 +132,7 @@ public class AdminReviewsListAction implements Action
 			req.setAttribute("VpVo", VpVo);
 			req.setAttribute("catVo1", catVo1);
 			req.setAttribute("catVo2", catVo2);
+			/*req.setAttribute("nameList", nameList);*/
 			path		+=	"?products_idx="+products_idx
 							+"&parent_idx="+parent_idx+"&category_idx="+category_idx;
 		} else { 
