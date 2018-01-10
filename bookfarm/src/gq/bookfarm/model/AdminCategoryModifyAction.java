@@ -32,7 +32,6 @@ public class AdminCategoryModifyAction implements Action
 		HttpSession	session		= req.getSession();
 		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO	= new AdminDAO();
-
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryAddAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";

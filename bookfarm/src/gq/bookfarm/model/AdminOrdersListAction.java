@@ -37,7 +37,7 @@ public class AdminOrdersListAction implements Action
 		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
-			log.info("AdminCategoryListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			log.info("AdminOrdersList execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
 		}
 		
