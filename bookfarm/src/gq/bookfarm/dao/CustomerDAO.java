@@ -480,7 +480,7 @@ public class CustomerDAO {
 	
 	public Vector<CustomerVO> findIdx(String searchWord)
 	{
-		Vector<CustomerVO> list=		null;
+		Vector<CustomerVO> list=	new Vector<CustomerVO>();
 		
 		try
 		{

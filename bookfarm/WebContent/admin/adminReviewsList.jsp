@@ -100,7 +100,9 @@
 						<select class="btn" name="products_idx">
 							<option value="0">전체</option>
 						<% for(ProductVO pVo :VpVo){ %>
-							<option value="<%=pVo.getIdx()%>"><%= pVo.getProduct_name()%></option>
+							<option value="<%=pVo.getIdx()%>"
+							<%if(products_idx==pVo.getIdx()){%> selected<%}%>>
+							<%= pVo.getProduct_name()%></option>
 							<%} %>
 						<%} %>
 						</select>
@@ -112,11 +114,18 @@
 					&parent_idx=<%=parent_idx %>&category_idx=<%=category_idx %>"
 					method="post" name="searchform">
 						<select class="btn" name="searchCondition">
-							<option value="customers_idx">작성자</option>
-							<option value="review_title">제목</option>
-							<option value="review_text">글내용</option>
+							<option value="customers_idx"
+							<%if(searchCondition!=null && searchCondition.equals("customers_idx")){%>
+							selected<%}%>>작성자</option>
+							<option value="review_title"
+							<%if(searchCondition!=null && searchCondition.equals("review_title")){%>
+							selected<%}%>>제목</option>
+							<option value="review_text"
+							<%if(searchCondition!=null && searchCondition.equals("review_text")){%>
+							selected<%}%>>글내용</option>
 						</select>
-						<input type="text" class="클래스_btn1" size="10" name="searchWord" required="required"/>
+						<input type="text" class="클래스_btn1" size="10" name="searchWord" required="required"
+						<%if(searchWord!=null){%> value="<%=searchWord%>"<%}%>/>
 						<input type="button" class="클래스_btn1" value="검색" onclick="search()">
 					</form>
 				</td>

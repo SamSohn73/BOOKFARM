@@ -740,6 +740,39 @@ public class ReviewDAO {
 		return result;		
 	}
 	
+	public int searchList(String searchCondition, int searchWord)
+	{
+			String		sql		=	"select count(*) from review where ";
+						sql		+=	searchCondition + "=? order by";
+						sql		+=	" date_added desc,last_modified desc,";
+						sql		+=	" reviews_read asc";	
+			int			result	=	0;
+		try
+		{
+						con		=	getConnection();
+						pstmt	=	con.prepareStatement(sql);
+									pstmt.setInt(1, searchWord);
+						rs		=	pstmt.executeQuery();
+			if(rs.next())
+			{
+						result	=	rs.getInt(1);				
+			}
+		}
+		catch (SQLException e)
+		{
+									log.error("ReviewsDAO	"
+											+ "searchList error : "+e);
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+			close(con);
+		}		
+		
+		return result;		
+	}
+	
 	public int searchOneProductList(int products_idx, String searchCondition, String searchWord)
 	{
 			String		sql		=	"select count(*) from review where ";
@@ -754,6 +787,41 @@ public class ReviewDAO {
 						pstmt	=	con.prepareStatement(sql);
 									pstmt.setInt(1, products_idx);
 									pstmt.setString(2, "%"+searchWord+"%");
+						rs		=	pstmt.executeQuery();
+			if(rs.next())
+			{
+						result	=	rs.getInt(1);				
+			}
+		}
+		catch (SQLException e)
+		{
+									log.error("ReviewsDAO	"
+											+ "searchOneProductList error : "+e);
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+			close(con);
+		}		
+		
+		return result;		
+	}
+	
+	public int searchOneProductList(int products_idx, String searchCondition, int searchWord)
+	{
+			String		sql		=	"select count(*) from review where ";
+						sql		+=	"products_idx=? and ";
+						sql		+=	searchCondition + "=? order by";
+						sql		+=	" date_added desc,last_modified desc,";
+						sql		+=	" reviews_read asc";	
+			int			result	=	0;
+		try
+		{
+						con		=	getConnection();
+						pstmt	=	con.prepareStatement(sql);
+									pstmt.setInt(1, products_idx);
+									pstmt.setInt(2, searchWord);
 						rs		=	pstmt.executeQuery();
 			if(rs.next())
 			{
@@ -857,6 +925,53 @@ public class ReviewDAO {
 		return list;		
 	}
 	
+	public Vector<ReviewVO> getSearchList(int page, int limit, String searchCondition, int searchWord)
+	{
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+				int					start	=			(page-1)*10;
+		
+				String				sql		=	"select * from review where ";
+									sql		+=	searchCondition;
+									sql		+=	"=? order by date_added desc, ";
+									sql		+=	"last_modified desc, ";
+									sql		+=	"reviews_read asc limit ?,?";		
+		try 
+		{
+									con		=	getConnection();
+									pstmt	=	con.prepareStatement(sql);
+												pstmt.setInt(1, searchWord);
+												pstmt.setInt(2, start);
+												pstmt.setInt(3, limit);
+									rs		=	pstmt.executeQuery();
+			while(rs.next()) 
+			{
+				ReviewVO			vo		=	new	ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));				
+												list.add(vo);
+			}
+		}
+		catch (SQLException e)
+		{
+												log.error("ReviewsDAO	"
+														+ "getSearchList error : "+e);
+		}
+		finally
+		{
+												close(rs);
+												close(pstmt);
+												close(con);
+		}		
+		return list;		
+	}
+	
 	public Vector<ReviewVO> getProductSearchList(int products_idx, int page, int limit, String searchCondition, String searchWord)
 	{
 				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
@@ -874,6 +989,55 @@ public class ReviewDAO {
 									pstmt	=	con.prepareStatement(sql);
 												pstmt.setInt(1, products_idx);
 												pstmt.setString(2, "%"+searchWord+"%");
+												pstmt.setInt(3, start);
+												pstmt.setInt(4, limit);
+									rs		=	pstmt.executeQuery();
+			while(rs.next()) 
+			{
+				ReviewVO			vo		=	new	ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));
+												list.add(vo);
+			}
+		}
+		catch (SQLException e)
+		{
+												log.error("ReviewsDAO	"
+														+ "getProductSearchList error : "+e);
+		}
+		finally
+		{
+												close(rs);
+												close(pstmt);
+												close(con);
+		}		
+		return list;		
+	}
+	
+	public Vector<ReviewVO> getProductSearchList(int products_idx, int page, int limit, String searchCondition, int searchWord)
+	{
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+				int					start	=			(page-1)*10;
+		
+				String				sql		=	"select * from review where ";
+									sql		+=	"products_idx=? and ";
+									sql		+=	searchCondition;
+									sql		+=	"=? order by date_added desc, ";
+									sql		+=	"last_modified desc, ";
+									sql		+=	"reviews_read asc limit ?,?";		
+		try 
+		{
+									con		=	getConnection();
+									pstmt	=	con.prepareStatement(sql);
+												pstmt.setInt(1, products_idx);
+												pstmt.setInt(2, searchWord);
 												pstmt.setInt(3, start);
 												pstmt.setInt(4, limit);
 									rs		=	pstmt.executeQuery();
