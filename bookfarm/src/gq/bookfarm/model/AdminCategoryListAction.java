@@ -33,9 +33,9 @@ public class AdminCategoryListAction implements Action
 	{
 		log.debug("AdminCategoryListAction execute Start.");
 
-		HttpSession	session	= req.getSession();
-		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
-		AdminDAO	adminDAO= new AdminDAO();
+		HttpSession	session		= req.getSession();
+		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
+		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
