@@ -21,36 +21,30 @@ public class AdminReviewsViewAction implements Action {
 	
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		int		page				=	(int)req.getAttribute("page");
-		int		idx					=	(int) req.getAttribute("idx");
-		int		products_idx		=	0;
-		String		type			=	(String)req.getAttribute("type");
-		String		typeView		=	(String)req.getAttribute("typeView");
+		int		page				=	Integer.parseInt(req.getParameter("page"));
+		int		idx					=	Integer.parseInt(req.getParameter("idx"));
+		int		products_idx		=	Integer.parseInt(req.getParameter("p"));
+		int		parents_idx			=	Integer.parseInt(req.getParameter("par"));
+		int		category_idx		=	Integer.parseInt(req.getParameter("cat"));
+		String	searchCondition		=	req.getParameter("con");
+		String	searchWord			=	req.getParameter("word");
 		
-		if(typeView.equals("insert"))
-		{
-				products_idx		=	(int) req.getAttribute("products_idx");
-										req.setAttribute("products_idx", products_idx);
-		}
-		else
-		{
+		
 		ReviewDAO 	dao				=	new ReviewDAO();
 		ReviewVO	vo				=	dao.getRow(idx);
 			
-			if(vo!=null) 
-			{
+		if(vo!=null) 
+		{
 										req.setAttribute("vo", vo);
-										req.setAttribute("idx", idx);
-					path			+=	"?type="+type+"&typeView="+typeView+"&page="+page;
+					path			+=	"?idx="+idx+"&page="+page+"&p="+products_idx+"&par="+parents_idx
+										+"&cat="+category_idx+"&con="+searchCondition+"&word="+searchWord;
 				
-			}
-			else
-			{
+		}
+		else
+		{
 										log.error("QQQQQQQQ ReviewsViewAction error : vo is empty");
 					path			=	"";
-			}
 		}
-		
 		
 		return new ActionForward(path, false);
 	}

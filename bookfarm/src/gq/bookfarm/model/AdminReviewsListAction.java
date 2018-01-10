@@ -53,9 +53,6 @@ public class AdminReviewsListAction implements Action {
 						VpVo		=	pDao.productTotalIdx(category_idx);
 			if(parent_idx!=0)
 						catVo2		=	catDao.categoryGetTotalRow(parent_idx);
-			System.out.println("여기 확인 parent_idx : "+parent_idx);
-			System.out.println("여기 확인 category_idx : "+category_idx);
-			System.out.println("여기 확인 products_idx : "+products_idx);
 			
 			
 		if(req.getParameter("page")!=null)

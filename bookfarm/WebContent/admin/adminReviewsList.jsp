@@ -38,22 +38,6 @@
 				category_idx	=	Integer.parseInt((String)request.getParameter("category_idx"));
 			if(request.getParameter("parent_idx")!=null)	
 				parent_idx		=	Integer.parseInt((String)request.getParameter("parent_idx"));
-		
-		
-		
-		
-		
-		//불러올 CSS
-		/*
-		클래스_테이블1
-		클래스_tr타이틀1
-		클래스_tr_top1
-		클래스_td_align1
-		클래스_bottom_table1
-		클래스_td_align1
-		클래스_btn_align1
-		클래스_btn1
-		*/
 %>
 <!DOCTYPE html>
 <html>
@@ -146,7 +130,8 @@
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
 					<td align="left"><a href="adminReviewsView.do?idx=<%=vo.getIdx()%>
-					&page=<%=currentPage%>">
+					&page=<%=currentPage%>&p=<%=products_idx%>&par=<%=parent_idx%>
+					&cat=<%=category_idx%>&con=<%=searchCondition%>&word=<%=searchWord%>">
 					<%=vo.getReview_title()%></a></td>
 					<td><%=cDao.getName(vo.getCustomers_idx())%></td>
 					<td><%=vo.getReviews_read()%></td>

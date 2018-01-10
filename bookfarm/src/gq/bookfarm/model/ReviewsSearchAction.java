@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
@@ -31,9 +32,15 @@ public class ReviewsSearchAction implements Action {
 			int		customers_idx=	vo.getIdx();
 		
 			String	type		=	req.getParameter("type");
-			System.out.println("여기 문제?:"+type);
 			String	searchCondition=req.getParameter("searchCondition");
 			String	searchWord	=	req.getParameter("searchWord");
+			Vector<CustomerVO> VcVo	=	new Vector<CustomerVO>();
+			if(searchCondition.equals("customers_idx"))
+			{
+				CustomerDAO cDao	=	new CustomerDAO();
+							VcVo	=	cDao.findIdx(searchWord);
+										
+			}
 		
 			int		products_idx=	0;
 			if(req.getParameter("products_idx")!=null)	
@@ -65,7 +72,18 @@ public class ReviewsSearchAction implements Action {
 									info.setTotalRows(totalRows);
 									info.setStartPage(startPage);
 									info.setEndPage(endPage);
-		Vector<ReviewVO> list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
+		Vector<ReviewVO> list	=	new Vector<ReviewVO>();
+				if(searchCondition.equals("customers_idx"))
+				{
+					for(CustomerVO cVo : VcVo)
+					{
+						list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, cVo.getIdx());
+					}
+				}
+				else
+				{
+					list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
+				}
 				if(list!=null) 
 				{
 									req.setAttribute("list", list);

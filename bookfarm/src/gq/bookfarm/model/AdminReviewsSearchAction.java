@@ -66,15 +66,6 @@ public class AdminReviewsSearchAction implements Action {
 					VpVo			=	pDao.productTotalIdx(category_idx);
 			if(parent_idx!=0)
 					catVo2			=	catDao.categoryGetTotalRow(parent_idx);
-			System.out.println("여기 확인 parent_idx : "+parent_idx);
-			System.out.println("여기 확인 category_idx : "+category_idx);
-			System.out.println("여기 확인 products_idx : "+products_idx);
-			System.out.println("여기 확인 searchCondition : "+searchCondition);
-			System.out.println("여기 확인 searchWord : "+searchWord);
-			for(CustomerVO cVo : VcVo) {
-				System.out.println("여기 확인 searchWord 벡터 : "+cVo.getIdx());
-			}
-			
 			
 			
 			if(req.getParameter("page")!=null)
