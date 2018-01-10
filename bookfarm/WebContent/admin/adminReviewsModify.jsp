@@ -27,7 +27,8 @@
 <title>Insert title here</title>
 <script>
 	function returnList2(){
-		location.href="./qAdminReviewsLists.do?page=<%=current_page%>&products_idx=<%=products_idx%>";
+		location.href="./adminReviewsList.do?page=<%=current_page%>&products_idx=<%=products_idx%>";
+	}
 </script>
 </head>
 <body>

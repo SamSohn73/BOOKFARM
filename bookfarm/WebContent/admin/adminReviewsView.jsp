@@ -50,10 +50,8 @@
 		<td colspan="2" class="btn_align">
 		<input class="btn" type="button" value="뒤로가기" onclick="javascript:history.back()">
 		
-		<a href="./adminReviewsList.do?page=<%=current_page%>&products_idx=<%=products_idx%>
-		&parent_idx=<%=parent_idx%>&category_idx=<%=category_idx%>">
+		<a href="./adminReviewsList.do">
 		<input class="btn" type="button" value="목록보기"></a>
-		
 		
 		<input class="btn" type="submit" value="수정하기"/>
 		
