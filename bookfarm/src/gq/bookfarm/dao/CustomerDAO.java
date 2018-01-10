@@ -57,13 +57,10 @@ public class CustomerDAO
 	
 	public void close(ResultSet rs)
 	{
-		try
-		{
+		try{
 			if(rs != null)
 				rs.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	close(ResultSet rs) error : "+e);
 		}
 	}
@@ -75,8 +72,7 @@ public class CustomerDAO
 							+ "address2, phone1, email1, gender, newsletter, birthday, last_login, "
 							+ "login_cnt, account_created, on_line) "
 							+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), 0, now(), ?)";
-		try
-		{
+		try{
 				con		=	getConnection();
 				pstmt	=	con.prepareStatement(sql);
 							con.setAutoCommit(false);
@@ -98,23 +94,16 @@ public class CustomerDAO
 				
 				if(result>0)
 							con.commit();			
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 							log.error("CustomerDAO	"
 									+ "insert(CustomerVO vo) error : "+e);
-			try
-			{
+			try{
 							con.rollback();
-			}
-			catch(SQLException e1)
-			{
+			}catch(SQLException e1){
 							log.error("CustomerDAO	SQLException error,"
 									+ " con.rollback() is not worked : "+e1);
 			}
-		}
-		finally
-		{
+		}finally{
 							close(rs);
 							close(pstmt);
 							close(con);
@@ -126,21 +115,16 @@ public class CustomerDAO
 	{
 		String	sql			=	"select count(*) from customer";		
 		int		total_rows	=	0;
-		try
-		{
+		try{
 				con			=	getConnection();
 				pstmt		=	con.prepareStatement(sql);
 				rs			=	pstmt.executeQuery();
 			if(rs.next())
 				total_rows	=	rs.getInt(1);
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("CustomerDAO	"
 										+ "totalRows() error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -152,15 +136,13 @@ public class CustomerDAO
 	{
 		CustomerVO	vo		=		null;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select * from Customer where idx=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setInt(1, idx);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					vo		=	new	CustomerVO();
 									vo.setIdx(rs.getInt("idx"));
 									vo.setUsername(rs.getString("username"));
@@ -181,14 +163,10 @@ public class CustomerDAO
 									vo.setAccount_created(rs.getDate("account_created"));
 									
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getRow() error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -200,28 +178,22 @@ public class CustomerDAO
 	{
 		CustomerVO	vo		=		null;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select username, password from Customer where phone1=? and firstname=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setString(1, phone1);
 									pstmt.setString(2, firstname);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					vo		=	new	CustomerVO();
 									vo.setUsername(rs.getString("username"));
 									vo.setPassword(rs.getString("password"));
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getRow() error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -232,8 +204,7 @@ public class CustomerDAO
 	public CustomerVO pwdCheck(String username, String password)
 	{
 		CustomerVO	vo		=	null;
-		try
-		{
+		try{
 			String	sql		=	"select * from customer where "
 								+ "username=? and password=?";
 					con		=	getConnection();
@@ -241,8 +212,7 @@ public class CustomerDAO
 								pstmt.setString(1, username);
 								pstmt.setString(2, password);
 					rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					vo		=	new	CustomerVO();
 								vo.setIdx(rs.getInt("idx"));
 								vo.setUsername(rs.getString("username"));
@@ -260,20 +230,14 @@ public class CustomerDAO
 								vo.setLast_login(rs.getDate("last_login"));
 								vo.setLogin_cnt(rs.getInt("login_cnt"));
 								vo.setAccount_created(rs.getDate("account_created"));
-			}
-			else
-			{
+			}else{
 								log.error("CustomerDAO	"
 										+ "pwdCheck error : rs.next is not exist!!!!");
 			}
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 								log.error("CustomerDAO	"
 										+ "pwdCheck error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -285,22 +249,17 @@ public class CustomerDAO
 	{
 		int			result		=	0;
 		String		sql			=	"update customer set on_line=?, login_cnt=login_cnt+1 where idx=?";
-		try 
-		{
+		try {
 					con			=	getConnection();
 					pstmt		=	con.prepareStatement(sql);
 									pstmt.setString(1, "O");
 									pstmt.setInt(2, idx);
 									
 					result		=	pstmt.executeUpdate();
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("CustomerDAO	"
 								+ "login count error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(pstmt);
 								close(con);
 		}		
@@ -311,22 +270,17 @@ public class CustomerDAO
 	{
 		int			result		=	0;
 		String		sql			=	"update customer set on_line=? where idx=?";
-		try 
-		{
+		try {
 					con			=	getConnection();
 					pstmt		=	con.prepareStatement(sql);
 									pstmt.setString(1, "X");
 									pstmt.setInt(2, idx);
 									
 					result		=	pstmt.executeUpdate();
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("CustomerDAO	"
 								+ "logout check error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(pstmt);
 								close(con);
 		}		
@@ -375,14 +329,10 @@ public class CustomerDAO
 								pstmt.setInt(11, idx);
 								
 					result	=	pstmt.executeUpdate();
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 								log.error("CustomerDAO	"
 										+ "updateRow error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(pstmt);
 								close(con);
 		}
@@ -393,25 +343,19 @@ public class CustomerDAO
 	{
 		String		name	=		null;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select username from Customer where idx=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setInt(1, idx);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					name	=		rs.getString("username");
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getName error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -474,27 +418,21 @@ public class CustomerDAO
 	{
 		Vector<CustomerVO> list=	new Vector<CustomerVO>();
 		
-		try
-		{
+		try{
 			String 	sql		=		"select idx from Customer where username like ?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setString(1, "%"+searchWord+"%");
 					rs		=		pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				CustomerVO	vo		=	new	CustomerVO();
 									vo.setIdx(rs.getInt("idx"));
 									list.add(vo);
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getRow() error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
