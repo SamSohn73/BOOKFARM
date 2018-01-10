@@ -123,7 +123,6 @@ public class OrdersProductDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 	
 		try {
@@ -153,7 +152,6 @@ public class OrdersProductDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute ordersProductInsert do the DB work End.");
@@ -219,7 +217,7 @@ public class OrdersProductDAO
 			log.fatal("execute ordersProductList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersProductList do the DB work End.");
 		return ordersProductList;
@@ -251,7 +249,7 @@ public class OrdersProductDAO
 			log.fatal("execute ordersProductGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersProductGetRow DB work End.");
 		
@@ -286,7 +284,7 @@ public class OrdersProductDAO
 			log.fatal("execute ordersProductGetRowsbyOrders DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersProductGetRowsbyOrders DB work End.");
 		
@@ -321,7 +319,7 @@ public class OrdersProductDAO
 			log.fatal("execute ordersProductGetRowsbyOrders DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersProductGetRowsbyOrders DB work End.");
 		
@@ -349,6 +347,8 @@ public class OrdersProductDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute ordersProduct total_rows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt);
 		}
 		
 		log.debug("execute ordersProduct total_rows do the DB work End. total_rows= " + total_rows);
@@ -378,6 +378,8 @@ public class OrdersProductDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute ordersProduct total_rows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt);
 		}
 		
 		log.debug("execute ordersProduct total_rows do the DB work End. total_rows= " + total_rows);
@@ -417,8 +419,7 @@ public class OrdersProductDAO
 			log.fatal("execute ordersProductGetRowsbyOrders DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersProductGetRowsbyOrders DB work End.");
 		

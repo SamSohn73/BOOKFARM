@@ -122,7 +122,6 @@ public class CategoryDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 		
 		try {
@@ -149,7 +148,6 @@ public class CategoryDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute categoryInsert do the DB work End.");
@@ -187,7 +185,6 @@ public class CategoryDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 		String sql					= null;
 		
@@ -216,7 +213,6 @@ public class CategoryDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 
@@ -227,11 +223,11 @@ public class CategoryDAO
 	
 	public Vector<CategoryVO> categoryList()
 	{
-		Vector<CategoryVO> categoryList	= new Vector<CategoryVO>();
+		Vector<CategoryVO>	categoryList	= new Vector<CategoryVO>();
 		
-		Connection			con			= getConnection();
-		ResultSet			result		= null;
-		PreparedStatement	pstmt		= null;
+		Connection			con				= getConnection();
+		ResultSet			result			= null;
+		PreparedStatement	pstmt			= null;
 		
 		try {
 			log.debug("execute categoryList do the DB work Start.");
@@ -250,7 +246,7 @@ public class CategoryDAO
 			log.fatal("execute categoryList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute categoryList do the DB work End.");
 		return categoryList;
@@ -286,7 +282,7 @@ public class CategoryDAO
 			log.fatal("execute categoryList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute categoryList do the DB work End.");
 		return categoryList;
@@ -298,7 +294,7 @@ public class CategoryDAO
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
-		ResultSet			rs			= null;
+		ResultSet			result		= null;
 		String				sql			= null;
 		
 		try {
@@ -308,14 +304,16 @@ public class CategoryDAO
 					"order by idx desc";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setString(1, "%" + searchWord + "%");
-			rs			= pstmt.executeQuery();
+			result		= pstmt.executeQuery();
 			
-			if(rs.next())	
-				total_rows	= rs.getInt(1);
+			if(result.next())	
+				total_rows	= result.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.fatal("execute categoryCountSearchingRows do the DB work failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt, result);
 		}
 		
 		log.debug("categoryCountSearchingRows DB work End. total_rows= " + total_rows);
@@ -360,7 +358,7 @@ public class CategoryDAO
 			log.fatal("execute categorySearch DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute categorySearch DB work End.");
 		return categoryList;
@@ -391,7 +389,7 @@ public class CategoryDAO
 			log.fatal("execute categoryGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute categoryGetRow DB work End.");
 		
@@ -419,6 +417,8 @@ public class CategoryDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute category totalRows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt, result);
 		}
 		
 		log.debug("execute category totalRows do the DB work End. total_rows= " + total_rows);
@@ -453,8 +453,7 @@ public class CategoryDAO
 			log.fatal("execute categoryGetTotalRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute categoryGetTotalRow DB work End.");
 		

@@ -139,7 +139,7 @@ public class AdminDAO
 			log.fatal("execute adminGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute adminGetRow DB work End.");
 		
@@ -173,7 +173,7 @@ public class AdminDAO
 			log.fatal("execute isAdmin DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute isAdmin DB work End.");
 		
@@ -206,7 +206,7 @@ public class AdminDAO
 			log.fatal("execute isAdmin DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute isAdmin DB work End.");
 		
