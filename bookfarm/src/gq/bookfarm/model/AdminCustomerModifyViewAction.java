@@ -16,9 +16,8 @@ public class AdminCustomerModifyViewAction implements Action {
 	
 	public AdminCustomerModifyViewAction(String path) {
 		super();
-		log.debug("AdminCustomerModifyViewAction create Start.");
 		this.path  = path;
-		log.debug("AdminCustomerModifyViewAction create End. path=" + path);
+		log.debug("AdminCustomerModifyViewAction Constructor. Destination path = " + path);
 	}
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {

@@ -5,7 +5,10 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.action.Action;
 import gq.bookfarm.model.AdminCategoryAddAction;
 import gq.bookfarm.model.AdminCategoryAddViewAction;
+import gq.bookfarm.model.AdminCategoryDeleteAction;
 import gq.bookfarm.model.AdminCategoryListAction;
+import gq.bookfarm.model.AdminCategoryModifyAction;
+import gq.bookfarm.model.AdminCategoryModifyViewAction;
 import gq.bookfarm.model.AdminCustomerDeleteAction;
 import gq.bookfarm.model.AdminCustomerListAction;
 import gq.bookfarm.model.AdminCustomerModifyAction;
@@ -101,22 +104,30 @@ public class MallActionFactory
 		}
 		if (cmd.equals("/adminCategoryAdd.do")) {
 			log.debug("adminCategoryAdd.do action create Start.");
-			action = new AdminCategoryAddAction("admin/adminCategoryList.jsp");
+			action = new AdminCategoryAddAction("/adminCategoryList.do");
 			log.debug("adminCategoryAdd.do action create End.");
 		}
-		
-		// Product Windows
-		if (cmd.equals("/productList.do")) {
-			log.debug("productList.do action create Start.");
-			action = new ProductListAction("product/productList.jsp");
-			log.debug("productList.do action create End.");
+		if (cmd.equals("/adminCategoryModifyView.do")) {
+			log.debug("adminCategoryModifyView.do action create Start.");
+			action = new AdminCategoryModifyViewAction("admin/adminCategoryModify.jsp");
+			log.debug("adminCategoryModifyView.do action create End.");
 		}
-		if (cmd.equals("/productView.do")) {
-			log.debug("productView.do action create Start.");
-			action = new ProductViewAction("product/productView.jsp");
-			log.debug("productView.do action create End.");
+		if (cmd.equals("/adminCategoryModify.do")) {
+			log.debug("adminCategoryModify.do action create Start.");
+			action = new AdminCategoryModifyAction("/adminCategoryList.do");
+			log.debug("adminCategoryModify.do action create End.");
 		}
-		
+		if (cmd.equals("/adminCategoryDelete.do")) {
+			log.debug("adminCategoryDelete.do action create Start.");
+			action = new AdminCategoryDeleteAction("/adminCategoryList.do");
+			log.debug("adminCategoryDelete.do action create End.");
+		}
+		if (cmd.equals("/adminCategoryDelete.do")) {
+			log.debug("adminCategoryDelete.do action create Start.");
+			action = new AdminCategoryDeleteAction("/adminCategoryList.do");
+			log.debug("adminCategoryDelete.do action create End.");
+		}
+		// Admin Customer Management
 		if (cmd.equals("/adminCustomerModifyView.do")) {
 			log.debug("adminCustomerModifyView.do action create Start.");
 			action = new AdminCustomerModifyViewAction("admin/adminCustomerModify.jsp");
@@ -132,6 +143,19 @@ public class MallActionFactory
 			action = new AdminCustomerDeleteAction("adminCustomerList.do");
 			log.debug("adminCustomerDelete.do action create End.");
 		}		
+		
+		// Product Windows
+		if (cmd.equals("/productList.do")) {
+			log.debug("productList.do action create Start.");
+			action = new ProductListAction("product/productList.jsp");
+			log.debug("productList.do action create End.");
+		}
+		if (cmd.equals("/productView.do")) {
+			log.debug("productView.do action create Start.");
+			action = new ProductViewAction("product/productView.jsp");
+			log.debug("productView.do action create End.");
+		}
+
 		/*
 		if (cmd.equals("/qSearch.do")) {
 			log.debug("QQQQQQQQQQ qSearch.do action create Start.");

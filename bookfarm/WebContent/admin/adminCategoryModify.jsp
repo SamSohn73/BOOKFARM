@@ -8,6 +8,7 @@
 <%
 	String				currentPage	= request.getParameter("page");
 	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
+	CategoryVO			category	= (CategoryVO) request.getAttribute("category");
 %>
 
 <!DOCTYPE>
@@ -32,26 +33,27 @@
 </script>
 </head>
 <body>
-	<form action="./adminCategoryAdd.do?page=<%=currentPage%>" method="post">
+	<form action="./adminCategoryModify.do?page=<%=currentPage%>&idx=<%=category.getIdx()%>" method="post">
 		<table>
-			<caption>카테고리 추가</caption>	
+			<caption>카테고리 수정</caption>	
 			<tr>
 				<td><label>상위 카테고리</label>
 				<td>
 					<select name='partent_idx'>
-<%					for(CategoryVO category: categories) {	%>
-						<option value="<%=category.getParent_idx()%>"><%=category.getCategory_name()%></option>
+<%					for(CategoryVO cat: categories) {	%>
+						<option value="<%=cat.getParent_idx()%>" <%if(cat.getParent_idx() == category.getParent_idx())	out.print("selected");%>><%=cat.getCategory_name()%></option>
+						
 <%					} %>
 					</select>
 				</td>
 			</tr>
 			<tr>
 				<td><label>카테고리 이름</label>
-				<td><input type="text" name="category_name" placeholder="카테고리명을 입력하세요" required="required"></td>
+				<td><input type="text" name="category_name" value="<%=category.getCategory_name()%>"></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="btn_align">
-					<input type="button" name="add"		value="추가"			onclick="register_check(this.form)">
+					<input type="button" name="add"		value="수정"			onclick="register_check(this.form)">
 					<input type="button" name="cancel"	value="취소"			onclick="javascript:history.back()">
 					<input type="button" name="list"	value="카테고리 목록"	onclick="adminCategoryList()">
 				</td>

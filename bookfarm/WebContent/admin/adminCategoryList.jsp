@@ -51,18 +51,27 @@
 	<table>
 		<caption>카테고리 목록</caption>
 		<tr>
+			<th>수정/삭제</th>
 			<th>No.</th>
-			<th>카테고리 번호</th>
 			<th>상위 카테고리</th>
+			<th>카테고리 번호</th>
 			<th>카테고리 이름</th>
 		</tr>
 <%	
 	int idNum = totalRows - (currentPage-1)*10;
 	for(CategoryVO category: categories) {	%>
 		<tr>
+			<td>
+				<a href="adminCategoryModifyView.do?idx=<%=category.getIdx()%>&page=<%=currentPage%>">
+					<input type='button' value="수정">
+				</a>
+				<a href="adminCategoryDelete.do?idx=<%=category.getIdx()%>&page=<%=currentPage%>">
+					<input type='button' value="삭제">
+				</a>
+			</td>
 			<td><%=idNum%></td>
-			<td><%=category.getIdx()%></td>
 			<td><%=category.getParent_idx()%></td>
+			<td><%=category.getIdx()%></td>
 			<td><%=category.getCategory_name()%></td>
 		</tr>
 <%		idNum--;

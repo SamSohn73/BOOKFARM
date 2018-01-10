@@ -20,9 +20,8 @@ public class AdminCustomerModifyAction implements Action {
 	
 	public AdminCustomerModifyAction(String path) {
 		super();
-		log.debug("AdminCustomerModifyAction create Start.");
 		this.path  = path;
-		log.debug("AdminCustomerModifyAction create End. path=" + path);
+		log.debug("AdminCustomerModifyAction Constructor. Destination path = " + path);
 	}
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {

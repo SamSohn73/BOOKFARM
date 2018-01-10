@@ -18,9 +18,8 @@ public class AdminLoginAction implements Action
 	
 	public AdminLoginAction(String path) {
 		super();
-		log.debug("AdminLoginAction create Start.");
 		this.path  = path;
-		log.debug("AdminLoginAction create End. path=" + path);
+		log.debug("AdminLoginAction Constructor. Destination path = " + path);
 	}
 	
 	@Override

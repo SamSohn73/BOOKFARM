@@ -26,6 +26,7 @@ public class AdminOrdersListAction implements Action
 	{
 		super();
 		this.path = path;
+		log.debug("AdminOrdersListAction Constructor. Destination path = " + path);
 	}
 	
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)

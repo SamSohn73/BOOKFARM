@@ -16,9 +16,8 @@ public class AdminCustomerUpdateAction implements Action {
 	
 	public AdminCustomerUpdateAction(String path) {
 		super();
-		log.debug("AdminCustomerUpdateAction create Start.");
 		this.path  = path;
-		log.debug("AdminCustomerUpdateAction create End. path=" + path);
+		log.debug("AdminCustomerUpdateAction Constructor. Destination path = " + path);
 	}
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {

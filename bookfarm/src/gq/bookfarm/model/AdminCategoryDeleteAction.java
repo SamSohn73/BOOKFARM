@@ -7,35 +7,35 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
-import gq.bookfarm.dao.CustomerDAO;
+import gq.bookfarm.dao.CategoryDAO;
 
-public class AdminCustomerDeleteAction implements Action {
+public class AdminCategoryDeleteAction implements Action {
 	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private			String				path;
 	
-	public AdminCustomerDeleteAction(String path) {
+	public AdminCategoryDeleteAction(String path) {
 		super();
 		this.path  = path;
-		log.debug("AdminCustomerDeleteAction Constructor. Destination path = " + path);
+		log.debug("AdminCategoryDeleteAction Constructor. Destination path = " + path);
 	}
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		log.debug("AdminCustomerDeleteAction execute Start.");
+		log.debug("AdminCategoryDeleteAction execute Start.");
 		String current_page = req.getParameter("page");
-		log.debug("AdminCustomerDeleteAction execute Page=" + current_page);
+		log.debug("AdminCategoryDeleteAction execute Page=" + current_page);
 		int idx=Integer.parseInt(req.getParameter("idx"));
 		
-		CustomerDAO dao=new CustomerDAO();
-		int result=dao.delete(idx);
+		CategoryDAO dao	= new CategoryDAO();
+		int result		= dao.categoryDelete(idx);
 
 		if(result==0) {
-			log.debug("AdminCustomerDeleteAction execute Failed.");
+			log.debug("AdminCategoryDeleteAction execute Failed.");
 			path="error.jsp"; 
 		}else {
 			path+="?page="+current_page;
 		}
-		log.debug("AdminCustomerDeleteAction execute End.");
+		log.debug("AdminCategoryDeleteAction execute End.");
 		return new ActionForward(path, false);
 	}
 

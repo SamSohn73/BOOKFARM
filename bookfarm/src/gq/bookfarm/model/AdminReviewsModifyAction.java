@@ -3,16 +3,21 @@ package gq.bookfarm.model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.ReviewVO;
 
 public class AdminReviewsModifyAction implements Action {
+	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
+	
 	public AdminReviewsModifyAction(String path) {
 		super();
 		this.path = path;
+		log.debug("AdminReviewsModifyAction Constructor. Destination path = " + path);
 	}
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {

@@ -12,57 +12,54 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
-import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CategoryVO;
-import gq.bookfarm.vo.CustomerVO;
-import gq.bookfarm.vo.PageVO;
-import gq.bookfarm.vo.ReviewVO;
 
-public class AdminCategoryAddAction implements Action
+public class AdminCategoryModifyViewAction implements Action
 {
 	private final Logger log = Logger.getLogger(this.getClass());
 	
 	private String path;
 
-	public AdminCategoryAddAction(String path) 
+	public AdminCategoryModifyViewAction(String path) 
 	{
 		super();
 		this.path = path;
-		log.debug("AdminCategoryAddAction Constructor. Destination path = " + path);
+		log.debug("AdminCategoryModifyViewAction Constructor. Destination path = " + path);
 	}
 	
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)
 	{
-		log.debug("AdminCategoryAddAction execute Start.");
+		log.debug("AdminCategoryModifyViewAction execute Start.");
 
 		HttpSession	session		= req.getSession();
 		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO	= new AdminDAO();
-
 		if (adminDAO.isAdmin(adminVO) == null) {
-			log.info("AdminCategoryAddAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			log.info("AdminCategoryModifyViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
 		}
 		
-		int		curPage			= Integer.parseInt(req.getParameter("page"));
-		int		parent_idx		= Integer.parseInt(req.getParameter("partent_idx"));
-		String	category_name	= req.getParameter("category_name");
-		int		result			= 0;
+		int curPage						= Integer.parseInt(req.getParameter("page"));
+		int idx							= Integer.parseInt(req.getParameter("idx"));
 		
-		CategoryDAO	dao			=	new CategoryDAO();
-
-		result					=	dao.categoryInsert(parent_idx, category_name);
-			
-		if(result>0) {
+		CategoryDAO			dao			= new CategoryDAO();
+		Vector<CategoryVO>	categories	= dao.categoryList();
+		CategoryVO			category	= dao.categoryGetRow(idx);
+		
+		if (categories != null && category != null) {
+			req.setAttribute("categories", categories);
+			req.setAttribute("category", category);
 			path += "?page=" + curPage;
 		}
+		// if result failed change path here
 		else {
-			log.debug("AdminCategoryAddAction execute Failed!!!!!!!!!!!!!!!!!!!!");
+			log.debug("AdminCategoryModifyViewAction execute Failed!!!!!!!!!!!!!!!!!!!!");
 			path="error.jsp";
 		}
-
-		log.debug("AdminCategoryAddAction execute End.");
+		
+		log.debug("AdminCategoryModifyViewAction execute End.");
 		return new ActionForward(path, false);
 	}
 }
+

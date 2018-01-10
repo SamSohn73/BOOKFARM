@@ -12,9 +12,11 @@ import gq.bookfarm.dao.ReviewDAO;
 public class AdminReviewsDeleteAction implements Action {
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private	String	path;
+	
 	public AdminReviewsDeleteAction(String path) {
 		super();
 		this.path = path;
+		log.debug("AdminReviewsDeleteAction Constructor. Destination path = " + path);
 	}
 	
 	@Override

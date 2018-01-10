@@ -1,7 +1,5 @@
 package gq.bookfarm.model;
 
-import java.util.Vector;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,20 +10,15 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
-import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
-import gq.bookfarm.vo.CategoryVO;
-import gq.bookfarm.vo.CustomerVO;
-import gq.bookfarm.vo.PageVO;
-import gq.bookfarm.vo.ReviewVO;
 
-public class AdminCategoryAddAction implements Action
+public class AdminCategoryModifyAction implements Action
 {
 	private final Logger log = Logger.getLogger(this.getClass());
 	
 	private String path;
 
-	public AdminCategoryAddAction(String path) 
+	public AdminCategoryModifyAction(String path) 
 	{
 		super();
 		this.path = path;
@@ -46,13 +39,14 @@ public class AdminCategoryAddAction implements Action
 		}
 		
 		int		curPage			= Integer.parseInt(req.getParameter("page"));
+		int		idx				= Integer.parseInt(req.getParameter("idx"));
 		int		parent_idx		= Integer.parseInt(req.getParameter("partent_idx"));
 		String	category_name	= req.getParameter("category_name");
 		int		result			= 0;
 		
 		CategoryDAO	dao			=	new CategoryDAO();
 
-		result					=	dao.categoryInsert(parent_idx, category_name);
+		result					=	dao.categoryUpdate(idx, parent_idx, category_name);
 			
 		if(result>0) {
 			path += "?page=" + curPage;

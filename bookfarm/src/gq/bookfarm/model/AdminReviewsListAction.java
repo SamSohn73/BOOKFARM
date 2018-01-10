@@ -22,9 +22,11 @@ import gq.bookfarm.vo.ReviewVO;
 public class AdminReviewsListAction implements Action {
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private	String	path;
+	
 	public AdminReviewsListAction(String path) {
 		super();
 		this.path = path;
+		log.debug("AdminReviewsListAction Constructor. Destination path = " + path);
 	}
 	
 	@Override

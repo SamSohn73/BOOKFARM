@@ -17,6 +17,7 @@ public class AdminLogoutAction implements Action
 	public AdminLogoutAction(String path) {
 		super();
 		this.path = path;
+		log.debug("AdminLogoutAction Constructor. Destination path = " + path);
 	}
 
 	@Override

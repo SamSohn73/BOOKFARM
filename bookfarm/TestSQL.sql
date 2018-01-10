@@ -8,3 +8,5 @@ select * from product order by idx desc, limit 1,10;
 
 
 select * from category;
+
+delete from category where idx=143;
