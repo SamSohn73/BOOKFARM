@@ -301,6 +301,27 @@ insert into category (parent_idx, category_name) values (6, "뮤직");
 insert into category (parent_idx, category_name) values (6, "게임");
 
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "불멸", "image/불멸.jpg", 15000, "blabla~");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "레모니스니켓", "image/레모니스니켓.jpg", 13000, "고양이 이야기~");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "아이디얼책", "image/아이디얼책.jpg", 17000, "책 분류 이야기");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "조용한그림책", "image/조용한그림책.jpg", 9000, "조용히 읽으렴");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "흰책", "image/흰책.jpg", 8000, "그냥 표지가 하애보였지만 내용은 정반대");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "brick bible", "image/brick bible.jpg", 9000, "종교 이야기");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "fairy tales", "image/fairy tales.jpg", 15000, "요정 이야기 판타지");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "how you lose her", "image/how you lose her.jpg", 7000, "그녀를 잃어버린 어느 남자의 이야기");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pantone", "image/pantone.jpg", 15000, "판토네가 무엇인지 아는가? 모른다면 이책을 보거라");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pictorial", "image/pictorial.jpg", 15000, "팩토리얼이 아니다! 픽토리얼 그것은 무엇을 의미하는가");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pride", "image/pride.jpg", 15000, "너가 버려왔던 자존심 이야기");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "sartorialist", "image/sartorialist.jpg", 15000, "어느 한적한 오후에...");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "starwars", "image/starwars.jpg", 15000, "영화로도 개봉한 스타워즈의 리메이크판 그 세계관을 엿보고 싶다면...");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "theartbook", "image/theartbook.jpg", 15000, "예술의 세계로 당신을 인도해줍니다.");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "tollbooth", "image/tollbooth.jpg", 15000, "왠지 치과가 가고싶은 사람들을 위한 전혀 상관없는 이야기");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "vagina", "image/vagina.jpg", 15000, "교양있는 사람들을 위한 무언가");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "why we broke up", "image/why we broke up.jpg", 15000, "왜 우리는 살아가야 하는가?");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "witch", "image/witch.jpg", 15000, "실존했던 마녀이야기를 우리의 시각으로 풀어낸...");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "더미", "image/불멸.jpg", 15000, "blabla~");
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "더미2", "image/불멸.jpg", 15000, "blabla~");
+
+
 
 --select * from category;
 --delete from category where idx > 0;
