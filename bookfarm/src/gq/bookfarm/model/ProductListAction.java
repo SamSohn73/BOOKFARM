@@ -28,22 +28,17 @@ public class ProductListAction implements Action
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)
 	{
 		log.debug("ProductListAction execute Start.");
-		// get Page number
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
 		
 		ProductDAO			dao		= new ProductDAO();
 		
-		// get Total rows & number of writings in a page
 		int totalRows				= dao.totalRows();
 		int limit					= 10;
 		
-		// Calc total page number
 		int totalPages				= (int) ((double) totalRows / limit + 0.999999);
-		// Calc Start page number
 		int startPage				= (((int) ((double) page / 10 + 0.9)) -1) * 10 + 1;
-		// Calc End page number
 		int endPage					= startPage + 10 -1;
 		if (endPage > totalPages)	endPage = totalPages;
 		
@@ -63,7 +58,6 @@ public class ProductListAction implements Action
 		
 		Vector<ProductVO>	products	= dao.productList(page, limit);
 		if (products != null)			req.setAttribute("products", products);
-		// if result failed change path here
 		else {
 			log.debug("ProductListAction execute products Vector value null");
 			path="error.jsp";

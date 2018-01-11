@@ -40,32 +40,33 @@ public class ReviewsInsertAction implements Action
 		ReviewVO vo				=	new ReviewVO();
 		
 		if(typeView.equals("insert")){
-				products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
-									vo.setReview_text(review_text);
-									vo.setReview_title(review_title);
-									vo.setProducts_idx(products_idx);
-									vo.setCustomers_idx(cVo.getIdx());
-				result			=	dao.insert(vo);
+			products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
+			vo.setReview_text(review_text);
+			vo.setReview_title(review_title);
+			vo.setProducts_idx(products_idx);
+			vo.setCustomers_idx(cVo.getIdx());
+			result			=	dao.insert(vo);
 				
 			if(result>0){
-				path			+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
+				path		+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
 			}else{
 				log.debug("ReviewsInsertAction Insert error");
+				path = "error.jsp";
 			}
 		}else if(typeView.equals("modify")){
-				idx				=	Integer.parseInt(req.getParameter("idx"));
-				result			=	dao.updateRow(idx, review_title, review_text);
-				
+			idx				=	Integer.parseInt(req.getParameter("idx"));
+			result			=	dao.updateRow(idx, review_title, review_text);
 				
 			if(result>0){
 				typeView		=	"view";
-										req.setAttribute("idx", idx);
-										req.setAttribute("type", type);
-										req.setAttribute("page", page);
-										req.setAttribute("typeView", typeView);
+				req.setAttribute("idx", idx);
+				req.setAttribute("type", type);
+				req.setAttribute("page", page);
+				req.setAttribute("typeView", typeView);
 				path			=	"qReviewsView.do";
 			}else{
 				log.debug("ReviewsInsertAction Insert error");
+				path = "error.jsp";
 			}
 		}
 		

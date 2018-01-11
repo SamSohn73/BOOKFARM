@@ -30,23 +30,22 @@ public class ReviewsViewAction implements Action
 		String		typeView		=	(String)req.getAttribute("typeView");
 		
 		if(typeView.equals("insert")){
-				products_idx		=	(int) req.getAttribute("products_idx");
-										req.setAttribute("products_idx", products_idx);
+			products_idx			=	(int) req.getAttribute("products_idx");
+			req.setAttribute("products_idx", products_idx);
 		}else{
-		ReviewDAO 	dao				=	new ReviewDAO();
-		ReviewVO	vo				=	dao.getRow(idx);
+			ReviewDAO 	dao			=	new ReviewDAO();
+			ReviewVO	vo			=	dao.getRow(idx);
 			
 			if(vo!=null){
-										req.setAttribute("vo", vo);
-										//req.setAttribute("idx", idx);
-					path			+=	"?type="+type+"&typeView="+typeView+"&page="+page;
+				req.setAttribute("vo", vo);
+				//req.setAttribute("idx", idx);
+				path +=	"?type="+type+"&typeView="+typeView+"&page="+page;
 				
 			}else{
-										log.error("ReviewsViewAction error : vo is empty");
-					path			=	"";
+				log.error("ReviewsViewAction error : vo is empty");
+				path =	"error.jsp";
 			}
 		}
-		
 		
 		return new ActionForward(path, false);
 	}

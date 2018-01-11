@@ -29,15 +29,15 @@ public class ReviewsModifyAction implements Action
 		
 		ReviewDAO dao			=	new ReviewDAO();
 		ReviewVO vo				=	new ReviewVO();
-									vo.setReview_text(review_text);
-									vo.setReview_title(review_title);
+		vo.setReview_text(review_text);
+		vo.setReview_title(review_title);
 	
 		int		result			=	dao.updateRow(idx, review_title, review_text);
 		if(result>0){
-									req.setAttribute("idx", idx);
-									req.setAttribute("type", type);
-									req.setAttribute("page", page);
-									req.setAttribute("typeView", typeView);
+			req.setAttribute("idx", idx);
+			req.setAttribute("type", type);
+			req.setAttribute("page", page);
+			req.setAttribute("typeView", typeView);
 		}
 			
 		return new ActionForward(path, false);

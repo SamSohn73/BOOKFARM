@@ -33,30 +33,29 @@ public class ReviewsHitUpdateAction implements Action
 		int 		result			=	dao.hitUpdate(idx);
 		if(result>0){
 			if(type.equals("myPage")){
-										req.setAttribute("idx", idx);
-										req.setAttribute("page", page);
-										req.setAttribute("type", type);
-										req.setAttribute("typeView", typeView);
-					//path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
+				req.setAttribute("idx", idx);
+				req.setAttribute("page", page);
+				req.setAttribute("type", type);
+				req.setAttribute("typeView", typeView);
+				//path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
 			}else if(type.equals("myList")){
-										req.setAttribute("idx", idx);
-										req.setAttribute("page", page);
-										req.setAttribute("type", type);
-										req.setAttribute("typeView", typeView);
-					//path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
+				req.setAttribute("idx", idx);
+				req.setAttribute("page", page);
+				req.setAttribute("type", type);
+				req.setAttribute("typeView", typeView);
+				//path			+=	"?idx="+idx+"&customers_idx="+customers_idx+"type="+type;
 			}else if(type.equals("list")){
-										req.setAttribute("idx", idx);
-										req.setAttribute("page", page);			
-										req.setAttribute("type", type);
-										req.setAttribute("typeView", typeView);
-					//path			+=	"?idx="+idx+"&products_idx="+products_idx+"type="+type;
+				req.setAttribute("idx", idx);
+				req.setAttribute("page", page);			
+				req.setAttribute("type", type);
+				req.setAttribute("typeView", typeView);
+				//path			+=	"?idx="+idx+"&products_idx="+products_idx+"type="+type;
 			}else{
-										log.error("ReviewsHitUpdateAction no"
-										+ " type ���°� Ʋ�� : "+type);				
+				log.error("ReviewsHitUpdateAction no type: "+type);				
 			}
 		}else{
-										log.error("ReviewsHitUpdateAction error");
-					path			=	"";
+			log.error("ReviewsHitUpdateAction error");
+			path			=	"error.jsp";
 		}
 		return new ActionForward(path, false);
 	}

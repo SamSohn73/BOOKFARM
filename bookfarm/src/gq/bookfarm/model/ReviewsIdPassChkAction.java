@@ -34,17 +34,17 @@ public class ReviewsIdPassChkAction implements Action
 		int		customer_idx	=	dao.getReviewWriterIdx(idx);
 		int 	result			=	dao.pwdCheck(customer_idx, username, password);
 		if(result>0){
-									req.setAttribute("idx", idx);
-									req.setAttribute("page", page);
-									req.setAttribute("typeView", typeView);
-									req.setAttribute("type", type);
+			req.setAttribute("idx", idx);
+			req.setAttribute("page", page);
+			req.setAttribute("typeView", typeView);
+			req.setAttribute("type", type);
 			if(typeView.equals("delete")){
-		int		products_idx	=	dao.getProduct_idx(idx);
-									req.setAttribute("products_idx", products_idx);
+				int		products_idx	=	dao.getProduct_idx(idx);
+				req.setAttribute("products_idx", products_idx);
 				path			=	"qReviewsDelete.do";	// ?/?
 			}
 		}else{
-				path			=	"";
+			path			=	"";
 		}
 		
 		return new ActionForward(path, false);

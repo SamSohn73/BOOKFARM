@@ -41,8 +41,8 @@ public class BasketAddAction implements Action
 		CustomerVO			customerVO	= (CustomerVO) session.getAttribute("loggedInUserVO");
 		Vector<BasketVO>	baskets		= (Vector<BasketVO>) session.getAttribute("baskets");
 		
-		
 		/*QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
+		
 		
 		BasketVO		basketVO	= new BasketVO();
 		BasketDAO		dao			= new BasketDAO();

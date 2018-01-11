@@ -65,34 +65,35 @@ public class ReviewsSearchAction implements Action
 			int		startPage	=	((int)((double)page/10+0.9)-1)*10+1;
 			int		endPage		=	startPage+10-1;
 				
-				if(endPage>totalPages)
-					endPage		=	totalPages;		
+			if(endPage>totalPages)
+				endPage		=	totalPages;		
+		
+			info.setPage(page);
+			info.setTotalPages(totalPages);
+			info.setTotalRows(totalRows);
+			info.setStartPage(startPage);
+			info.setEndPage(endPage);
+			Vector<ReviewVO> list	=	new Vector<ReviewVO>();
 			
-									info.setPage(page);
-									info.setTotalPages(totalPages);
-									info.setTotalRows(totalRows);
-									info.setStartPage(startPage);
-									info.setEndPage(endPage);
-		Vector<ReviewVO> list	=	new Vector<ReviewVO>();
-				if(searchCondition.equals("customers_idx")){
-					for(CustomerVO cVo : VcVo){
-						list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, cVo.getIdx());
-					}
-				}else{
-					list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
+			if(searchCondition.equals("customers_idx")){
+				for(CustomerVO cVo : VcVo){
+					list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, cVo.getIdx());
 				}
-				
-				if(list!=null) {
-									req.setAttribute("list", list);
-									req.setAttribute("info", info);
-									req.setAttribute("searchCondition", searchCondition);
-									req.setAttribute("searchWord", searchWord);
-					path		+=	"?type="+type+"&products_idx="+products_idx;
-									
-				}else{ 
-									log.error("ReviewsSearchAction - 'list' error");
-									path="";
-				}
+			}else{
+				list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
+			}
+			
+			if(list!=null) {
+				req.setAttribute("list", list);
+				req.setAttribute("info", info);
+				req.setAttribute("searchCondition", searchCondition);
+				req.setAttribute("searchWord", searchWord);
+				path		+=	"?type="+type+"&products_idx="+products_idx;
+								
+			}else{ 
+				log.error("ReviewsSearchAction - 'list' error");
+				path="";
+			}
 		}
 		else if(type.equals("myList")){
 			int		totalRows	=	dao.searchOneCustomerList(customers_idx, searchCondition, searchWord);
@@ -101,25 +102,25 @@ public class ReviewsSearchAction implements Action
 			int		startPage	=	((int)((double)page/10+0.9)-1)*10+1;
 			int		endPage		=	startPage+10-1;
 				
-				if(endPage>totalPages)
-					endPage		=	totalPages;		
-				
-									info.setPage(page);
-									info.setTotalPages(totalPages);
-									info.setTotalRows(totalRows);
-									info.setStartPage(startPage);
-									info.setEndPage(endPage);
-		Vector<ReviewVO> list	=	dao.getCustomerSearchList(customers_idx, page, limit, searchCondition, searchWord);
-				if(list!=null) {
-									req.setAttribute("list", list);
-									req.setAttribute("info", info);
-									req.setAttribute("searchCondition", searchCondition);
-									req.setAttribute("searchWord", searchWord);
-					path		+=	"?type="+type+"&customers_idx="+customers_idx;
-				}else{ 
-									log.error("ReviewsSearchAction - 'myList' error");
-									path="";
-				}
+			if(endPage>totalPages)
+				endPage		=	totalPages;		
+			
+			info.setPage(page);
+			info.setTotalPages(totalPages);
+			info.setTotalRows(totalRows);
+			info.setStartPage(startPage);
+			info.setEndPage(endPage);
+			Vector<ReviewVO> list	=	dao.getCustomerSearchList(customers_idx, page, limit, searchCondition, searchWord);
+			if(list!=null) {
+				req.setAttribute("list", list);
+				req.setAttribute("info", info);
+				req.setAttribute("searchCondition", searchCondition);
+				req.setAttribute("searchWord", searchWord);
+				path		+=	"?type="+type+"&customers_idx="+customers_idx;
+			}else{ 
+				log.error("ReviewsSearchAction - 'myList' error");
+				path="error.jsp";
+			}
 		}
 		return new ActionForward(path, false);
 	}

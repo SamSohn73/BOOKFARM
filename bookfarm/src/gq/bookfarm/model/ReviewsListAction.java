@@ -28,12 +28,12 @@ public class ReviewsListAction implements Action
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception 
 	{
-			int		page		=	1;
-			int		products_idx=	0;
-			String	type		=	req.getParameter("type");
-			HttpSession	session	=	req.getSession();
-			CustomerVO	vo		=	(CustomerVO)session.getAttribute("loggedInUserVO");
-			int		customers_idx=	vo.getIdx();
+		int		page			=	1;
+		int		products_idx	=	0;
+		String	type			=	req.getParameter("type");
+		HttpSession	session		=	req.getSession();
+		CustomerVO	vo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
+		int		customers_idx	=	vo.getIdx();
 			
 		if(req.getParameter("products_idx")!=null)	
 					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
@@ -53,23 +53,23 @@ public class ReviewsListAction implements Action
 			int		startPage	=	((int)((double)page/10+0.9)-1)*10+1;
 			int		endPage		=	startPage+10-1;
 					
-				if(endPage>totalPages)
-					endPage		=	totalPages;		
-				
-									info.setPage(page);
-									info.setTotalPages(totalPages);
-									info.setTotalRows(totalRows);
-									info.setStartPage(startPage);
-									info.setEndPage(endPage);
-		Vector<ReviewVO> list	=	dao.getList(products_idx, page, limit);
-				if(list!=null) {
-									req.setAttribute("list", list);
-									req.setAttribute("info", info);
-					path		+=	"?type="+type+"&products_idx="+products_idx;
-				}else{ 
-									log.error("ReviewsListAction - 'list' error");
-									//path="";
-				}
+			if(endPage>totalPages)
+				endPage		=	totalPages;		
+			
+			info.setPage(page);
+			info.setTotalPages(totalPages);
+			info.setTotalRows(totalRows);
+			info.setStartPage(startPage);
+			info.setEndPage(endPage);
+			Vector<ReviewVO> list	=	dao.getList(products_idx, page, limit);
+			if(list!=null) {
+				req.setAttribute("list", list);
+				req.setAttribute("info", info);
+				path		+=	"?type="+type+"&products_idx="+products_idx;
+			}else{ 
+				log.error("ReviewsListAction - 'list' error");
+				path="error.jsp";
+			}
 		}else if(type.equals("myList")){
 			int		totalRows	=	dao.oneCustomersTotalRows(customers_idx);
 			int		limit		=	10;
@@ -77,34 +77,34 @@ public class ReviewsListAction implements Action
 			int		startPage	=	((int)((double)page/10+0.9)-1)*10+1;
 			int		endPage		=	startPage+10-1;
 					
-				if(endPage>totalPages)
-					endPage		=	totalPages;		
-					
-									info.setPage(page);
-									info.setTotalPages(totalPages);
-									info.setTotalRows(totalRows);
-									info.setStartPage(startPage);
-									info.setEndPage(endPage);
-		Vector<ReviewVO> list	=	dao.getMyList(customers_idx, page, limit);
-				if(list!=null) {
-									req.setAttribute("list", list);
-									req.setAttribute("info", info);
-					path		+=	"?type="+type+"&products_idx="+products_idx;
-				}else{ 
-									log.error("ReviewsListAction - 'myList' error :����Ʈ�� null");
-									//path="";
-				}
+			if(endPage>totalPages)
+				endPage		=	totalPages;		
+				
+			info.setPage(page);
+			info.setTotalPages(totalPages);
+			info.setTotalRows(totalRows);
+			info.setStartPage(startPage);
+			info.setEndPage(endPage);
+			Vector<ReviewVO> list	=	dao.getMyList(customers_idx, page, limit);
+			if(list!=null) {
+				req.setAttribute("list", list);
+				req.setAttribute("info", info);
+				path		+=	"?type="+type+"&products_idx="+products_idx;
+			}else{ 
+				log.error("ReviewsListAction - 'myList' error :����Ʈ�� null");
+				path="error.jsp";
+			}
 		}else if(type.equals("myPage")){
 			int		limit		=	5;
-			
-		Vector<ReviewVO> list	=	dao.getMyPageList(customers_idx, limit);
-				if(list!=null) {
-									req.setAttribute("list", list);
-					path		+=	"?type="+type;
-				}else{ 
-									log.error("ReviewsListAction - 'myPage' error");
-									//path="";
-				}
+		
+			Vector<ReviewVO> list	=	dao.getMyPageList(customers_idx, limit);
+			if(list!=null) {
+				req.setAttribute("list", list);
+				path		+=	"?type="+type;
+			}else{ 
+				log.error("ReviewsListAction - 'myPage' error");
+				path="error.jsp";
+			}
 		}		
 		return new ActionForward(path, false);
 	}
