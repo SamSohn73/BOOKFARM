@@ -11,8 +11,6 @@ import gq.bookfarm.dao.ProductDAO;
 
 public class AdminProductDeleteAction implements Action
 {
-	
-	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private			String				path;
 	
@@ -32,7 +30,6 @@ public class AdminProductDeleteAction implements Action
 		int			idx				=	Integer.parseInt(req.getParameter("idx"));
 		
 		ProductDAO	dao				=	new ProductDAO();
-		
 		int			result			=	dao.productDelete(idx);
 
 		if(result==0) {

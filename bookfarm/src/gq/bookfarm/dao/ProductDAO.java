@@ -200,7 +200,7 @@ public class ProductDAO
 			log.debug("execute productUpdate do the DB work Start.");
 			con.setAutoCommit(false);
 
-			sql = "update product set category_idx = ?, product_quantity = ? product_name = ? product_image = ? product_price = ? product_desc = ? where idx = ?";
+			sql = "update product set category_idx = ?, product_quantity = ?, product_name = ?, product_image = ?, product_price = ?, product_desc = ? where idx = ?";
 			pstmt	= con.prepareStatement(sql);
 			pstmt.setInt	(1, category_idx);
 			pstmt.setInt	(2, product_quantity);
@@ -209,6 +209,47 @@ public class ProductDAO
 			pstmt.setFloat	(5, product_price);
 			pstmt.setString	(6, product_desc);
 			pstmt.setInt	(7, idx);
+
+			result			= pstmt.executeUpdate();
+			if (result > 0)	con.commit();
+			
+		} catch (Exception e) {
+			log.fatal("execute productUpdate do the DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+			try {
+				log.debug("execute productUpdate do the DB work rollbacked!!!!!!!!!!");
+				con.rollback();
+			} catch (SQLException e1) {
+				log.fatal("execute productUpdate do the DB work rollback failed!!!!!!!!!!");
+				e1.printStackTrace();
+			}
+		} finally {
+			close(con, pstmt);
+		}
+		log.debug("execute productUpdate do the DB work End.");
+		return result;
+	}
+	
+	
+	public int productUpdate(int idx, int category_idx, int product_quantity, String product_name, float product_price, String product_desc)
+	{
+		int					result	= 0;
+		PreparedStatement	pstmt	= null;
+		Connection			con		= getConnection();
+		String sql					= null;
+		
+		try {
+			log.debug("execute productUpdate do the DB work Start.");
+			con.setAutoCommit(false);
+
+			sql = "update product set category_idx = ?, product_quantity = ?, product_name = ?, product_price = ?, product_desc = ? where idx = ?";
+			pstmt	= con.prepareStatement(sql);
+			pstmt.setInt	(1, category_idx);
+			pstmt.setInt	(2, product_quantity);
+			pstmt.setString	(3, product_name);
+			pstmt.setFloat	(4, product_price);
+			pstmt.setString	(5, product_desc);
+			pstmt.setInt	(6, idx);
 
 			result			= pstmt.executeUpdate();
 			if (result > 0)	con.commit();

@@ -65,16 +65,13 @@
 		<tr>
 			<td><%=idNum%></td>
 			<td><%=product.getCategory_idx()%></td>
-<<<<<<< HEAD
-			<td><%=product.getProduct_image()%></td>
+			<td><a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
+				<img src="<%=product.getProduct_image()%>"></a>
+			</td>
 			<td>
 				<a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
 				<%=product.getProduct_name()%></a>
 			</td>
-=======
-			<td><img src="<%=product.getProduct_image()%>"></td>
-			<td><%=product.getProduct_name()%></td>
->>>>>>> branch 'master' of https://github.com/SamSohn73/BOOKFARM.git
 			<td><%=product.getProduct_price()%></td>
 			<td><%=product.getProduct_quantity()%></td>
 			<td><%=product.getProduct_desc() %></td>

@@ -1,6 +1,6 @@
 package gq.bookfarm.model;
 
-import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,50 +16,67 @@ import gq.bookfarm.dao.ProductDAO;
 
 public class AdminProductInsertAction implements Action
 {
-	private final Logger log = Logger.getLogger(this.getClass());
-	private String path;
-
-	public AdminProductInsertAction(String path) 
-	{
-		super();
-		log.debug("AdminProductInsertAction create Start.");
-		this.path = path;
-		log.debug("AdminProductInsertAction create End. path=" + path);
-	}
+	private final	Logger		log		=	Logger.getLogger(this.getClass());
+	private 		String		path;
 	
+	public AdminProductInsertAction(String path) {
+		super();
+		this.path  = path;
+		log.debug("AdminProductModifyAction Constructor. Destination path = " + path);
+	}
+
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception 
+	{
+		//getting values from qna_board_write.jsp
+		//Because of the fileupload function, basic request can't do the work.
 		log.debug("AdminProductInsertAction execute Start.");
-		String saveDir="/image";
-		String uploadPath=req.getServletContext().getRealPath(saveDir);
 		
+		String uploadPath=req.getServletContext().getRealPath("/image");
 		
-		int size=5*1024*1024;
+		int size = 10 * 1024 * 1024;	// 10MB
 		
-		MultipartRequest multi;
+		int		category_idx	= 0;
+		int		product_quantity= 0;
+		float	product_price	= 0;
+		int 	curPage			= 0;
+		String	product_name	= "";
+		String	product_image	= "";
+		String	product_desc	= "";
+		int		result			= 0;
 		
 		try {
-						multi				=	new MultipartRequest(req,uploadPath,size,"UTF-8",new DefaultFileRenamePolicy());
-;
-			int			category_idx		=	Integer.parseInt(multi.getParameter("category_idx"));
-			int			product_quantity	=	Integer.parseInt(multi.getParameter("product_quantity"));
-			String		product_image		=	multi.getParameter("product_image");
-			String		product_name		=	multi.getParameter("product_name");
-			float		product_price		=	Float.parseFloat(multi.getParameter("product_price"));
-			String		product_desc		=	multi.getParameter("product_desc");
-			
-			ProductDAO 	dao					=	new ProductDAO();
+			MultipartRequest multi = new MultipartRequest(req, uploadPath, size, "UTF-8", new DefaultFileRenamePolicy());
+			category_idx	=	Integer.parseInt(multi.getParameter("category_idx"));
+			product_quantity=	Integer.parseInt(multi.getParameter("product_quantity"));
+			product_price	=	Float.parseFloat(multi.getParameter("product_price"));
+			product_name	=	multi.getParameter("product_name");
+			product_desc	=	multi.getParameter("product_desc");
+			curPage			=	Integer.parseInt(multi.getParameter("page"));
 
-			int 		result				=	dao.productInsert(category_idx, product_quantity, product_name, product_image, product_price, product_desc);
-			
-			if(result==0) {
-				log.debug("AdminProductInsertAction execute Failed.");
-				path="error.jsp"; 
+			Enumeration files = multi.getFileNames();
+			if (files.hasMoreElements()) {
+				String file1	= (String)files.nextElement();
+				product_image	= "image/" + multi.getFilesystemName(file1);
+				String origfileName	= multi.getOriginalFileName(file1);
+				log.debug("AdminProductInsertAction MultipartRequest Error.product_image="+product_image);
+				log.debug("AdminProductInsertAction MultipartRequest Error.origfileName="+origfileName);
 			}
-		} catch (IOException e) {			
+			ProductDAO dao	= new ProductDAO();
+			
+			result			= dao.productInsert(category_idx, product_quantity, product_name, product_image, product_price, product_desc);
+
+		} catch(Exception e) {
+			log.debug("AdminProductInsertAction MultipartRequest Error.");
 			e.printStackTrace();
 		}
+
+		// if result failed change path here
+		if (result == 0)	path="view/error.jsp";
+		else				path+= "?page=" + curPage;
+		
 		log.debug("AdminProductInsertAction execute End.");
+
 		return new ActionForward(path, true);
 	}
 

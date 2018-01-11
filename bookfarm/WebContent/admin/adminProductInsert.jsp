@@ -1,19 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>    
-<%-- <%
-	//qna_board_list.jsp에서 보던 페이지 가져오기
-	String current_page = request.getParameter("page");
-%> --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%	
+	String current_page 			=	request.getParameter("page");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>게시판</title>
-<script>
-	<%-- function curr_list(){
-		location.href="../qList.do?page=<%=current_page%>";
-	} --%>
-</script>
+
 </head>
 <body>
 	<form action="../adminProductInsert.do" method="post" enctype="multipart/form-data">	
@@ -40,7 +34,7 @@
 			<tr>
 				<td class="td_left"><label for="product_image">이미지</label></td>	
 				<td class="td_right">
-					<input type="file" name="product_image">
+					<input type="file" name="product_image" id="product_image">
 				</td>
 			</tr>
 			<tr>
@@ -55,10 +49,11 @@
 					<textarea name='product_desc' cols='60' rows='15' required="required"></textarea>
 				</td>
 			</tr>
-			<tr class="commandCell">
+			<tr>
 				<td colspan='2'>
 				<input type='submit' value="등록">
-				<input type='button' value="취소"  onclick="javascript:history.back();"> 
+				<input type='button' value="취소"  onclick="javascript:history.back();">
+				<input type="hidden" name="page" value=<%=current_page %>>
 				</td>
 			</tr>
 		</table>		
