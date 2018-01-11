@@ -10,6 +10,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import org.apache.log4j.Logger;
 import gq.bookfarm.vo.CustomerVO;
+import gq.bookfarm.vo.OrdersVO;
 
 public class CustomerDAO 
 {
@@ -441,4 +442,318 @@ public class CustomerDAO
 		}		
 		return list;	
 	}
+	
+	
+	public int customerCountSearchingRows(String criteria, String searchWord)
+	{
+		log.debug("execute customerCountSearchingRows do the DB work Start.");
+		int					total_rows	= 0;
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		String				sql			= null;
+		
+		try {
+			if (criteria.equals("address") ) {
+				sql	= "select count(*) from customer " +
+						"where address1 like ? or address2 like ?" +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setString(2, "%" + searchWord + "%");
+			}
+			else if (criteria.equals("phone")) {
+				sql	= "select count(*) from customer " +
+						"where phone1 like ? or phone2 like ? or phone3 like ?" +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setString(2, "%" + searchWord + "%");
+				pstmt		.setString(3, "%" + searchWord + "%");
+			}
+			else if (criteria.equals("email")) {
+				sql	= "select count(*) from customer " +
+						"where email1 like ? or email2 like ?" +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setString(2, "%" + searchWord + "%");
+			}
+			else {
+				sql	= "select count(*) from customer " +
+						"where " +  criteria + " like ? " +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+			}
+
+			rs			= pstmt.executeQuery();
+			
+			if(rs.next())	
+				total_rows	= rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.fatal("execute customerCountSearchingRows do the DB work failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		
+		log.debug("customerCountSearchingRows DB work End. total_rows= " + total_rows);
+		return total_rows;	
+	}
+	
+	
+	public Vector<CustomerVO> customerSearch(String criteria, String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearch DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where " +  criteria + " like ? " +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setInt(2, start);
+			pstmt		.setInt(3, limit);
+			
+			log.debug("execute customerSearch DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearch DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearch DB work End.");
+		return customerList;
+	}
+
+	public Vector<CustomerVO> customerSearchByAddr(String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearchByAddr DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where address1 like ? or address2 like ?" +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setString(2, "%" + searchWord + "%");
+			pstmt		.setInt(3, start);
+			pstmt		.setInt(4, limit);
+			
+			log.debug("execute customerSearchByAddr DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearchByAddr DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearchByAddr DB work End.");
+		return customerList;
+	}
+	public Vector<CustomerVO> customerSearchByPhone(String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearchByPhone DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where phone1 like ? or phone2 like ? or phone3 like ?" +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setString(2, "%" + searchWord + "%");
+			pstmt		.setString(3, "%" + searchWord + "%");
+			pstmt		.setInt(4, start);
+			pstmt		.setInt(5, limit);
+			
+			log.debug("execute customerSearchByPhone DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearchByPhone DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearchByPhone DB work End.");
+		return customerList;
+	}
+	public Vector<CustomerVO> customerSearchByEmail(String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearchByEmail DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where email1 like ? or email2 like ?" +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setString(2, "%" + searchWord + "%");
+			pstmt		.setInt(3, start);
+			pstmt		.setInt(4, limit);
+			
+			log.debug("execute customerSearchByEmail DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearchByEmail DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearchByEmail DB work End.");
+		return customerList;
+	}
+	
 }

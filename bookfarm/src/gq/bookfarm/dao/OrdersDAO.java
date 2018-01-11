@@ -365,7 +365,7 @@ public class OrdersDAO
 		try {
 			log.debug("execute ordersSearch DB work Start.");
 
-			String sql	= "select * " +
+			String sql	= "select * from orders" +
 							"where " +  criteria + " like ? " +
 							"order by idx desc limit ?, ?";
 			pstmt		= con.prepareStatement(sql);
