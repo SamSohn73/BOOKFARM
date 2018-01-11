@@ -1,3 +1,5 @@
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 <%@page import="gq.bookfarm.vo.PageVO"%>
@@ -13,6 +15,8 @@
 	
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
+	String tmpValue			= null;
+	DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 	
 	if (criteria == null)	criteria	= "";
 	if (searchWord == null)	searchWord	= "";
@@ -83,24 +87,25 @@
 				</a>
 			</td>
 			<td><%=idNum%></td>
-			<td><%=customer.getUsername()%></td>
-			<td><%=customer.getLastname()%><%=customer.getFirstname()%></td>
-			<td><%=customer.getPostcode()%></td>
-			<td><%=customer.getAddress1()%></td>
-			<td><%=customer.getAddress2()%></td>
-			<td><%=customer.getPhone1()%></td>
-			<td><%=customer.getPhone2()%></td>
-			<td><%=customer.getPhone3()%></td>
-			<td><%=customer.getEmail1()%></td>
-			<td><%=customer.getEmail2()%></td>
-			<td><%=customer.getGender()%></td>
-			<td><%=customer.getBirthday()%></td>
+			<td><%tmpValue = customer.getUsername()		!= null ?	customer.getUsername():"";%><%=tmpValue%></td>
+		<!--<td><%=customer.getLastname()%></td>  -->
+			<td><%tmpValue = customer.getFirstname()	!= null ?	customer.getFirstname():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPostcode()		!= null ?	customer.getPostcode():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getAddress1()		!= null ?	customer.getAddress1():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getAddress2()		!= null ?	customer.getAddress2():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPhone1()		!= null ?	customer.getPhone1():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPhone2()		!= null ?	customer.getPhone2():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPhone3()		!= null ?	customer.getPhone3():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getEmail1()		!= null ?	customer.getEmail1():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getEmail2()		!= null ?	customer.getEmail2():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getGender()		!= null ?	customer.getGender() != "m" ? "남성":"여성":"";%><%=tmpValue%></td>
+			<td><%tmpValue = customer.getBirthday()		!= null ?	df.format(customer.getBirthday()):"";%><%=tmpValue%></td>
 			<td><%=customer.getGrade()%></td>
-			<td><%=customer.getLast_login()%></td>
+			<td><%tmpValue = customer.getLast_login()	!= null ?	df.format(customer.getLast_login()):"";%><%=tmpValue%></td>	
 			<td><%=customer.getLogin_cnt()%></td>
-			<td><%=customer.getAccount_created()%></td>
+			<td><%tmpValue = customer.getAccount_created()!= null ?	df.format(customer.getAccount_created()):"";%><%=tmpValue%></td>
 		</tr>
-<%		idNum--;
+<%		idNum--;	
 	} %>
 		<tr>
 		<td colspan = "17">
@@ -133,18 +138,18 @@
 	<table>
 		<tr>
 			<td class="td_align">
-				<form action='AdminCustomerSearch.do' method='post' name='searchform'>
+				<form action='adminCustomerSearch.do' method='post' name='searchform'>
 					<select name='criteria'>
-						<option value='customer_username'	<%if(criteria.equals("customer_username"))	out.print("selected");%>>아이디</option>
-						<option value='customer_name'		<%if(criteria.equals("customer_name"))		out.print("selected");%>>이름</option>
-						<option value='customer_address'	<%if(criteria.equals("customer_address"))	out.print("selected");%>>주소</option>
-						<option value='customer_phone'		<%if(criteria.equals("customer_phone"))		out.print("selected");%>>전화번호</option>
-						<option value='customer_email'		<%if(criteria.equals("customer_email"))		out.print("selected");%>>이메일</option>
-						<option value='customer_birthday'	<%if(criteria.equals("customer_birthday"))	out.print("selected");%>>생일</option>
-						<option value='customer_grade'		<%if(criteria.equals("customer_grade"))		out.print("selected");%>>등급</option>
+						<option value='username'	<%if(criteria.equals("username"))	out.print("selected");%>>아이디</option>
+						<option value='firstname'	<%if(criteria.equals("firstname"))	out.print("selected");%>>이름</option>
+						<option value='address'		<%if(criteria.equals("address"))	out.print("selected");%>>주소</option>
+						<option value='phone'		<%if(criteria.equals("phone"))		out.print("selected");%>>전화번호</option>
+						<option value='email'		<%if(criteria.equals("email"))		out.print("selected");%>>이메일</option>
+						<option value='gender'		<%if(criteria.equals("gender"))		out.print("selected");%>>성별</option>
+						<option value='grade'		<%if(criteria.equals("grade"))		out.print("selected");%>>등급</option>
 					</select>
 					<input type='text' name='searchWord' value="<%=searchWord%>">
-					<input type='button' value='검색' onclick="search()">						
+					<input type='button' value='검색' onclick="search()">
 				</form>
 			</td>
 			<!--  <td align='right'><a href="admin/admin_add.jsp?page=<%=currentPage%>">[사용자 추가]</a></td>  -->

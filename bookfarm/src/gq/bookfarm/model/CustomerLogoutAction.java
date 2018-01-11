@@ -11,32 +11,33 @@ import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.vo.CustomerVO;
 
-public class CustomerLogoutAction implements Action {
+public class CustomerLogoutAction implements Action
+{
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
 	
-	public CustomerLogoutAction(String path) {
+	public CustomerLogoutAction(String path)
+	{
 		super();
 		this.path = path;
 	}
 
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
+	{
 		
 		HttpSession		session	=	req.getSession();
-		CustomerVO		vo		=	(CustomerVO)session.getAttribute("LoginedUserVO");
+		CustomerVO		vo		=	(CustomerVO)session.getAttribute("loggedInUserVO");
 		int				idx		=	vo.getIdx();
-						session	=	req.getSession(false);
-		if(session.getAttribute("LoginedUserVO") != null)
-		{			
+		session					=	req.getSession(false);
+						
+		if(session.getAttribute("loggedInUserVO") != null) {			
 			CustomerDAO	dao		=	new	CustomerDAO();
-									dao.logout(idx);
-									session.invalidate();
-									log.info("Successfully logout...");
-		}
-		else
-		{
-						path	=	"";
+			dao.logout(idx);
+			session.invalidate();
+			log.info("Successfully logout...");
+		} else {
+			path	=	"error.jsp";
 		}
 		
 		return new ActionForward(path, true);

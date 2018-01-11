@@ -14,10 +14,10 @@
 		location.href="productList.do?&page=<%=current_page%>";
 	}
 	function buy_submit(){
-		location.href="productBuy.do?idx=<%=vo.getIdx()%>&page=<%=current_page%>";
+		location.href="productBuy.do?idx=<%=vo.getIdx()%>";
 	}
 	function basket_submit(){
-		location.href="productBasket.do?idx=<%=vo.getIdx()%>&page=<%=current_page%>";
+		location.href="basketAdd.do?idx=<%=vo.getIdx()%>";
 	}
 </script>
 </head>
@@ -43,7 +43,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="td_left">책소개</td>					
+			<td class="td_left">제품 소개</td>
 			<td class="td_right">
 				<textarea name='contents' cols='65' rows='15' readonly><%=vo.getProduct_desc()%>
 				</textarea>

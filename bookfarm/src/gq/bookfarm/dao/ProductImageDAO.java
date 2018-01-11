@@ -123,7 +123,6 @@ public class ProductImageDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 		
 		try {
@@ -150,7 +149,6 @@ public class ProductImageDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute productImageInsert do the DB work End.");
@@ -254,7 +252,7 @@ public class ProductImageDAO
 			log.fatal("execute productImageList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute productImageList do the DB work End.");
 		return productImageList;
@@ -284,7 +282,7 @@ public class ProductImageDAO
 			log.fatal("execute productImageGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute productImageGetRow DB work End.");
 		
@@ -317,7 +315,7 @@ public class ProductImageDAO
 			log.fatal("execute productImageGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute productImageGetRow DB work End.");
 		
@@ -345,6 +343,8 @@ public class ProductImageDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute productImage total_rows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
 		}
 		
 		log.debug("execute productImage total_rows do the DB work End. total_rows= " + total_rows);

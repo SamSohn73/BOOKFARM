@@ -26,6 +26,7 @@ public class AdminProductListAction implements Action
 	{
 		super();
 		this.path = path;
+		log.debug("AdminProductListAction Constructor. Destination path = " + path);
 	}
 	
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)
@@ -36,7 +37,7 @@ public class AdminProductListAction implements Action
 		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
-			log.info("AdminCategoryListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			log.info("AdminProductListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
 		}
 		

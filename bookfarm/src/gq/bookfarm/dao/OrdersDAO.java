@@ -130,7 +130,6 @@ public class OrdersDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 
 		// You can use now() sql system function to get the current time
@@ -313,8 +312,7 @@ public class OrdersDAO
 			log.fatal("execute ordersList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersList do the DB work End.");
 		return ordersList;
@@ -344,8 +342,7 @@ public class OrdersDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute ordersCountSearchingRows do the DB work failed!!!!!!!!!!");
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(con, pstmt, rs);
 		}
 		
@@ -368,7 +365,7 @@ public class OrdersDAO
 		try {
 			log.debug("execute ordersSearch DB work Start.");
 
-			String sql	= "select * " +
+			String sql	= "select * from orders" +
 							"where " +  criteria + " like ? " +
 							"order by idx desc limit ?, ?";
 			pstmt		= con.prepareStatement(sql);
@@ -414,8 +411,7 @@ public class OrdersDAO
 			log.fatal("execute ordersSearch DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersSearch DB work End.");
 		return ordersList;
@@ -468,8 +464,7 @@ public class OrdersDAO
 			log.fatal("execute ordersGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute ordersGetRow DB work End.");
 		
@@ -497,8 +492,7 @@ public class OrdersDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute orders total_rows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(con, pstmt, rs);
 		}
 		
@@ -529,9 +523,8 @@ public class OrdersDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute orders total_rows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
-		}
-		finally {
-			close(con,pstmt,rs);
+		} finally {
+			close(con, pstmt, rs);
 		}
 		
 		log.debug("execute orders total_rows do the DB work End. total_rows= " + total_rows);
@@ -594,8 +587,7 @@ public class OrdersDAO
 			log.fatal("execute single_Customer's_orders_List do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute single_Customer's_orders_List do the DB work End.");
 		return ordersList;
@@ -632,8 +624,7 @@ public class OrdersDAO
 			log.fatal("execute single_Customer's_orders_List do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute single_Customer's_orders_List do the DB work End.");
 		return ordersList;

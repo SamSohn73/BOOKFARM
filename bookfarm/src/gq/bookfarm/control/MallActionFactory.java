@@ -5,11 +5,15 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.action.Action;
 import gq.bookfarm.model.AdminCategoryAddAction;
 import gq.bookfarm.model.AdminCategoryAddViewAction;
+import gq.bookfarm.model.AdminCategoryDeleteAction;
 import gq.bookfarm.model.AdminCategoryListAction;
+import gq.bookfarm.model.AdminCategoryModifyAction;
+import gq.bookfarm.model.AdminCategoryModifyViewAction;
 import gq.bookfarm.model.AdminCustomerDeleteAction;
 import gq.bookfarm.model.AdminCustomerListAction;
 import gq.bookfarm.model.AdminCustomerModifyAction;
 import gq.bookfarm.model.AdminCustomerModifyViewAction;
+import gq.bookfarm.model.AdminCustomerSearchAction;
 import gq.bookfarm.model.AdminLoginAction;
 import gq.bookfarm.model.AdminLogoutAction;
 import gq.bookfarm.model.AdminProductListAction;
@@ -21,6 +25,8 @@ import gq.bookfarm.model.AdminReviewsModifyAction;
 import gq.bookfarm.model.AdminReviewsSearchAction;
 import gq.bookfarm.model.AdminReviewsViewAction;
 import gq.bookfarm.model.AdminReviewsWriteAction;
+import gq.bookfarm.model.BasketAddAction;
+import gq.bookfarm.model.BasketListAction;
 import gq.bookfarm.model.AdminOrdersListAction;
 import gq.bookfarm.model.AdminProductDeleteAction;
 import gq.bookfarm.model.AdminProductInsertAction;
@@ -80,6 +86,26 @@ public class MallActionFactory
 			action = new AdminCustomerListAction("admin/adminCustomerList.jsp");
 			log.debug("adminCustomerList.do action create End.");
 		}
+		if (cmd.equals("/adminCustomerModifyView.do")) {
+			log.debug("adminCustomerModifyView.do action create Start.");
+			action = new AdminCustomerModifyViewAction("admin/adminCustomerModify.jsp");
+			log.debug("adminCustomerModifyView.do action create End.");
+		}
+		if (cmd.equals("/adminCustomerModify.do")) {
+			log.debug("adminCustomerModify.do action create Start.");
+			action = new AdminCustomerModifyAction("adminCustomerList.do");
+			log.debug("adminCustomerModify.do action create End.");
+		}
+		if (cmd.equals("/adminCustomerDelete.do")) {
+			log.debug("adminCustomerDelete.do action create Start.");
+			action = new AdminCustomerDeleteAction("adminCustomerList.do");
+			log.debug("adminCustomerDelete.do action create End.");
+		}
+		if (cmd.equals("/adminCustomerSearch.do")) {
+			log.debug("adminCustomerSearch.do action create Start.");
+			action = new AdminCustomerSearchAction("admin/adminCustomerList.jsp");
+			log.debug("adminCustomerSearch.do action create End.");
+		}
 		// Admin Product Management
 		if (cmd.equals("/adminProductList.do")) {
 			log.debug("adminProductList.do action create Start.");
@@ -103,7 +129,70 @@ public class MallActionFactory
 			action = new AdminCategoryAddViewAction("admin/adminCategoryAdd.jsp");
 			log.debug("adminCategoryAddView.do action create End.");
 		}
-		
+		if (cmd.equals("/adminCategoryAdd.do")) {
+			log.debug("adminCategoryAdd.do action create Start.");
+			action = new AdminCategoryAddAction("/adminCategoryList.do");
+			log.debug("adminCategoryAdd.do action create End.");
+		}
+		if (cmd.equals("/adminCategoryModifyView.do")) {
+			log.debug("adminCategoryModifyView.do action create Start.");
+			action = new AdminCategoryModifyViewAction("admin/adminCategoryModify.jsp");
+			log.debug("adminCategoryModifyView.do action create End.");
+		}
+		if (cmd.equals("/adminCategoryModify.do")) {
+			log.debug("adminCategoryModify.do action create Start.");
+			action = new AdminCategoryModifyAction("/adminCategoryList.do");
+			log.debug("adminCategoryModify.do action create End.");
+		}
+		if (cmd.equals("/adminCategoryDelete.do")) {
+			log.debug("adminCategoryDelete.do action create Start.");
+			action = new AdminCategoryDeleteAction("/adminCategoryList.do");
+			log.debug("adminCategoryDelete.do action create End.");
+		}
+		if (cmd.equals("/adminCategoryDelete.do")) {
+			log.debug("adminCategoryDelete.do action create Start.");
+			action = new AdminCategoryDeleteAction("/adminCategoryList.do");
+			log.debug("adminCategoryDelete.do action create End.");
+		}
+		// Admin review Management
+		//hansol's administrator control commend list....
+		if(cmd.equals("/adminReviewsList.do"))
+		{
+			log.debug("qAdminReviewsList.do action create Start.");
+			action = new AdminReviewsListAction("./admin/adminReviewsList.jsp");
+			log.debug("qAdminReviewsList.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsView.do"))
+		{
+			log.debug("qAdminReviewsView.do action create Start.");
+			action = new AdminReviewsViewAction("./admin/adminReviewsView.jsp");
+			log.debug("qAdminReviewsView.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsWrite.do"))
+		{
+			log.debug("qAdminReviewsWrite.do action create Start.");
+			action = new AdminReviewsWriteAction("./admin/adminReviewsWrite.jsp");
+			log.debug("qAdminReviewsWrite.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsDelete.do"))
+		{
+			log.debug("qAdminReviewsDelete.do action create Start.");
+			action = new AdminReviewsDeleteAction("./admin/adminReviewsDelete.jsp");
+			log.debug("qAdminReviewsDelete.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsModify.do"))
+		{
+			log.debug("qAdminReviewsModify.do action create Start.");
+			action = new AdminReviewsViewAction("./admin/adminReviewsModify.jsp");
+			log.debug("qAdminReviewsModify.do action create End.");
+		}
+		else if(cmd.equals("/adminReviewsSearch.do"))
+		{
+			log.debug("qAdminReviewsSearch.do action create Start.");
+			action = new AdminReviewsSearchAction("./admin/adminReviewsList.jsp");
+			log.debug("qAdminReviewsSearch.do action create End.");
+		}
+		// Product Windows
 		if (cmd.equals("/productList.do")) {
 			log.debug("productList.do action create Start.");
 			action = new ProductListAction("product/productList.jsp");
@@ -114,6 +203,7 @@ public class MallActionFactory
 			action = new ProductViewAction("product/productView.jsp");
 			log.debug("productView.do action create End.");
 		}
+<<<<<<< HEAD
 		
 		if (cmd.equals("/adminCustomerModifyView.do")) {
 			log.debug("adminCustomerModifyView.do action create Start.");
@@ -158,129 +248,105 @@ public class MallActionFactory
 		}*/
 		
 		
+=======
+
+>>>>>>> branch 'master' of https://github.com/SamSohn73/BOOKFARM.git
 		//From here, the code for the login were wrote... - hansol -
 		//customerDB was used...
 		if (cmd.equals("/qCustomerIdPwdCheck.do"))
 		{
-			log.debug("QQQQQQQQQQ qCustomerIdPwdCheck.do action create Start.");
+			log.debug("qCustomerIdPwdCheck.do action create Start.");
 			action = new CustomerIdPwdCheckAction("member/hansol_main_example.jsp");
-			log.debug("QQQQQQQQQQ qCustomerIdPwdCheck.do action create End.");
+			log.debug("qCustomerIdPwdCheck.do action create End.");
 		}
 		else if (cmd.equals("/qCustomerRegist.do"))
 		{
-			log.debug("QQQQQQQQQQ qCustomerRegist.do action create Start.");
+			log.debug("qCustomerRegist.do action create Start.");
 			action = new CustomerRegistAction("./index.jsp");
-			log.debug("QQQQQQQQQQ qCustomerRegist.do action create End.");
+			log.debug("qCustomerRegist.do action create End.");
 		}
 		else if (cmd.equals("/qCustomerFind.do"))
 		{
-			log.debug("QQQQQQQQQQ qCustomerFind.do action create Start.");
+			log.debug("qCustomerFind.do action create Start.");
 			action = new CustomerFindAction("./member/find.jsp");
-			log.debug("QQQQQQQQQQ qCustomerFind.do action create End.");
+			log.debug("qCustomerFind.do action create End.");
 		}
 		else if (cmd.equals("/qCustomerLogout.do"))
 		{
-			log.debug("QQQQQQQQQQ qCustomerLogout.do action create Start.");
+			log.debug("qCustomerLogout.do action create Start.");
 			action = new CustomerLogoutAction("index.jsp");
-			log.debug("QQQQQQQQQQ qCustomerLogout.do action create End.");
+			log.debug("qCustomerLogout.do action create End.");
 		}
-		
 		
 		//From here, I wrote the code for actions related OrdersConfirm... - hansol -
 		if (cmd.equals("/qOrdersConfirm.do"))
 		{
-			log.debug("QQQQQQQQQQ qOrdersConfirm.do action create Start.");
+			log.debug("qOrdersConfirm.do action create Start.");
 			action = new OrdersConfirmAction("member/order_confirm.jsp");
-			log.debug("QQQQQQQQQQ qOrdersConfirm.do action create End.");
+			log.debug("qOrdersConfirm.do action create End.");
 		}
 		else if (cmd.equals("/qOrderView.do"))
 		{
-			log.debug("QQQQQQQQQQ qOrderView.do action create Start.");
+			log.debug("qOrderView.do action create Start.");
 			action = new OrdersConfirmAction("member/order_view.jsp");
-			log.debug("QQQQQQQQQQ qOrderView.do action create End.");
+			log.debug("qOrderView.do action create End.");
 		}
 		
 		//From here, I wrote code for review action... - hansol -
 		//control code for reviewsDB
 		if (cmd.equals("/qReviewsLists.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsLists.do action create Start.");
+			log.debug("qReviewsLists.do action create Start.");
 			action = new ReviewsListAction("review/ReviewsList.jsp");
-			log.debug("QQQQQQQQQQ qReviewsLists.do action create End.");
+			log.debug("qReviewsLists.do action create End.");
 		}
 		else if(cmd.equals("/qReviewsSearch.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsSearch.do action create Start.");
+			log.debug("qReviewsSearch.do action create Start.");
 			action = new ReviewsSearchAction("review/ReviewsList.jsp");
-			log.debug("QQQQQQQQQQ qReviewsSearch.do action create End.");
+			log.debug("qReviewsSearch.do action create End.");
 		}
 		else if(cmd.equals("/qReviewsHitUpdate.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsHitUpdate.do action create Start.");
+			log.debug("qReviewsHitUpdate.do action create Start.");
 			action = new ReviewsHitUpdateAction("qReviewsView.do");
-			log.debug("QQQQQQQQQQ qReviewsHitUpdate.do action create End.");
+			log.debug("qReviewsHitUpdate.do action create End.");
 		}
 		else if(cmd.equals("/qReviewsView.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsView.do action create Start.");
+			log.debug("qReviewsView.do action create Start.");
 			action = new ReviewsViewAction("review/ReviewsWrite.jsp");
-			log.debug("QQQQQQQQQQ qReviewsView.do action create End.");
+			log.debug("qReviewsView.do action create End.");
 		}
 		else if(cmd.equals("/qReviewsIdPassChk.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsIdPassChk.do action create Start.");
+			log.debug("qReviewsIdPassChk.do action create Start.");
 			action = new ReviewsIdPassChkAction("qReviewsView.do");
-			log.debug("QQQQQQQQQQ qReviewsIdPassChk.do action create End.");
+			log.debug("qReviewsIdPassChk.do action create End.");
 		}
 		else if(cmd.equals("/qReviewsInsert.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsInsert.do action create Start.");
+			log.debug("qReviewsInsert.do action create Start.");
 			action = new ReviewsInsertAction("qReviewsLists.do");
-			log.debug("QQQQQQQQQQ qReviewsInsert.do action create End.");
+			log.debug("qReviewsInsert.do action create End.");
 		}
 		else if(cmd.equals("/qReviewsDelete.do"))
 		{
-			log.debug("QQQQQQQQQQ qReviewsDelete.do action create Start.");
+			log.debug("qReviewsDelete.do action create Start.");
 			action = new ReviewsDeleteAction("qReviewsLists.do");
-			log.debug("QQQQQQQQQQ qReviewsDelete.do action create End.");
+			log.debug("qReviewsDelete.do action create End.");
 		}
 		
-		//hansol's administrator control commend list....
-		if(cmd.equals("/adminReviewsList.do"))
-		{
-			log.debug("QQQQQQQQQQ qAdminReviewsList.do action create Start.");
-			action = new AdminReviewsListAction("./admin/adminReviewsList.jsp");
-			log.debug("QQQQQQQQQQ qAdminReviewsList.do action create End.");
+		//Basket Management
+		if (cmd.equals("/basketAdd.do")) {
+			log.debug("basketAdd.do action create Start.");
+			action = new BasketAddAction("/basketList.do");
+			log.debug("basketAdd.do action create End.");
 		}
-		else if(cmd.equals("/adminReviewsView.do"))
-		{
-			log.debug("QQQQQQQQQQ qAdminReviewsView.do action create Start.");
-			action = new AdminReviewsViewAction("./admin/adminReviewsView.jsp");
-			log.debug("QQQQQQQQQQ qAdminReviewsView.do action create End.");
-		}
-		else if(cmd.equals("/adminReviewsWrite.do"))
-		{
-			log.debug("QQQQQQQQQQ qAdminReviewsWrite.do action create Start.");
-			action = new AdminReviewsWriteAction("./admin/adminReviewsWrite.jsp");
-			log.debug("QQQQQQQQQQ qAdminReviewsWrite.do action create End.");
-		}
-		else if(cmd.equals("/adminReviewsDelete.do"))
-		{
-			log.debug("QQQQQQQQQQ qAdminReviewsDelete.do action create Start.");
-			action = new AdminReviewsDeleteAction("./admin/adminReviewsDelete.jsp");
-			log.debug("QQQQQQQQQQ qAdminReviewsDelete.do action create End.");
-		}
-		else if(cmd.equals("/adminReviewsModify.do"))
-		{
-			log.debug("QQQQQQQQQQ qAdminReviewsModify.do action create Start.");
-			action = new AdminReviewsModifyAction("./admin/adminReviewsModify.jsp");
-			log.debug("QQQQQQQQQQ qAdminReviewsModify.do action create End.");
-		}
-		else if(cmd.equals("/adminReviewsSearch.do"))
-		{
-			log.debug("QQQQQQQQQQ qAdminReviewsSearch.do action create Start.");
-			action = new AdminReviewsSearchAction("./admin/adminReviewsList.jsp");
-			log.debug("QQQQQQQQQQ qAdminReviewsSearch.do action create End.");
+		if (cmd.equals("/basketList.do")) {
+			log.debug("basketList.do action create Start.");
+			action = new BasketListAction("product/basketList.jsp");
+			log.debug("basketList.do action create End.");
 		}
 		
 		return action;

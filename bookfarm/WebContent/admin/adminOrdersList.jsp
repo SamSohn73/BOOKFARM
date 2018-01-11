@@ -84,8 +84,16 @@
 	int idNum = totalRows - (currentPage-1)*10;
 	for(OrdersVO order: orders) {	%>
 		<tr>
-			<td><%=idNum%></td>
-			<td><%=order.getCustomers_idx()%></td>
+			<td>
+				<a href="adminOrdersProductList.do?idx=<%=order.getIdx()%>&page=<%=currentPage%>">
+					<%=idNum%>
+				</a>
+			</td>
+			<td>
+				<a href="adminCustomerModifyView.do?idx=<%=order.getCustomers_idx()%>&page=<%=currentPage%>">
+					<%=order.getCustomers_idx()%>
+				</a>
+			</td>
 			<td><%=order.getDelivery_name()%></td>
 			<td><%=order.getDelivery_postcode()%></td>
 			<td><%=order.getDelivery_address1()%></td>

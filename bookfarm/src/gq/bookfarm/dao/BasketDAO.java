@@ -92,15 +92,15 @@ public class BasketDAO
 	
 	public void close(Connection con , PreparedStatement pstmt)
 	{
-			try {
-				log.debug("DB close Start.");
-				if (pstmt != null)		pstmt.close();
-				if (con != null)		con.close();
-				log.debug("DB close End.");
-			} catch (SQLException e) {
-				log.fatal("DB close Failed.");
-				e.printStackTrace();
-			}
+		try {
+			log.debug("DB close Start.");
+			if (pstmt != null)		pstmt.close();
+			if (con != null)		con.close();
+			log.debug("DB close End.");
+		} catch (SQLException e) {
+			log.fatal("DB close Failed.");
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -123,7 +123,6 @@ public class BasketDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 		
 		try {
@@ -153,7 +152,6 @@ public class BasketDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute basketInsert do the DB work End.");
@@ -165,7 +163,6 @@ public class BasketDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 		
 		try {
@@ -195,7 +192,6 @@ public class BasketDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute basketInsert do the DB work End.");
@@ -324,7 +320,7 @@ public class BasketDAO
 			log.fatal("execute categoryList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute categoryList do the DB work End.");
 		return basketList;
@@ -362,7 +358,7 @@ public class BasketDAO
 			log.fatal("execute basketListbyCustomer_idx do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute basketListbyCustomer_idx do the DB work End.");
 		return basketList;
@@ -375,7 +371,7 @@ public class BasketDAO
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
-		ResultSet			rs			= null;
+		ResultSet			result		= null;
 		String				sql			= null;
 		
 		try {
@@ -385,14 +381,16 @@ public class BasketDAO
 					"order by idx desc";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setString(1, "%" + searchWord + "%");
-			rs			= pstmt.executeQuery();
+			result		= pstmt.executeQuery();
 			
-			if(rs.next())	
-				total_rows	= rs.getInt(1);
+			if(result.next())	
+				total_rows	= result.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.fatal("execute basketCountSearchingRows do the DB work failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt, result);
 		}
 		
 		log.debug("basketCountSearchingRows DB work End. total_rows= " + total_rows);
@@ -441,7 +439,7 @@ public class BasketDAO
 			log.fatal("execute basketSearch DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute basketSearch DB work End.");
 		return basketList;
@@ -476,7 +474,7 @@ public class BasketDAO
 			log.fatal("execute basketGetRowByIdx DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute basketGetRowByIdx DB work End.");
 		
@@ -512,7 +510,7 @@ public class BasketDAO
 			log.fatal("execute basketGetRowByCustomer_idx DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute basketGetRowByCustomer_idx DB work End.");
 		
@@ -527,20 +525,22 @@ public class BasketDAO
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
-		ResultSet			rs			= null;
+		ResultSet			result		= null;
 		String				sql			= null;
 		
 		try {
 			sql		= "select count(*) from basket";
 			pstmt	= con.prepareStatement(sql);
-			rs		= pstmt.executeQuery();
+			result	= pstmt.executeQuery();
 			
-			if(rs.next())	
-				total_rows	= rs.getInt(1);
+			if(result.next())	
+				total_rows	= result.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.fatal("execute basket totalRows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt, result);
 		}
 		
 		log.debug("execute basket totalRows do the DB work End. total_rows= " + total_rows);

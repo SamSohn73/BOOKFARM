@@ -14,7 +14,6 @@ import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CategoryVO;
-import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
 
 public class AdminCategoryListAction implements Action
@@ -27,6 +26,7 @@ public class AdminCategoryListAction implements Action
 	{
 		super();
 		this.path = path;
+		log.debug("AdminCategoryListAction Constructor. Destination path = " + path);
 	}
 	
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)

@@ -11,30 +11,41 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CustomerDAO;
+import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CustomerVO;
 
-public class AdminCustomerModifyAction implements Action {
+public class AdminCustomerModifyAction implements Action
+{
 	private final	Logger		log		=	Logger.getLogger(this.getClass());
 	private 		String		path;
 	
-	public AdminCustomerModifyAction(String path) {
+	public AdminCustomerModifyAction(String path)
+	{
 		super();
-		log.debug("AdminCustomerModifyAction create Start.");
 		this.path  = path;
-		log.debug("AdminCustomerModifyAction create End. path=" + path);
+		log.debug("AdminCustomerModifyAction Constructor. Destination path = " + path);
 	}
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
+	{
 		log.debug("AdminCustomerModifyAction execute Start.");
+		
+		HttpSession	session		= req.getSession();
+		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
+		AdminDAO	adminDAO	= new AdminDAO();
+		if (adminDAO.isAdmin(adminVO) == null) {
+			log.info("AdminCustomerModifyAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			path="error.jsp";
+		}
+		
 		String current_page 			=	req.getParameter("page");
-		log.debug("AdminCustomerModifyAction execute Page=" + current_page);
 		int		idx						=	Integer.parseInt(req.getParameter("idx"));
 		
 		
 		CustomerVO	vo				=	new CustomerVO();
 		CustomerDAO	dao				=	new	CustomerDAO();
-				
 		
 										vo.setUsername	(req.getParameter("username"));
 										vo.setPassword	(req.getParameter("password"));
@@ -50,7 +61,6 @@ public class AdminCustomerModifyAction implements Action {
 		Date		parsed			=	format.parse(date_s);
 		java.sql.Date	sql			=	new java.sql.Date(parsed.getTime());
 										vo.setBirthday(sql);
-										System.out.println(sql);
 		int			result			=	dao.updateRow(idx, vo);
 	
 		

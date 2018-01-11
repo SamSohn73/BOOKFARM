@@ -124,7 +124,6 @@ public class ProductDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 		
 		try {
@@ -156,7 +155,6 @@ public class ProductDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute productInsert do the DB work End.");
@@ -166,7 +164,7 @@ public class ProductDAO
 	
 	public int productDelete(int idx)
 	{
-		int result = 0;
+		int					result	= 0;
 		Connection			con		= getConnection();
 		PreparedStatement	pstmt	= null;
 
@@ -195,7 +193,6 @@ public class ProductDAO
 	{
 		int					result	= 0;
 		PreparedStatement	pstmt	= null;
-		Statement			stmt	= null;
 		Connection			con		= getConnection();
 		String sql					= null;
 		
@@ -227,7 +224,6 @@ public class ProductDAO
 				e1.printStackTrace();
 			}
 		} finally {
-			close(stmt);
 			close(con, pstmt);
 		}
 		log.debug("execute productUpdate do the DB work End.");
@@ -269,7 +265,7 @@ public class ProductDAO
 			log.fatal("execute productList do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute productList do the DB work End.");
 		return productList;
@@ -299,6 +295,8 @@ public class ProductDAO
 			// TODO Auto-generated catch block
 			log.fatal("execute productCountSearchingRows do the DB work failed!!!!!!!!!!");
 			e.printStackTrace();
+		} finally {
+			close(con, pstmt);
 		}
 		
 		log.debug("productCountSearchingRows DB work End. total_rows= " + total_rows);
@@ -347,7 +345,7 @@ public class ProductDAO
 			log.fatal("execute productSearch DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute productSearch DB work End.");
 		return productList;
@@ -381,8 +379,7 @@ public class ProductDAO
 			log.fatal("execute productGetRow DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute productGetRow DB work End.");
 		
@@ -411,8 +408,7 @@ public class ProductDAO
 			log.fatal("execute product totalRows do the DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(rs);
-			close(con, pstmt);
+			close(con, pstmt, rs);
 		}
 		
 		log.debug("execute product totalRows do the DB work End. total_rows= " + total_rows);
@@ -445,8 +441,7 @@ public class ProductDAO
 			log.fatal("execute productTotalIdx DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
-			close(result);
-			close(con, pstmt);
+			close(con, pstmt, result);
 		}
 		log.debug("execute productTotalIdx DB work End.");
 		

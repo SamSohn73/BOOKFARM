@@ -5,33 +5,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
 import org.apache.log4j.Logger;
-
 import gq.bookfarm.vo.CustomerVO;
+import gq.bookfarm.vo.OrdersVO;
 
-public class CustomerDAO {
+public class CustomerDAO 
+{
 
 	private final	Logger				log		= Logger.getLogger(this.getClass());
-	private			Connection			con		= null;
-	private			PreparedStatement	pstmt	= null;
-	private			ResultSet			rs		= null;
+	private Connection					con			=	null;
+	private PreparedStatement			pstmt		=	null;
+	private ResultSet					rs			=	null;
 	
 	public Connection getConnection()
 	{
+		
 		Context	ctx;
-		try
-		{
+		try{
 						ctx	=	new				InitialContext();
 			DataSource	ds	=	(DataSource)	ctx.lookup("java:comp/env/jdbc/MySQL");
 						con	=					ds.getConnection();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	getConnection error : "+e);
 		}
 		return con;
@@ -39,39 +36,30 @@ public class CustomerDAO {
 	
 	public void close(Connection con)
 	{
-		try
-		{
+		try{
 			if(con != null)
 				con.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	close(Connection con) error : "+e);
 		}
 	}
 	
 	public void close(PreparedStatement pstmt)
 	{
-		try
-		{
+		try{
 			if(pstmt != null)
 				pstmt.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	close(PreparedStatement pstmt) error : "+e);
 		}
 	}
 	
 	public void close(ResultSet rs)
 	{
-		try
-		{
+		try{
 			if(rs != null)
 				rs.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("CustomerDAO	close(ResultSet rs) error : "+e);
 		}
 	}
@@ -83,8 +71,7 @@ public class CustomerDAO {
 							+ "address2, phone1, email1, gender, newsletter, birthday, last_login, "
 							+ "login_cnt, account_created, on_line) "
 							+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), 0, now(), ?)";
-		try
-		{
+		try{
 				con		=	getConnection();
 				pstmt	=	con.prepareStatement(sql);
 							con.setAutoCommit(false);
@@ -106,23 +93,16 @@ public class CustomerDAO {
 				
 				if(result>0)
 							con.commit();			
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 							log.error("CustomerDAO	"
 									+ "insert(CustomerVO vo) error : "+e);
-			try
-			{
+			try{
 							con.rollback();
-			}
-			catch(SQLException e1)
-			{
+			}catch(SQLException e1){
 							log.error("CustomerDAO	SQLException error,"
 									+ " con.rollback() is not worked : "+e1);
 			}
-		}
-		finally
-		{
+		}finally{
 							close(rs);
 							close(pstmt);
 							close(con);
@@ -134,21 +114,16 @@ public class CustomerDAO {
 	{
 		String	sql			=	"select count(*) from customer";		
 		int		total_rows	=	0;
-		try
-		{
+		try{
 				con			=	getConnection();
 				pstmt		=	con.prepareStatement(sql);
 				rs			=	pstmt.executeQuery();
 			if(rs.next())
 				total_rows	=	rs.getInt(1);
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("CustomerDAO	"
 										+ "totalRows() error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -160,15 +135,13 @@ public class CustomerDAO {
 	{
 		CustomerVO	vo		=		null;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select * from Customer where idx=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setInt(1, idx);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					vo		=	new	CustomerVO();
 									vo.setIdx(rs.getInt("idx"));
 									vo.setUsername(rs.getString("username"));
@@ -189,14 +162,10 @@ public class CustomerDAO {
 									vo.setAccount_created(rs.getDate("account_created"));
 									
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getRow() error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -208,28 +177,22 @@ public class CustomerDAO {
 	{
 		CustomerVO	vo		=		null;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select username, password from Customer where phone1=? and firstname=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setString(1, phone1);
 									pstmt.setString(2, firstname);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					vo		=	new	CustomerVO();
 									vo.setUsername(rs.getString("username"));
 									vo.setPassword(rs.getString("password"));
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getRow() error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -240,8 +203,7 @@ public class CustomerDAO {
 	public CustomerVO pwdCheck(String username, String password)
 	{
 		CustomerVO	vo		=	null;
-		try
-		{
+		try{
 			String	sql		=	"select * from customer where "
 								+ "username=? and password=?";
 					con		=	getConnection();
@@ -249,8 +211,7 @@ public class CustomerDAO {
 								pstmt.setString(1, username);
 								pstmt.setString(2, password);
 					rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					vo		=	new	CustomerVO();
 								vo.setIdx(rs.getInt("idx"));
 								vo.setUsername(rs.getString("username"));
@@ -268,20 +229,14 @@ public class CustomerDAO {
 								vo.setLast_login(rs.getDate("last_login"));
 								vo.setLogin_cnt(rs.getInt("login_cnt"));
 								vo.setAccount_created(rs.getDate("account_created"));
-			}
-			else
-			{
+			}else{
 								log.error("CustomerDAO	"
 										+ "pwdCheck error : rs.next is not exist!!!!");
 			}
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 								log.error("CustomerDAO	"
 										+ "pwdCheck error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -293,22 +248,17 @@ public class CustomerDAO {
 	{
 		int			result		=	0;
 		String		sql			=	"update customer set on_line=?, login_cnt=login_cnt+1 where idx=?";
-		try 
-		{
+		try {
 					con			=	getConnection();
 					pstmt		=	con.prepareStatement(sql);
 									pstmt.setString(1, "O");
 									pstmt.setInt(2, idx);
 									
 					result		=	pstmt.executeUpdate();
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("CustomerDAO	"
 								+ "login count error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(pstmt);
 								close(con);
 		}		
@@ -319,22 +269,17 @@ public class CustomerDAO {
 	{
 		int			result		=	0;
 		String		sql			=	"update customer set on_line=? where idx=?";
-		try 
-		{
+		try {
 					con			=	getConnection();
 					pstmt		=	con.prepareStatement(sql);
 									pstmt.setString(1, "X");
 									pstmt.setInt(2, idx);
 									
 					result		=	pstmt.executeUpdate();
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("CustomerDAO	"
 								+ "logout check error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(pstmt);
 								close(con);
 		}		
@@ -354,8 +299,8 @@ public class CustomerDAO {
 								log.error("CustomerDAO	"
 										+ "delete error : "+e);
 		}finally {
-								close(pstmt);				
-								close(con);			
+								close(pstmt);
+								close(con);
 		}		
 		return result;
 	}
@@ -383,14 +328,10 @@ public class CustomerDAO {
 								pstmt.setInt(11, idx);
 								
 					result	=	pstmt.executeUpdate();
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 								log.error("CustomerDAO	"
 										+ "updateRow error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(pstmt);
 								close(con);
 		}
@@ -401,25 +342,23 @@ public class CustomerDAO {
 	{
 		String		name	=		null;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select username from Customer where idx=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setInt(1, idx);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					name	=		rs.getString("username");
+			}else {
+									log.error("CustomerDAO	"
+									+ "getName error : Name is not found");
+					/*name	=		"NoNamed";*/
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getName error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -482,31 +421,339 @@ public class CustomerDAO {
 	{
 		Vector<CustomerVO> list=	new Vector<CustomerVO>();
 		
-		try
-		{
+		try{
 			String 	sql		=		"select idx from Customer where username like ?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setString(1, "%"+searchWord+"%");
 					rs		=		pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				CustomerVO	vo		=	new	CustomerVO();
 									vo.setIdx(rs.getInt("idx"));
 									list.add(vo);
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("CustomerDAO	"
 											+ "getRow() error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
 		}		
 		return list;	
 	}
+	
+	
+	public int customerCountSearchingRows(String criteria, String searchWord)
+	{
+		log.debug("execute customerCountSearchingRows do the DB work Start.");
+		int					total_rows	= 0;
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		String				sql			= null;
+		
+		try {
+			if (criteria.equals("address") ) {
+				sql	= "select count(*) from customer " +
+						"where address1 like ? or address2 like ?" +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setString(2, "%" + searchWord + "%");
+			}
+			else if (criteria.equals("phone")) {
+				sql	= "select count(*) from customer " +
+						"where phone1 like ? or phone2 like ? or phone3 like ?" +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setString(2, "%" + searchWord + "%");
+				pstmt		.setString(3, "%" + searchWord + "%");
+			}
+			else if (criteria.equals("email")) {
+				sql	= "select count(*) from customer " +
+						"where email1 like ? or email2 like ?" +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setString(2, "%" + searchWord + "%");
+			}
+			else {
+				sql	= "select count(*) from customer " +
+						"where " +  criteria + " like ? " +
+						"order by idx desc";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+			}
+
+			rs			= pstmt.executeQuery();
+			
+			if(rs.next())	
+				total_rows	= rs.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.fatal("execute customerCountSearchingRows do the DB work failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		
+		log.debug("customerCountSearchingRows DB work End. total_rows= " + total_rows);
+		return total_rows;	
+	}
+	
+	
+	public Vector<CustomerVO> customerSearch(String criteria, String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearch DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where " +  criteria + " like ? " +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setInt(2, start);
+			pstmt		.setInt(3, limit);
+			
+			log.debug("execute customerSearch DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearch DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearch DB work End.");
+		return customerList;
+	}
+
+	public Vector<CustomerVO> customerSearchByAddr(String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearchByAddr DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where address1 like ? or address2 like ?" +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setString(2, "%" + searchWord + "%");
+			pstmt		.setInt(3, start);
+			pstmt		.setInt(4, limit);
+			
+			log.debug("execute customerSearchByAddr DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearchByAddr DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearchByAddr DB work End.");
+		return customerList;
+	}
+	public Vector<CustomerVO> customerSearchByPhone(String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearchByPhone DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where phone1 like ? or phone2 like ? or phone3 like ?" +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setString(2, "%" + searchWord + "%");
+			pstmt		.setString(3, "%" + searchWord + "%");
+			pstmt		.setInt(4, start);
+			pstmt		.setInt(5, limit);
+			
+			log.debug("execute customerSearchByPhone DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearchByPhone DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearchByPhone DB work End.");
+		return customerList;
+	}
+	public Vector<CustomerVO> customerSearchByEmail(String searchWord, int page, int limit)
+	{
+		Vector<CustomerVO>	customerList= new Vector<CustomerVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		// Calc start record through page;
+		int start					= (page - 1) * 10; 
+		
+		try {
+			log.debug("execute customerSearchByEmail DB work Start.");
+
+			String sql	= "select * from customer " +
+							"where email1 like ? or email2 like ?" +
+							"order by idx desc limit ?, ?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setString(1, "%" + searchWord + "%");
+			pstmt		.setString(2, "%" + searchWord + "%");
+			pstmt		.setInt(3, start);
+			pstmt		.setInt(4, limit);
+			
+			log.debug("execute customerSearchByEmail DB work... pstmt.toString()" + pstmt.toString());
+			
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				CustomerVO list = new CustomerVO(result.getInt("idx"), 
+											result.getString("username"), 
+											result.getString("password"), 
+											result.getString("firstname"), 
+											result.getString("lastname"), 
+											result.getString("postcode"), 
+											result.getString("address1"),
+											result.getString("address2"), 
+											result.getString("phone1"), 
+											result.getString("phone2"), 
+											result.getString("phone3"),
+											result.getString("email1"), 
+											result.getString("email2"), 
+											result.getString("gender"),
+											result.getString("newsletter"), 
+											result.getDate("birthday"), 
+											result.getInt("grade"), 
+											result.getDate("last_login"),
+											result.getInt("login_cnt"),
+											result.getDate("account_created"),
+											result.getBoolean("on_line"));
+				customerList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute customerSearchByEmail DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(con);
+		}
+		log.debug("execute customerSearchByEmail DB work End.");
+		return customerList;
+	}
+	
 }

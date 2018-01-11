@@ -10,7 +10,7 @@
     pageEncoding="UTF-8"%>
     
 <%
-	CustomerVO		cVo			=	(CustomerVO) session.getAttribute("LoginedUserVO");
+	CustomerVO		cVo			=	(CustomerVO) session.getAttribute("loggedInUserVO");
 	int				customer_idx=	cVo.getIdx();
 	
 	

@@ -14,24 +14,23 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.vo.ProductVO;
 import gq.bookfarm.vo.ReviewVO;
 
-public class ReviewDAO {
+public class ReviewDAO 
+{
 	
 	private final	Logger				log		= Logger.getLogger(this.getClass());
-	private			Connection			con		= null;
-	private			PreparedStatement	pstmt	= null;
-	private			ResultSet			rs		= null;
+	private Connection					con			=	null;
+	private PreparedStatement			pstmt		=	null;
+	private ResultSet					rs			=	null;
+	
 	
 	public Connection getConnection()
-	{
+	{		
 		Context	ctx;
-		try
-		{
+		try{
 						ctx	=	new				InitialContext();
 			DataSource	ds	=	(DataSource)	ctx.lookup("java:comp/env/jdbc/MySQL");
 						con	=					ds.getConnection();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("ReviewsDAO	getConnection error : "+e);
 		}
 		return con;
@@ -39,39 +38,30 @@ public class ReviewDAO {
 	
 	public void close(Connection con)
 	{
-		try
-		{
+		try{
 			if(con != null)
 				con.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("ReviewsDAO	close(Connection con) error : "+e);
 		}
 	}
 	
 	public void close(PreparedStatement pstmt)
 	{
-		try
-		{
+		try{
 			if(pstmt != null)
 				pstmt.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("ReviewsDAO	close(PreparedStatement pstmt) error : "+e);
 		}
 	}
 	
 	public void close(ResultSet rs)
 	{
-		try
-		{
+		try{
 			if(rs != null)
 				rs.close();
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			log.error("ReviewsDAO	close(ResultSet rs) error : "+e);
 		}
 	}
@@ -82,8 +72,7 @@ public class ReviewDAO {
 		String	sql		=	"insert into review (products_idx, customers_idx, reviews_rating, "
 							+"review_title, review_text, date_added, last_modified) "
 							+"values(?,?,?,?,?,now(), now())";
-		try
-		{
+		try{
 				con		=	getConnection();
 				pstmt	=	con.prepareStatement(sql);
 							con.setAutoCommit(false);
@@ -97,24 +86,17 @@ public class ReviewDAO {
 				result	=	pstmt.executeUpdate();
 				
 				if(result>0)
-							con.commit();			
-		}
-		catch(Exception e)
-		{
+							con.commit();
+		}catch(Exception e){
 							log.error("ReviewsDAO	"
 									+ "insert(reviewVO vo) error : "+e);
-			try
-			{
+			try{
 							con.rollback();
-			}
-			catch(SQLException e1)
-			{
+			}catch(SQLException e1){
 							log.error("ReviewsDAO	SQLException error,"
 									+ " con.rollback() is not worked : "+e1);
 			}
-		}
-		finally
-		{
+		}finally{
 							close(rs);
 							close(pstmt);
 							close(con);
@@ -126,21 +108,16 @@ public class ReviewDAO {
 	{
 		String	sql			=	"select count(*) from review";		
 		int		total_rows	=	0;
-		try
-		{
+		try{
 				con			=	getConnection();
 				pstmt		=	con.prepareStatement(sql);
 				rs			=	pstmt.executeQuery();
 			if(rs.next())
 				total_rows	=	rs.getInt(1);
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("ReviewsDAO	"
 										+ "totalRows() error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -152,22 +129,17 @@ public class ReviewDAO {
 	{
 		int		result		=	0;
 		String	sql			=	"select customers_idx from review where idx=?";
-		try
-		{
+		try{
 				con			=	getConnection();
 				pstmt		=	con.prepareStatement(sql);
 								pstmt.setInt(1, idx);
 				rs			=	pstmt.executeQuery();
 			if(rs.next())
 				result		=	rs.getInt(1);
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("ReviewsDAO	"
 										+ "getReviewWriterIdx error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -180,22 +152,17 @@ public class ReviewDAO {
 	{
 		String	sql			=	"select count(*) from review where products_idx=?";		
 		int		total_rows	=	0;
-		try
-		{
+		try{
 				con			=	getConnection();
 				pstmt		=	con.prepareStatement(sql);
 								pstmt.setInt(1, products_idx);
 				rs			=	pstmt.executeQuery();
 			if(rs.next())
 				total_rows	=	rs.getInt(1);
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("ReviewsDAO	"
 										+ "oneProductsTotalRows error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -207,22 +174,17 @@ public class ReviewDAO {
 	{
 		String	sql			=	"select count(*) from review where customers_idx=?";		
 		int		total_rows	=	0;
-		try
-		{
+		try{
 				con			=	getConnection();
 				pstmt		=	con.prepareStatement(sql);
 								pstmt.setInt(1, customers_idx);
 				rs			=	pstmt.executeQuery();
 			if(rs.next())
 				total_rows	=	rs.getInt(1);
-		}
-		catch(SQLException e)
-		{
+		}catch(SQLException e){
 								log.error("ReviewsDAO	"
 										+ "oneCustomersTotalRows error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -240,8 +202,7 @@ public class ReviewDAO {
 												sql.append("order by date_added desc, ");
 												sql.append("last_modified desc, ");
 												sql.append("reviews_read asc limit ?,?");
-		try
-		{
+		try{
 							con		=			getConnection();
 							pstmt	=			con.prepareStatement(sql.toString());
 												pstmt.setInt(1, products_idx);
@@ -249,8 +210,7 @@ public class ReviewDAO {
 												pstmt.setInt(3, start);
 												pstmt.setInt(4, limit);
 							rs		=			pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -286,16 +246,14 @@ public class ReviewDAO {
 												sql.append("order by date_added desc, ");
 												sql.append("last_modified desc, ");
 												sql.append("reviews_read asc limit ?,?");
-		try
-		{
+		try{
 							con		=			getConnection();
 							pstmt	=			con.prepareStatement(sql.toString());
 												pstmt.setInt(1, products_idx);
 												pstmt.setInt(2, start);
 												pstmt.setInt(3, limit);
 							rs		=			pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -330,15 +288,13 @@ public class ReviewDAO {
 												sql.append("order by date_added desc, ");
 												sql.append("last_modified desc, ");
 												sql.append("reviews_read asc limit ?,?");
-		try
-		{
+		try{
 							con		=			getConnection();
 							pstmt	=			con.prepareStatement(sql.toString());
 												pstmt.setInt(1, start);
 												pstmt.setInt(2, limit);
 							rs		=			pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -374,16 +330,14 @@ public class ReviewDAO {
 												sql.append("order by date_added desc, ");
 												sql.append("last_modified desc, ");
 												sql.append("reviews_read asc limit ?,?");
-		try
-		{
+		try{
 							con		=			getConnection();
 							pstmt	=			con.prepareStatement(sql.toString());
 												pstmt.setInt(1, customers_idx);
 												pstmt.setInt(2, start);
 												pstmt.setInt(3, limit);
 							rs		=			pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -419,16 +373,14 @@ public class ReviewDAO {
 												sql.append("order by date_added desc, ");
 												sql.append("last_modified desc, ");
 												sql.append("reviews_read asc limit ?,?");
-		try
-		{
+		try{
 							con		=			getConnection();
 							pstmt	=			con.prepareStatement(sql.toString());
 												pstmt.setInt(1, customers_idx);
 												pstmt.setInt(2, start);
 												pstmt.setInt(3, limit);
 							rs		=			pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -459,15 +411,13 @@ public class ReviewDAO {
 		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 		String				sql		=	"select * from review where customers_idx=? order by "
 										+ "date_added desc, last_modified desc, reviews_read asc limit 0,?";
-		try
-		{
+		try{
 							con		=			getConnection();
 							pstmt	=			con.prepareStatement(sql);
 												pstmt.setInt(1, customers_idx);
 												pstmt.setInt(2, limit);
 							rs		=			pstmt.executeQuery();
-			while(rs.next())
-			{
+			while(rs.next()){
 				ReviewVO	vo		=	new		ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -497,15 +447,13 @@ public class ReviewDAO {
 	{
 		ReviewVO	vo		=		null;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select * from review where idx=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setInt(1, idx);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					vo		=	new	ReviewVO();
 									vo.setIdx(rs.getInt("idx"));
 									vo.setProducts_idx(rs.getInt("products_idx"));
@@ -517,14 +465,10 @@ public class ReviewDAO {
 									vo.setLast_modified(rs.getDate("last_modified"));
 									vo.setReviews_read(rs.getInt("reviews_read"));
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("ReviewsDAO	"
 											+ "getRow() error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -534,27 +478,21 @@ public class ReviewDAO {
 	
 	public int getProduct_idx(int idx)
 	{
-			int		p_idx	=		0;
+		int			p_idx	=		0;
 		
-		try
-		{
+		try{
 			String 	sql		=		"select products_idx from review where idx=?";
 					con		=		getConnection();
 					pstmt	=		con.prepareStatement(sql);
 									pstmt.setInt(1, idx);
 					rs		=		pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 					p_idx	=		rs.getInt("products_idx");
 			}
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 									log.error("ReviewsDAO	"
 											+ "getProduct_idx("+idx+") error : "+e);
-		}
-		finally
-		{
+		}finally{
 									close(rs);
 									close(pstmt);
 									close(con);
@@ -567,15 +505,12 @@ public class ReviewDAO {
 		int			result	=	0;
 		String		sql		=	"update review set reviews_read=reviews_read+1";
 					sql		+=	" where idx=?";
-		try
-		{
+		try{
 					con		=	getConnection();
 					pstmt	=	con.prepareStatement(sql);
 								pstmt.setInt(1, idx);
-					result	=	pstmt.executeUpdate();			
-		}
-		catch(Exception e)
-		{
+					result	=	pstmt.executeUpdate();
+		}catch(Exception e){
 								log.error("ReviewsDAO	"
 										+ "hitUpdate() error : "+e);
 		}finally {
@@ -590,8 +525,7 @@ public class ReviewDAO {
 	public int pwdCheck(int idx, String username, String password)
 	{
 			int		result	=	0;
-		try
-		{
+		try{
 			String	sql		=	"select idx from customer where "
 								+ "username=? and password=?";
 					con		=	getConnection();
@@ -599,28 +533,23 @@ public class ReviewDAO {
 								pstmt.setString(1, username);
 								pstmt.setString(2, password);
 					rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 			ReviewVO	vo	=	new	ReviewVO();
 								vo.setIdx(rs.getInt(1));
 			int		idx_i	=	vo.getIdx();
 			
-					System.out.println("����Ȯ��idx : "+idx);
-					System.out.println("����Ȯ��idx_i : "+idx_i);
+					log.debug("idx: "+idx);
+					log.debug("idx_i : "+idx_i);
 				if(idx_i==idx)
 					result	=	1;
 				else
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("reviewDAO	"
 										+ "pwdCheck error : text's writer is not currect");
 			}
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 								log.error("ReviewsDAO	"
 										+ "pwdCheck error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -631,8 +560,7 @@ public class ReviewDAO {
 	public int getCustomerIdx(String username, String password)
 	{
 			int		result	=	0;
-		try
-		{
+		try{
 			String	sql		=	"select idx from customer where "
 								+ "username=? and password=?";
 					con		=	getConnection();
@@ -640,20 +568,15 @@ public class ReviewDAO {
 								pstmt.setString(1, username);
 								pstmt.setString(2, password);
 					rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
+			if(rs.next()){
 			ReviewVO	vo	=	new	ReviewVO();
 								vo.setIdx(rs.getInt(1));
 					result	=	1;				
 			}
-		}
-		catch(Exception e)
-		{
-								log.error("QQQQQQQQ reviewDAO	"
+		}catch(Exception e){
+								log.error("reviewDAO	"
 										+ "getCustomerIdx error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(rs);
 								close(pstmt);
 								close(con);
@@ -693,14 +616,10 @@ public class ReviewDAO {
 								pstmt.setString(2, review_text);
 								pstmt.setInt(3, idx);
 					result	=	pstmt.executeUpdate();
-		}
-		catch (SQLException e)
-		{			
+		}catch (SQLException e){
 								log.error("ReviewsDAO	"
 										+ "updateRow error : "+e);
-		}
-		finally
-		{
+		}finally{
 								close(pstmt);
 								close(con);
 		}
@@ -714,24 +633,18 @@ public class ReviewDAO {
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
 			int			result	=	0;
-		try
-		{
+		try{
 						con		=	getConnection();
 						pstmt	=	con.prepareStatement(sql);
 									pstmt.setString(1, "%"+searchWord+"%");
 						rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
-						result	=	rs.getInt(1);				
+			if(rs.next()){
+						result	=	rs.getInt(1);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 									log.error("ReviewsDAO	"
 											+ "searchList error : "+e);
-		}
-		finally
-		{
+		}finally{
 			close(rs);
 			close(pstmt);
 			close(con);
@@ -747,24 +660,18 @@ public class ReviewDAO {
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
 			int			result	=	0;
-		try
-		{
+		try{
 						con		=	getConnection();
 						pstmt	=	con.prepareStatement(sql);
 									pstmt.setInt(1, searchWord);
 						rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
-						result	=	rs.getInt(1);				
+			if(rs.next()){
+						result	=	rs.getInt(1);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 									log.error("ReviewsDAO	"
 											+ "searchList error : "+e);
-		}
-		finally
-		{
+		}finally{
 			close(rs);
 			close(pstmt);
 			close(con);
@@ -781,25 +688,19 @@ public class ReviewDAO {
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
 			int			result	=	0;
-		try
-		{
+		try{
 						con		=	getConnection();
 						pstmt	=	con.prepareStatement(sql);
 									pstmt.setInt(1, products_idx);
 									pstmt.setString(2, "%"+searchWord+"%");
 						rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
-						result	=	rs.getInt(1);				
+			if(rs.next()){
+						result	=	rs.getInt(1);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 									log.error("ReviewsDAO	"
 											+ "searchOneProductList error : "+e);
-		}
-		finally
-		{
+		}finally{
 			close(rs);
 			close(pstmt);
 			close(con);
@@ -816,25 +717,19 @@ public class ReviewDAO {
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
 			int			result	=	0;
-		try
-		{
+		try{
 						con		=	getConnection();
 						pstmt	=	con.prepareStatement(sql);
 									pstmt.setInt(1, products_idx);
 									pstmt.setInt(2, searchWord);
 						rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
-						result	=	rs.getInt(1);				
+			if(rs.next()){
+						result	=	rs.getInt(1);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 									log.error("ReviewsDAO	"
 											+ "searchOneProductList error : "+e);
-		}
-		finally
-		{
+		}finally{
 			close(rs);
 			close(pstmt);
 			close(con);
@@ -851,25 +746,19 @@ public class ReviewDAO {
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
 			int			result	=	0;
-		try
-		{
+		try{
 						con		=	getConnection();
 						pstmt	=	con.prepareStatement(sql);
 									pstmt.setInt(1, customers_idx);
 									pstmt.setString(2, "%"+searchWord+"%");
 						rs		=	pstmt.executeQuery();
-			if(rs.next())
-			{
-						result	=	rs.getInt(1);				
+			if(rs.next()){
+						result	=	rs.getInt(1);
 			}
-		}
-		catch (SQLException e)
-		{
-									log.error("QQQQQQQQ reviewDAO	"
+		}catch (SQLException e){
+									log.error("reviewDAO	"
 											+ "searchOneCustomerList error : "+e);
-		}
-		finally
-		{
+		}finally{
 			close(rs);
 			close(pstmt);
 			close(con);
@@ -888,16 +777,14 @@ public class ReviewDAO {
 									sql		+=	" like ? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
 									sql		+=	"reviews_read asc limit ?,?";		
-		try 
-		{
+		try{
 									con		=	getConnection();
 									pstmt	=	con.prepareStatement(sql);
 												pstmt.setString(1, "%"+searchWord+"%");
 												pstmt.setInt(2, start);
 												pstmt.setInt(3, limit);
 									rs		=	pstmt.executeQuery();
-			while(rs.next()) 
-			{
+			while(rs.next()){
 				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -910,14 +797,10 @@ public class ReviewDAO {
 												vo.setReviews_read(rs.getInt(9));				
 												list.add(vo);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 												log.error("ReviewsDAO	"
 														+ "getSearchList error : "+e);
-		}
-		finally
-		{
+		}finally{
 												close(rs);
 												close(pstmt);
 												close(con);
@@ -935,16 +818,14 @@ public class ReviewDAO {
 									sql		+=	"=? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
 									sql		+=	"reviews_read asc limit ?,?";		
-		try 
-		{
+		try {
 									con		=	getConnection();
 									pstmt	=	con.prepareStatement(sql);
 												pstmt.setInt(1, searchWord);
 												pstmt.setInt(2, start);
 												pstmt.setInt(3, limit);
 									rs		=	pstmt.executeQuery();
-			while(rs.next()) 
-			{
+			while(rs.next()) {
 				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -957,14 +838,10 @@ public class ReviewDAO {
 												vo.setReviews_read(rs.getInt(9));				
 												list.add(vo);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 												log.error("ReviewsDAO	"
 														+ "getSearchList error : "+e);
-		}
-		finally
-		{
+		}finally{
 												close(rs);
 												close(pstmt);
 												close(con);
@@ -983,8 +860,7 @@ public class ReviewDAO {
 									sql		+=	" like ? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
 									sql		+=	"reviews_read asc limit ?,?";		
-		try 
-		{
+		try {
 									con		=	getConnection();
 									pstmt	=	con.prepareStatement(sql);
 												pstmt.setInt(1, products_idx);
@@ -992,8 +868,7 @@ public class ReviewDAO {
 												pstmt.setInt(3, start);
 												pstmt.setInt(4, limit);
 									rs		=	pstmt.executeQuery();
-			while(rs.next()) 
-			{
+			while(rs.next()) {
 				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -1006,14 +881,10 @@ public class ReviewDAO {
 												vo.setReviews_read(rs.getInt(9));
 												list.add(vo);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 												log.error("ReviewsDAO	"
 														+ "getProductSearchList error : "+e);
-		}
-		finally
-		{
+		}finally{
 												close(rs);
 												close(pstmt);
 												close(con);
@@ -1032,8 +903,7 @@ public class ReviewDAO {
 									sql		+=	"=? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
 									sql		+=	"reviews_read asc limit ?,?";		
-		try 
-		{
+		try {
 									con		=	getConnection();
 									pstmt	=	con.prepareStatement(sql);
 												pstmt.setInt(1, products_idx);
@@ -1041,8 +911,7 @@ public class ReviewDAO {
 												pstmt.setInt(3, start);
 												pstmt.setInt(4, limit);
 									rs		=	pstmt.executeQuery();
-			while(rs.next()) 
-			{
+			while(rs.next()) {
 				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -1055,14 +924,10 @@ public class ReviewDAO {
 												vo.setReviews_read(rs.getInt(9));
 												list.add(vo);
 			}
-		}
-		catch (SQLException e)
-		{
+		}catch (SQLException e){
 												log.error("ReviewsDAO	"
 														+ "getProductSearchList error : "+e);
-		}
-		finally
-		{
+		}finally{
 												close(rs);
 												close(pstmt);
 												close(con);
@@ -1081,8 +946,7 @@ public class ReviewDAO {
 									sql		+=	" like ? order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
 									sql		+=	"reviews_read asc limit ?,?";		
-		try 
-		{
+		try {
 									con		=	getConnection();
 									pstmt	=	con.prepareStatement(sql);
 												pstmt.setInt(1, customers_idx);
@@ -1090,8 +954,7 @@ public class ReviewDAO {
 												pstmt.setInt(3, start);
 												pstmt.setInt(4, limit);
 									rs		=	pstmt.executeQuery();
-			while(rs.next()) 
-			{
+			while(rs.next()) {
 				ReviewVO			vo		=	new	ReviewVO();
 												vo.setIdx(rs.getInt(1));
 												vo.setProducts_idx(rs.getInt(2));
@@ -1104,14 +967,10 @@ public class ReviewDAO {
 												vo.setReviews_read(rs.getInt(9));				
 												list.add(vo);
 			}
-		}
-		catch (SQLException e)
-		{
-												log.error("QQQQQQQQ reviewDAO	"
+		}catch (SQLException e){
+												log.error("reviewDAO	"
 														+ "getCustomerSearchList error : "+e);
-		}
-		finally
-		{
+		}finally{
 												close(rs);
 												close(pstmt);
 												close(con);

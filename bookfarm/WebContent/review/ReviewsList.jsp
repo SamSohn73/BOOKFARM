@@ -43,9 +43,9 @@
 		//If connection comes from myPage or myList, this category must be needed...
 		int		customers_idx	=	0;
 		CustomerVO	userVO		=	null;
-		if(session.getAttribute("LoginedUserVO")!=null)
+		if(session.getAttribute("loggedInUserVO")!=null)
 		{	
-				userVO			=	(CustomerVO)session.getAttribute("LoginedUserVO");
+				userVO			=	(CustomerVO)session.getAttribute("loggedInUserVO");
 				customers_idx	=	userVO.getIdx();
 		}
 		//The type must be one of 'list', 'myList' or 'myPage'
@@ -264,7 +264,7 @@
 				}
 				else
 				{
-						out.print("<a href=../qReviewsLists.do?page="+(currentPage-1)+
+						out.print("<a href=./qReviewsLists.do?page="+(currentPage-1)+
 								"&products_idx="+products_idx+
 								"&customers_idx="+customers_idx+
 								"&type="+type+
@@ -279,7 +279,7 @@
 					}
 					else
 					{					
-						out.print("<a href=../qReviewsLists.do?page="+i+
+						out.print("<a href=./qReviewsLists.do?page="+i+
 								"&products_idx="+products_idx+
 								"&customers_idx="+customers_idx+
 								"&type="+type+
@@ -293,7 +293,7 @@
 				}
 				else
 				{
-						out.print("<a href=../qReviewsLists.do?page="+(currentPage+1)+
+						out.print("<a href=./qReviewsLists.do?page="+(currentPage+1)+
 								"&products_idx="+products_idx+
 								"&customers_idx="+customers_idx+
 								"&type="+type+
@@ -309,7 +309,7 @@
 				}
 				else
 				{
-					out.print("<a href=../qReviewsSearch.do?page="+(currentPage-1)+
+					out.print("<a href=./qReviewsSearch.do?page="+(currentPage-1)+
 							"&searchCondition="+searchCondition+
 							"&searchWord="+searchWord+
 							"&products_idx="+products_idx+
@@ -326,7 +326,7 @@
 					}
 					else
 					{					
-						out.print("<a href=../qReviewsSearch.do?page="+i+
+						out.print("<a href=./qReviewsSearch.do?page="+i+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
 								"&products_idx="+products_idx+
@@ -342,7 +342,7 @@
 				}
 				else
 				{
-						out.print("<a href=../qReviewsSearch.do?page="+(currentPage+1)+
+						out.print("<a href=./qReviewsSearch.do?page="+(currentPage+1)+
 								"&searchCondition="+searchCondition+
 								"&searchWord="+searchWord+
 								"&products_idx="+products_idx+
@@ -380,9 +380,15 @@ if(!type.equals("myPage"))
 					<form action="qReviewsSearch.do?products_idx=<%=products_idx %>&type=<%=type%>"
 					method="post" name="searchform">
 						<select class="btn" name="searchCondition">
-							<option value="customers_idx">작성자</option>
-							<option value="review_title">제목</option>
-							<option value="review_text">글내용</option>
+							<option value="customers_idx"
+							<%if(searchCondition!=null && searchCondition.equals("customers_idx")){%>
+							selected<%}%>>작성자</option>
+							<option value="review_title"
+							<%if(searchCondition!=null && searchCondition.equals("review_title")){%>
+							selected<%}%>>제목</option>
+							<option value="review_text"
+							<%if(searchCondition!=null && searchCondition.equals("review_text")){%>
+							selected<%}%>>글내용</option>
 						</select>
 						<input type="text" class="클래스_btn1" size="10" name="searchWord" required="required"/>
 						<input type="button" class="클래스_btn1" value="검색" onclick="search()">
@@ -390,7 +396,7 @@ if(!type.equals("myPage"))
 				</td>
 				<%
 				if(type.equals("list") )
-				{	if(session.getAttribute("LoginedUserVO")!=null){
+				{	if(session.getAttribute("loggedInUserVO")!=null){
 				%>
 				<td align="right">
 				<a href="./review/ReviewsWrite.jsp?page=<%=currentPage%>

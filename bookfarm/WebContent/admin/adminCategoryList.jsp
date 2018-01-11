@@ -51,18 +51,27 @@
 	<table>
 		<caption>카테고리 목록</caption>
 		<tr>
+			<th>수정/삭제</th>
 			<th>No.</th>
-			<th>카테고리 번호</th>
 			<th>상위 카테고리</th>
+			<th>카테고리 번호</th>
 			<th>카테고리 이름</th>
 		</tr>
 <%	
 	int idNum = totalRows - (currentPage-1)*10;
 	for(CategoryVO category: categories) {	%>
 		<tr>
+			<td>
+				<a href="adminCategoryModifyView.do?idx=<%=category.getIdx()%>&page=<%=currentPage%>">
+					<input type='button' value="수정">
+				</a>
+				<a href="adminCategoryDelete.do?idx=<%=category.getIdx()%>&page=<%=currentPage%>">
+					<input type='button' value="삭제">
+				</a>
+			</td>
 			<td><%=idNum%></td>
-			<td><%=category.getIdx()%></td>
 			<td><%=category.getParent_idx()%></td>
+			<td><%=category.getIdx()%></td>
 			<td><%=category.getCategory_name()%></td>
 		</tr>
 <%		idNum--;
@@ -87,7 +96,7 @@
 			%>
 			<%//[next] display
 				if (currentPage <= endPage && currentPage < totalPages) {
-					out.print("<a href=adminCategoryList.do?page=" + (currentPage + 1) + ">");
+					out.print("<a href=../adminCategoryList.do?page=" + (currentPage + 1) + ">");
 					out.print(" [next]</a>");
 				}
 			%>
@@ -107,7 +116,7 @@
 					<input type='button' value='검색' onclick="search()">						
 				</form>
 			</td>
-			<td align='right'><a href="admin/adminCategoryAddView.do?page=<%=currentPage%>">[카테고리 추가]</a></td>
+			<td align='right'><a href="adminCategoryAddView.do?page=<%=currentPage%>">[카테고리 추가]</a></td>
 		</tr>	
 	</table>
 	<h2><a href="admin/adminLogin.jsp">처음으로</a></h2>

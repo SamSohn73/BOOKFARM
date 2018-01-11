@@ -4,20 +4,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.ReviewVO;
 
-public class ReviewsInsertAction implements Action {
+public class ReviewsInsertAction implements Action 
+{
+	private final Logger log = Logger.getLogger(this.getClass());
 	private String path;
-	public ReviewsInsertAction(String path) {
+	public ReviewsInsertAction(String path) 
+	{
 		super();
 		this.path = path;
 	}
 	@Override
-	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception 
+	{
 		String	type			=	req.getParameter("type");
 		int		page			=	Integer.parseInt(req.getParameter("page"));
 		String	review_title	=	req.getParameter("review_title");
@@ -28,47 +34,39 @@ public class ReviewsInsertAction implements Action {
 		int		result			=	0;
 		
 		HttpSession session		=	req.getSession();
-		CustomerVO cVo			=	(CustomerVO)session.getAttribute("LoginedUserVO");
+		CustomerVO cVo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
 		
 		ReviewDAO dao			=	new ReviewDAO();
 		ReviewVO vo				=	new ReviewVO();
 		
-		if(typeView.equals("insert"))
-		{				
-				products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
-									vo.setReview_text(review_text);
-									vo.setReview_title(review_title);
-									vo.setProducts_idx(products_idx);
-									vo.setCustomers_idx(cVo.getIdx());
-				result			=	dao.insert(vo);
+		if(typeView.equals("insert")){
+			products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
+			vo.setReview_text(review_text);
+			vo.setReview_title(review_title);
+			vo.setProducts_idx(products_idx);
+			vo.setCustomers_idx(cVo.getIdx());
+			result			=	dao.insert(vo);
 				
-			if(result>0)
-			{
-				path			+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
+			if(result>0){
+				path		+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
+			}else{
+				log.debug("ReviewsInsertAction Insert error");
+				path = "error.jsp";
 			}
-			else
-			{
-				System.out.println("���ٷ��ڤӤä�������������");
-			}
-		}
-		else if(typeView.equals("modify"))
-		{
-				idx				=	Integer.parseInt(req.getParameter("idx"));
-				result			=	dao.updateRow(idx, review_title, review_text);
+		}else if(typeView.equals("modify")){
+			idx				=	Integer.parseInt(req.getParameter("idx"));
+			result			=	dao.updateRow(idx, review_title, review_text);
 				
-				
-			if(result>0)
-			{
+			if(result>0){
 				typeView		=	"view";
-										req.setAttribute("idx", idx);
-										req.setAttribute("type", type);
-										req.setAttribute("page", page);
-										req.setAttribute("typeView", typeView);
+				req.setAttribute("idx", idx);
+				req.setAttribute("type", type);
+				req.setAttribute("page", page);
+				req.setAttribute("typeView", typeView);
 				path			=	"qReviewsView.do";
-			}
-			else
-			{
-				System.out.println("���ٷ��ڤӤä�������������");
+			}else{
+				log.debug("ReviewsInsertAction Insert error");
+				path = "error.jsp";
 			}
 		}
 		

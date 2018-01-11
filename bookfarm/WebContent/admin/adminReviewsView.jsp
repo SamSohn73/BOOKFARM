@@ -8,47 +8,27 @@
 <%@ page import="gq.bookfarm.dao.CustomerDAO" %>
 <%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
-<%	
-	HttpSession	sess			=	request.getSession();
-	String	type				=	request.getParameter("type");
-	
-	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("LoginedUserVO");
+<%
 	ReviewVO	vo				=	(ReviewVO)request.getAttribute("vo");
+	int		current_page		=	Integer.parseInt(request.getParameter("page"));
+	int		idx					=	Integer.parseInt(request.getParameter("idx"));
+	int		products_idx		=	Integer.parseInt(request.getParameter("p"));
+	int		parent_idx			=	Integer.parseInt(request.getParameter("par"));
+	int		category_idx		=	Integer.parseInt(request.getParameter("cat"));
+	String	searchCondition		=	request.getParameter("con");
+	String	searchWord			=	request.getParameter("word");
 	CustomerDAO	cDao			=	new CustomerDAO();
-	int			idx				=	vo.getIdx();
-	int			currentPage		=	Integer.parseInt(request.getParameter("page"));
-	int			products_idx	=	vo.getProducts_idx();
-
-	/*CSS	
-	left
-	right
-	file_t
-	btn
-	*/
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-	function returnList1(){
-		location.href="../qAdminReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
-	}
-	function returnList2(){
-		location.href="./qAdminReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
-	}
-	function modifyList(){
-		location.href="./qAdminReviewsModify.do?idx=<%=idx%>&page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
-	}
-	function deleteRow(){
-		location.href="./AdminReviewsDelete.do?idx=<%=idx%>&page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
-	}
-</script>
 </head>
 <body>
-<form action="./qReviewsList.do" method="post">
+<form action="./adminReviewsModify.do?idx=<%=idx%>&page=<%=current_page%>&p=<%=products_idx%>
+		&par=<%=parent_idx%>&cat=<%=category_idx%>&con=<%=searchCondition%>
+		&word=<%=searchWord%>" method="post">
 <table>
 		<caption>리뷰 보기</caption>
 	<tr>
@@ -69,12 +49,16 @@
 	<tr>
 		<td colspan="2" class="btn_align">
 		<input class="btn" type="button" value="뒤로가기" onclick="javascript:history.back()">
-		<input class="btn" type="button" value="목록보기"onclick="returnList2()">
 		
-		<%		if(vo.getCustomers_idx()==(cVo.getIdx())){ %>
-		 <input class="btn" type="button" value="수정하기"onclick="modifyList()">
-		 <input class="btn" type="button" value="삭제하기"onclick="deleteRow()">
-		<%		} %>
+		<a href="./adminReviewsList.do">
+		<input class="btn" type="button" value="목록보기"></a>
+		
+		<input class="btn" type="submit" value="수정하기"/>
+		
+		<a href="./adminReviewsDelete.do?idx=<%=idx%>&page=<%=current_page%>&products_idx=<%=products_idx%>
+		&parent_idx=<%=parent_idx%>&category_idx=<%=category_idx%>&searchCondition=<%=searchCondition%>
+		&searchWord=<%=searchWord%>">
+		<input class="btn" type="button" value="삭제하기"></a>
 		</td>
 	</tr>
 </table>
