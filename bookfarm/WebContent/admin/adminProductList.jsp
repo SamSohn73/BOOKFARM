@@ -57,6 +57,7 @@
 			<th>제목</th>
 			<th>가격</th>
 			<th>재고수량</th>
+			<th>설명</th>
 		</tr>
 <%	
 	int idNum = totalRows - (currentPage-1)*10;
@@ -65,9 +66,13 @@
 			<td><%=idNum%></td>
 			<td><%=product.getCategory_idx()%></td>
 			<td><%=product.getProduct_image()%></td>
-			<td><%=product.getProduct_name()%></td>
+			<td>
+				<a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
+				<%=product.getProduct_name()%></a>
+			</td>
 			<td><%=product.getProduct_price()%></td>
 			<td><%=product.getProduct_quantity()%></td>
+			<td><%=product.getProduct_desc() %></td>
 		</tr>
 <%		idNum--;
 	} %>

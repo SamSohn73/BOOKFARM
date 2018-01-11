@@ -8,7 +8,7 @@
 </head>
 <body>
 <%-- 사용자가 내용을 고치는 부분 qModify에서 넘겨받은 num 가지고 가기--%> 
-	<form action="qUpdate.do" method="post" 
+	<form action="adminProductModify.do" method="post" 
 	enctype="multipart/form-data">
 	<table>
 	<caption>상품 수정</caption>

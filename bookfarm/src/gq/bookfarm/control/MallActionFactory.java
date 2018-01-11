@@ -13,6 +13,8 @@ import gq.bookfarm.model.AdminCustomerModifyViewAction;
 import gq.bookfarm.model.AdminLoginAction;
 import gq.bookfarm.model.AdminLogoutAction;
 import gq.bookfarm.model.AdminProductListAction;
+import gq.bookfarm.model.AdminProductModifyAction;
+import gq.bookfarm.model.AdminProductViewAction;
 import gq.bookfarm.model.AdminReviewsDeleteAction;
 import gq.bookfarm.model.AdminReviewsListAction;
 import gq.bookfarm.model.AdminReviewsModifyAction;
@@ -20,6 +22,8 @@ import gq.bookfarm.model.AdminReviewsSearchAction;
 import gq.bookfarm.model.AdminReviewsViewAction;
 import gq.bookfarm.model.AdminReviewsWriteAction;
 import gq.bookfarm.model.AdminOrdersListAction;
+import gq.bookfarm.model.AdminProductDeleteAction;
+import gq.bookfarm.model.AdminProductInsertAction;
 import gq.bookfarm.model.CustomerFindAction;
 import gq.bookfarm.model.CustomerIdPwdCheckAction;
 import gq.bookfarm.model.CustomerLogoutAction;
@@ -125,7 +129,27 @@ public class MallActionFactory
 			log.debug("adminCustomerDelete.do action create Start.");
 			action = new AdminCustomerDeleteAction("adminCustomerList.do");
 			log.debug("adminCustomerDelete.do action create End.");
-		}		
+		}	
+		if (cmd.equals("/adminProductView.do")) {
+			log.debug("adminProductViewAction action create Start.");
+			action = new AdminProductViewAction("admin/adminProductView.jsp");
+			log.debug("adminProductViewAction action create End.");
+		}
+		if (cmd.equals("/adminProductModify.do")) {
+			log.debug("AdminProductModifyAction action create Start.");
+			action = new AdminProductModifyAction("adminProductList.do");
+			log.debug("AdminProductModifyAction action create End.");
+		}
+		if (cmd.equals("/adminProductDelete.do")) {
+			log.debug("AdminProductDeleteAction action create Start.");
+			action = new AdminProductDeleteAction("adminProductList.do");
+			log.debug("AdminProductDeleteAction action create End.");
+		}
+		if (cmd.equals("/adminProductInsert.do")) {
+			log.debug("AdminProductInsertAction action create Start.");
+			action = new AdminProductInsertAction("adminProductList.do");
+			log.debug("AdminProductInsertAction action create End.");
+		}
 		/*
 		if (cmd.equals("/qSearch.do")) {
 			log.debug("QQQQQQQQQQ qSearch.do action create Start.");

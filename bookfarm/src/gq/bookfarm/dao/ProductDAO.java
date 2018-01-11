@@ -119,7 +119,7 @@ public class ProductDAO
 	}
 	
 		
-	public int productInsert(int category_idx, int product_quantity, String product_model, String product_image,
+	public int productInsert(int category_idx, int product_quantity, String product_name, String product_image,
 			float product_price, String product_desc)
 	{
 		int					result	= 0;
@@ -131,13 +131,13 @@ public class ProductDAO
 			log.debug("execute productInsert do the DB work Start.");
 			con.setAutoCommit(false);
 			
-			String sql		= "insert into product (category_idx, product_quantity, product_model, product_image, " + 
+			String sql		= "insert into product (category_idx, product_quantity, product_name, product_image, " + 
 							"product_price, product_desc) values (?,?,?,?,?,?)";
 			pstmt			= con.prepareStatement(sql);
 
 			pstmt.setInt		(1, category_idx);
 			pstmt.setInt		(2, product_quantity);
-			pstmt.setString		(3, product_model);
+			pstmt.setString		(3, product_name);
 			pstmt.setString		(4, product_image);
 			pstmt.setFloat		(5, product_price);
 			pstmt.setString		(6, product_desc);
