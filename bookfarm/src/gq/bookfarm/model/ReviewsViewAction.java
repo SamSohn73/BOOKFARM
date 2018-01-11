@@ -42,7 +42,7 @@ public class ReviewsViewAction implements Action
 					path			+=	"?type="+type+"&typeView="+typeView+"&page="+page;
 				
 			}else{
-										log.error("QQQQQQQQ ReviewsViewAction error : vo is empty");
+										log.error("ReviewsViewAction error : vo is empty");
 					path			=	"";
 			}
 		}

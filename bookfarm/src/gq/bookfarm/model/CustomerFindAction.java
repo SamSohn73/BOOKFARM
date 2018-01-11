@@ -29,7 +29,7 @@ public class CustomerFindAction implements Action {
 								req.setAttribute("username", vo.getUsername());
 		else
 		{
-								log.error("QQQQQQQQ CustomerFindAction error :"
+								log.error("CustomerFindAction error :"
 								+ " There is no search customer in DB who has same phone, "
 								+ "firstname which you typed....");
 				path		=	"view/error.jsp?type=find";

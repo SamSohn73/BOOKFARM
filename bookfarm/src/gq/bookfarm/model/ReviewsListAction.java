@@ -67,7 +67,7 @@ public class ReviewsListAction implements Action
 									req.setAttribute("info", info);
 					path		+=	"?type="+type+"&products_idx="+products_idx;
 				}else{ 
-									log.error("QQQQQQQQ ReviewsListAction - 'list' error");
+									log.error("ReviewsListAction - 'list' error");
 									//path="";
 				}
 		}else if(type.equals("myList")){
@@ -91,7 +91,7 @@ public class ReviewsListAction implements Action
 									req.setAttribute("info", info);
 					path		+=	"?type="+type+"&products_idx="+products_idx;
 				}else{ 
-									log.error("QQQQQQQQ ReviewsListAction - 'myList' error :����Ʈ�� null");
+									log.error("ReviewsListAction - 'myList' error :����Ʈ�� null");
 									//path="";
 				}
 		}else if(type.equals("myPage")){
@@ -102,7 +102,7 @@ public class ReviewsListAction implements Action
 									req.setAttribute("list", list);
 					path		+=	"?type="+type;
 				}else{ 
-									log.error("QQQQQQQQ ReviewsListAction - 'myPage' error");
+									log.error("ReviewsListAction - 'myPage' error");
 									//path="";
 				}
 		}		

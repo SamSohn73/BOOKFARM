@@ -3,6 +3,8 @@ package gq.bookfarm.model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import adminDAO.adminProductDAO;
 import adminVO.ProductVO;
 import adminaction.Action;
@@ -10,6 +12,7 @@ import adminaction.ActionForward;
 
 public class adminProductView implements Action
 {
+	private final Logger log = Logger.getLogger(this.getClass());
 	private String path;
 	
 	public adminProductView(String path) {
@@ -21,7 +24,7 @@ public class adminProductView implements Action
 		
 		String current_page = req.getParameter("page");
 		
-		System.out.println(" view : "+current_page);
+		log.debug(" view : "+current_page);
 		
 		int idx=Integer.parseInt(req.getParameter("idx"));
 		

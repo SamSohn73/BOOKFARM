@@ -538,12 +538,12 @@ public class ReviewDAO
 								vo.setIdx(rs.getInt(1));
 			int		idx_i	=	vo.getIdx();
 			
-					System.out.println("����Ȯ��idx : "+idx);
-					System.out.println("����Ȯ��idx_i : "+idx_i);
+					log.debug("idx: "+idx);
+					log.debug("idx_i : "+idx_i);
 				if(idx_i==idx)
 					result	=	1;
 				else
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("reviewDAO	"
 										+ "pwdCheck error : text's writer is not currect");
 			}
 		}catch(Exception e){
@@ -574,7 +574,7 @@ public class ReviewDAO
 					result	=	1;				
 			}
 		}catch(Exception e){
-								log.error("QQQQQQQQ reviewDAO	"
+								log.error("reviewDAO	"
 										+ "getCustomerIdx error : "+e);
 		}finally{
 								close(rs);
@@ -756,7 +756,7 @@ public class ReviewDAO
 						result	=	rs.getInt(1);
 			}
 		}catch (SQLException e){
-									log.error("QQQQQQQQ reviewDAO	"
+									log.error("reviewDAO	"
 											+ "searchOneCustomerList error : "+e);
 		}finally{
 			close(rs);
@@ -968,7 +968,7 @@ public class ReviewDAO
 												list.add(vo);
 			}
 		}catch (SQLException e){
-												log.error("QQQQQQQQ reviewDAO	"
+												log.error("reviewDAO	"
 														+ "getCustomerSearchList error : "+e);
 		}finally{
 												close(rs);

@@ -38,7 +38,6 @@ public class ReviewsIdPassChkAction implements Action
 									req.setAttribute("page", page);
 									req.setAttribute("typeView", typeView);
 									req.setAttribute("type", type);
-									System.out.println("üũ?: "+idx+"/"+page);
 			if(typeView.equals("delete")){
 		int		products_idx	=	dao.getProduct_idx(idx);
 									req.setAttribute("products_idx", products_idx);

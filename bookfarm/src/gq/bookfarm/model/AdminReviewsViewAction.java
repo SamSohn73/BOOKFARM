@@ -53,7 +53,7 @@ public class AdminReviewsViewAction implements Action
 								+"&cat="+category_idx+"&con="+searchCondition+"&word="+searchWord;
 				
 		} else {
-			log.error("QQQQQQQQ ReviewsViewAction error : vo is empty");
+			log.error("ReviewsViewAction error : vo is empty");
 			path			=	"";
 		}
 		

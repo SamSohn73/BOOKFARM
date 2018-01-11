@@ -66,7 +66,6 @@ public class OrdersConfirmAction implements Action {
 									pVo		=	pDao.productGetRow(opVo.getProducts_idx());
 			
 			String					c1		=	pVo.getProduct_name()+"  "+addTag;
-			System.out.println("텍스트 확인 : "+c1);
 												cs.add(c1);
 			}
 				if(list!=null) 
@@ -77,7 +76,7 @@ public class OrdersConfirmAction implements Action {
 				}
 				else
 				{ 
-												log.error("QQQQQQQQ OrdersConfirmAction - 'myPage' error");
+												log.error("OrdersConfirmAction - 'myPage' error");
 												//path="";
 				}
 		}
@@ -113,7 +112,7 @@ public class OrdersConfirmAction implements Action {
 				}
 				else
 				{ 
-												log.error("QQQQQQQQ OrdersConfirmAction - 'singleList' error");
+												log.error("OrdersConfirmAction - 'singleList' error");
 												//path="";
 				}
 		}
@@ -137,7 +136,6 @@ public class OrdersConfirmAction implements Action {
 									pVo		=	pDao.productGetRow(opVo.getProducts_idx());
 			
 			String					c1		=	pVo.getProduct_name()+"  "+addTag;
-			System.out.println("텍스트 확인 : "+c1);
 												cs.add(c1);
 			}
 			
@@ -164,7 +162,7 @@ public class OrdersConfirmAction implements Action {
 				}
 				else
 				{ 
-												log.error("QQQQQQQQ OrdersConfirmAction - 'myPage' error");
+												log.error("OrdersConfirmAction - 'myPage' error");
 												//path="";
 				}
 		}
@@ -173,7 +171,7 @@ public class OrdersConfirmAction implements Action {
 		
 		else
 		{
-												log.error("QQQQQQQQ OrdersConfirmAction - type error : "+type);
+												log.error("OrdersConfirmAction - type error : "+type);
 												//path="";
 		}
 		

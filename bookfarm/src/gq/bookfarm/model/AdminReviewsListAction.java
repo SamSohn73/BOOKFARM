@@ -136,7 +136,7 @@ public class AdminReviewsListAction implements Action
 			path		+=	"?products_idx="+products_idx
 							+"&parent_idx="+parent_idx+"&category_idx="+category_idx;
 		} else { 
-			log.error("QQQQQQQQ ReviewsListAction - 'list' error");
+			log.error("ReviewsListAction - 'list' error");
 			//path="";
 		}
 			

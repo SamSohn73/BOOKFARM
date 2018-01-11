@@ -61,7 +61,7 @@ CREATE TABLE basket (
 	quantity		int				NOT NULL,
 	options			varchar(255),
 	final_price		decimal(15,4),
-	date_added		date
+	date_added		date DEFAULT now()
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 
@@ -130,7 +130,7 @@ CREATE TABLE review (
 	reviews_rating	int(1),
 	review_title	varchar(255)	NOT NULL,
 	review_text		text			NOT NULL,
-	date_added		date,
+	date_added		date DEFAULT now(),
 	last_modified	date,
 	reviews_read	int(5)			NOT NULL default '0'
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;

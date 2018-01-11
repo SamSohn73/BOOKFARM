@@ -24,8 +24,6 @@ public class adminProductReviewAction implements Action
 	{
 		String current_page = req.getParameter("page");
 		
-		System.out.println(" view : "+current_page);
-		
 		//board_num ��������
 		int board_num=Integer.parseInt(req.getParameter("board_num"));
 		

@@ -90,7 +90,7 @@ public class ReviewsSearchAction implements Action
 					path		+=	"?type="+type+"&products_idx="+products_idx;
 									
 				}else{ 
-									log.error("QQQQQQQQ ReviewsSearchAction - 'list' error");
+									log.error("ReviewsSearchAction - 'list' error");
 									path="";
 				}
 		}
@@ -117,7 +117,7 @@ public class ReviewsSearchAction implements Action
 									req.setAttribute("searchWord", searchWord);
 					path		+=	"?type="+type+"&customers_idx="+customers_idx;
 				}else{ 
-									log.error("QQQQQQQQ ReviewsSearchAction - 'myList' error");
+									log.error("ReviewsSearchAction - 'myList' error");
 									path="";
 				}
 		}

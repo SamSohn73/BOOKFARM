@@ -61,7 +61,6 @@ public class AdminCustomerModifyAction implements Action
 		Date		parsed			=	format.parse(date_s);
 		java.sql.Date	sql			=	new java.sql.Date(parsed.getTime());
 										vo.setBirthday(sql);
-										System.out.println(sql);
 		int			result			=	dao.updateRow(idx, vo);
 	
 		

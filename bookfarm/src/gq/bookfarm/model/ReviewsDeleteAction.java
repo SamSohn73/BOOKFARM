@@ -35,7 +35,7 @@ public class ReviewsDeleteAction implements Action
 										req.setAttribute("products_idx",products_idx);
 										req.setAttribute("type", type);
 			}else{
-										log.error("QQQQQQQQ ReviewsDeleteAction error");
+										log.error("ReviewsDeleteAction error");
 					path			=	"";
 			}	
 		

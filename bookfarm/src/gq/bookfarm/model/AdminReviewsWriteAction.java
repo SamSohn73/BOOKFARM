@@ -60,7 +60,7 @@ public class AdminReviewsWriteAction implements Action
 			if(result>0) {
 				path			+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
 			} else {
-				System.out.println("���ٷ��ڤӤä�������������");
+				log.debug("AdminReviewsWriteAction Insert error");
 			}
 		} else if(typeView.equals("modify")) {
 				idx				=	Integer.parseInt(req.getParameter("idx"));
@@ -74,7 +74,7 @@ public class AdminReviewsWriteAction implements Action
 				req.setAttribute("typeView", typeView);
 				path			=	"qReviewsView.do";
 			} else {
-				System.out.println("���ٷ��ڤӤä�������������");
+				log.debug("AdminReviewsWriteAction Modify error");
 			}
 		}
 		

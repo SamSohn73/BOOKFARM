@@ -45,11 +45,11 @@
 		}
 	</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>제품 관리</title>
+<title>상품 관리</title>
 </head>
 <body>
 	<table>
-		<caption>제품 목록</caption>
+		<caption>상품 목록</caption>
 		<tr>
 			<th>No.</th>
 			<th>카테고리</th>
@@ -64,7 +64,7 @@
 		<tr>
 			<td><%=idNum%></td>
 			<td><%=product.getCategory_idx()%></td>
-			<td><%=product.getProduct_image()%></td>
+			<td><img src="<%=product.getProduct_image()%>"></td>
 			<td><%=product.getProduct_name()%></td>
 			<td><%=product.getProduct_price()%></td>
 			<td><%=product.getProduct_quantity()%></td>
@@ -116,7 +116,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td align='right'><a href="admin/adminProductInsert.jsp?page=<%=currentPage%>">[책 추가]</a></td>
+			<td align='right'><a href="admin/adminProductInsert.jsp?page=<%=currentPage%>">[상품 추가]</a></td>
 		</tr>
 	</table>
 	

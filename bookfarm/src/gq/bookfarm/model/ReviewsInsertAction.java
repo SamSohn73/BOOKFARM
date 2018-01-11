@@ -4,6 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.ReviewDAO;
@@ -12,6 +14,7 @@ import gq.bookfarm.vo.ReviewVO;
 
 public class ReviewsInsertAction implements Action 
 {
+	private final Logger log = Logger.getLogger(this.getClass());
 	private String path;
 	public ReviewsInsertAction(String path) 
 	{
@@ -47,7 +50,7 @@ public class ReviewsInsertAction implements Action
 			if(result>0){
 				path			+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
 			}else{
-				System.out.println("���ٷ��ڤӤä�������������");
+				log.debug("ReviewsInsertAction Insert error");
 			}
 		}else if(typeView.equals("modify")){
 				idx				=	Integer.parseInt(req.getParameter("idx"));
@@ -62,7 +65,7 @@ public class ReviewsInsertAction implements Action
 										req.setAttribute("typeView", typeView);
 				path			=	"qReviewsView.do";
 			}else{
-				System.out.println("���ٷ��ڤӤä�������������");
+				log.debug("ReviewsInsertAction Insert error");
 			}
 		}
 		

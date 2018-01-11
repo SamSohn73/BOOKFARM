@@ -27,7 +27,6 @@ public class CustomerRegistAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String		type			=	req.getParameter("type");
-										System.out.println(type);
 		CustomerVO	vo				=	new CustomerVO();
 		CustomerDAO	dao				=	new	CustomerDAO();
 				
@@ -48,7 +47,6 @@ public class CustomerRegistAction implements Action {
 		Date		parsed			=	format.parse(date_s);
 		java.sql.Date	sql			=	new java.sql.Date(parsed.getTime());
 										vo.setBirthday(sql);
-										System.out.println(sql);
 										
 		if(type.equals("insert"))
 		{
@@ -72,7 +70,7 @@ public class CustomerRegistAction implements Action {
 		}
 		else
 		{
-										log.error("QQQQQQQQ CustomerRegistAction error :"
+										log.error("CustomerRegistAction error :"
 										+ " type can not be recogized => "+type);
 					path			=	"";	//������������ �̵�, ������ ������
 		}
@@ -83,7 +81,7 @@ public class CustomerRegistAction implements Action {
 										log.info("Successfully inserted...");
 		else
 		{
-										log.error("QQQQQQQQ CustomerRegistAction error :"
+										log.error("CustomerRegistAction error :"
 										+ " customerDB was not updated.. ");
 					path			=	"";	//������������ �̵�, ������ ������
 		}

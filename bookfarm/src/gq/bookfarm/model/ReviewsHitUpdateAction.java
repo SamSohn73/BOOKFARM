@@ -51,11 +51,11 @@ public class ReviewsHitUpdateAction implements Action
 										req.setAttribute("typeView", typeView);
 					//path			+=	"?idx="+idx+"&products_idx="+products_idx+"type="+type;
 			}else{
-										log.error("QQQQQQQQ ReviewsHitUpdateAction no"
+										log.error("ReviewsHitUpdateAction no"
 										+ " type ���°� Ʋ�� : "+type);				
 			}
 		}else{
-										log.error("QQQQQQQQ ReviewsHitUpdateAction error");
+										log.error("ReviewsHitUpdateAction error");
 					path			=	"";
 		}
 		return new ActionForward(path, false);

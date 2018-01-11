@@ -170,7 +170,7 @@ public class AdminReviewsSearchAction implements Action
 							+"&parent_idx="+parent_idx+"&category_idx="+category_idx;
 		}
 		else { 
-			log.error("QQQQQQQQ AdminReviewsSearchAction - error");
+			log.error("AdminReviewsSearchAction - error");
 			//path="";
 		}
 		return new ActionForward(path, false);
