@@ -112,6 +112,27 @@ public class MallActionFactory
 			action = new AdminProductListAction("admin/adminProductList.jsp");
 			log.debug("adminProductList.do action create End.");
 		}
+		
+		if (cmd.equals("/adminProductView.do")) {
+			log.debug("adminProductViewAction action create Start.");
+			action = new AdminProductViewAction("admin/adminProductView.jsp");
+			log.debug("adminProductViewAction action create End.");
+		}
+		if (cmd.equals("/adminProductModify.do")) {
+			log.debug("AdminProductModifyAction action create Start.");
+			action = new AdminProductModifyAction("adminProductList.do");
+			log.debug("AdminProductModifyAction action create End.");
+		}
+		if (cmd.equals("/adminProductDelete.do")) {
+			log.debug("AdminProductDeleteAction action create Start.");
+			action = new AdminProductDeleteAction("adminProductList.do");
+			log.debug("AdminProductDeleteAction action create End.");
+		}
+		if (cmd.equals("/adminProductInsert.do")) {
+			log.debug("AdminProductInsertAction action create Start.");
+			action = new AdminProductInsertAction("adminProductList.do");
+			log.debug("AdminProductInsertAction action create End.");
+		}
 		// Admin Orders Management
 		if (cmd.equals("/adminOrdersList.do")) {
 			log.debug("adminOrdersList.do action create Start.");
@@ -203,54 +224,7 @@ public class MallActionFactory
 			action = new ProductViewAction("product/productView.jsp");
 			log.debug("productView.do action create End.");
 		}
-<<<<<<< HEAD
-		
-		if (cmd.equals("/adminCustomerModifyView.do")) {
-			log.debug("adminCustomerModifyView.do action create Start.");
-			action = new AdminCustomerModifyViewAction("admin/adminCustomerModify.jsp");
-			log.debug("adminCustomerModifyView.do action create End.");
-		}
-		if (cmd.equals("/adminCustomerModify.do")) {
-			log.debug("adminCustomerModify.do action create Start.");
-			action = new AdminCustomerModifyAction("adminCustomerList.do");
-			log.debug("adminCustomerModify.do action create End.");
-		}
-		if (cmd.equals("/adminCustomerDelete.do")) {
-			log.debug("adminCustomerDelete.do action create Start.");
-			action = new AdminCustomerDeleteAction("adminCustomerList.do");
-			log.debug("adminCustomerDelete.do action create End.");
-		}	
-		if (cmd.equals("/adminProductView.do")) {
-			log.debug("adminProductViewAction action create Start.");
-			action = new AdminProductViewAction("admin/adminProductView.jsp");
-			log.debug("adminProductViewAction action create End.");
-		}
-		if (cmd.equals("/adminProductModify.do")) {
-			log.debug("AdminProductModifyAction action create Start.");
-			action = new AdminProductModifyAction("adminProductList.do");
-			log.debug("AdminProductModifyAction action create End.");
-		}
-		if (cmd.equals("/adminProductDelete.do")) {
-			log.debug("AdminProductDeleteAction action create Start.");
-			action = new AdminProductDeleteAction("adminProductList.do");
-			log.debug("AdminProductDeleteAction action create End.");
-		}
-		if (cmd.equals("/adminProductInsert.do")) {
-			log.debug("AdminProductInsertAction action create Start.");
-			action = new AdminProductInsertAction("adminProductList.do");
-			log.debug("AdminProductInsertAction action create End.");
-		}
-		/*
-		if (cmd.equals("/qSearch.do")) {
-			log.debug("QQQQQQQQQQ qSearch.do action create Start.");
-			action = new SearchAction("board/qna_board_list.jsp");
-			log.debug("QQQQQQQQQQ qSearch.do action create End.");
-		}*/
-		
-		
-=======
 
->>>>>>> branch 'master' of https://github.com/SamSohn73/BOOKFARM.git
 		//From here, the code for the login were wrote... - hansol -
 		//customerDB was used...
 		if (cmd.equals("/qCustomerIdPwdCheck.do"))
