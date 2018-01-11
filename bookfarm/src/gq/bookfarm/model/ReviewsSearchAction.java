@@ -40,23 +40,22 @@ public class ReviewsSearchAction implements Action
 			Vector<CustomerVO> VcVo	=	new Vector<CustomerVO>();
 			if(searchCondition.equals("customers_idx")){
 				CustomerDAO cDao	=	new CustomerDAO();
-							VcVo	=	cDao.findIdx(searchWord);
-										
+				VcVo				=	cDao.findIdx(searchWord);
 			}
 		
 			int		products_idx=	0;
 			if(req.getParameter("products_idx")!=null)	
-					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
+				products_idx=	Integer.parseInt(req.getParameter("products_idx"));
 			else if(req.getAttribute("products_idx")!=null)
-					products_idx=	(int)req.getAttribute("products_idx");
+				products_idx=	(int)req.getAttribute("products_idx");
 
 
 				
 		if(req.getParameter("page")!=null)
-					page		=	Integer.parseInt(req.getParameter("page"));
+			page		=	Integer.parseInt(req.getParameter("page"));
 					
-			ReviewDAO dao		=	new ReviewDAO();
-			PageVO	info		=	new PageVO();
+		ReviewDAO dao		=	new ReviewDAO();
+		PageVO	info		=	new PageVO();
 		
 		if(type.equals("list")){
 			int		totalRows	=	dao.searchOneProductList(products_idx, searchCondition, searchWord);
@@ -89,7 +88,6 @@ public class ReviewsSearchAction implements Action
 				req.setAttribute("searchCondition", searchCondition);
 				req.setAttribute("searchWord", searchWord);
 				path		+=	"?type="+type+"&products_idx="+products_idx;
-								
 			}else{ 
 				log.error("ReviewsSearchAction - 'list' error");
 				path="";

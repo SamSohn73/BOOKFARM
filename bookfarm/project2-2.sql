@@ -300,6 +300,7 @@ insert into category (parent_idx, category_name) values (6, "성인");
 insert into category (parent_idx, category_name) values (6, "뮤직");
 insert into category (parent_idx, category_name) values (6, "게임");
 
+insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "불멸", "image/불멸.jpg", 15000, "blabla~");
 
 --select * from category;
 --delete from category where idx > 0;

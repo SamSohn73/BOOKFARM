@@ -41,7 +41,7 @@ public class AdminCustomerModifyViewAction implements Action
 		
 		CustomerDAO 			dao		=	new CustomerDAO();
 		CustomerVO 				vo		=	dao.getRow(idx);
-
+		
 		if(vo!=null) {
 			req.setAttribute("vo", vo);
 			req.setAttribute("page", current_page);

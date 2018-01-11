@@ -26,8 +26,8 @@ public class ReviewsViewAction implements Action
 		int		page				=	(int)req.getAttribute("page");
 		int		idx					=	(int) req.getAttribute("idx");
 		int		products_idx		=	0;
-		String		type			=	(String)req.getAttribute("type");
-		String		typeView		=	(String)req.getAttribute("typeView");
+		String	type				=	(String)req.getAttribute("type");
+		String	typeView			=	(String)req.getAttribute("typeView");
 		
 		if(typeView.equals("insert")){
 			products_idx			=	(int) req.getAttribute("products_idx");

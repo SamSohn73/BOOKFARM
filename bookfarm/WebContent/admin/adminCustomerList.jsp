@@ -1,3 +1,5 @@
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 <%@page import="gq.bookfarm.vo.PageVO"%>
@@ -13,6 +15,8 @@
 	
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
+	String tmpValue			= null;
+	DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 	
 	if (criteria == null)	criteria	= "";
 	if (searchWord == null)	searchWord	= "";
@@ -83,24 +87,25 @@
 				</a>
 			</td>
 			<td><%=idNum%></td>
-			<td><%=customer.getUsername()%></td>
-			<td><%=customer.getLastname()%><%=customer.getFirstname()%></td>
-			<td><%=customer.getPostcode()%></td>
-			<td><%=customer.getAddress1()%></td>
-			<td><%=customer.getAddress2()%></td>
-			<td><%=customer.getPhone1()%></td>
-			<td><%=customer.getPhone2()%></td>
-			<td><%=customer.getPhone3()%></td>
-			<td><%=customer.getEmail1()%></td>
-			<td><%=customer.getEmail2()%></td>
-			<td><%=customer.getGender()%></td>
-			<td><%=customer.getBirthday()%></td>
+			<td><%tmpValue = customer.getUsername()		!= null ?	customer.getUsername():"";%><%=tmpValue%></td>
+		<!--<td><%=customer.getLastname()%></td>  -->
+			<td><%tmpValue = customer.getFirstname()	!= null ?	customer.getFirstname():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPostcode()		!= null ?	customer.getPostcode():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getAddress1()		!= null ?	customer.getAddress1():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getAddress2()		!= null ?	customer.getAddress2():"";%>	<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPhone1()		!= null ?	customer.getPhone1():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPhone2()		!= null ?	customer.getPhone2():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getPhone3()		!= null ?	customer.getPhone3():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getEmail1()		!= null ?	customer.getEmail1():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getEmail2()		!= null ?	customer.getEmail2():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getGender()		!= null ?	customer.getGender():"";%>		<%=tmpValue%></td>
+			<td><%tmpValue = customer.getBirthday()		!= null ?	df.format(customer.getBirthday()):"";%><%=tmpValue%></td>
 			<td><%=customer.getGrade()%></td>
-			<td><%=customer.getLast_login()%></td>
+			<td><%tmpValue = customer.getLast_login()	!= null ?	df.format(customer.getLast_login()):"";%><%=tmpValue%></td>	
 			<td><%=customer.getLogin_cnt()%></td>
-			<td><%=customer.getAccount_created()%></td>
+			<td><%tmpValue = customer.getAccount_created()!= null ?	df.format(customer.getAccount_created()):"";%><%=tmpValue%></td>
 		</tr>
-<%		idNum--;
+<%		idNum--;	
 	} %>
 		<tr>
 		<td colspan = "17">

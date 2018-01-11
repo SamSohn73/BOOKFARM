@@ -1,5 +1,6 @@
 package gq.bookfarm.model;
 
+
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ public class BasketListAction implements Action
 	private final Logger log = Logger.getLogger(this.getClass());
 	
 	private String path;
+
 
 	public BasketListAction(String path) 
 	{

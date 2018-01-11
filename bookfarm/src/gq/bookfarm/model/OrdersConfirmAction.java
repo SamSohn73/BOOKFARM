@@ -135,13 +135,13 @@ public class OrdersConfirmAction implements Action
 			}
 			
 			
-			int					totalRows	=	dao.singleCustomertotalRows(customer_idx);
-			int					totalPages	=	(int)((double)totalRows/limit+0.95);
-			int					startPage	=	((int)((double)page/10+0.9)-1)*10+1;
-			int					endPage		=	startPage+10-1;
+			int	totalRows	=	dao.singleCustomertotalRows(customer_idx);
+			int	totalPages	=	(int)((double)totalRows/limit+0.95);
+			int	startPage	=	((int)((double)page/10+0.9)-1)*10+1;
+			int	endPage		=	startPage+10-1;
 	
 			if(endPage>totalPages)
-								endPage		=	totalPages;
+				endPage		=	totalPages;
 			
 			info.setPage(page);
 			info.setTotalPages(totalPages);
