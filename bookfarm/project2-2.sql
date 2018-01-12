@@ -308,20 +308,6 @@ insert into product (category_idx, product_quantity, product_name, product_image
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "brick bible", "image/brick bible.jpg", 9000, "종교 이야기");
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "fairy tales", "image/fairy tales.jpg", 12000, "요정 이야기 판타지");
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "how you lose her", "image/how you lose her.jpg", 7000, "그녀를 잃어버린 어느 남자의 이야기");
-<<<<<<< HEAD
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pantone", "image/pantone.jpg", 15000, "판토네가 무엇인지 아는가? 모른다면 이책을 보거라");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pictorial", "image/pictorial.jpg", 15000, "팩토리얼이 아니다! 픽토리얼 그것은 무엇을 의미하는가");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pride", "image/pride.jpg", 15000, "너가 버려왔던 자존심 이야기");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "sartorialist", "image/sartorialist.jpg", 15000, "어느 한적한 오후에...");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "starwars", "image/starwars.jpg", 15000, "영화로도 개봉한 스타워즈의 리메이크판 그 세계관을 엿보고 싶다면...");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "theartbook", "image/theartbook.jpg", 15000, "예술의 세계로 당신을 인도해줍니다.");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "tollbooth", "image/tollbooth.jpg", 15000, "왠지 치과가 가고싶은 사람들을 위한 전혀 상관없는 이야기");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "vagina", "image/vagina.jpg", 15000, "교양있는 사람들을 위한 무언가");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "why we broke up", "image/why we broke up.jpg", 15000, "왜 우리는 살아가야 하는가?");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "witch", "image/witch.jpg", 15000, "실존했던 마녀이야기를 우리의 시각으로 풀어낸...");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "더미", "image/불멸.jpg", 15000, "blabla~");
-insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "더미2", "image/불멸.jpg", 15000, "blabla~");
-=======
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pantone", "image/pantone.jpg", 21000, "판토네가 무엇인지 아는가? 모른다면 이책을 보거라");
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pictorial", "image/pictorial.jpg", 33000, "팩토리얼이 아니다! 픽토리얼 그것은 무엇을 의미하는가");
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "pride", "image/pride.jpg", 14000, "너가 버려왔던 자존심 이야기");
@@ -364,8 +350,6 @@ insert into product (category_idx, product_quantity, product_name, product_image
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "just i fied", "image/just i fied.jpg", 8000, "다른 의미를 찾아보도록");
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "soma night & day", "image/soma night & day.jpg", 12000, "~~흥흥~~~ 흥흥흥.. 즐거운 펍이 생각난다");
 insert into product (category_idx, product_quantity, product_name, product_image, product_price, product_desc) values (1, 100, "Vacation", "image/Vacation.jpg", 11000, "방학이다!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
->>>>>>> branch 'master' of https://github.com/SamSohn73/BOOKFARM.git
 
 
 
