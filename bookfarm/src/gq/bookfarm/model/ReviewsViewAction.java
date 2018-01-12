@@ -34,10 +34,10 @@ public class ReviewsViewAction implements Action
 			req.setAttribute("products_idx", products_idx);
 		}else{
 			ReviewDAO 	dao			=	new ReviewDAO();
-			ReviewVO	vo			=	dao.getRow(idx);
+			ReviewVO	reviewVO	=	dao.getRow(idx);
 			
-			if(vo!=null){
-				req.setAttribute("vo", vo);
+			if(reviewVO!=null){
+				req.setAttribute("reviewVO", reviewVO);
 				//req.setAttribute("idx", idx);
 				path +=	"?type="+type+"&typeView="+typeView+"&page="+page;
 				

@@ -45,10 +45,10 @@ public class AdminReviewsViewAction implements Action
 		String	searchWord			=	req.getParameter("word");
 		
 		ReviewDAO 	dao				=	new ReviewDAO();
-		ReviewVO	vo				=	dao.getRow(idx);
+		ReviewVO	reviewVO		=	dao.getRow(idx);
 			
-		if(vo!=null) {
-			req.setAttribute("vo", vo);
+		if(reviewVO!=null) {
+			req.setAttribute("reviewVO", reviewVO);
 			path			+=	"?idx="+idx+"&page="+page+"&p="+products_idx+"&par="+parents_idx
 								+"&cat="+category_idx+"&con="+searchCondition+"&word="+searchWord;
 				

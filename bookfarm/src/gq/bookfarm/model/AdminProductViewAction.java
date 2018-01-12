@@ -31,10 +31,10 @@ public class AdminProductViewAction implements Action
 		log.debug("AdminProductViewAction execute Page=" + current_page);
 		
 		ProductDAO 	dao						=	new ProductDAO();
-		ProductVO 	vo						=	dao.productGetRow(idx);
+		ProductVO 	productVO				=	dao.productGetRow(idx);
 		
-		if(vo!=null) {
-			req.setAttribute("vo", vo);
+		if(productVO!=null) {
+			req.setAttribute("productVO", productVO);
 			req.setAttribute("page", current_page);
 			path+="?page="+current_page;
 		} else {

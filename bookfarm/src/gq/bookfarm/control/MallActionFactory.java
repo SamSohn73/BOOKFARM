@@ -314,7 +314,7 @@ public class MallActionFactory
 		//Basket Management
 		if (cmd.equals("/basketAdd.do")) {
 			log.debug("basketAdd.do action create Start.");
-			action = new BasketAddAction("/basketList.do");
+			action = new BasketAddAction("basketList.do");
 			log.debug("basketAdd.do action create End.");
 		}
 		if (cmd.equals("/basketList.do")) {

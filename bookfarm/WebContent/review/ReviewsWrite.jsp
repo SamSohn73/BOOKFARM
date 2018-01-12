@@ -14,7 +14,7 @@
 	String	typeView			=	request.getParameter("typeView");//view,insert,modify
 	
 	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("loggedInUserVO");
-	ReviewVO	vo				=	null;
+	ReviewVO	reviewVO		=	null;
 	CustomerDAO	cDao			=	null;
 	int			idx				=	0;
 	int			currentPage		=	1;	
@@ -22,12 +22,12 @@
 	
 	if(typeView.equals("view") || typeView.equals("modify"))
 	{
-				vo				=	(ReviewVO)request.getAttribute("vo");
-				cDao			=	new CustomerDAO();
-				idx				=	vo.getIdx();
-				//idx				=	(int)request.getAttribute("idx");
-				currentPage		=	Integer.parseInt(request.getParameter("page"));
-				products_idx	=	vo.getProducts_idx();
+		reviewVO		=	(ReviewVO)request.getAttribute("reviewVO");
+		cDao			=	new CustomerDAO();
+		idx				=	reviewVO.getIdx();
+		//idx			=	(int)request.getAttribute("idx");
+		currentPage		=	Integer.parseInt(request.getParameter("page"));
+		products_idx	=	reviewVO.getProducts_idx();
 	}
 	else if(typeView.equals("insert"))
 			products_idx		=	Integer.parseInt(request.getParameter("products_idx"));
@@ -80,9 +80,9 @@
 		<td class="left">글쓴이</td>
 		<td class="right"><input type="text" name="review_writer" size="15" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly"value=<%=cDao.getName(vo.getCustomers_idx()) %>
+		readonly="readonly"value=<%=cDao.getName(reviewVO.getCustomers_idx()) %>
 		<%	}else if(typeView.equals("modify")){ %>
-		readonly="readonly"value=<%=cDao.getName(vo.getCustomers_idx()) %>
+		readonly="readonly"value=<%=cDao.getName(reviewVO.getCustomers_idx()) %>
 		<%	}else{ %>
 		readonly="readonly"value=<%=cVo.getUsername() %>
 		<%	} %>
@@ -92,9 +92,9 @@
 		<td class="left">제목</td>
 		<td class="right"><input type="text" name="review_title" size="40" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly" value=<%=vo.getReview_title() %> 
+		readonly="readonly" value=<%=reviewVO.getReview_title() %> 
 		<%	}else if(typeView.equals("modify")){ %>
-		value=<%=vo.getReview_title() %>
+		value=<%=reviewVO.getReview_title() %>
 		<%	}else{ %>
 		placeholder="리뷰 제목"
 		<%	} %>
@@ -104,9 +104,9 @@
 		<td class="left">내용</td>
 		<td class="right"><textarea name="review_text" rows="15" cols="50" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly"><%=vo.getReview_text() %> 
+		readonly="readonly"><%=reviewVO.getReview_text() %> 
 		<%	}else if(typeView.equals("modify")){ %>
-		><%=vo.getReview_text() %>
+		><%=reviewVO.getReview_text() %>
 		<%	}else{ %>
 		placeholder="리뷰 내용"><%}%></textarea></td>
 	</tr>
@@ -120,7 +120,7 @@
 		 <input class="btn" type="button" value="목록보기"onclick="returnList2()">
 		<%		} %>
 		
-		<%		if(vo.getCustomers_idx()==(cVo.getIdx())){ %>
+		<%		if(reviewVO.getCustomers_idx()==(cVo.getIdx())){ %>
 		 <input class="btn" type="button" value="수정하기"onclick="modifyList()">
 		 <input class="btn" type="button" value="삭제하기"onclick="deleteRow()">
 		<%		} %>

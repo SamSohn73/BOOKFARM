@@ -39,20 +39,20 @@ public class BasketAddAction implements Action
 		String	options		= "";
 		
 		quantity			= Integer.parseInt(req.getParameter("quantity"));
-		log.debug("BasketAddAction execute Start.111111");
+		log.debug("BasketAddAction execute Start.111111 quantity="+quantity);
 		options				= req.getParameter("options");
-		log.debug("BasketAddAction execute Start.22222");
+		log.debug("BasketAddAction execute Start.22222 options="+options);
 		int		curPage		= Integer.parseInt(req.getParameter("page"));
-		log.debug("BasketAddAction execute Start.333333");
+		log.debug("BasketAddAction execute Start.333333 curPage="+curPage);
 		int		result		= 0;
 		
 		HttpSession			session		= req.getSession();
 		CustomerVO			customerVO	= (CustomerVO) session.getAttribute("loggedInUserVO");
-		log.debug("BasketAddAction execute Start.4444444");
+		if (customerVO == null)			log.debug("BasketAddAction execute Start.customerVO null");
 		ProductVO			productVO	= (ProductVO) session.getAttribute("productVO");
-		log.debug("BasketAddAction execute Start.55555555");
+		if (productVO == null)			log.debug("BasketAddAction execute Start.productVO null");
 		Vector<BasketVO>	baskets		= (Vector<BasketVO>) session.getAttribute("baskets");
-		log.debug("BasketAddAction execute Start.666666666");
+		if (baskets == null)			log.debug("BasketAddAction execute Start.baskets null");
 		
 		if (baskets == null)			baskets = new Vector<BasketVO>();
 		if (productVO == null) {

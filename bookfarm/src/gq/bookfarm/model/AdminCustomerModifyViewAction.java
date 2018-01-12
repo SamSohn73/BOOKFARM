@@ -36,14 +36,14 @@ public class AdminCustomerModifyViewAction implements Action
 			path="error.jsp";
 		}
 		
-		int		current_page			=	Integer.parseInt(req.getParameter("page"));
-		int		idx						=	Integer.parseInt(req.getParameter("idx"));
+		int		current_page	=	Integer.parseInt(req.getParameter("page"));
+		int		idx				=	Integer.parseInt(req.getParameter("idx"));
 		
-		CustomerDAO 			dao		=	new CustomerDAO();
-		CustomerVO 				vo		=	dao.getRow(idx);
+		CustomerDAO dao			=	new CustomerDAO();
+		CustomerVO 	customerVO	=	dao.getRow(idx);
 		
-		if(vo!=null) {
-			req.setAttribute("vo", vo);
+		if(customerVO!=null) {
+			req.setAttribute("customerVO", customerVO);
 			req.setAttribute("page", current_page);
 			path+="?page="+current_page;
 		} else {

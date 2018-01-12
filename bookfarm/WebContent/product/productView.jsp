@@ -11,16 +11,15 @@
 <title>상품 보기</title>
 <script>	
 	function list_submit(){
-		location.href="productList.do?page=<%=current_page%>";
+		location.href="productList.do";
 	}
 	function buy_submit(){
-		location.href="productBuy.do?idx=<%=productVO.getIdx()%>";
+		productForm.action = "productBuy.do?idx=<%=productVO.getIdx()%>";
 		productForm.submit();
 	}
 	function basket_submit(){
-		location.href="basketAdd.do?page=<%=current_page%>";
-		//productForm.
-		submit();
+		productForm.action = "basketAdd.do";
+		productForm.submit();
 	}
 </script>
 </head>
@@ -77,6 +76,7 @@
 				<input type="button" value="즉시구매" onClick="buy_submit()">
 				<input type="button" value="장바구니" onClick="basket_submit()">
 				<input type="button" value="목록" onClick="list_submit()">
+				<input type="hidden" name="page" value=<%=current_page %>>	
 				</td>
 			</tr>
 		</table>
