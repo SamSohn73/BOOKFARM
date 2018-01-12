@@ -26,9 +26,9 @@ public class ProductViewAction implements Action
 		
 		ProductDAO dao=new ProductDAO();
 			
-		ProductVO vo=dao.productGetRow(idx);
-		if(vo!=null) {
-			req.setAttribute("vo", vo);
+		ProductVO productVO=dao.productGetRow(idx);
+		if(productVO != null) {
+			req.setAttribute("productVO", productVO);
 			req.setAttribute("page", current_page);
 		}
 	

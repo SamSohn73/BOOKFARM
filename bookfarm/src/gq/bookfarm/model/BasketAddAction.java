@@ -16,6 +16,7 @@ import gq.bookfarm.dao.CategoryDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.BasketVO;
 import gq.bookfarm.vo.CustomerVO;
+import gq.bookfarm.vo.ProductVO;
 
 public class BasketAddAction implements Action
 {
@@ -34,21 +35,46 @@ public class BasketAddAction implements Action
 	{
 		log.debug("BasketAddAction execute Start.");
 
-		int		idx				= Integer.parseInt(req.getParameter("idx"));
-		int		result			= 0;
+		int		quantity	= 1;
+		String	options		= "";
+		
+		quantity			= Integer.parseInt(req.getParameter("quantity"));
+		log.debug("BasketAddAction execute Start.111111");
+		options				= req.getParameter("options");
+		log.debug("BasketAddAction execute Start.22222");
+		int		curPage		= Integer.parseInt(req.getParameter("page"));
+		log.debug("BasketAddAction execute Start.333333");
+		int		result		= 0;
 		
 		HttpSession			session		= req.getSession();
 		CustomerVO			customerVO	= (CustomerVO) session.getAttribute("loggedInUserVO");
+		log.debug("BasketAddAction execute Start.4444444");
+		ProductVO			productVO	= (ProductVO) session.getAttribute("productVO");
+		log.debug("BasketAddAction execute Start.55555555");
 		Vector<BasketVO>	baskets		= (Vector<BasketVO>) session.getAttribute("baskets");
+		log.debug("BasketAddAction execute Start.666666666");
 		
-		/*QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ*/
+		if (baskets == null)			baskets = new Vector<BasketVO>();
+		if (productVO == null) {
+			log.error("BasketAddAction Product null Error");
+			path="error.jsp";
+			return new ActionForward(path, false);
+		}
 		
-		
-		BasketVO		basketVO	= new BasketVO();
-		BasketDAO		dao			= new BasketDAO();
+		BasketVO			basketVO	= new BasketVO();
+		BasketDAO			dao			= new BasketDAO();
 
-		result						=	dao.basketInsert(basketVO);
-			
+		if (customerVO != null)		basketVO.setCustomer_idx(customerVO.getIdx());
+		else						basketVO.setCustomer_idx(0);
+		
+		basketVO.setProduct_idx(productVO.getIdx());
+		basketVO.setQuantity(quantity);
+		basketVO.setOptions(options);
+		basketVO.setFinal_price(productVO.getProduct_price());
+		
+		if (customerVO != null)		result	=	dao.basketInsert(basketVO);
+		baskets.addElement(basketVO);
+		
 		if(result <= 0) {
 			log.debug("BasketAddAction execute Failed!!!!!!!!!!!!!!!!!!!!");
 			path="error.jsp";
