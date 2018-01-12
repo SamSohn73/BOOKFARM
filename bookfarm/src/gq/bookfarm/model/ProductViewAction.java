@@ -33,5 +33,6 @@ public class ProductViewAction implements Action
 		}
 	
 		return new ActionForward(path, false);
+		//return new ActionForward(path, true);
 	}
 }

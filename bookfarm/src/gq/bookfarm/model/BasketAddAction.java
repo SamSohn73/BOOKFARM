@@ -1,5 +1,6 @@
 package gq.bookfarm.model;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +54,25 @@ public class BasketAddAction implements Action
 		if (productVO == null)			log.debug("BasketAddAction execute Start.productVO null");
 		Vector<BasketVO>	baskets		= (Vector<BasketVO>) session.getAttribute("baskets");
 		if (baskets == null)			log.debug("BasketAddAction execute Start.baskets null");
+		
+		
+		
+		
+		
+		Enumeration enum_app=session.getAttributeNames();
+		while(enum_app.hasMoreElements()){
+			String ls_name=enum_app.nextElement().toString();
+			String ls_value=session.getAttribute(ls_name).toString();
+	
+			log.debug("QQQQQ Session Key: "+ls_name);
+			log.debug("QQQQQ Session Value: "+ls_value);
+		}
+		
+		
+		
+		
+		
+		
 		
 		if (baskets == null)			baskets = new Vector<BasketVO>();
 		if (productVO == null) {
