@@ -341,7 +341,7 @@ public class CustomerDAO
 	public String getName(int idx)
 	{
 		String		name	=		null;
-		
+		log.info("정한솔 : getName start");
 		try{
 			String 	sql		=		"select username from Customer where idx=?";
 					con		=		getConnection();
@@ -350,10 +350,9 @@ public class CustomerDAO
 					rs		=		pstmt.executeQuery();
 			if(rs.next()){
 					name	=		rs.getString("username");
-			}else {
+			}else{
 									log.error("CustomerDAO	"
 									+ "getName error : Name is not found");
-					/*name	=		"NoNamed";*/
 			}
 		}catch (SQLException e){
 									log.error("CustomerDAO	"

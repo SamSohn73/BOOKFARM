@@ -119,12 +119,12 @@ public class AdminReviewsListAction implements Action
 		info.setStartPage(startPage);
 		info.setEndPage(endPage);
 		
-		/*CustomerDAO cDao	=	new CustomerDAO();
+		CustomerDAO cDao	=	new CustomerDAO();
 		Vector<String>nameList= new Vector<String>();
 		for(ReviewVO vo:list) {
 			String	name	=	cDao.getName(vo.getCustomers_idx());
 							nameList.add(name);
-		}*/
+		}
 							
 		if(list!=null) {
 			req.setAttribute("list", list);
@@ -132,7 +132,7 @@ public class AdminReviewsListAction implements Action
 			req.setAttribute("VpVo", VpVo);
 			req.setAttribute("catVo1", catVo1);
 			req.setAttribute("catVo2", catVo2);
-			/*req.setAttribute("nameList", nameList);*/
+			req.setAttribute("nameList", nameList);
 			path		+=	"?products_idx="+products_idx
 							+"&parent_idx="+parent_idx+"&category_idx="+category_idx;
 		} else { 

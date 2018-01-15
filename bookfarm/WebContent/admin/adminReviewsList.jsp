@@ -17,7 +17,7 @@
 		Vector<CategoryVO> catVo1=	(Vector<CategoryVO>)request.getAttribute("catVo1");
 		Vector<CategoryVO> catVo2=	(Vector<CategoryVO>)request.getAttribute("catVo2");
 		Vector<ProductVO> VpVo	=	(Vector<ProductVO>)request.getAttribute("VpVo");
-		/* Vector<String>nameList	=	(Vector<String>)request.getAttribute("nameList"); */
+		Vector<String>nameList	=	(Vector<String>)request.getAttribute("nameList");
 		int		totalPages		=	info.getTotalPages();
 		int		currentPage		=	info.getPage();
 		int		startPage		=	info.getStartPage();
@@ -25,7 +25,7 @@
 		int		totalRows		=	info.getTotalRows();
 		
 		
-		CustomerDAO cDao		=	new CustomerDAO();
+		/* CustomerDAO cDao		=	new CustomerDAO(); */
 		String	searchCondition	=	(String)request.getAttribute("searchCondition");
 		String	searchWord		=	(String)request.getAttribute("searchWord");
 		
@@ -126,7 +126,8 @@
 				<th >작성자</th>
 				<th >조회수</th>
 			</tr>
-			<%for(ReviewVO vo:list)
+			<%int nCount=0;
+			for(ReviewVO vo:list)
 				{%>
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
@@ -134,10 +135,10 @@
 					&page=<%=currentPage%>&p=<%=products_idx%>&par=<%=parent_idx%>
 					&cat=<%=category_idx%>&con=<%=searchCondition%>&word=<%=searchWord%>">
 					<%=vo.getReview_title()%></a></td>
-					<td><%=cDao.getName(vo.getCustomers_idx())%></td>
+					<td><%=nameList.get(nCount)/* cDao.getName(vo.getCustomers_idx()) */%></td>
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
-				<%}%>
+				<%nCount++;}%>
 <tr>
 	<td colspan="4" align="center">
 		<%	if(searchWord == null)
