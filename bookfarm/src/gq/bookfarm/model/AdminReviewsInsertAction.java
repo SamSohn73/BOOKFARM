@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
+import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CustomerVO;
@@ -32,7 +33,7 @@ public class AdminReviewsInsertAction implements Action
 		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
-			log.info("AdminReviewsWriteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			log.info("AdminReviewsInsertAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
 		}
 		
@@ -42,6 +43,13 @@ public class AdminReviewsInsertAction implements Action
 		int		parent_idx		=	Integer.parseInt(req.getParameter("parent_idx"));
 		int		category_idx	=	Integer.parseInt(req.getParameter("category_idx"));
 		int		products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
+		if (products_idx == 0) {
+			log.info("AdminReviewsInsertAction can not optain product_idx !!!!!!!!!!!!!!!!");
+			path="error.jsp";
+		}else {
+			ProductDAO pDao		=	new ProductDAO();
+			pDao.productExistanceCheck(products_idx);
+		}
 		int		result			=	0;
 		
 		ReviewDAO dao			=	new ReviewDAO();

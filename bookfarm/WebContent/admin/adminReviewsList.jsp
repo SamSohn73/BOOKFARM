@@ -56,14 +56,26 @@
 			}
 				searchform.submit();
 		}
+		function selFuc1(obj)
+		{
+			obj.form.submit();
+		}
+		function selFuc2(obj)
+		{
+			obj.form.submit();
+		}
+		function selFuc3(obj)
+		{
+			obj.form.submit();
+		}
 	</script>
 </head>
 <body>
 <table	class="클래스_bottom_table1">
 			<tr>
 				<td class="클래스_btn_align1">
-					<form action="adminReviewsList.do?" method="post">
-						<select class="btn" name="parent_idx">
+					<form action="adminReviewsList.do" method="post" name=catForm>
+						<select class="btn" onchange="selFuc1(this)" name="parent_idx">
 							<option value="0">전체</option>
 						<% for(CategoryVO cat_Vo1 :catVo1){ %>
 							<option value="<%=cat_Vo1.getIdx()%>"
@@ -72,7 +84,7 @@
 							<%} %>
 						</select>
 						<%if(parent_idx!=0){ %>
-						<select class="btn" name="category_idx">
+						<select class="btn" onchange="selFuc2(this)" name="category_idx">
 							<option value="0">전체</option>
 						<% for(CategoryVO cat_Vo2 :catVo2){ %>
 							<option value="<%=cat_Vo2.getIdx()%>"
@@ -82,15 +94,15 @@
 						</select>
 						<%} 
 						  if(category_idx!=0){%>
-						<select class="btn" name="products_idx">
+						<select class="btn" onchange="selFuc3(this)" name="products_idx">
 							<option value="0">전체</option>
 						<% for(ProductVO pVo :VpVo){ %>
 							<option value="<%=pVo.getIdx()%>"
 							<%if(products_idx==pVo.getIdx()){%> selected<%}%>>
 							<%= pVo.getProduct_name()%></option>
 							<%} %>
-						<%} %>
 						</select>
+						<%} %>
 						<input type="submit" class="클래스_btn1" value="검색">
 					</form>
 				</td>
@@ -229,7 +241,7 @@
 </tr>
 			<tr align="right">
 				<td align="right" colspan="4">
-				<a href="./admin/adminReviewsWrite.jsp?page=<%=currentPage%>
+				<a href="adminReviewsWrite.do?page=<%=currentPage%>
 				&products_idx=<%=products_idx %>&parent_idx=<%=parent_idx %>
 				&category_idx=<%=category_idx %>">[글쓰기]</a>
 				<a href="./admin/adminLogin.jsp">[메인으로]</a>

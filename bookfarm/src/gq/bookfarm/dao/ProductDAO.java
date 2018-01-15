@@ -337,6 +337,7 @@ public class ProductDAO
 			log.fatal("execute productCountSearchingRows do the DB work failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
+			close(rs);
 			close(con, pstmt);
 		}
 		
@@ -490,5 +491,34 @@ public class ProductDAO
 	}
 	
 	
-	
+	public int productExistanceCheck(int product_idx)
+	{
+		log.debug("execute productExistanceCheck do the DB work Start.");
+		int					total_rows	= 0;
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		String				sql			= null;
+		
+		try {
+			sql	= "select count(*) from product where idx=?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setInt(1, product_idx);
+			rs			= pstmt.executeQuery();
+			
+			if(rs.next())	
+				total_rows	= rs.getInt(1);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.fatal("execute productExistanceCheck do the DB work failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(con, pstmt);
+		}
+		
+		log.debug("productExistanceCheck DB work End. total_rows= " + total_rows);
+		return total_rows;	
+	}
 }
