@@ -18,11 +18,11 @@
 	if (criteria == null)	criteria	= "";
 	if (searchWord == null)	searchWord	= "";
 	
-	int currentPage			= pageInfo.getPage();
-	int startPage			= pageInfo.getStartPage();
-	int endPage				= pageInfo.getEndPage();
-	int totalRows			= pageInfo.getTotalRows();
-	int totalPages			= pageInfo.getTotalPages();
+	int currentPage	= pageInfo.getPage();
+	int startPage	= pageInfo.getStartPage();
+	int endPage		= pageInfo.getEndPage();
+	int totalRows	= pageInfo.getTotalRows();
+	int totalPages	= pageInfo.getTotalPages();
 	
 	log.debug("adminOrdersList.jsp criteria="		+ criteria);
 	log.debug("adminOrdersList.jsp searchWord="		+ searchWord);
