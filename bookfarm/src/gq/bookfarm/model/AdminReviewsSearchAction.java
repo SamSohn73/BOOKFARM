@@ -49,14 +49,12 @@ public class AdminReviewsSearchAction implements Action
 		int		parent_idx		=	0;
 		int		category_idx	=	0;
 		
-		
+		CustomerDAO cDao	=	new CustomerDAO();
 		String	searchCondition	=	req.getParameter("searchCondition");
 		String	searchWord		=	req.getParameter("searchWord");
 		Vector<CustomerVO> VcVo	=	new Vector<CustomerVO>();
 		if(searchCondition.equals("customers_idx")) {
-			CustomerDAO cDao	=	new CustomerDAO();
 						VcVo	=	cDao.findIdx(searchWord);
-									
 		}
 		
 		
@@ -158,6 +156,13 @@ public class AdminReviewsSearchAction implements Action
 		info.setStartPage(startPage);
 		info.setEndPage(endPage);
 								
+		
+		Vector<String>nameList= new Vector<String>();
+		for(ReviewVO vo:list) {
+			String	name	=	cDao.getName(vo.getCustomers_idx());
+							nameList.add(name);
+		}
+		
 		if(list!=null) {
 			req.setAttribute("list", list);
 			req.setAttribute("info", info);
@@ -166,6 +171,7 @@ public class AdminReviewsSearchAction implements Action
 			req.setAttribute("catVo2", catVo2);
 			req.setAttribute("searchCondition", searchCondition);
 			req.setAttribute("searchWord", searchWord);
+			req.setAttribute("nameList", nameList);
 			path		+=	"?products_idx="+products_idx
 							+"&parent_idx="+parent_idx+"&category_idx="+category_idx;
 		}

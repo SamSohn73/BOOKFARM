@@ -135,7 +135,7 @@
 					&page=<%=currentPage%>&p=<%=products_idx%>&par=<%=parent_idx%>
 					&cat=<%=category_idx%>&con=<%=searchCondition%>&word=<%=searchWord%>">
 					<%=vo.getReview_title()%></a></td>
-					<td><%=nameList.get(nCount)/* cDao.getName(vo.getCustomers_idx()) */%></td>
+					<td><%=nameList.get(nCount)%></td>
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
 				<%nCount++;}%>

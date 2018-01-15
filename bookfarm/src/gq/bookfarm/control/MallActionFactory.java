@@ -20,6 +20,7 @@ import gq.bookfarm.model.AdminProductListAction;
 import gq.bookfarm.model.AdminProductModifyAction;
 import gq.bookfarm.model.AdminProductViewAction;
 import gq.bookfarm.model.AdminReviewsDeleteAction;
+import gq.bookfarm.model.AdminReviewsInsertAction;
 import gq.bookfarm.model.AdminReviewsListAction;
 import gq.bookfarm.model.AdminReviewsModifyAction;
 import gq.bookfarm.model.AdminReviewsSearchAction;
@@ -195,6 +196,12 @@ public class MallActionFactory
 			action = new AdminReviewsWriteAction("./admin/adminReviewsWrite.jsp");
 			log.debug("qAdminReviewsWrite.do action create End.");
 		}
+		else if(cmd.equals("/adminReviewsInsert.do"))
+		{
+			log.debug("qAdminReviewsInsert.do action create Start.");
+			action = new AdminReviewsInsertAction("./admin/adminReviewsList.jsp");
+			log.debug("qAdminReviewsInsert.do action create End.");
+		}
 		else if(cmd.equals("/adminReviewsDelete.do"))
 		{
 			log.debug("qAdminReviewsDelete.do action create Start.");
@@ -204,7 +211,7 @@ public class MallActionFactory
 		else if(cmd.equals("/adminReviewsModify.do"))
 		{
 			log.debug("qAdminReviewsModify.do action create Start.");
-			action = new AdminReviewsViewAction("./admin/adminReviewsModify.jsp");
+			action = new AdminReviewsModifyAction("/adminReviewsView.do");
 			log.debug("qAdminReviewsModify.do action create End.");
 		}
 		else if(cmd.equals("/adminReviewsSearch.do"))

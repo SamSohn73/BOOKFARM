@@ -14,12 +14,12 @@ import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.ReviewVO;
 
-public class AdminReviewsWriteAction implements Action
+public class AdminReviewsInsertAction implements Action
 {
 	private final	Logger				log		= Logger.getLogger(this.getClass());
 	private String path;
 	
-	public AdminReviewsWriteAction(String path)
+	public AdminReviewsInsertAction(String path)
 	{
 		super();
 		this.path = path;
