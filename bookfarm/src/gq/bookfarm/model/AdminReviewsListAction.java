@@ -122,8 +122,16 @@ public class AdminReviewsListAction implements Action
 		CustomerDAO cDao	=	new CustomerDAO();
 		Vector<String>nameList= new Vector<String>();
 		for(ReviewVO vo:list) {
-			String	name	=	cDao.getName(vo.getCustomers_idx());
-							nameList.add(name);
+			if(vo.getCustomers_idx()==0) {
+									nameList.add("관리자");
+			}else {
+				String	name	=	cDao.getName(vo.getCustomers_idx());
+				System.out.println(name);
+				if(name==null)
+									nameList.add("이름 없음");
+				else
+									nameList.add(name);
+			}
 		}
 							
 		if(list!=null) {

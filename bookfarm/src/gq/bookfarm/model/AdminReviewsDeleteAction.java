@@ -38,7 +38,6 @@ public class AdminReviewsDeleteAction implements Action
 		int		page			=	(int)req.getAttribute("page");
 		int		idx				=	(int)req.getAttribute("idx");
 		String	type			=	(String)req.getAttribute("type");
-		//String	typeView		=	(String)req.getAttribute("typeView");
 		int		products_idx	=	(int)req.getAttribute("products_idx");
 		
 		ReviewDAO	dao			=	new	ReviewDAO();

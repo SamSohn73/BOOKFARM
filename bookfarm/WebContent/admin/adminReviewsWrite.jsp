@@ -70,7 +70,7 @@
 						</select>
 						<%} %>
 		</form>
-<form action="../adminReviewsInsert.do" method="post">
+<form action="./adminReviewsInsert.do" method="post">
 <table>
 		<caption>리뷰 등록</caption>
 	<tr>

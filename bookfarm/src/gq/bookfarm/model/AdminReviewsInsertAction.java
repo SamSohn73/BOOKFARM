@@ -9,10 +9,8 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
-import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
-import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.ReviewVO;
 
 public class AdminReviewsInsertAction implements Action
@@ -46,9 +44,6 @@ public class AdminReviewsInsertAction implements Action
 		if (products_idx == 0) {
 			log.info("AdminReviewsInsertAction can not optain product_idx !!!!!!!!!!!!!!!!");
 			path="error.jsp";
-		}else {
-			ProductDAO pDao		=	new ProductDAO();
-			pDao.productExistanceCheck(products_idx);
 		}
 		int		result			=	0;
 		

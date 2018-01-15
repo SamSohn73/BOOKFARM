@@ -199,13 +199,13 @@ public class MallActionFactory
 		else if(cmd.equals("/adminReviewsInsert.do"))
 		{
 			log.debug("qAdminReviewsInsert.do action create Start.");
-			action = new AdminReviewsInsertAction("./admin/adminReviewsList.jsp");
+			action = new AdminReviewsInsertAction("/adminReviewsList.do");
 			log.debug("qAdminReviewsInsert.do action create End.");
 		}
 		else if(cmd.equals("/adminReviewsDelete.do"))
 		{
 			log.debug("qAdminReviewsDelete.do action create Start.");
-			action = new AdminReviewsDeleteAction("./admin/adminReviewsDelete.jsp");
+			action = new AdminReviewsDeleteAction("/adminReviewsList.do");
 			log.debug("qAdminReviewsDelete.do action create End.");
 		}
 		else if(cmd.equals("/adminReviewsModify.do"))
