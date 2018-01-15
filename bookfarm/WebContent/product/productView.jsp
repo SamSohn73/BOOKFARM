@@ -1,8 +1,11 @@
+<%@page import="gq.bookfarm.vo.CategoryVO"%>
+<%@page import="java.util.Vector"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="gq.bookfarm.vo.ProductVO"%>
 <% 	 		
-	ProductVO	productVO		= (ProductVO)request.getAttribute("productVO");
-	String		current_page	= (String)request.getAttribute("page");
+	String				current_page	= (String)request.getParameter("page");
+	ProductVO			productVO		= (ProductVO)session.getAttribute("productVO");
+	Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,7 +14,9 @@
 <title>상품 보기</title>
 <script>	
 	function list_submit(){
-		location.href="productList.do";
+		//location.href="productList.do";
+		productForm.action = "productList.do";
+		productForm.submit();
 	}
 	function buy_submit(){
 		productForm.action = "productBuy.do?idx=<%=productVO.getIdx()%>";

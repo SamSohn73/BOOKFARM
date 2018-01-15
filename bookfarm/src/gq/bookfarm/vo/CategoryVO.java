@@ -8,12 +8,18 @@ public class CategoryVO
 	
 	public CategoryVO() {}
 
+	public CategoryVO(int idx)
+	{
+		super();
+		this.idx = idx;
+	}
+	
 	public CategoryVO(int idx, int parent_idx, String category_name)
 	{
 		super();
-		this.idx				= idx;
-		this.parent_idx			= parent_idx;
-		this.category_name		= category_name;
+		this.idx			= idx;
+		this.parent_idx		= parent_idx;
+		this.category_name	= category_name;
 	}
 
 	public int getIdx()
@@ -41,6 +47,30 @@ public class CategoryVO
 	public void setCategory_name(String category_name)
 	{
 		this.category_name = category_name;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idx;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CategoryVO other = (CategoryVO) obj;
+		if (idx != other.idx)
+			return false;
+		return true;
 	}
 	
 }

@@ -32,7 +32,7 @@ public class CustomerRegistAction implements Action
 		String		type			=	req.getParameter("type");
 		CustomerVO	vo				=	new CustomerVO();
 		CustomerDAO	dao				=	new	CustomerDAO();
-				
+		
 		int			result			=	0;
 		
 		vo.setUsername(req.getParameter("username"));

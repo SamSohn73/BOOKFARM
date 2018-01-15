@@ -1,3 +1,4 @@
+<%@page import="gq.bookfarm.vo.CategoryVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 <%@page import="gq.bookfarm.vo.PageVO"%>
@@ -9,6 +10,7 @@
 <%
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
 	Vector<ProductVO>	products	= (Vector<ProductVO>) request.getAttribute("products");
+	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
 	
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
@@ -61,7 +63,7 @@
 	int idNum = totalRows - (currentPage-1)*10;
 	for(ProductVO product: products) {	%>
 		<tr>
-			<td><%=idNum%></td>
+			<td><%=idNum%></td><!--   -->
 			<td><%=product.getCategory_idx()%></td>
 			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><img src="<%=product.getProduct_image()%>"></a></td>
 			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><%=product.getProduct_name()%></a></td>
