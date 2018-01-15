@@ -82,7 +82,7 @@ public class AdminProductModifyAction implements Action
 		}
 
 		// if result failed change path here
-		if (result == 0)	path="view/error.jsp";
+		if (result <= 0)	path="view/error.jsp";
 		else				path+= "?page=" + curPage;
 		
 		log.debug("AdminProductModifyAction execute End.");

@@ -51,7 +51,7 @@ public class AdminCustomerModifyViewAction implements Action
 			path="error.jsp"; 
 		}
 		
-		/*if(result==0) {
+		/*if(result <= 0) {
 			log.debug("AdminCustomerModifyAction execute Failed.");
 			path="error.jsp"; 
 		}else {
