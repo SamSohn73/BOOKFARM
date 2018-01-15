@@ -51,7 +51,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="td_left">제품 소개</td>
+				<td class="td_left">상품 소개</td>
 				<td class="td_right">
 					<textarea name='contents' cols='65' rows='15' readonly><%=productVO.getProduct_desc()%>
 				</textarea>

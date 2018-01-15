@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>상품 보기</title>
 <script>	
 	function delete_list(){
 		location.href="adminProductDelete.do?idx=<%=productVO.getIdx()%>&page=<%=current_page%>";

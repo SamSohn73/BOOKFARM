@@ -44,7 +44,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>
+<%	if(typeView.equals("view")) {%>				리뷰 보기
+<%	} else if(typeView.equals("modify")) {%>	리뷰 수정
+<%	} else {%>									리뷰 등록
+<%	}%>
+</title>
 <script>
 	function returnList1(){
 		location.href="../qReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
@@ -75,7 +80,7 @@
 		<caption>리뷰 수정</caption>
 	<%	}else{ %>
 		<caption>리뷰 등록</caption>
-	<%	} %>	
+	<%	} %>
 	<tr>
 		<td class="left">글쓴이</td>
 		<td class="right"><input type="text" name="review_writer" size="15" required="required"

@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인화면(테스트)</title>
 </head>
 <body>
 	<h1><%=cVo.getFirstname()%> 님이 로그인 하셨습니다.</h1>
