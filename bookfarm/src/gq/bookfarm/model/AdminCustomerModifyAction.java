@@ -64,7 +64,7 @@ public class AdminCustomerModifyAction implements Action
 		int			result			=	dao.updateRow(idx, vo);
 	
 		
-		if(result == 0) {
+		if(result <= 0) {
 			log.debug("AdminCustomerModifyAction execute Failed.");
 			path="error.jsp";
 		}else {

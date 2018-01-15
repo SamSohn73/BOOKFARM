@@ -72,7 +72,7 @@ public class AdminProductInsertAction implements Action
 		}
 
 		// if result failed change path here
-		if (result == 0)	path="view/error.jsp";
+		if (result <= 0)	path="view/error.jsp";
 		else				path+= "?page=" + curPage;
 		
 		log.debug("AdminProductInsertAction execute End.");

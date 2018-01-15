@@ -32,7 +32,7 @@ public class AdminProductDeleteAction implements Action
 		ProductDAO	dao				=	new ProductDAO();
 		int			result			=	dao.productDelete(idx);
 
-		if(result==0) {
+		if(result <= 0) {
 			log.debug("AdminProductDeleteAction execute Failed.");
 			path="error.jsp"; 
 		}else {

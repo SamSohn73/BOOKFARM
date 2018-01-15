@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
-<%@page import="gq.bookfarm.vo.PageVO"%>
 <%@page import="gq.bookfarm.vo.BasketVO"%>
 <%@page import="gq.bookfarm.vo.ProductVO"%>
 <%@page import="org.apache.log4j.Logger"%>
@@ -40,12 +39,12 @@
 				<a href="basketDelete.do?idx=<%=basket.getIdx()%>"><input type='button' value="삭제"></a>
 			</td>
 			<td><%=idNum%></td>
-			<td><%=product.getProduct_name()%></td>
-			<td><img src="<%=product.getProduct_image()%>"></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>"><img src="<%=product.getProduct_image()%>"></a></td>
 			<td><%=basket.getQuantity()%></td>
-			<td><%=product.getProduct_price()%></td>
+			<td><%=basket.getFinal_price()%></td>
 		</tr>
-<%					total += product.getProduct_price();
+<%					total += basket.getFinal_price();
 				}
 			}
 		}
