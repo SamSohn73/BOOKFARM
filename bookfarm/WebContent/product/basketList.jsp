@@ -39,8 +39,8 @@
 				<a href="basketDelete.do?idx=<%=basket.getIdx()%>"><input type='button' value="삭제"></a>
 			</td>
 			<td><%=idNum%></td>
-			<td><%=product.getProduct_name()%></td>
-			<td><img src="<%=product.getProduct_image()%>"></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>"><img src="<%=product.getProduct_image()%>"></a></td>
 			<td><%=basket.getQuantity()%></td>
 			<td><%=basket.getFinal_price()%></td>
 		</tr>
