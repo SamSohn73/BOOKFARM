@@ -12,20 +12,20 @@
 </script>
 </head>
 <body>
-<form>
-<table>
-	<caption>Welcome to BookFarm!!!</caption>
-	<tr>
-		<td>
-			<iframe src="./member/login.jsp"></iframe>
-		</td>
-		<td>
-			비회원 로그인
-		</td>
-	</tr>
-
-</table>
-<a href='./productList.do'> 상품 목록 </a>
-</form>
+	<form>
+		<table>
+			<caption>Welcome to BookFarm!!!</caption>
+			<tr>
+				<td>
+					<iframe src="./member/login.jsp"></iframe>
+				</td>
+				<td>
+					비회원 로그인
+				</td>
+			</tr>
+		
+		</table>
+	<a href='./productList.do'> 상품 목록 </a>
+	</form>
 </body>
 </html>
