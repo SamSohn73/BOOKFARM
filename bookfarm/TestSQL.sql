@@ -21,4 +21,5 @@ delete from category where idx=143;
 
 delete from product where idx = 57;
 
-
+select * from review where (products_idx=1 or products_idx=2) and (customers_idx=10 or customers_idx=0);
+select * from review;

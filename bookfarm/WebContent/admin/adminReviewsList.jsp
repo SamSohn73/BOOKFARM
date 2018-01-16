@@ -103,7 +103,6 @@
 							<%} %>
 						</select>
 						<%} %>
-						<input type="submit" class="클래스_btn1" value="검색">
 					</form>
 				</td>
 				<td class="클래스_btn_align1">
