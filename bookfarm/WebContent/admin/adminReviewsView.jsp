@@ -56,8 +56,7 @@
 		<input class="btn" type="submit" value="수정하기"/>
 		
 		<a href="./adminReviewsDelete.do?idx=<%=idx%>&page=<%=current_page%>&products_idx=<%=products_idx%>
-		&parent_idx=<%=parent_idx%>&category_idx=<%=category_idx%>&searchCondition=<%=searchCondition%>
-		&searchWord=<%=searchWord%>">
+		&parent_idx=<%=parent_idx%>&category_idx=<%=category_idx%>">
 		<input class="btn" type="button" value="삭제하기"></a>
 		</td>
 	</tr>
