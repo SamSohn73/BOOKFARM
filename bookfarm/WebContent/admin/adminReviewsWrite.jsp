@@ -28,7 +28,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>리뷰 등록</title>
 <script>
 	function returnList(){
 		location.href="../adminReviewsList.do";

@@ -23,7 +23,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>리뷰 보기</title>
 </head>
 <body>
 <form action="./adminReviewsModify.do?idx=<%=idx%>&page=<%=current_page%>&p=<%=products_idx%>

@@ -24,7 +24,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>리뷰 수정</title>
 <script>
 	function returnList2(){
 		location.href="./adminReviewsList.do?page=<%=current_page%>&products_idx=<%=products_idx%>";

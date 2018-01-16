@@ -17,11 +17,11 @@
 	if (criteria == null)	criteria	= "";
 	if (searchWord == null)	searchWord	= "";
 	
-	int currentPage			= pageInfo.getPage();
-	int startPage			= pageInfo.getStartPage();
-	int endPage				= pageInfo.getEndPage();
-	int totalRows			= pageInfo.getTotalRows();
-	int totalPages			= pageInfo.getTotalPages();
+	int currentPage	= pageInfo.getPage();
+	int startPage	= pageInfo.getStartPage();
+	int endPage		= pageInfo.getEndPage();
+	int totalRows	= pageInfo.getTotalRows();
+	int totalPages	= pageInfo.getTotalPages();
 	
 	log.debug("adminProductList.jsp criteria=" + criteria);
 	log.debug("adminProductList.jsp searchWord=" + searchWord);

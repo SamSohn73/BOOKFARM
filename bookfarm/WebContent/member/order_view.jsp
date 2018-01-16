@@ -33,7 +33,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>구매 내역 확인</title>
 </head>
 <body>
 		<table class="클래스_테이블1">
