@@ -40,6 +40,7 @@ public class AdminReviewsWriteAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsWriteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int		page			=	Integer.parseInt(req.getParameter("page"));
@@ -65,7 +66,6 @@ public class AdminReviewsWriteAction implements Action
 		
 		ReviewDAO dao			=	new ReviewDAO();
 		
-			
 									req.setAttribute("VpVo", VpVo);
 									req.setAttribute("catVo1", catVo1);
 									req.setAttribute("catVo2", catVo2);

@@ -38,6 +38,7 @@ public class AdminCategoryAddViewAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryAddViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int curPage						= Integer.parseInt(req.getParameter("page"));

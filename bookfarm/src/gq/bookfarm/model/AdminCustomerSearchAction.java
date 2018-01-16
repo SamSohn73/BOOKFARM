@@ -4,12 +4,15 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CustomerDAO;
+import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
 
@@ -28,6 +31,15 @@ public class AdminCustomerSearchAction implements Action
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
 	{
 		log.debug("AdminCustomerSearch execute SearchAction Start.");
+		HttpSession	session		= req.getSession();
+		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
+		AdminDAO	adminDAO	= new AdminDAO();
+		if (adminDAO.isAdmin(adminVO) == null) {
+			log.info("AdminCustomerModifyViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			path="error.jsp";
+			return new ActionForward(path, false);
+		}
+		
 		String	criteria	= req.getParameter("criteria");
 		String	searchWord	= req.getParameter("searchWord");
 		if (criteria.equals("gender")) {

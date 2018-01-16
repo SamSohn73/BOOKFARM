@@ -34,6 +34,7 @@ public class AdminCustomerUpdateAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCustomerUpdateAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		String current_page 			=	req.getParameter("page");

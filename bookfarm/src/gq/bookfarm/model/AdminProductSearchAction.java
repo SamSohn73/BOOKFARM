@@ -40,6 +40,7 @@ public class AdminProductSearchAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminProductSearchAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 
 		Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");

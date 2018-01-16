@@ -33,6 +33,7 @@ public class AdminReviewsDeleteAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsDeleteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int		idx				=	Integer.parseInt(req.getParameter("idx"));

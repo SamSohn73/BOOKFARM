@@ -34,6 +34,7 @@ public class AdminReviewsModifyAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsModifyAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int		products_idx	=	Integer.parseInt(req.getParameter("p"));

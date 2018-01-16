@@ -4,7 +4,7 @@ select * from admin;
 select * from customer;
 
 select * from product;
-select * from product where product_name like "%인간%";
+select * from product where product_name like "%짠%";
 select * from product order by idx ;
 select * from product order by idx desc limit 1,10;
 

@@ -2,12 +2,15 @@ package gq.bookfarm.model;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.ProductDAO;
+import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.ProductVO;
 
 public class AdminProductViewAction implements Action
@@ -26,6 +29,16 @@ public class AdminProductViewAction implements Action
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		
 		log.debug("AdminProductViewAction execute Start.");
+		
+		HttpSession	session		= req.getSession();
+		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
+		AdminDAO	adminDAO	= new AdminDAO();
+		if (adminDAO.isAdmin(adminVO) == null) {
+			log.info("AdminProductSearchAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			path="error.jsp";
+			return new ActionForward(path, false);
+		}
+		
 		int			current_page			=	Integer.parseInt(req.getParameter("page"));
 		int			idx						=	Integer.parseInt(req.getParameter("idx"));
 		log.debug("AdminProductViewAction execute Page=" + current_page);

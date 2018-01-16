@@ -38,6 +38,7 @@ public class AdminCategoryModifyViewAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryModifyViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int curPage						= Integer.parseInt(req.getParameter("page"));

@@ -5,6 +5,7 @@ import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
@@ -13,7 +14,9 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.ProductDAO;
+import gq.bookfarm.vo.AdminVO;
 import gq.bookfarm.vo.ProductVO;
 
 
@@ -34,6 +37,15 @@ public class AdminProductModifyAction implements Action
 		//getting values from qna_board_write.jsp
 		//Because of the fileupload function, basic request can't do the work.
 		log.debug("AdminProductModifyAction execute Start.");
+		
+		HttpSession	session	= req.getSession();
+		AdminVO		adminVO	= (AdminVO) session.getAttribute("adminVO");
+		AdminDAO	adminDAO= new AdminDAO();
+		if (adminDAO.isAdmin(adminVO) == null) {
+			log.info("AdminProductListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			path="error.jsp";
+			return new ActionForward(path, false);
+		}
 		
 		String uploadPath=req.getServletContext().getRealPath("/image");
 		

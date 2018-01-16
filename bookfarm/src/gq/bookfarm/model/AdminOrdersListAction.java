@@ -39,6 +39,7 @@ public class AdminOrdersListAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminOrdersList execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int page = 1;

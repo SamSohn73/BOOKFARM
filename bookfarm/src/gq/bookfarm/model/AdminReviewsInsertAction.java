@@ -33,6 +33,7 @@ public class AdminReviewsInsertAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsInsertAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int		page			=	Integer.parseInt(req.getParameter("page"));

@@ -42,6 +42,7 @@ public class AdminReviewsListAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int		page		=	1;

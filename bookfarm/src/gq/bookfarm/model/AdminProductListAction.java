@@ -39,6 +39,7 @@ public class AdminProductListAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminProductListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int page = 1;

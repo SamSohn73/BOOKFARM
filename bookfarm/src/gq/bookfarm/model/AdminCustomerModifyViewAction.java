@@ -34,6 +34,7 @@ public class AdminCustomerModifyViewAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCustomerModifyViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		int		current_page	=	Integer.parseInt(req.getParameter("page"));
