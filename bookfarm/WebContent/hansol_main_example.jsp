@@ -13,9 +13,15 @@
 <title>메인화면(테스트)</title>
 </head>
 <body>
-	<h1><%=cVo.getFirstname()%> 님이 로그인 하셨습니다.</h1>
-	<a href="./member/mypage.jsp">myPage</a>
-	<a href="qCustomerLogout.do">logout</a>
-	<a href='productList.do'> 상품 목록 </a>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
+
+<a href='productList.do'> 상품 목록 </a>
+
+
 </body>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
 </html>

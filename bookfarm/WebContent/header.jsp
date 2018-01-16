@@ -14,8 +14,7 @@
 </head>
 <body>
 	<h1><%=cVo.getFirstname()%> 님이 로그인 하셨습니다.</h1>
-	<a href="./member/mypage.jsp">myPage</a>
-	<a href="qCustomerLogout.do">logout</a>
-	<a href='productList.do'> 상품 목록 </a>
+	<a href="./member/mypage.jsp" target="_top">myPage</a>
+	<a href="qCustomerLogout.do" target="_top">logout</a>
 </body>
 </html>

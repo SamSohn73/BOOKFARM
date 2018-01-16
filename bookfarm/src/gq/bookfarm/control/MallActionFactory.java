@@ -36,6 +36,8 @@ import gq.bookfarm.model.CustomerFindAction;
 import gq.bookfarm.model.CustomerIdPwdCheckAction;
 import gq.bookfarm.model.CustomerLogoutAction;
 import gq.bookfarm.model.CustomerRegistAction;
+import gq.bookfarm.model.FooterAction;
+import gq.bookfarm.model.HeaderAction;
 import gq.bookfarm.model.OrdersConfirmAction;
 import gq.bookfarm.model.ProductListAction;
 import gq.bookfarm.model.ProductViewAction;
@@ -44,7 +46,6 @@ import gq.bookfarm.model.ReviewsHitUpdateAction;
 import gq.bookfarm.model.ReviewsIdPassChkAction;
 import gq.bookfarm.model.ReviewsInsertAction;
 import gq.bookfarm.model.ReviewsListAction;
-import gq.bookfarm.model.ReviewsModifyAction;
 import gq.bookfarm.model.ReviewsSearchAction;
 import gq.bookfarm.model.ReviewsViewAction;
 
@@ -334,6 +335,18 @@ public class MallActionFactory
 			log.debug("basketDelete.do action create Start.");
 			action = new BasketDeleteAction("basketList.do");
 			log.debug("basketDelete.do action create End.");
+		}
+		
+		//header, footer
+		if (cmd.equals("/header.do")) {
+			log.debug("header.do action create Start.");
+			action = new HeaderAction("header.jsp");
+			log.debug("header.do action create End.");
+		}
+		if (cmd.equals("/footer.do")) {
+			log.debug("footer.do action create Start.");
+			action = new FooterAction("footer.jsp");
+			log.debug("footer.do action create End.");
 		}
 		
 		return action;
