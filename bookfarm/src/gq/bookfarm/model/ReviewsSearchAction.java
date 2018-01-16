@@ -75,16 +75,30 @@ public class ReviewsSearchAction implements Action
 			Vector<ReviewVO> list	=	new Vector<ReviewVO>();
 			
 			if(searchCondition.equals("customers_idx")){
-				for(CustomerVO cVo : VcVo){
-					list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, cVo.getIdx());
-				}
+				list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, VcVo);
 			}else{
 				list	=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
+			}
+			
+			CustomerDAO cDao	=	new CustomerDAO();
+			Vector<String>nameList= new Vector<String>();
+			for(ReviewVO rVo:list) {
+				if(rVo.getCustomers_idx()==0) {
+										nameList.add("관리자");
+				}else {
+					String	name	=	cDao.getName(rVo.getCustomers_idx());
+					System.out.println(name);
+					if(name==null)
+										nameList.add("이름 없음");
+					else
+										nameList.add(name);
+				}
 			}
 			
 			if(list!=null) {
 				req.setAttribute("list", list);
 				req.setAttribute("info", info);
+				req.setAttribute("nameList", nameList);
 				req.setAttribute("searchCondition", searchCondition);
 				req.setAttribute("searchWord", searchWord);
 				path		+=	"?type="+type+"&products_idx="+products_idx;
@@ -109,9 +123,26 @@ public class ReviewsSearchAction implements Action
 			info.setStartPage(startPage);
 			info.setEndPage(endPage);
 			Vector<ReviewVO> list	=	dao.getCustomerSearchList(customers_idx, page, limit, searchCondition, searchWord);
+			
+			CustomerDAO cDao	=	new CustomerDAO();
+			Vector<String>nameList= new Vector<String>();
+			for(ReviewVO rVo:list) {
+				if(rVo.getCustomers_idx()==0) {
+										nameList.add("관리자");
+				}else {
+					String	name	=	cDao.getName(rVo.getCustomers_idx());
+					System.out.println(name);
+					if(name==null)
+										nameList.add("이름 없음");
+					else
+										nameList.add(name);
+				}
+			}
+			
 			if(list!=null) {
 				req.setAttribute("list", list);
 				req.setAttribute("info", info);
+				req.setAttribute("nameList", nameList);
 				req.setAttribute("searchCondition", searchCondition);
 				req.setAttribute("searchWord", searchWord);
 				path		+=	"?type="+type+"&customers_idx="+customers_idx;

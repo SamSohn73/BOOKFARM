@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.ReviewVO;
 
@@ -36,9 +37,22 @@ public class ReviewsViewAction implements Action
 			ReviewDAO 	dao			=	new ReviewDAO();
 			ReviewVO	reviewVO	=	dao.getRow(idx);
 			
+			CustomerDAO	cDao		=	new CustomerDAO();
+			String		name		=	null;
+				if(reviewVO.getCustomers_idx()==0) {
+						name		=	"관리자";
+				}else {
+					String	name_temp=	cDao.getName(reviewVO.getCustomers_idx());
+					System.out.println(name_temp);
+					if(name_temp==null)
+						name		=	"이름 없음";
+					else
+						name		=	name_temp;
+				}
+			
 			if(reviewVO!=null){
 				req.setAttribute("reviewVO", reviewVO);
-				//req.setAttribute("idx", idx);
+				req.setAttribute("name", name);
 				path +=	"?type="+type+"&typeView="+typeView+"&page="+page;
 				
 			}else{

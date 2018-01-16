@@ -2,9 +2,6 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="gq.bookfarm.vo.ReviewVO" %>
 <%@ page import="gq.bookfarm.vo.CustomerVO" %>
-<%@ page import="gq.bookfarm.dao.ReviewDAO" %>
-<%@ page import="gq.bookfarm.dao.CustomerDAO" %>
-<%@ page import="gq.bookfarm.dao.CategoryDAO" %>
 <%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page import="gq.bookfarm.vo.ProductVO" %>
 <%@ page import="gq.bookfarm.vo.CategoryVO" %>
@@ -103,7 +100,6 @@
 							<%} %>
 						</select>
 						<%} %>
-						<input type="submit" class="클래스_btn1" value="검색">
 					</form>
 				</td>
 				<td class="클래스_btn_align1">

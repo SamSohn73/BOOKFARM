@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
+import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.ProductVO;
 import gq.bookfarm.vo.ReviewVO;
 
@@ -170,6 +171,36 @@ public class ReviewDAO
 		return total_rows;
 	}
 	
+	public int fewProductsTotalRows(Vector<ProductVO> VpVo)
+	{
+		int			i		=			1;
+		int			j		=			1;
+		String	sql			=	"select count(*) from review where products_idx=? ";
+		for(i=1;i<VpVo.size();i++) {
+				sql			+=	"or products_idx=? ";
+		}
+		int		total_rows	=	0;
+		try{
+				con			=	getConnection();
+				pstmt		=	con.prepareStatement(sql);
+		for(ProductVO pVo:VpVo) {
+								pstmt.setInt(j, pVo.getIdx());
+								j++;
+		}
+				rs			=	pstmt.executeQuery();
+			if(rs.next())
+				total_rows	=	rs.getInt(1);
+		}catch(SQLException e){
+								log.error("ReviewsDAO	"
+										+ "oneProductsTotalRows error : "+e);
+		}finally{
+								close(rs);
+								close(pstmt);
+								close(con);
+		}
+		return total_rows;
+	}
+	
 	public int oneCustomersTotalRows(int customers_idx)
 	{
 		String	sql			=	"select count(*) from review where customers_idx=?";		
@@ -264,6 +295,58 @@ public class ReviewDAO
 												vo.setDate_added(rs.getDate(7));
 												vo.setLast_modified(rs.getDate(8));
 												vo.setReviews_read(rs.getInt(9));				
+												list.add(vo);
+			}
+		}catch (SQLException e) {			
+												log.error("ReviewsDAO	"
+														+ "getList() error : "+e);
+		}finally {			
+												close(rs);
+												close(pstmt);
+												close(con);			
+		}	
+		
+		return list;
+		
+	}
+	
+	public Vector<ReviewVO> getList(Vector<ProductVO> VpVo, int page, int limit)
+	{
+		int					start	=			(page-1)*10;
+		int					i		=			1;
+		int					j		=			1;
+		Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+		StringBuffer		sql		=	new		StringBuffer();
+												sql.append("select *  from review ");
+												sql.append("where products_idx=? ");
+		for(i=1;i<VpVo.size();i++) {
+												sql.append("or products_idx=? ");
+		}
+												sql.append("order by date_added desc, ");
+												sql.append("last_modified desc, ");
+												sql.append("reviews_read asc limit ?,?");
+		try{
+							con		=			getConnection();
+							pstmt	=			con.prepareStatement(sql.toString());
+		for(ProductVO pVo:VpVo) {
+												pstmt.setInt(j, pVo.getIdx());
+												j++;
+		}
+												
+												pstmt.setInt(j, start);
+												pstmt.setInt(j+1, limit);
+							rs		=			pstmt.executeQuery();
+			while(rs.next()){
+				ReviewVO	vo		=	new		ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));
 												list.add(vo);
 			}
 		}catch (SQLException e) {			
@@ -653,17 +736,27 @@ public class ReviewDAO
 		return result;		
 	}
 	
-	public int searchList(String searchCondition, int searchWord)
+	public int searchList(String searchCondition, Vector<CustomerVO> VcVo)
 	{
+		int				k		=			1;
+		int				l		=			1;
+		
 			String		sql		=	"select count(*) from review where ";
-						sql		+=	searchCondition + "=? order by";
+						sql		+=	searchCondition + "=? ";
+		for(k=1;k<VcVo.size();k++) {
+						sql		+=	"or "+searchCondition+"=? ";
+		}
+						sql		+=	" order by";
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
 			int			result	=	0;
 		try{
 						con		=	getConnection();
 						pstmt	=	con.prepareStatement(sql);
-									pstmt.setInt(1, searchWord);
+			for(CustomerVO cVo:VcVo) {
+									pstmt.setInt(l, cVo.getIdx());
+									l++;
+			}
 						rs		=	pstmt.executeQuery();
 			if(rs.next()){
 						result	=	rs.getInt(1);
@@ -709,11 +802,17 @@ public class ReviewDAO
 		return result;		
 	}
 	
-	public int searchOneProductList(int products_idx, String searchCondition, int searchWord)
+	public int searchOneProductList(int products_idx, String searchCondition, Vector<CustomerVO> VcVo)
 	{
+		int				k		=			1;
+		int				l		=			2;
+		
 			String		sql		=	"select count(*) from review where ";
-						sql		+=	"products_idx=? and ";
-						sql		+=	searchCondition + "=? order by";
+						sql		+=	"products_idx=? and ("+searchCondition + "=? ";
+			for(k=1;k<VcVo.size();k++) {
+						sql		+=	"or "+searchCondition+"=? ";
+			}
+						sql		+=	") order by";
 						sql		+=	" date_added desc,last_modified desc,";
 						sql		+=	" reviews_read asc";	
 			int			result	=	0;
@@ -721,7 +820,10 @@ public class ReviewDAO
 						con		=	getConnection();
 						pstmt	=	con.prepareStatement(sql);
 									pstmt.setInt(1, products_idx);
-									pstmt.setInt(2, searchWord);
+			for(CustomerVO cVo:VcVo) {
+									pstmt.setInt(l, cVo.getIdx());
+									l++;
+			}
 						rs		=	pstmt.executeQuery();
 			if(rs.next()){
 						result	=	rs.getInt(1);
@@ -729,6 +831,94 @@ public class ReviewDAO
 		}catch (SQLException e){
 									log.error("ReviewsDAO	"
 											+ "searchOneProductList error : "+e);
+		}finally{
+			close(rs);
+			close(pstmt);
+			close(con);
+		}		
+		
+		return result;		
+	}
+	
+	public int searchProductList(Vector<ProductVO> VpVo, String searchCondition, String searchWord)
+	{
+		int				i		=			1;
+		int				j		=			1;
+		
+			String		sql		=	"select count(*) from review where (products_idx=? ";
+		
+		for(i=1;i<VpVo.size();i++) {
+						sql		+=	"or products_idx=? ";
+		}
+						sql		+=	") and ";
+						sql		+=	searchCondition + " like ? order by";
+						sql		+=	" date_added desc,last_modified desc,";
+						sql		+=	" reviews_read asc";	
+			int			result	=	0;
+		try{
+						con		=	getConnection();
+						pstmt	=	con.prepareStatement(sql);
+			for(ProductVO pVo:VpVo) {
+									pstmt.setInt(j, pVo.getIdx());
+									j++;
+			}
+									pstmt.setString(j, "%"+searchWord+"%");
+						rs		=	pstmt.executeQuery();
+			if(rs.next()){
+						result	=	rs.getInt(1);
+			}
+		}catch (SQLException e){
+									log.error("ReviewsDAO	"
+											+ "searchProductList error : "+e);
+		}finally{
+			close(rs);
+			close(pstmt);
+			close(con);
+		}		
+		
+		return result;		
+	}
+	
+	public int searchProductList(Vector<ProductVO> VpVo, String searchCondition, Vector<CustomerVO> VcVo)
+	{
+		int				i		=			1;
+		int				j		=			1;
+		int				k		=			1;
+		int				l		=			0;
+		
+			String		sql		=	"select count(*) from review where (products_idx=? ";
+			
+			for(i=1;i<VpVo.size();i++) {
+						sql		+=	"or products_idx=? ";
+			}
+						sql		+=	") and (";
+						sql		+=	searchCondition+"=? ";
+			for(k=1;k<VcVo.size();k++) {
+						sql		+=	"or "+searchCondition+"=? ";
+			}
+						sql		+=	") order by";
+						sql		+=	" date_added desc,last_modified desc,";
+						sql		+=	" reviews_read asc";	
+			int			result	=	0;
+		try{
+						con		=	getConnection();
+						pstmt	=	con.prepareStatement(sql);
+						
+			for(ProductVO pVo:VpVo) {
+									pstmt.setInt(j, pVo.getIdx());
+									j++;
+			}
+			for(CustomerVO cVo:VcVo) {
+									pstmt.setInt(j+l, cVo.getIdx());
+									l++;
+			}
+						rs		=	pstmt.executeQuery();
+			if(rs.next()){
+						result	=	rs.getInt(1);
+			}
+		}catch (SQLException e){
+									log.error("ReviewsDAO	"
+											+ "searchProductList error : "+e);
 		}finally{
 			close(rs);
 			close(pstmt);
@@ -808,22 +998,31 @@ public class ReviewDAO
 		return list;		
 	}
 	
-	public Vector<ReviewVO> getSearchList(int page, int limit, String searchCondition, int searchWord)
+	public Vector<ReviewVO> getSearchList(int page, int limit, String searchCondition, Vector<CustomerVO> VcVo)
 	{
+					int				k		=			1;
+					int				l		=			1;
+					
 				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
 				int					start	=			(page-1)*10;
 		
 				String				sql		=	"select * from review where ";
-									sql		+=	searchCondition;
-									sql		+=	"=? order by date_added desc, ";
+									sql		+=	searchCondition+"=? ";
+				for(k=1;k<VcVo.size();k++) {
+									sql		+=	"or "+searchCondition+"=? ";
+				}
+									sql		+=	"order by date_added desc, ";
 									sql		+=	"last_modified desc, ";
 									sql		+=	"reviews_read asc limit ?,?";		
 		try {
 									con		=	getConnection();
 									pstmt	=	con.prepareStatement(sql);
-												pstmt.setInt(1, searchWord);
-												pstmt.setInt(2, start);
-												pstmt.setInt(3, limit);
+				for(CustomerVO cVo:VcVo) {
+												pstmt.setInt(l, cVo.getIdx());
+												l++;
+				}
+												pstmt.setInt(l, start);
+												pstmt.setInt(l+1, limit);
 									rs		=	pstmt.executeQuery();
 			while(rs.next()) {
 				ReviewVO			vo		=	new	ReviewVO();
@@ -835,7 +1034,7 @@ public class ReviewDAO
 												vo.setReview_text(rs.getString(6));
 												vo.setDate_added(rs.getDate(7));
 												vo.setLast_modified(rs.getDate(8));
-												vo.setReviews_read(rs.getInt(9));				
+												vo.setReviews_read(rs.getInt(9));
 												list.add(vo);
 			}
 		}catch (SQLException e){
@@ -910,6 +1109,169 @@ public class ReviewDAO
 												pstmt.setInt(2, searchWord);
 												pstmt.setInt(3, start);
 												pstmt.setInt(4, limit);
+									rs		=	pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewVO			vo		=	new	ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));
+												list.add(vo);
+			}
+		}catch (SQLException e){
+												log.error("ReviewsDAO	"
+														+ "getProductSearchList error : "+e);
+		}finally{
+												close(rs);
+												close(pstmt);
+												close(con);
+		}		
+		return list;		
+	}
+	
+	public Vector<ReviewVO> getProductSearchList(Vector<ProductVO> VpVo, int page, int limit, String searchCondition, String searchWord)
+	{
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+				int					start	=			(page-1)*10;
+				int					i		=			1;
+				int					j		=			1;
+		
+				String				sql		=	"select * from review where products_idx=? ";
+				for(i=1;i<VpVo.size();i++) {
+									sql		+=	"or products_idx=? ";
+				}
+									sql		+=	" and ";
+									sql		+=	searchCondition;
+									sql		+=	" like ? order by date_added desc, ";
+									sql		+=	"last_modified desc, ";
+									sql		+=	"reviews_read asc limit ?,?";		
+		try {
+									con		=	getConnection();
+									pstmt	=	con.prepareStatement(sql);
+				for(ProductVO pVo:VpVo) {
+												pstmt.setInt(j, pVo.getIdx());
+												j++;
+				}
+												pstmt.setString(j, "%"+searchWord+"%");
+												pstmt.setInt(j+1, start);
+												pstmt.setInt(j+2, limit);
+									rs		=	pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewVO			vo		=	new	ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));
+												list.add(vo);
+			}
+		}catch (SQLException e){
+												log.error("ReviewsDAO	"
+														+ "getProductSearchList error : "+e);
+		}finally{
+												close(rs);
+												close(pstmt);
+												close(con);
+		}		
+		return list;		
+	}
+	
+	public Vector<ReviewVO> getProductSearchList(Vector<ProductVO> VpVo, int page, int limit, String searchCondition, Vector<CustomerVO> VcVo)
+	{
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+				int					start	=			(page-1)*10;
+				int					i		=			1;
+				int					j		=			1;
+				int					k		=			1;
+				int					l		=			0;
+		
+				String				sql		=	"select * from review where (products_idx=? ";
+				for(i=1;i<VpVo.size();i++) {
+									sql		+=	"or products_idx=? ";
+				}
+									sql		+=	") and (";
+									sql		+=	searchCondition+"=? ";
+				for(k=1;k<VcVo.size();k++) {
+									sql		+=	"or "+searchCondition+"=? ";
+				}
+									sql		+=	") order by date_added desc, ";
+									sql		+=	"last_modified desc, ";
+									sql		+=	"reviews_read asc limit ?,?";		
+		try {
+									con		=	getConnection();
+									pstmt	=	con.prepareStatement(sql);
+				for(ProductVO pVo:VpVo) {
+												pstmt.setInt(j, pVo.getIdx());
+												j++;
+				}
+				for(CustomerVO cVo:VcVo) {
+												pstmt.setInt(j+l, cVo.getIdx());
+												l++;
+				}
+												pstmt.setInt(j+l, start);
+												pstmt.setInt(j+l+1, limit);
+									rs		=	pstmt.executeQuery();
+			while(rs.next()) {
+				ReviewVO			vo		=	new	ReviewVO();
+												vo.setIdx(rs.getInt(1));
+												vo.setProducts_idx(rs.getInt(2));
+												vo.setCustomers_idx(rs.getInt(3));
+												vo.setReviews_rating(rs.getInt(4));
+												vo.setReview_title(rs.getString(5));
+												vo.setReview_text(rs.getString(6));
+												vo.setDate_added(rs.getDate(7));
+												vo.setLast_modified(rs.getDate(8));
+												vo.setReviews_read(rs.getInt(9));
+												list.add(vo);
+			}
+		}catch (SQLException e){
+												log.error("ReviewsDAO	"
+														+ "getProductSearchList error : "+e);
+		}finally{
+												close(rs);
+												close(pstmt);
+												close(con);
+		}		
+		return list;		
+	}
+	
+	public Vector<ReviewVO> getProductSearchList(int products_idx, int page, int limit, String searchCondition, Vector<CustomerVO> VcVo)
+	{
+				Vector<ReviewVO>	list	=	new		Vector<ReviewVO>();
+				int					start	=			(page-1)*10;
+				int					k		=			1;
+				int					l		=			2;
+		
+				String				sql		=	"select * from review where products_idx=? ";
+									sql		+=	"and (";
+									sql		+=	searchCondition+"=? ";
+				for(k=1;k<VcVo.size();k++) {
+									sql		+=	"or "+searchCondition+"=? ";
+				}
+									sql		+=	") order by date_added desc, ";
+									sql		+=	"last_modified desc, ";
+									sql		+=	"reviews_read asc limit ?,?";		
+		try {
+									con		=	getConnection();
+									pstmt	=	con.prepareStatement(sql);
+												pstmt.setInt(1, products_idx);	
+				for(CustomerVO cVo:VcVo) {
+												pstmt.setInt(l, cVo.getIdx());
+												l++;
+				}
+				System.out.println("L값 : "+l);
+				System.out.println("K값 : "+k);
+												pstmt.setInt(l, start);
+												pstmt.setInt(l+1, limit);
 									rs		=	pstmt.executeQuery();
 			while(rs.next()) {
 				ReviewVO			vo		=	new	ReviewVO();

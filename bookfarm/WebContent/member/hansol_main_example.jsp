@@ -17,6 +17,7 @@
 	<a href="mypage.jsp">myPage</a>
 	<a href="../qCustomerLogout.do">logout</a>
 	<a href="../qReviewsLists.do?type=list&products_idx=<%=product1 %>"><%=product1 %></a>
+	<a href='../productList.do'> 상품 목록 </a>
 	product's review2
 	product's review3
 

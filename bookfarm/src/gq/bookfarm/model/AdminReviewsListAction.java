@@ -76,6 +76,10 @@ public class AdminReviewsListAction implements Action
 		int		totalRows	=	0;
 		
 		
+		if(parent_idx!=0 && category_idx!=0 && (parent_idx != catDao.categoryGetRow(category_idx).getParent_idx()))
+			category_idx=0;
+		if(category_idx!=0 && products_idx!=0 && (category_idx != pDao.productGetRow(products_idx).getCategory_idx()))
+			products_idx=0;
 		
 		if(parent_idx!=0) {
 			if(category_idx!=0) {
@@ -85,22 +89,18 @@ public class AdminReviewsListAction implements Action
 				}
 				else {
 					Vector<ProductVO> VpVo1 = pDao.productTotalIdx(category_idx);
-					for(ProductVO pVo1 : VpVo1) {
-						list.addAll(dao.getList(pVo1.getIdx(), page, limit));
-						totalRows	+=	dao.oneProductsTotalRows(pVo1.getIdx());
-					}
-					
+					list		=	dao.getList(VpVo1, page, limit);
+					totalRows	=	dao.fewProductsTotalRows(VpVo1);
 				}
 			}
 			else {
 				Vector<CategoryVO> VcatVo1 = catDao.categoryGetTotalRow(parent_idx);
+				Vector<ProductVO> VpVo1	=	new Vector<ProductVO>();
 				for(CategoryVO catVo3 : VcatVo1) {
-					Vector<ProductVO> VpVo1 = pDao.productTotalIdx(catVo3.getIdx());
-					for(ProductVO pVo1 : VpVo1) {
-						list.addAll(dao.getList(pVo1.getIdx(), page, limit));
-						totalRows	+=	dao.oneProductsTotalRows(pVo1.getIdx());
-					}
+					VpVo1.addAll(pDao.productTotalIdx(catVo3.getIdx()));
 				}
+					list		=	dao.getList(VpVo1, page, limit);
+					totalRows	=	dao.fewProductsTotalRows(VpVo1);
 			}
 		} else {
 					list		=	dao.getList(page, limit);

@@ -22,7 +22,5 @@ delete from category where idx=143;
 
 delete from product where idx = 57;
 
-delete from basket where idx = 4;
-
-
-update basket set customer_idx = 19 where idx = 2;
+select * from review where (products_idx=1 or products_idx=2) and (customers_idx=10 or customers_idx=0);
+select * from review;

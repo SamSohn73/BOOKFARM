@@ -4,8 +4,6 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="gq.bookfarm.vo.ReviewVO" %>
 <%@ page import="gq.bookfarm.vo.CustomerVO" %>
-<%@ page import="gq.bookfarm.dao.ReviewDAO" %>
-<%@ page import="gq.bookfarm.dao.CustomerDAO" %>
 <%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%	
@@ -15,29 +13,22 @@
 	
 	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("loggedInUserVO");
 	ReviewVO	reviewVO		=	null;
-	CustomerDAO	cDao			=	null;
+	
 	int			idx				=	0;
 	int			currentPage		=	1;	
 	int			products_idx	=	0;
+	String		name			=	null;
 	
 	if(typeView.equals("view") || typeView.equals("modify"))
 	{
 		reviewVO		=	(ReviewVO)request.getAttribute("reviewVO");
-		cDao			=	new CustomerDAO();
+		name			=	(String)request.getAttribute("name");
 		idx				=	reviewVO.getIdx();
-		//idx			=	(int)request.getAttribute("idx");
 		currentPage		=	Integer.parseInt(request.getParameter("page"));
 		products_idx	=	reviewVO.getProducts_idx();
 	}
 	else if(typeView.equals("insert"))
 			products_idx		=	Integer.parseInt(request.getParameter("products_idx"));
-
-	/*CSS	
-	left
-	right
-	file_t
-	btn
-	*/
 
 %>
 <!DOCTYPE html>
@@ -85,9 +76,9 @@
 		<td class="left">글쓴이</td>
 		<td class="right"><input type="text" name="review_writer" size="15" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly"value=<%=cDao.getName(reviewVO.getCustomers_idx()) %>
+		readonly="readonly"value=<%=name %>
 		<%	}else if(typeView.equals("modify")){ %>
-		readonly="readonly"value=<%=cDao.getName(reviewVO.getCustomers_idx()) %>
+		readonly="readonly"value=<%=name %>
 		<%	}else{ %>
 		readonly="readonly"value=<%=cVo.getUsername() %>
 		<%	} %>

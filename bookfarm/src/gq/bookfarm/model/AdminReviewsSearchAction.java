@@ -85,62 +85,49 @@ public class AdminReviewsSearchAction implements Action
 
 		int		limit		=	10;
 		int		totalRows	=	0;
-	
+		
 		if(parent_idx!=0) {
 			if(category_idx!=0) {
 				if(products_idx!=0) {
 					if(searchCondition.equals("customers_idx")) {
-						for(CustomerVO cVo : VcVo) {
-							list.addAll(dao.getProductSearchList(products_idx, page, limit, searchCondition, cVo.getIdx()));
-							totalRows	+=	dao.searchOneProductList(products_idx, searchCondition, cVo.getIdx());
-						}
+						list		=	dao.getProductSearchList(products_idx, page, limit, searchCondition, VcVo);
+						totalRows	=	dao.searchOneProductList(products_idx, searchCondition, VcVo);
 					} else {
 						list		=	dao.getProductSearchList(products_idx, page, limit, searchCondition, searchWord);
 						totalRows	=	dao.searchOneProductList(products_idx, searchCondition, searchWord);
 					}
 				} else {
 					Vector<ProductVO> VpVo1 = pDao.productTotalIdx(category_idx);
-					for(ProductVO pVo1 : VpVo1) {
-						if(searchCondition.equals("customers_idx")) {
-							for(CustomerVO cVo : VcVo) {
-								list.addAll(dao.getProductSearchList(pVo1.getIdx(), page, limit, searchCondition, cVo.getIdx()));
-								totalRows	+=	dao.searchOneProductList(products_idx, searchCondition, cVo.getIdx());
-							}
-						} else {
-							list.addAll(dao.getProductSearchList(pVo1.getIdx(), page, limit, searchCondition, searchWord));
-							totalRows	+=	dao.searchOneProductList(products_idx, searchCondition, searchWord);
-						}
+					if(searchCondition.equals("customers_idx")) {
+						list		=	dao.getProductSearchList(VpVo1, page, limit, searchCondition, VcVo);
+						totalRows	=	dao.searchProductList(VpVo1, searchCondition, VcVo);
+					} else {
+						list		=	dao.getProductSearchList(VpVo1, page, limit, searchCondition, searchWord);
+						totalRows	=	dao.searchProductList(VpVo1, searchCondition, searchWord);
 					}
-					
 				}
-			}
-			else {
+			}else {
 				Vector<CategoryVO> VcatVo1 = catDao.categoryGetTotalRow(parent_idx);
+				Vector<ProductVO> VpVo1 = new Vector<ProductVO>();
 				for(CategoryVO catVo3 : VcatVo1) {
-					Vector<ProductVO> VpVo1 = pDao.productTotalIdx(catVo3.getIdx());
-					for(ProductVO pVo1 : VpVo1) {
-						if(searchCondition.equals("customers_idx")) {
-							for(CustomerVO cVo : VcVo) {
-								list.addAll(dao.getProductSearchList(pVo1.getIdx(), page, limit, searchCondition, cVo.getIdx()));
-								totalRows	+=	dao.searchOneProductList(products_idx, searchCondition, cVo.getIdx());
-							}
-						}
-						else {
-							list.addAll(dao.getProductSearchList(pVo1.getIdx(), page, limit, searchCondition, searchWord));
-							totalRows	+=	dao.searchOneProductList(products_idx, searchCondition, searchWord);
-						}
-					}
+					VpVo1.addAll(pDao.productTotalIdx(catVo3.getIdx()));
+				}
+				
+				if(searchCondition.equals("customers_idx")) {
+						list		=	dao.getProductSearchList(VpVo1, page, limit, searchCondition, VcVo);
+						totalRows	=	dao.searchProductList(VpVo1, searchCondition, VcVo);
+				}else {
+						list		=	dao.getProductSearchList(VpVo1, page, limit, searchCondition, searchWord);
+						totalRows	=	dao.searchProductList(VpVo1, searchCondition, searchWord);
 				}
 			}
 		} else {
 			if(searchCondition.equals("customers_idx")) {
-				for(CustomerVO cVo : VcVo) {
-					list.addAll(dao.getSearchList(page, limit, searchCondition, cVo.getIdx()));
-					totalRows	+=	dao.searchList(searchCondition, cVo.getIdx());
-				}
+						list		=	dao.getSearchList(page, limit, searchCondition, VcVo);
+						totalRows	=	dao.searchList(searchCondition, VcVo);
 			} else {
-				list		=	dao.getSearchList(page, limit, searchCondition, searchWord);
-				totalRows	=	dao.searchList(searchCondition, searchWord);
+						list		=	dao.getSearchList(page, limit, searchCondition, searchWord);
+						totalRows	=	dao.searchList(searchCondition, searchWord);
 			}
 		}
 		
