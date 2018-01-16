@@ -118,6 +118,7 @@
 		</tr>
 	</table>
 	
-	<h3><a href="index.jsp">처음으로</a></h3>
+	<!-- <h3><a href="index.jsp">처음으로</a></h3> -->
+	<h3><a href="./hansol_main_example.jsp">처음으로</a></h3>
 </body>
 </html>

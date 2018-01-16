@@ -26,6 +26,10 @@
 		productForm.action = "basketAdd.do";
 		productForm.submit();
 	}
+	function review_submit(){
+		productForm.action = "qReviewsLists.do?type=list&products_idx=<%=productVO.getIdx() %>";
+		productForm.submit();
+	}
 </script>
 </head>
 <body>
@@ -81,7 +85,8 @@
 				<input type="button" value="즉시구매" onClick="buy_submit()">
 				<input type="button" value="장바구니" onClick="basket_submit()">
 				<input type="button" value="목록" onClick="list_submit()">
-				<input type="hidden" name="page" value=<%=current_page %>>	
+				<input type="hidden" name="page" value=<%=current_page %>>
+				<input type="button" value="리뷰보기" onClick="review_submit()">
 				</td>
 			</tr>
 		</table>

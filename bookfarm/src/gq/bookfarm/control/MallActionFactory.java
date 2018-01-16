@@ -249,7 +249,7 @@ public class MallActionFactory
 		if (cmd.equals("/qCustomerIdPwdCheck.do"))
 		{
 			log.debug("qCustomerIdPwdCheck.do action create Start.");
-			action = new CustomerIdPwdCheckAction("member/hansol_main_example.jsp");
+			action = new CustomerIdPwdCheckAction("hansol_main_example.jsp");
 			log.debug("qCustomerIdPwdCheck.do action create End.");
 		}
 		else if (cmd.equals("/qCustomerRegist.do"))
