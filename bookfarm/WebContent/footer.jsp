@@ -12,7 +12,7 @@
 <title>메인화면(테스트)</title>
 </head>
 <body>
-	<h1>여기는  footer입니다.</h1>
+	<h2 align="right">여기는  footer입니다.</h2>
 	<a href='./admin/adminLogin.jsp' target="_top"> 관리자모드 </a>
 </body>
 </html>

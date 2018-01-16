@@ -119,7 +119,7 @@
 		 <input class="btn" type="button" value="목록보기"onclick="returnList2()">
 		<%		} %>
 		
-		<%		if(reviewVO.getCustomers_idx()==(cVo.getIdx())){ %>
+		<%		if(sess.getAttribute("loggedInUserVO")!=null && (reviewVO.getCustomers_idx()==(cVo.getIdx()))){ %>
 		 <input class="btn" type="button" value="수정하기"onclick="modifyList()">
 		 <input class="btn" type="button" value="삭제하기"onclick="deleteRow()">
 		<%		} %>

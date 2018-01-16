@@ -20,7 +20,7 @@
 					<iframe src="./member/login.jsp"></iframe>
 				</td>
 				<td>
-					비회원 로그인
+					<a href="hansol_main_example.jsp">비회원 로그인</a>
 				</td>
 			</tr>
 		

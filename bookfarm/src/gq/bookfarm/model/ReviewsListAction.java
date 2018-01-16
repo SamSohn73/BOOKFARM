@@ -31,10 +31,13 @@ public class ReviewsListAction implements Action
 	{
 		int		page			=	1;
 		int		products_idx	=	0;
+		int		customers_idx	=	0;
 		String	type			=	req.getParameter("type");
 		HttpSession	session		=	req.getSession();
 		CustomerVO	vo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
-		int		customers_idx	=	vo.getIdx();
+		
+		if(session.getAttribute("loggedInUserVO")!=null)
+				customers_idx	=	vo.getIdx();
 			
 		if(req.getParameter("products_idx")!=null)	
 					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
