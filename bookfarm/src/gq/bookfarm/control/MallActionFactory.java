@@ -18,6 +18,7 @@ import gq.bookfarm.model.AdminLoginAction;
 import gq.bookfarm.model.AdminLogoutAction;
 import gq.bookfarm.model.AdminProductListAction;
 import gq.bookfarm.model.AdminProductModifyAction;
+import gq.bookfarm.model.AdminProductSearchAction;
 import gq.bookfarm.model.AdminProductViewAction;
 import gq.bookfarm.model.AdminReviewsDeleteAction;
 import gq.bookfarm.model.AdminReviewsInsertAction;
@@ -38,6 +39,7 @@ import gq.bookfarm.model.CustomerLogoutAction;
 import gq.bookfarm.model.CustomerRegistAction;
 import gq.bookfarm.model.OrdersConfirmAction;
 import gq.bookfarm.model.ProductListAction;
+import gq.bookfarm.model.ProductSearchAction;
 import gq.bookfarm.model.ProductViewAction;
 import gq.bookfarm.model.ReviewsDeleteAction;
 import gq.bookfarm.model.ReviewsHitUpdateAction;
@@ -114,7 +116,6 @@ public class MallActionFactory
 			action = new AdminProductListAction("admin/adminProductList.jsp");
 			log.debug("adminProductList.do action create End.");
 		}
-		
 		if (cmd.equals("/adminProductView.do")) {
 			log.debug("adminProductViewAction action create Start.");
 			action = new AdminProductViewAction("admin/adminProductView.jsp");
@@ -134,6 +135,11 @@ public class MallActionFactory
 			log.debug("AdminProductInsertAction action create Start.");
 			action = new AdminProductInsertAction("adminProductList.do");
 			log.debug("AdminProductInsertAction action create End.");
+		}
+		if (cmd.equals("/adminProductSearch.do")) {
+			log.debug("AdminProductSearchAction action create Start.");
+			action = new AdminProductSearchAction("admin/adminProductList.jsp");
+			log.debug("AdminProductSearchAction action create End.");
 		}
 		// Admin Orders Management
 		if (cmd.equals("/adminOrdersList.do")) {
@@ -232,7 +238,12 @@ public class MallActionFactory
 			action = new ProductViewAction("product/productView.jsp");
 			log.debug("productView.do action create End.");
 		}
-
+		if (cmd.equals("/productSearch.do")) {
+			log.debug("productSearch.do action create Start.");
+			action = new ProductSearchAction("product/productList.jsp");
+			log.debug("productSearch.do action create End.");
+		}
+		
 		//From here, the code for the login were wrote... - hansol -
 		//customerDB was used...
 		if (cmd.equals("/qCustomerIdPwdCheck.do"))

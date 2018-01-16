@@ -82,7 +82,7 @@ public class AdminCustomerSearchAction implements Action
 		// if result failed change path here
 		else {
 			log.fatal("AdminCustomerSearch execute SearchAction page= " + page);
-			path="board/error.jsp";
+			path="error.jsp";
 		}
 		
 		log.debug("AdminCustomerSearch execute SearchAction End.");

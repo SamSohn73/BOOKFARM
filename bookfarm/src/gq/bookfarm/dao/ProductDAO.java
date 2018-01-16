@@ -360,9 +360,9 @@ public class ProductDAO
 		try {
 			log.debug("execute productSearch DB work Start.");
 
-			String sql	= "select * " +
-							"where " +  criteria + " like ? " +
-							"order by idx desc limit ?, ?";
+			String sql	= "select * from product" +
+							" where " +  criteria + " like ? " +
+							" order by idx desc limit ?, ?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setString(1, "%" + searchWord + "%");
 			pstmt		.setInt(2, start);
