@@ -12,10 +12,11 @@
 <meta charset="UTF-8">
 <title>메인화면(테스트)</title>
 </head>
-<body>
 <header>
 <iframe src="header.do" height="150" width="800"></iframe>
 </header>
+<body>
+
 
 <a href='productList.do'> 상품 목록 </a>
 

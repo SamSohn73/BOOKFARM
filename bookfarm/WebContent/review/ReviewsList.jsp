@@ -60,6 +60,11 @@
 		}
 	</script>
 </head>
+<%if(type.equals("myList") || type.equals("list")) {%>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
+<%} %>
 <body>
 		<table class="클래스_테이블1">
 			<caption>
@@ -395,4 +400,9 @@ if(!type.equals("myPage"))
 }
 %>
 </body>
+<%if(type.equals("myList") || type.equals("list")) {%>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
+<%} %>
 </html>

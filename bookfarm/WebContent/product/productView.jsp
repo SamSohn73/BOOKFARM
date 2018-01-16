@@ -32,6 +32,9 @@
 	}
 </script>
 </head>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
 <body>
 	<form method = "post"  name='productForm'>
 		<table>
@@ -92,6 +95,9 @@
 		</table>
 	</form>
 </body>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
 </html>
 
 

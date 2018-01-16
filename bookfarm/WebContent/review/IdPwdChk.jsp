@@ -51,7 +51,7 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="password" size="20" name="password" required="required">				
+				<input type="password" size="20" name="password" required="required">
 			</td>
 		</tr>
 	</table>

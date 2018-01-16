@@ -74,6 +74,11 @@
 	}
 </script>
 </head>
+<%if(type.equals("view") || type.equals("modify")){ %>
+<header>
+<iframe src="../header.do" height="150" width="800"></iframe>
+</header>
+<%} %>
 <body>
 	<%	if(type.equals("view")){ %>
 <form action="./qCustomerRegist.do?type=<%=type %>" method="post">
@@ -231,10 +236,15 @@
 	<tr>
 		<td colspan="2" class="btn_align">
 			<input type="button" value="확인" onclick="register_check(this.form)">
-			<input type="reset" value="취소">
+			<a href="../member/mypage.jsp"><input type="button" value="취소"></a>
 		</td>
 	</tr>
 </table>
 </form>
 </body>
+<%if(type.equals("view") || type.equals("modify")){ %>
+<footer>
+<iframe src="../footer.do" height="150" width="800"></iframe>
+</footer>
+<%} %>
 </html>

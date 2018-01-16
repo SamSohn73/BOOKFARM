@@ -12,14 +12,6 @@
 <%
 	CustomerVO		cVo			=	(CustomerVO) session.getAttribute("loggedInUserVO");
 	int				customer_idx=	cVo.getIdx();
-	
-	
-	/* OrdersDAO		dao			=	new OrdersDAO();
-	Vector<OrdersVO> list		=	dao.ordersList(1, 5);
-	OrdersProductDAO opDao		=	new OrdersProductDAO();
-	ProductDAO		pDao		=	new ProductDAO();
-	ProductVO		pVo			=	new ProductVO(); */
-
 %>
 <!DOCTYPE html>
 <html>
@@ -27,6 +19,9 @@
 <meta charset="UTF-8">
 <title>마이 페이지</title>
 </head>
+<header>
+<iframe src="../header.do" height="150" width="800"></iframe>
+</header>
 <body>
 		<h1><%=cVo.getFirstname() %> 님의 마이페이지 입니다</h1>
 		<table class="myPage_table1">
@@ -65,4 +60,7 @@
 		<a href="../qCustomerLogout.do">logout</a>
 		<a href="../hansol_main_example.jsp">메인으로</a>
 </body>
+<footer>
+<iframe src="../footer.do" height="150" width="800"></iframe>
+</footer>
 </html>

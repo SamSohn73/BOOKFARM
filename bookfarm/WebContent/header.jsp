@@ -3,8 +3,6 @@
     pageEncoding="UTF-8"%>
 <%
 	CustomerVO		cVo			=	(CustomerVO) session.getAttribute("loggedInUserVO");
-	String			product1	=	"1";
-
 %>
 <!DOCTYPE html>
 <html>
