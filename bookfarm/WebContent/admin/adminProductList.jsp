@@ -109,7 +109,7 @@
 	<table>
 		<tr>
 			<td class="td_align">
-				<form action='AdminProductSearch.do' method='post' name='searchform'>
+				<form action='adminProductSearch.do' method='post' name='searchform'>
 					<select name='criteria'>
 						<option value='product_category_idx'	<%if(criteria.equals("category_idx"))	out.print("selected");%>>카테고리</option>
 						<option value='product_name'			<%if(criteria.equals("product_name"))	out.print("selected");%>>제목</option>
