@@ -44,7 +44,7 @@ public class BasketListAction implements Action
 		Vector<BasketVO>	baskets		= (Vector<BasketVO>) session.getAttribute("baskets");
 		Vector<ProductVO>	products	= (Vector<ProductVO>) session.getAttribute("products");
 		
-		if (customerVO != null && baskets == null) {
+/*		if (customerVO != null && baskets == null) {
 			log.debug("Customer " + customerVO.getUsername() + " with empty basket in the session. start to check from DB");
 			BasketDAO			basketDAO	= new BasketDAO();
 			Vector<BasketVO>	basketsDB	= basketDAO.basketListbyCustomer_idx(customerVO.getIdx());
@@ -59,7 +59,7 @@ public class BasketListAction implements Action
 				products.add(tempVO);
 			}
 			session.setAttribute("products", products);
-		}
+		}*/
 
 		log.debug("BasketListAction execute End.");
 		return new ActionForward(path, false);

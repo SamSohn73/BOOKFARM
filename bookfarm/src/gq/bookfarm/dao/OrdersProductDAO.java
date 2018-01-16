@@ -126,7 +126,7 @@ public class OrdersProductDAO
 		Connection			con		= getConnection();
 	
 		try {
-			log.debug("execute ordersProductInsert do the DB work Start.");
+			log.debug("execute ordersProductInsert DB work Start.");
 			con.setAutoCommit(false);
 			
 			String sql		= "insert into orders_product (orders_idx, products_idx, products_quantity, final_price)" + 
@@ -142,19 +142,19 @@ public class OrdersProductDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.debug("execute ordersProductInsert do the DB work Failed!!!!!!!!!!");
+			log.debug("execute ordersProductInsert DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute ordersProductInsert do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute ordersProductInsert DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute ordersProductInsert do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute ordersProductInsert DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute ordersProductInsert do the DB work End.");
+		log.debug("execute ordersProductInsert DB work End.");
 		return result;
 	}
 	
@@ -166,16 +166,16 @@ public class OrdersProductDAO
 		PreparedStatement	pstmt	= null;
 
 		try {
-			log.debug("execute ordersDelete do the DB work Start.");
+			log.debug("execute ordersDelete DB work Start.");
 			String sql = "delete from orders_product where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, idx);
 			
 			result = pstmt.executeUpdate();
-			log.debug("execute ordersDelete do the DB work End.");
+			log.debug("execute ordersDelete DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute ordersDelete do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute ordersDelete DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
@@ -197,7 +197,7 @@ public class OrdersProductDAO
 		PreparedStatement	pstmt					= null;
 		
 		try {
-			log.debug("execute ordersProductList do the DB work Start.");
+			log.debug("execute ordersProductList DB work Start.");
 			String sql	= "select * from orders_product order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
@@ -214,12 +214,12 @@ public class OrdersProductDAO
 				ordersProductList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute ordersProductList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute ordersProductList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute ordersProductList do the DB work End.");
+		log.debug("execute ordersProductList DB work End.");
 		return ordersProductList;
 	}
 	
@@ -329,7 +329,7 @@ public class OrdersProductDAO
 	
 	public int totalRows()
 	{
-		log.debug("execute ordersProduct total_rows do the DB work Start.");
+		log.debug("execute ordersProduct total_rows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -345,13 +345,13 @@ public class OrdersProductDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute ordersProduct total_rows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute ordersProduct total_rows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
 		}
 		
-		log.debug("execute ordersProduct total_rows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute ordersProduct total_rows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}
@@ -359,7 +359,7 @@ public class OrdersProductDAO
 	
 	public int SingleOrderTotalRows(int orders_idx)
 	{
-		log.debug("execute ordersProduct Single_Order's_total_rows do the DB work Start.");
+		log.debug("execute ordersProduct Single_Order's_total_rows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -376,13 +376,13 @@ public class OrdersProductDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute ordersProduct total_rows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute ordersProduct total_rows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
 		}
 		
-		log.debug("execute ordersProduct total_rows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute ordersProduct total_rows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}

@@ -126,7 +126,7 @@ public class ProductImageDAO
 		Connection			con		= getConnection();
 		
 		try {
-			log.debug("execute productImageInsert do the DB work Start.");
+			log.debug("execute productImageInsert DB work Start.");
 			con.setAutoCommit(false);
 			
 			String sql			= "insert into product_image (product_idx, image_path) values (?,?)";
@@ -139,19 +139,19 @@ public class ProductImageDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.debug("execute productImageInsert do the DB work Failed!!!!!!!!!!");
+			log.debug("execute productImageInsert DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute productImageInsert do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute productImageInsert DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute productImageInsert do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute productImageInsert DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute productImageInsert do the DB work End.");
+		log.debug("execute productImageInsert DB work End.");
 		return result;
 	}
 	
@@ -163,16 +163,16 @@ public class ProductImageDAO
 		PreparedStatement	pstmt	= null;
 
 		try {
-			log.debug("execute productImageDelete do the DB work Start.");
+			log.debug("execute productImageDelete DB work Start.");
 			String sql = "delete from product_image where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, idx);
 			
 			result = pstmt.executeUpdate();
-			log.debug("execute productImageDelete do the DB work End.");
+			log.debug("execute productImageDelete DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute productImageDelete do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productImageDelete DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
@@ -191,7 +191,7 @@ public class ProductImageDAO
 		String sql					= null;
 		
 		try {
-			log.debug("execute productImageUpdate do the DB work Start.");
+			log.debug("execute productImageUpdate DB work Start.");
 			con.setAutoCommit(false);
 
 			sql = "update product_image set product_idx = ?, image_path = ? where idx = ?";
@@ -204,20 +204,20 @@ public class ProductImageDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.fatal("execute productImageUpdate do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productImageUpdate DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute productImageUpdate do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute productImageUpdate DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute productImageUpdate do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute productImageUpdate DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(stmt);
 			close(con, pstmt);
 		}
-		log.debug("execute productImageUpdate do the DB work End.");
+		log.debug("execute productImageUpdate DB work End.");
 		return result;
 	}
 	
@@ -234,7 +234,7 @@ public class ProductImageDAO
 		PreparedStatement	pstmt				= null;
 		
 		try {
-			log.debug("execute productImageList do the DB work Start.");
+			log.debug("execute productImageList DB work Start.");
 			String sql	= "select * from product_image order by idx desc, limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
@@ -249,12 +249,12 @@ public class ProductImageDAO
 				productImageList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute productImageList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productImageList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute productImageList do the DB work End.");
+		log.debug("execute productImageList DB work End.");
 		return productImageList;
 	}
 	
@@ -325,7 +325,7 @@ public class ProductImageDAO
 	
 	public int totalRows()
 	{
-		log.debug("execute productImage total_rows do the DB work Start.");
+		log.debug("execute productImage total_rows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -341,13 +341,13 @@ public class ProductImageDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute productImage total_rows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productImage total_rows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, rs);
 		}
 		
-		log.debug("execute productImage total_rows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute productImage total_rows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}

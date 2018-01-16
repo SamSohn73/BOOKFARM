@@ -18,7 +18,6 @@
 <title>로그인</title>
 <script>
 	function register_check(form){
-	
 		if(form.username.value.length==0){
 			alert('아이디를 확인해 주세요');
 			form.username.focus();

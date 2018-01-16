@@ -374,7 +374,7 @@ public class CustomerDAO
 		Vector<CustomerVO>	customerList	= new Vector<CustomerVO>();
 		
 		try {
-			log.debug("execute customerList do the DB work Start.");
+			log.debug("execute customerList DB work Start.");
 			con			=	getConnection();
 			String sql	= "select * from Customer order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
@@ -404,14 +404,14 @@ public class CustomerDAO
 				customerList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute customerList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute customerList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(rs);
 			close(con);
 			close(pstmt);
 		}
-		log.debug("execute customerList do the DB work End.");
+		log.debug("execute customerList DB work End.");
 		return customerList;
 	}
 	
@@ -445,7 +445,7 @@ public class CustomerDAO
 	
 	public int customerCountSearchingRows(String criteria, String searchWord)
 	{
-		log.debug("execute customerCountSearchingRows do the DB work Start.");
+		log.debug("execute customerCountSearchingRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -492,7 +492,7 @@ public class CustomerDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute customerCountSearchingRows do the DB work failed!!!!!!!!!!");
+			log.fatal("execute customerCountSearchingRows DB work failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(rs);

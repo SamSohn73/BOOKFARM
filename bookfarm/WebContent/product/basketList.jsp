@@ -28,9 +28,9 @@
 			<th>수량</th>
 			<th>가격</th>
 		</tr>
-<%	
+<%
 	int idNum = 1;
-	if (baskets != null) {
+	if (baskets != null && products != null) {
 		for(BasketVO basket: baskets) {	
 			for(ProductVO product: products) {
 				if (basket.getProduct_idx() == product.getIdx()) { %>
@@ -45,8 +45,10 @@
 			<td><%=basket.getFinal_price()%></td>
 		</tr>
 <%					total += basket.getFinal_price();
+					break;
 				}
 			}
+			idNum++;
 		}
 	}	%>
 	</table>

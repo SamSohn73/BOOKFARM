@@ -127,7 +127,7 @@ public class ProductDAO
 		Connection			con		= getConnection();
 		
 		try {
-			log.debug("execute productInsert do the DB work Start.");
+			log.debug("execute productInsert DB work Start.");
 			con.setAutoCommit(false);
 			
 			String sql		= "insert into product (category_idx, product_quantity, product_name, product_image, " + 
@@ -145,19 +145,19 @@ public class ProductDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.debug("execute productInsert do the DB work Failed!!!!!!!!!!");
+			log.debug("execute productInsert DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute productInsert do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute productInsert DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute productInsert do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute productInsert DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute productInsert do the DB work End.");
+		log.debug("execute productInsert DB work End.");
 		return result;
 	}
 	
@@ -169,16 +169,16 @@ public class ProductDAO
 		PreparedStatement	pstmt	= null;
 
 		try {
-			log.debug("execute productDelete do the DB work Start.");
+			log.debug("execute productDelete DB work Start.");
 			String sql = "delete from product where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, idx);
 			
 			result = pstmt.executeUpdate();
-			log.debug("execute productDelete do the DB work End.");
+			log.debug("execute productDelete DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute productDelete do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productDelete DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
@@ -197,7 +197,7 @@ public class ProductDAO
 		String sql					= null;
 		
 		try {
-			log.debug("execute productUpdate do the DB work Start.");
+			log.debug("execute productUpdate DB work Start.");
 			con.setAutoCommit(false);
 
 			sql = "update product set category_idx = ?, product_quantity = ?, product_name = ?, product_image = ?, product_price = ?, product_desc = ? where idx = ?";
@@ -214,19 +214,19 @@ public class ProductDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.fatal("execute productUpdate do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productUpdate DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute productUpdate do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute productUpdate DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute productUpdate do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute productUpdate DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute productUpdate do the DB work End.");
+		log.debug("execute productUpdate DB work End.");
 		return result;
 	}
 	
@@ -239,7 +239,7 @@ public class ProductDAO
 		String sql					= null;
 		
 		try {
-			log.debug("execute productUpdate do the DB work Start.");
+			log.debug("execute productUpdate DB work Start.");
 			con.setAutoCommit(false);
 
 			sql = "update product set category_idx = ?, product_quantity = ?, product_name = ?, product_price = ?, product_desc = ? where idx = ?";
@@ -255,19 +255,19 @@ public class ProductDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.fatal("execute productUpdate do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productUpdate DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute productUpdate do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute productUpdate DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute productUpdate do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute productUpdate DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute productUpdate do the DB work End.");
+		log.debug("execute productUpdate DB work End.");
 		return result;
 	}
 	
@@ -284,7 +284,7 @@ public class ProductDAO
 		PreparedStatement	pstmt		= null;
 		
 		try {
-			log.debug("execute productList do the DB work Start.");
+			log.debug("execute productList DB work Start.");
 			String sql	= "select * from product order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
@@ -303,18 +303,18 @@ public class ProductDAO
 				productList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute productList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute productList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute productList do the DB work End.");
+		log.debug("execute productList DB work End.");
 		return productList;
 	}
 	
 	public int productCountSearchingRows(String criteria, String searchWord)
 	{
-		log.debug("execute productCountSearchingRows do the DB work Start.");
+		log.debug("execute productCountSearchingRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -334,7 +334,7 @@ public class ProductDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute productCountSearchingRows do the DB work failed!!!!!!!!!!");
+			log.fatal("execute productCountSearchingRows DB work failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(rs);
@@ -431,7 +431,7 @@ public class ProductDAO
 	
 	public int totalRows()
 	{
-		log.debug("execute product totalRows do the DB work Start.");
+		log.debug("execute product totalRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -447,13 +447,13 @@ public class ProductDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute product totalRows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute product totalRows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, rs);
 		}
 		
-		log.debug("execute product totalRows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute product totalRows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}
@@ -493,7 +493,7 @@ public class ProductDAO
 	
 	public int productExistanceCheck(int product_idx)
 	{
-		log.debug("execute productExistanceCheck do the DB work Start.");
+		log.debug("execute productExistanceCheck DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -511,7 +511,7 @@ public class ProductDAO
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute productExistanceCheck do the DB work failed!!!!!!!!!!");
+			log.fatal("execute productExistanceCheck DB work failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(rs);
