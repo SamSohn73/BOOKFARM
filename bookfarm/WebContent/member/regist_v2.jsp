@@ -4,7 +4,7 @@
 <%
 	//입력 변수
 	String		type			=	"modify";	//view, insert, modify	
-	CustomerVO	cVo				=	null;
+	CustomerVO	cVo				=	new CustomerVO();
 	
 	
 	if(request.getParameter("type")!=null)

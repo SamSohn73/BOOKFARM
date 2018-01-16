@@ -378,7 +378,7 @@ if(!type.equals("myPage"))
 				<%} %>				
 				</td>
 				<td align="right">
-				<a href="./member/hansol_main_example.jsp">[메인으로]</a>
+				<a href="./hansol_main_example.jsp">[메인으로]</a>
 				</td>
 				<%
 				}

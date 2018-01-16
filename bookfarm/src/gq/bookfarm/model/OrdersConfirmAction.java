@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.dao.OrdersDAO;
 import gq.bookfarm.dao.OrdersProductDAO;
 import gq.bookfarm.dao.ProductDAO;
@@ -19,6 +20,7 @@ import gq.bookfarm.vo.OrdersProductVO;
 import gq.bookfarm.vo.OrdersVO;
 import gq.bookfarm.vo.PageVO;
 import gq.bookfarm.vo.ProductVO;
+import gq.bookfarm.vo.ReviewVO;
 
 public class OrdersConfirmAction implements Action
 {
@@ -102,10 +104,20 @@ public class OrdersConfirmAction implements Action
 			info.setTotalRows(totalRows);
 			info.setStartPage(startPage);
 			info.setEndPage(endPage);
+			
+			Vector<String>nameList= new Vector<String>();
+			for(OrdersProductVO opVo:opList) {
+				if(pDao.productGetRow(opVo.getProducts_idx()).getProduct_name()!=null)
+					nameList.add(pDao.productGetRow(opVo.getProducts_idx()).getProduct_name());
+				else
+					nameList.add("상품 명칭 미등록");
+			}
+			
 			if(opList!=null) {
 				req.setAttribute("oList", oList);
 				req.setAttribute("opList", opList);
 				req.setAttribute("info", info);
+				req.setAttribute("nameList", nameList);
 				path	+=	"?type="+type;
 			} else { 
 				log.error("OrdersConfirmAction - 'singleList' error");
