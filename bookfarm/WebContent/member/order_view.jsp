@@ -35,9 +35,6 @@
 <meta charset="UTF-8">
 <title>구매 내역 확인</title>
 </head>
-<header>
-<iframe src="header.do" height="150" width="800"></iframe>
-</header>
 <body>
 		<table class="클래스_테이블1">
 			<caption>주문 정보</caption>
@@ -146,7 +143,4 @@
 			</tr>
 </table>
 </body>
-<footer>
-<iframe src="footer.do" height="150" width="800"></iframe>
-</footer>
 </html>
