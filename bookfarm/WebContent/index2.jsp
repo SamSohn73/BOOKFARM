@@ -60,7 +60,10 @@
 						</li>
 <%	} else {	%>
 						<li class="nav-item">
-							<a class="nav-link" href="logout.do">Logout</a>
+							<a class="nav-link" href="qCustomerLogout.do">Logout</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="./member/mypage.jsp">mypage</a>
 						</li>
 <%	}	%>
 						<li class="nav-item">

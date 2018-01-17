@@ -30,14 +30,14 @@
 			</tr>
 			<tr>
 				<td>
-					<a href="hansol_main_example.jsp">메인으로</a>
+					<a href="index.do">메인으로</a>
 				</td>
 			<%}else{ %>
 				<td>
 					<iframe src="./member/login.jsp"></iframe>
 				</td>
 				<td>
-					<a href="hansol_main_example.jsp">비회원 로그인</a>
+					<a href="index.do">비회원 로그인</a>
 				</td>
 			<%} %>
 			</tr>

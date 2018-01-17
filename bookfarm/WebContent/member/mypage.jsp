@@ -58,7 +58,7 @@
 				height="450" width="800"></iframe>
 		
 		<a href="../qCustomerLogout.do">logout</a>
-		<a href="../hansol_main_example.jsp">메인으로</a>
+		<a href="../index.do">메인으로</a>
 </body>
 <footer>
 <iframe src="../footer.do" height="150" width="800"></iframe>
