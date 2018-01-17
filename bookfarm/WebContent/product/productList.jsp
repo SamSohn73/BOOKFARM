@@ -66,7 +66,7 @@
 	int idNum = totalRows - (currentPage-1)*10;
 	for(ProductVO product: products) {	%>
 		<tr>
-			<td><%=idNum%></td><!--   -->
+			<td><%=idNum%></td>
 			<td><%=product.getCategory_idx()%></td>
 			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><img src="<%=product.getProduct_image()%>"></a></td>
 			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><%=product.getProduct_name()%></a></td>
