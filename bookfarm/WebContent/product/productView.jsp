@@ -8,7 +8,7 @@
 					current_page		= Integer.parseInt(request.getParameter("page"));
 		else
 					current_page		= 1;
-	ProductVO			productVO		= (ProductVO)session.getAttribute("productVO");
+	ProductVO			productVO		= (ProductVO)request.getAttribute("productVO");
 	Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
 	
 %>

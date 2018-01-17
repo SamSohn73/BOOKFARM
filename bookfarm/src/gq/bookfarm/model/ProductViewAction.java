@@ -31,7 +31,7 @@ public class ProductViewAction implements Action
 		ProductVO	productVO	= dao.productGetRow(idx);
 		
 		if(productVO != null) {
-			session.setAttribute("productVO", productVO);
+			req.setAttribute("productVO", productVO);
 			path+= "?page=" + current_page;
 			//req.setAttribute("page", current_page);
 		}
