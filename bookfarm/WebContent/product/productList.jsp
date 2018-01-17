@@ -68,8 +68,8 @@
 		<tr>
 			<td><%=idNum%></td><!--   -->
 			<td><%=product.getCategory_idx()%></td>
-			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><img src="<%=product.getProduct_image()%>"></a></td>
-			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><%=product.getProduct_name()%></a></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>&cri=<%=criteria%>&word=<%=searchWord%>"><img src="<%=product.getProduct_image()%>"></a></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>&cri=<%=criteria%>&word=<%=searchWord%>"><%=product.getProduct_name()%></a></td>
 			<td><%=product.getProduct_price()%></td>
 			<td><%=product.getProduct_quantity()%></td>
 		</tr>

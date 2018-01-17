@@ -472,10 +472,11 @@ public class CategoryDAO
 		try {
 			sql		= "select parent_idx from category where idx = ?";
 			pstmt	= con.prepareStatement(sql);
+					  pstmt.setInt(1, idx);
 			rs		= pstmt.executeQuery();
 			
 			if(rs.next())	
-				parent_idx	= rs.getInt(idx);
+				parent_idx	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			log.fatal("execute category getParentIdx DB work Failed!!!!!!!!!!");
