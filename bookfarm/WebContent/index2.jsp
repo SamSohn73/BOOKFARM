@@ -11,6 +11,11 @@
 	Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
 	Vector<ProductVO>	best6Products	= (Vector<ProductVO>) session.getAttribute("best6Products");
 	CustomerVO			userVO			= (CustomerVO)session.getAttribute("loggedInUserVO");
+
+	String				type			= request.getParameter("type");
+	if (type == null)	type			= "login";
+
+
 %>
 <!DOCTYPE html>
 <html>
@@ -28,6 +33,31 @@
 		<!-- Custom styles for this template -->
 		<link href="css/shop-homepage.css" rel="stylesheet">
 		<link href="css/login.css" rel="stylesheet">
+		<script>
+			// Get the modal
+			var modal = document.getElementById('modalLogin');
+			
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+			
+			function register_check(form){
+				if(form.username.value.length==0){
+					alert('아이디를 확인해 주세요');
+					form.username.focus();
+					return;
+				}else if(form.password.value.length==0){
+					alert('비밀번호를 확인해 주세요');
+					form.password.focus();
+					return;
+				}else{
+					form.submit();
+				}
+			}
+		</script>
 	</head>
 	
 	<body>
@@ -56,18 +86,18 @@
 						</li>
 <%	if (userVO == null) {	%>
 						<li class="nav-item">
-							<a class="nav-link" href="./member/login.jsp">Login</a>
+							<a class="nav-link" href="#" onclick="document.getElementById('modalLogin').style.display='block'">Login</a>
 						</li>
 <%	} else {	%>
 						<li class="nav-item">
 							<a class="nav-link" href="qCustomerLogout.do">Logout</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./member/mypage.jsp">mypage</a>
+							<a class="nav-link" href="./member/mypage.jsp">Mypage</a>
 						</li>
 <%	}	%>
 						<li class="nav-item">
-							<a class="nav-link" href="basketList.do">Shopping 	Cart</a>
+							<a class="nav-link" href="basketList.do">Shopping Cart</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="./admin/adminLogin.jsp"> </a>
@@ -76,7 +106,33 @@
 				</div>
 			</div>
 		</nav>
-	
+<!-- The Modal -->
+<div id="modalLogin" class="modal">
+	<span onclick="document.getElementById('modalLogin').style.display='none'" class="close" title="Close Modal">&times;</span>
+
+	<!-- Modal Content -->
+	<form class="modal-content animate" name="pwdCheck" method="post" action="qCustomerIdPwdCheck.do?type=<%=type %>" target="_top">
+
+		<div class="container">
+			<label><b>Username</b></label>
+			<input type="text" placeholder="Enter Username" name="username" required>
+
+			<label><b>Password</b></label>
+			<input type="password" placeholder="Enter Password" name="password" required>
+
+			<button type="submit">Login</button>
+			<label>
+				<input type="checkbox" checked="checked"> Remember me
+			</label>
+		</div>
+
+		<div class="container" style="background-color:#f1f1f1">
+			<button type="button" class="btn" onclick="location.href='CustomerRegistSetting.do?type=insert' ">회원 가입</button>
+			<button type="button" class="btn" onclick="location.href='member/findChk.jsp' ">로그인 정보확인</button>
+			<button type="button" class="cancelbtn" onclick="document.getElementById('modalLogin').style.display='none'">취소</button>
+		</div>
+	</form>
+</div>	
 		<!-- Page Content -->
 		<div class="container">
 	
