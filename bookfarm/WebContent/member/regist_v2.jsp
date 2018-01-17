@@ -86,11 +86,6 @@
 	}
 </script>
 </head>
-<%if(type.equals("view") || type.equals("modify")){ %>
-<header>
-<iframe src="./header.do" height="150" width="800"></iframe>
-</header>
-<%} %>
 <body>
 	<%	if(type.equals("view")){ %>
 <form action="./qCustomerRegist.do?type=<%=type %>" method="post">
@@ -282,9 +277,4 @@
 </table>
 </form>
 </body>
-<%if(type.equals("view") || type.equals("modify")){ %>
-<footer>
-<iframe src="./footer.do" height="150" width="800"></iframe>
-</footer>
-<%} %>
 </html>

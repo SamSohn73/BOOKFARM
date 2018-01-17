@@ -56,9 +56,6 @@
 	}
 </script>
 </head>
-<header>
-<iframe src="header.do" height="150" width="800"></iframe>
-</header>
 <body>
 <%if(typeView.equals("insert")){ %>
 <form action="../qReviewsInsert.do" method="post">
@@ -155,7 +152,4 @@
 <%} %>
 </form>
 </body>
-<footer>
-<iframe src="footer.do" height="150" width="800"></iframe>
-</footer>
 </html>
