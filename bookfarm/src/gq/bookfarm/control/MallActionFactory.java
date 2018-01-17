@@ -275,7 +275,7 @@ public class MallActionFactory
 		else if (cmd.equals("/CustomerRegistSetting.do"))
 		{
 			log.debug("CustomerRegistSetting.do action create Start.");
-			action = new CustomerRegistSettingAction("./member/regist_v2.jsp");
+			action = new CustomerRegistSettingAction("/member/regist_v2.jsp");
 			log.debug("CustomerRegistSetting.do action create End.");
 		}
 		

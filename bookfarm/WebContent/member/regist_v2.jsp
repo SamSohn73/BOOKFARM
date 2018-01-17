@@ -1,21 +1,57 @@
 <%@page import="gq.bookfarm.vo.CustomerVO"%>
+<%@page import="java.sql.Date" %>
+<%@page import="java.util.Calendar" %>
+<%@page import="java.text.SimpleDateFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	//입력 변수
 	String		type			=	"modify";	//view, insert, modify	
 	CustomerVO	cVo				=	new CustomerVO();
+	int			nowYear			=	Calendar.getInstance().get(Calendar.YEAR);
+	int			year			=	0;
+	int			month			=	0;
+	int			day				=	0;
+	int			dayLimit		=	0;
 	
 	
 	if(request.getParameter("type")!=null)
 				type			=	(String)request.getParameter("type");
 	
-	if(type.equals("modify") || type.equals("view"))
+	if(session.getAttribute("loggedInUserVO")!=null && (type.equals("modify") || type.equals("view"))){
 				cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
 	
-	int year=0;
-	int month=0;
-	int day=0;
+	SimpleDateFormat format		=	new SimpleDateFormat("yyyy-MM-dd");
+	Date		date			=	cVo.getBirthday();
+	
+	SimpleDateFormat	dy		=	new SimpleDateFormat("yyyy");
+				year			=	Integer.parseInt(dy.format(date));
+				
+	SimpleDateFormat	dm		=	new SimpleDateFormat("MM");
+				month			=	Integer.parseInt(dm.format(date));
+				
+	SimpleDateFormat	dd		=	new SimpleDateFormat("dd");
+				day				=	Integer.parseInt(dd.format(date));
+	}
+	else if(request.getAttribute("workingUserVO")!=null){
+				cVo				=	(CustomerVO)request.getAttribute("workingUserVO");
+				year			=	(int)request.getAttribute("year");
+				month			=	(int)request.getAttribute("month");
+				day				=	(int)request.getAttribute("day");
+	}
+	
+	
+	if((month==1) || (month==3) || (month==5) || (month==7) || (month==8) || (month==10) || (month==12)){
+				dayLimit		=	31;
+	}else if((month==4) || (month==6) || (month==9) || (month==11)){
+				dayLimit		=	30;
+	}else if(month==2){
+		if((year%4==0) && (year%100!=0) || (year%400==0))
+				dayLimit		=	29;
+		else
+				dayLimit		=	28;
+	}
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -66,17 +102,19 @@
 			form.user_gender.focus();
 			return;
 		}else{
+			<%type="insert";%>
 			form.submit();
 		}
 	}
 	function selFuc(obj)
 	{
-		<%type="dateInsert";%>
-		obj.form.submit();
-	}
-	function selFuc_modi(obj)
-	{
-		<%type="dateModi";%>
+		<%
+		if(type.equals("insert"))
+			type="dateInsert";
+		else if(type.equals("modify"))
+			type="dateModi";
+		%>
+		obj.form.action="../CustomerRegistSetting.do?type=<%=type %>";
 		obj.form.submit();
 	}
 </script>
@@ -95,19 +133,11 @@
 <form action="../qCustomerRegist.do?type=<%=type %>" method="post">
 <table>
 		<caption>회원 정보 수정</caption>
-	<%	}else if(type.equals("insert")){ %>
+	<%	}else{ %>
 <form action="../qCustomerRegist.do?type=<%=type %>" method="post">
 <table>
 		<caption>회원가입</caption>
-	<%	}else if(type.equals("dateInsert")){ %>
-<form action="../CustomerRegistSetting.do?type=<%=type %>" method="post">
-<table>
-		<caption>회원가입</caption>	
-	<%	}else if(type.equals("dateModi")){ %>
-<form action="../CustomerRegistSetting.do?type=<%=type %>" method="post">
-<table>
-		<caption>회원가입</caption>	
-	<%	} %>
+	<%}%>
 	<tr>
 		<td><label>아이디</label></td>
 		<td><input type="text" name="username" placeholder="아이디"
@@ -209,29 +239,29 @@
 		<td class="클래스_btn_align1">
 					<select class="btn" onchange="selFuc(this)" name="year">
 							<option value="0">년도</option>
-						<% for(CategoryVO cat_Vo1 :catVo1){ %>
-							<option value="<%=cat_Vo1.getIdx()%>"
-							<%if(year==cat_Vo1.getIdx()){%> selected<%}%>>
-							<%= cat_Vo1.getCategory_name()%></option>
+						<% for(int i=nowYear;i>=(nowYear-100);i--){ %>
+							<option value="<%=i%>"
+							<%if(year==i){%> selected<%}%>>
+							<%= i%> 년</option>
 							<%} %>
 						</select>
 						<%if(year!=0){ %>
-						<select class="btn" onchange="selFuc(this)" name="month">
+						 - <select class="btn" onchange="selFuc(this)" name="month">
 							<option value="0">월</option>
-						<% for(CategoryVO cat_Vo2 :catVo2){ %>
-							<option value="<%=cat_Vo2.getIdx()%>"
-							<%if(month==cat_Vo2.getIdx()){%> selected<%}%>>
-							<%= cat_Vo2.getCategory_name()%></option>
+						<% for(int j=1;j<=12;j++){ %>
+							<option value="<%=j%>"
+							<%if(month==j){%> selected<%}%>>
+							<%= j%> 월</option>
 							<%} %>
 						</select>
 						<%} 
 						  if(month!=0){%>
-						<select class="btn" onchange="selFuc(this)" name="day">
+						 - <select class="btn" onchange="selFuc(this)" name="day">
 							<option value="0">일</option>
-						<% for(ProductVO pVo :VpVo){ %>
-							<option value="<%=pVo.getIdx()%>"
-							<%if(day==pVo.getIdx()){%> selected<%}%>>
-							<%= pVo.getProduct_name()%></option>
+						<% for(int k=1;k<=dayLimit;k++){ %>
+							<option value="<%=k%>"
+							<%if(day==k){%> selected<%}%>>
+							<%= k%> 일</option>
 							<%} %>
 						</select>
 						<%} %>
@@ -281,7 +311,7 @@
 	<tr>
 		<td colspan="2" class="btn_align">
 			<input type="button" value="확인" onclick="register_check(this.form)">
-			<%if(!type.equals("insert")){ %>
+			<%if(type.equals("modify") || type.equals("view")){ %>
 			<a href="../member/mypage.jsp"><input type="button" value="취소"></a>
 			<%}else{ %>
 			<a href="../hansol_main_example.jsp"><input type="button" value="취소"></a>
