@@ -3,9 +3,14 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="gq.bookfarm.vo.ProductVO"%>
 <% 	 		
-	String				current_page	= (String)request.getParameter("page");
+	int				current_page		= 1;
+		if(request.getParameter("page")!=null)
+					current_page		= Integer.parseInt(request.getParameter("page"));
+		else
+					current_page		= 1;
 	ProductVO			productVO		= (ProductVO)session.getAttribute("productVO");
 	Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
+	
 %>
 <!DOCTYPE html>
 <html>

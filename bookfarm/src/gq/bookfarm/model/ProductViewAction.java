@@ -21,7 +21,9 @@ public class ProductViewAction implements Action
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception
 	{
-		String	current_page	= req.getParameter("page");
+		int		current_page	= 1;
+		if(req.getParameter("page")!=null)
+				current_page	= Integer.parseInt(req.getParameter("page"));
 		int		idx				= Integer.parseInt(req.getParameter("idx"));
 		
 		HttpSession	session		= req.getSession();
