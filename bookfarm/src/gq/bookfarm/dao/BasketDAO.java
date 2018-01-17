@@ -126,10 +126,10 @@ public class BasketDAO
 		Connection			con		= getConnection();
 		
 		try {
-			log.debug("execute basketInsert do the DB work Start.");
+			log.debug("execute basketInsert DB work Start.");
 			con.setAutoCommit(false);
 			
-			String sql		= "insert into basket (customer_idx, product_idx, quantity, options, final_price, date_added) values (?,?,?,?,?,?)";
+			String sql		= "insert into basket (customer_idx, product_idx, quantity, options, final_price) values (?,?,?,?,?)";
 			pstmt			= con.prepareStatement(sql);
 
 			pstmt.setInt		(1, customer_idx);
@@ -142,19 +142,19 @@ public class BasketDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.debug("execute basketInsert do the DB work Failed!!!!!!!!!!");
+			log.debug("execute basketInsert DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute basketInsert do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute basketInsert DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute basketInsert do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute basketInsert DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute basketInsert do the DB work End.");
+		log.debug("execute basketInsert DB work End.");
 		return result;
 	}
 	
@@ -166,10 +166,10 @@ public class BasketDAO
 		Connection			con		= getConnection();
 		
 		try {
-			log.debug("execute basketInsert do the DB work Start.");
+			log.debug("execute basketInsert DB work Start.");
 			con.setAutoCommit(false);
 			
-			String sql			= "insert into basket (customer_idx, product_idx, quantity, options, final_price, date_added) values (?,?,?,?,?,?)";
+			String sql			= "insert into basket (customer_idx, product_idx, quantity, options, final_price) values (?,?,?,?,?)";
 			pstmt				= con.prepareStatement(sql);
 
 			pstmt.setInt		(1, basketVO.getCustomer_idx());
@@ -182,19 +182,19 @@ public class BasketDAO
 			if (result > 0)		con.commit();
 			
 		} catch (Exception e) {
-			log.debug("execute basketInsert do the DB work Failed!!!!!!!!!!");
+			log.debug("execute basketInsert DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute basketInsert do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute basketInsert DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute basketInsert do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute basketInsert DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute basketInsert do the DB work End.");
+		log.debug("execute basketInsert DB work End.");
 		return result;
 	}	
 	
@@ -206,16 +206,16 @@ public class BasketDAO
 		PreparedStatement	pstmt	= null;
 
 		try {
-			log.debug("execute basketDeleteByCustomer_idx do the DB work Start.");
+			log.debug("execute basketDeleteByCustomer_idx DB work Start.");
 			String	sql	= "delete from Basket where customer_idx = ?";
 			pstmt		= con.prepareStatement(sql);
 			
 			pstmt		.setInt(1, customer_idx);
 			
 			result		= pstmt.executeUpdate();
-			log.debug("execute basketDeleteByCustomer_idx do the DB work End.");
+			log.debug("execute basketDeleteByCustomer_idx DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute basketDeleteByCustomer_idx do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute basketDeleteByCustomer_idx DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
@@ -232,16 +232,16 @@ public class BasketDAO
 		PreparedStatement	pstmt	= null;
 
 		try {
-			log.debug("execute basketDeleteByIdx do the DB work Start.");
+			log.debug("execute basketDeleteByIdx DB work Start.");
 			String	sql	= "delete from Basket where idx = ?";
 			pstmt		= con.prepareStatement(sql);
 			
 			pstmt		.setInt(1, idx);
 			
 			result		= pstmt.executeUpdate();
-			log.debug("execute basketDeleteByIdx do the DB work End.");
+			log.debug("execute basketDeleteByIdx DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute basketDeleteByIdx do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute basketDeleteByIdx DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
@@ -259,7 +259,7 @@ public class BasketDAO
 		String sql					= null;
 		
 		try {
-			log.debug("execute basketUpdate do the DB work Start.");
+			log.debug("execute basketUpdate DB work Start.");
 			con.setAutoCommit(false);
 
 			sql				= "update basket set quantity = ?, final_price = ? where idx = ?";
@@ -271,15 +271,15 @@ public class BasketDAO
 			result			= pstmt.executeUpdate();
 			if (result > 0)	con.commit();
 			
-			log.debug("execute basketUpdate do the DB work End.");
+			log.debug("execute basketUpdate DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute basketUpdate do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute basketUpdate DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute basketUpdate do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute basketUpdate DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute basketUpdate do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute basketUpdate DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
@@ -300,8 +300,8 @@ public class BasketDAO
 		PreparedStatement	pstmt		= null;
 		
 		try {
-			log.debug("execute basketList do the DB work Start.");
-			String sql	= "select * from basket order by idx desc, customer_idx desc";
+			log.debug("execute basketList DB work Start.");
+			String sql	= "select * from basket order by idx desc";
 			pstmt		= con.prepareStatement(sql);
 			result		= pstmt.executeQuery();
 
@@ -317,19 +317,19 @@ public class BasketDAO
 				basketList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute categoryList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute basketList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute categoryList do the DB work End.");
+		log.debug("execute basketList DB work End.");
 		return basketList;
 	}
 	
 	
 	public Vector<BasketVO> basketListbyCustomer_idx(int customer_idx)
 	{
-		log.debug("execute basketListbyCustomer_idx do the DB work Start.");
+		log.debug("execute basketListbyCustomer_idx DB work Start.");
 		Vector<BasketVO>	basketList	= new Vector<BasketVO>();
 		
 		Connection			con			= getConnection();
@@ -337,8 +337,8 @@ public class BasketDAO
 		PreparedStatement	pstmt		= null;
 		
 		try {
-			log.debug("execute categoryList do the DB work Start.");
-			String sql	= "select * from category where customer_idx = ? order by idx desc, parent_idx desc";
+			log.debug("execute basketListbyCustomer_idx DB work Start.");
+			String sql	= "select * from basket where customer_idx = ? order by idx desc";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt	(1, customer_idx);
 			result		= pstmt.executeQuery();
@@ -355,19 +355,19 @@ public class BasketDAO
 				basketList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute basketListbyCustomer_idx do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute basketListbyCustomer_idx DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute basketListbyCustomer_idx do the DB work End.");
+		log.debug("execute basketListbyCustomer_idx DB work End.");
 		return basketList;
 	}
 	
 	
 	public int basketCountSearchingRows(String criteria, String searchWord)
 	{
-		log.debug("execute basketCountSearchingRows do the DB work Start.");
+		log.debug("execute basketCountSearchingRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -387,7 +387,7 @@ public class BasketDAO
 				total_rows	= result.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute basketCountSearchingRows do the DB work failed!!!!!!!!!!");
+			log.fatal("execute basketCountSearchingRows DB work failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
@@ -521,7 +521,7 @@ public class BasketDAO
 	
 	public int totalRows()
 	{
-		log.debug("execute basket totalRows do the DB work Start.");
+		log.debug("execute basket totalRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -537,13 +537,13 @@ public class BasketDAO
 				total_rows	= result.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute basket totalRows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute basket totalRows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
 		
-		log.debug("execute basket totalRows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute basket totalRows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}

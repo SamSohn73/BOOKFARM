@@ -17,11 +17,11 @@
 	if (criteria == null)	criteria	= "";
 	if (searchWord == null)	searchWord	= "";
 	
-	int currentPage			= pageInfo.getPage();
-	int startPage			= pageInfo.getStartPage();
-	int endPage				= pageInfo.getEndPage();
-	int totalRows			= pageInfo.getTotalRows();
-	int totalPages			= pageInfo.getTotalPages();
+	int currentPage	= pageInfo.getPage();
+	int startPage	= pageInfo.getStartPage();
+	int endPage		= pageInfo.getEndPage();
+	int totalRows	= pageInfo.getTotalRows();
+	int totalPages	= pageInfo.getTotalPages();
 	
 	log.debug("adminProductList.jsp criteria=" + criteria);
 	log.debug("adminProductList.jsp searchWord=" + searchWord);
@@ -109,7 +109,7 @@
 	<table>
 		<tr>
 			<td class="td_align">
-				<form action='AdminProductSearch.do' method='post' name='searchform'>
+				<form action='adminProductSearch.do' method='post' name='searchform'>
 					<select name='criteria'>
 						<option value='product_category_idx'	<%if(criteria.equals("category_idx"))	out.print("selected");%>>카테고리</option>
 						<option value='product_name'			<%if(criteria.equals("product_name"))	out.print("selected");%>>제목</option>

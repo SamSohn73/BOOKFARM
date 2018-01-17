@@ -12,10 +12,14 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
-import gq.bookfarm.dao.CategoryDAO;
+import gq.bookfarm.dao.BasketDAO;
+import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.vo.AdminVO;
+import gq.bookfarm.vo.BasketVO;
 import gq.bookfarm.vo.CategoryVO;
+import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
+import gq.bookfarm.vo.ProductVO;
 
 public class BasketListAction implements Action
 {
@@ -35,47 +39,28 @@ public class BasketListAction implements Action
 	{
 		log.debug("BasketListAction execute Start.");
 
-		HttpSession	session		= req.getSession();
-		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
-		AdminDAO	adminDAO	= new AdminDAO();
-		if (adminDAO.isAdmin(adminVO) == null) {
-			log.info("BasketListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
-		}
+		HttpSession			session		= req.getSession();
+		CustomerVO			customerVO	= (CustomerVO) session.getAttribute("loggedInUserVO");
+		Vector<BasketVO>	baskets		= (Vector<BasketVO>) session.getAttribute("baskets");
+		Vector<ProductVO>	products	= (Vector<ProductVO>) session.getAttribute("products");
 		
-		int page = 1;
-		if (req.getParameter("page") != null)
-			page = Integer.parseInt(req.getParameter("page"));
-		
-		CategoryDAO			dao		= new CategoryDAO();
-		
-		int totalRows				= dao.totalRows();
-		int limit					= 10;
-		
-		int totalPages				= (int) ((double) totalRows / limit + 0.999999);
-		int startPage				= (((int) ((double) page / 10 + 0.9)) -1) * 10 + 1;
-		int endPage					= startPage + 10 -1;
-		if (endPage > totalPages)	endPage = totalPages;
-		
-		PageVO pageInfo				= new PageVO();
-		pageInfo					.setPage(page);
-		pageInfo					.setStartPage(startPage);
-		pageInfo					.setEndPage(endPage);
-		pageInfo					.setTotalRows(totalRows);
-		pageInfo					.setTotalPages(totalPages);
-		req							.setAttribute("pageInfo", pageInfo);
-		
-		log.debug("AdminCategoryListAction execute totalRows= "		+ totalRows);
-		log.debug("AdminCategoryListAction execute totalPages= "	+ totalPages);
-		log.debug("AdminCategoryListAction execute startPage= "		+ startPage);
-		log.debug("AdminCategoryListAction execute endPage= "		+ endPage);
-		log.debug("AdminCategoryListAction execute page= "			+ page);
-		
-		Vector<CategoryVO>	categories	= dao.categoryList(page, limit);
-		if (categories != null)			req.setAttribute("categories", categories);
-		// if result failed change path here
-		else							path="error.jsp";
-		
+/*		if (customerVO != null && baskets == null) {
+			log.debug("Customer " + customerVO.getUsername() + " with empty basket in the session. start to check from DB");
+			BasketDAO			basketDAO	= new BasketDAO();
+			Vector<BasketVO>	basketsDB	= basketDAO.basketListbyCustomer_idx(customerVO.getIdx());
+			baskets							= basketsDB;
+			session							.setAttribute("baskets", baskets);
+			
+			for (BasketVO basket:baskets) {
+				ProductVO	tempVO		= new ProductVO();
+				ProductDAO	productDAO	= new ProductDAO();
+				
+				tempVO = productDAO.productGetRow(basket.getProduct_idx());
+				products.add(tempVO);
+			}
+			session.setAttribute("products", products);
+		}*/
+
 		log.debug("BasketListAction execute End.");
 		return new ActionForward(path, false);
 	}

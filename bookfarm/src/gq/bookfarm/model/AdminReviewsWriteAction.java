@@ -1,5 +1,7 @@
 package gq.bookfarm.model;
 
+import java.util.Vector;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -9,9 +11,13 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
+import gq.bookfarm.dao.CategoryDAO;
+import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.AdminVO;
+import gq.bookfarm.vo.CategoryVO;
 import gq.bookfarm.vo.CustomerVO;
+import gq.bookfarm.vo.ProductVO;
 import gq.bookfarm.vo.ReviewVO;
 
 public class AdminReviewsWriteAction implements Action
@@ -34,49 +40,37 @@ public class AdminReviewsWriteAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsWriteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
-		String	type			=	req.getParameter("type");
 		int		page			=	Integer.parseInt(req.getParameter("page"));
-		String	review_title	=	req.getParameter("review_title");
-		String	review_text		=	req.getParameter("review_text");
-		String	typeView		=	req.getParameter("typeView");
-		int		idx				=	0;
+		int		parent_idx		=	0;
+		int		category_idx	=	0;
 		int		products_idx	=	0;
-		int		result			=	0;
+		if(req.getParameter("products_idx")!=null)	
+			products_idx=	Integer.parseInt(req.getParameter("products_idx"));
+		if(req.getParameter("parent_idx")!=null)	
+			parent_idx	=	Integer.parseInt(req.getParameter("parent_idx"));
+		if(req.getParameter("category_idx")!=null)	
+			category_idx=	Integer.parseInt(req.getParameter("category_idx"));
 		
-		CustomerVO cVo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
+		CategoryDAO catDao		=	new CategoryDAO();
+		ProductDAO	pDao		=	new ProductDAO();
+		Vector<CategoryVO> catVo1=	catDao.categoryGetTotalRow(0);
+		Vector<ProductVO> VpVo	=	new Vector<ProductVO>();
+		Vector<CategoryVO> catVo2=	new Vector<CategoryVO>();
+		if(category_idx!=0)
+			VpVo		=	pDao.productTotalIdx(category_idx);
+		if(parent_idx!=0)
+			catVo2		=	catDao.categoryGetTotalRow(parent_idx);
+		
 		ReviewDAO dao			=	new ReviewDAO();
-		ReviewVO vo				=	new ReviewVO();
 		
-		if(typeView.equals("insert")) {				
-			products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
-			vo.setReview_text(review_text);
-			vo.setReview_title(review_title);
-			vo.setProducts_idx(products_idx);
-			vo.setCustomers_idx(cVo.getIdx());
-			result			=	dao.insert(vo);
-				
-			if(result>0) {
-				path			+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
-			} else {
-				log.debug("AdminReviewsWriteAction Insert error");
-			}
-		} else if(typeView.equals("modify")) {
-				idx				=	Integer.parseInt(req.getParameter("idx"));
-				result			=	dao.updateRow(idx, review_title, review_text);
-				
-			if(result>0) {
-				typeView		=	"view";
-				req.setAttribute("idx", idx);
-				req.setAttribute("type", type);
-				req.setAttribute("page", page);
-				req.setAttribute("typeView", typeView);
-				path			=	"qReviewsView.do";
-			} else {
-				log.debug("AdminReviewsWriteAction Modify error");
-			}
-		}
+									req.setAttribute("VpVo", VpVo);
+									req.setAttribute("catVo1", catVo1);
+									req.setAttribute("catVo2", catVo2);
+				path			+=	"?page="+page+"&parent_idx="+parent_idx+"&category_idx="+category_idx
+									+"&products_idx="+products_idx;
 		
 		return new ActionForward(path, false);
 	}

@@ -138,7 +138,7 @@ public class OrdersDAO
 		//date = new java.sql.Date(utilDate.getTime());
 		
 		try {
-			log.debug("execute orderInsert do the DB work Start.");
+			log.debug("execute orderInsert DB work Start.");
 			con.setAutoCommit(false);
 			
 			String sql		= "insert into orders (customers_idx, delivery_name, " + 
@@ -176,19 +176,19 @@ public class OrdersDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.debug("execute orderInsert do the DB work Failed!!!!!!!!!!");
+			log.debug("execute orderInsert DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute orderInsert do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute orderInsert DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute orderInsert do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute orderInsert DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute orderInsert do the DB work End.");
+		log.debug("execute orderInsert DB work End.");
 		return result;
 	}
 	
@@ -200,16 +200,16 @@ public class OrdersDAO
 		PreparedStatement	pstmt	= null;
 
 		try {
-			log.debug("execute ordersDelete do the DB work Start.");
+			log.debug("execute ordersDelete DB work Start.");
 			String sql = "delete from orders where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, idx);
 			
 			result = pstmt.executeUpdate();
-			log.debug("execute ordersDelete do the DB work End.");
+			log.debug("execute ordersDelete DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute ordersDelete do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute ordersDelete DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
@@ -229,7 +229,7 @@ public class OrdersDAO
 
 		
 		try {
-			log.debug("execute ordersUpdate do the DB work Start.");
+			log.debug("execute ordersUpdate DB work Start.");
 			con.setAutoCommit(false);
 
 			sql = "update orders set last_modified = now(), orders_status = ?, orders_date_finished = ? where idx = ?";
@@ -242,19 +242,19 @@ public class OrdersDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.fatal("execute ordersUpdate do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute ordersUpdate DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute ordersUpdate do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute ordersUpdate DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute ordersUpdate do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute ordersUpdate DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute ordersUpdate do the DB work End.");
+		log.debug("execute ordersUpdate DB work End.");
 		return result;
 	}
 	
@@ -271,7 +271,7 @@ public class OrdersDAO
 		PreparedStatement	pstmt	= null;
 		
 		try {
-			log.debug("execute ordersList do the DB work Start.");
+			log.debug("execute ordersList DB work Start.");
 			String sql	= "select * from Orders order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
@@ -309,18 +309,18 @@ public class OrdersDAO
 				ordersList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute ordersList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute ordersList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute ordersList do the DB work End.");
+		log.debug("execute ordersList DB work End.");
 		return ordersList;
 	}
 	
 	public int ordersCountSearchingRows(String criteria, String searchWord)
 	{
-		log.debug("execute ordersCountSearchingRows do the DB work Start.");
+		log.debug("execute ordersCountSearchingRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -340,7 +340,7 @@ public class OrdersDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute ordersCountSearchingRows do the DB work failed!!!!!!!!!!");
+			log.fatal("execute ordersCountSearchingRows DB work failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, rs);
@@ -474,7 +474,7 @@ public class OrdersDAO
 	
 	public int totalRows()
 	{
-		log.debug("execute orders total_rows do the DB work Start.");
+		log.debug("execute orders total_rows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -490,13 +490,13 @@ public class OrdersDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute orders total_rows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute orders total_rows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, rs);
 		}
 		
-		log.debug("execute orders total_rows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute orders total_rows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}
@@ -504,7 +504,7 @@ public class OrdersDAO
 	
 	public int singleCustomertotalRows(int customers_idx)
 	{
-		log.debug("execute orders single_customer's_total_rows do the DB work Start.");
+		log.debug("execute orders single_customer's_total_rows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -521,13 +521,13 @@ public class OrdersDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute orders total_rows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute orders total_rows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, rs);
 		}
 		
-		log.debug("execute orders total_rows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute orders total_rows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}
@@ -545,7 +545,7 @@ public class OrdersDAO
 		PreparedStatement	pstmt	= null;
 		
 		try {
-			log.debug("execute single_Customer's_orders_List do the DB work Start.");
+			log.debug("execute single_Customer's_orders_List DB work Start.");
 			String sql	= "select * from orders where customers_idx=? order by idx desc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, customers_idx);
@@ -584,12 +584,12 @@ public class OrdersDAO
 				ordersList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute single_Customer's_orders_List do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute single_Customer's_orders_List DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute single_Customer's_orders_List do the DB work End.");
+		log.debug("execute single_Customer's_orders_List DB work End.");
 		return ordersList;
 	}
 	
@@ -603,7 +603,7 @@ public class OrdersDAO
 		PreparedStatement	pstmt	= null;
 		
 		try {
-			log.debug("execute single_Customer's_orders_List do the DB work Start.");
+			log.debug("execute single_Customer's_orders_List DB work Start.");
 			String sql	= "select * from orders where customers_idx=? order by idx desc";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, customers_idx);
@@ -621,12 +621,12 @@ public class OrdersDAO
 								ordersList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute single_Customer's_orders_List do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute single_Customer's_orders_List DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute single_Customer's_orders_List do the DB work End.");
+		log.debug("execute single_Customer's_orders_List DB work End.");
 		return ordersList;
 	}
 }

@@ -4,8 +4,6 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="gq.bookfarm.vo.ReviewVO" %>
 <%@ page import="gq.bookfarm.vo.CustomerVO" %>
-<%@ page import="gq.bookfarm.dao.ReviewDAO" %>
-<%@ page import="gq.bookfarm.dao.CustomerDAO" %>
 <%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%	
@@ -14,37 +12,35 @@
 	String	typeView			=	request.getParameter("typeView");//view,insert,modify
 	
 	CustomerVO	cVo				=	(CustomerVO)sess.getAttribute("loggedInUserVO");
-	ReviewVO	vo				=	null;
-	CustomerDAO	cDao			=	null;
+	ReviewVO	reviewVO		=	null;
+	
 	int			idx				=	0;
 	int			currentPage		=	1;	
 	int			products_idx	=	0;
+	String		name			=	null;
 	
 	if(typeView.equals("view") || typeView.equals("modify"))
 	{
-				vo				=	(ReviewVO)request.getAttribute("vo");
-				cDao			=	new CustomerDAO();
-				idx				=	vo.getIdx();
-				//idx				=	(int)request.getAttribute("idx");
-				currentPage		=	Integer.parseInt(request.getParameter("page"));
-				products_idx	=	vo.getProducts_idx();
+		reviewVO		=	(ReviewVO)request.getAttribute("reviewVO");
+		name			=	(String)request.getAttribute("name");
+		idx				=	reviewVO.getIdx();
+		currentPage		=	Integer.parseInt(request.getParameter("page"));
+		products_idx	=	reviewVO.getProducts_idx();
 	}
 	else if(typeView.equals("insert"))
 			products_idx		=	Integer.parseInt(request.getParameter("products_idx"));
-
-	/*CSS	
-	left
-	right
-	file_t
-	btn
-	*/
 
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>
+<%	if(typeView.equals("view")) {%>				리뷰 보기
+<%	} else if(typeView.equals("modify")) {%>	리뷰 수정
+<%	} else {%>									리뷰 등록
+<%	}%>
+</title>
 <script>
 	function returnList1(){
 		location.href="../qReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
@@ -60,6 +56,9 @@
 	}
 </script>
 </head>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
 <body>
 <%if(typeView.equals("insert")){ %>
 <form action="../qReviewsInsert.do" method="post">
@@ -75,14 +74,14 @@
 		<caption>리뷰 수정</caption>
 	<%	}else{ %>
 		<caption>리뷰 등록</caption>
-	<%	} %>	
+	<%	} %>
 	<tr>
 		<td class="left">글쓴이</td>
 		<td class="right"><input type="text" name="review_writer" size="15" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly"value=<%=cDao.getName(vo.getCustomers_idx()) %>
+		readonly="readonly"value=<%=name %>
 		<%	}else if(typeView.equals("modify")){ %>
-		readonly="readonly"value=<%=cDao.getName(vo.getCustomers_idx()) %>
+		readonly="readonly"value=<%=name %>
 		<%	}else{ %>
 		readonly="readonly"value=<%=cVo.getUsername() %>
 		<%	} %>
@@ -92,9 +91,9 @@
 		<td class="left">제목</td>
 		<td class="right"><input type="text" name="review_title" size="40" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly" value=<%=vo.getReview_title() %> 
+		readonly="readonly" value=<%=reviewVO.getReview_title() %> 
 		<%	}else if(typeView.equals("modify")){ %>
-		value=<%=vo.getReview_title() %>
+		value=<%=reviewVO.getReview_title() %>
 		<%	}else{ %>
 		placeholder="리뷰 제목"
 		<%	} %>
@@ -104,9 +103,9 @@
 		<td class="left">내용</td>
 		<td class="right"><textarea name="review_text" rows="15" cols="50" required="required"
 		<%	if(typeView.equals("view")){ %>
-		readonly="readonly"><%=vo.getReview_text() %> 
+		readonly="readonly"><%=reviewVO.getReview_text() %> 
 		<%	}else if(typeView.equals("modify")){ %>
-		><%=vo.getReview_text() %>
+		><%=reviewVO.getReview_text() %>
 		<%	}else{ %>
 		placeholder="리뷰 내용"><%}%></textarea></td>
 	</tr>
@@ -120,7 +119,7 @@
 		 <input class="btn" type="button" value="목록보기"onclick="returnList2()">
 		<%		} %>
 		
-		<%		if(vo.getCustomers_idx()==(cVo.getIdx())){ %>
+		<%		if(sess.getAttribute("loggedInUserVO")!=null && (reviewVO.getCustomers_idx()==(cVo.getIdx()))){ %>
 		 <input class="btn" type="button" value="수정하기"onclick="modifyList()">
 		 <input class="btn" type="button" value="삭제하기"onclick="deleteRow()">
 		<%		} %>
@@ -156,4 +155,7 @@
 <%} %>
 </form>
 </body>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
 </html>

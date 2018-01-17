@@ -10,15 +10,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인화면(테스트)</title>
 </head>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
 <body>
-	<h1><%=cVo.getFirstname()%> 님이 로그인 하셨습니다.</h1>
-	<a href="mypage.jsp">myPage</a>
-	<a href="../qCustomerLogout.do">logout</a>
-	<a href="../qReviewsLists.do?type=list&products_idx=<%=product1 %>"><%=product1 %></a>
-	product's review2
-	product's review3
+
+
+<a href='productList.do'> 상품 목록 </a>
+<a href='index.jsp'>처음으로</a>
+
 
 </body>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
 </html>

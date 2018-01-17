@@ -34,6 +34,7 @@ public class AdminCategoryDeleteAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryDeleteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		String current_page = req.getParameter("page");
@@ -42,7 +43,7 @@ public class AdminCategoryDeleteAction implements Action
 		CategoryDAO dao	= new CategoryDAO();
 		int result		= dao.categoryDelete(idx);
 
-		if(result==0) {
+		if(result <= 0) {
 			log.debug("AdminCategoryDeleteAction execute Failed.");
 			path="error.jsp"; 
 		}else {

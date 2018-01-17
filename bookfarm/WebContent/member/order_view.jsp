@@ -19,8 +19,8 @@
 	String					cs		=	request.getParameter("cs");
 	OrdersVO				oList	=	(OrdersVO)request.getAttribute("oList");
 	Vector<OrdersProductVO>	opList	=	(Vector<OrdersProductVO>)request.getAttribute("opList");
+	Vector<String>			nameList=	(Vector<String>)request.getAttribute("nameList");
 	PageVO					info	=	(PageVO)request.getAttribute("info");
-	ProductDAO				dao		=	new ProductDAO();
 	
 	int					total_page	=	info.getTotalPages();
 	int					current_page=	info.getPage();
@@ -33,8 +33,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>구매 내역 확인</title>
 </head>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
 <body>
 		<table class="클래스_테이블1">
 			<caption>주문 정보</caption>
@@ -96,7 +99,7 @@
 				<th	>상품갯수</th>
 				<th >주문금액</th>
 			</tr>
-			<%for(OrdersProductVO opVo:opList){%>
+			<%for(OrdersProductVO opVo:opList){int nCount=0;%>
 			<tr class="클래스_tr_top1">
 					<td class="클래스_td_align1">
 					<%if(oclIdx != opVo.getIdx()){ %>
@@ -104,12 +107,12 @@
 					<%oclIdx=opVo.getIdx();} %>
 					</td>
 					<td align="left">
-					<a href="상품페이지로 연결" target="_top">
-					<%=dao.productGetRow(opVo.getProducts_idx()).getProduct_name() %></a></td>
+					<a href="productView.do?idx=<%=opVo.getProducts_idx() %>&page=1" target="_top">
+					<%=nameList.get(nCount) %></a></td>
 					<td><%=opVo.getProducts_quantity() %></td>
 					<td><%=opVo.getFinal_price() %></td>
 				</tr>
-			<%}%>
+			<%nCount++;}%>
 <tr>
 	<td colspan="4">
 		<%
@@ -143,4 +146,7 @@
 			</tr>
 </table>
 </body>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
 </html>

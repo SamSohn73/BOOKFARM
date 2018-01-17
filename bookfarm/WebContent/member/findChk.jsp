@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>고객 찾기</title>
 <script>
 function register_check(form){
 	if(form.firstname.value.length==0){

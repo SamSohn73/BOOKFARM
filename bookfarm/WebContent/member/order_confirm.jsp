@@ -2,8 +2,6 @@
 <%@ page import="java.util.Vector" %>
 <%@ page import="java.sql.Date" %>
 <%@ page import="gq.bookfarm.vo.OrdersVO" %>
-<%@ page import="gq.bookfarm.dao.OrdersProductDAO" %>
-<%@ page import="gq.bookfarm.dao.ProductDAO" %>
 <%@ page import="gq.bookfarm.vo.OrdersProductVO" %>
 <%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,15 +10,11 @@
 		Vector<OrdersVO> list		=	new Vector<OrdersVO>();
 		OrdersVO		oList		=	new OrdersVO();
 		Vector<OrdersProductVO> opList=	new Vector<OrdersProductVO>();
-		ProductDAO		dao			=	new ProductDAO();
 		
 		String	type				= "myList";	//myPage, myList, singleList
 		if(request.getParameter("type")!=null)
 				type				=	request.getParameter("type");
-		
-	/*	String	searchCondition		=	(String)request.getAttribute("searchCondition");
-		String	searchWord			=	(String)request.getAttribute("searchWord");	*/
-		
+
 		Vector<String>	cs			=	null;
 		PageVO			info		=	null;
 		
@@ -46,24 +40,18 @@
 						startPage	=	info.getStartPage();
 						totalRows	=	info.getTotalRows();
 		}
-		//불러올 CSS
-		/*
-		클래스_테이블1
-		클래스_tr타이틀1
-		클래스_tr_top1
-		클래스_td_align1
-		클래스_bottom_table1
-		클래스_td_align1
-		클래스_btn_align1
-		클래스_btn1
-		*/
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>구매 내역 확인</title>
 </head>
+<%if(!type.equals("myPage")) {%>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
+<%} %>
 <body>
 	<table class="클래스_테이블1">
 		<caption>구매 내역 확인</caption>	
@@ -137,4 +125,9 @@ if(type.equals("myList"))
 }
 %>
 </body>
+<%if(!type.equals("myPage")) {%>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
+<%} %>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="gq.bookfarm.vo.CategoryVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Vector"%>
 <%@page import="gq.bookfarm.vo.PageVO"%>
@@ -9,6 +10,7 @@
 <%
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
 	Vector<ProductVO>	products	= (Vector<ProductVO>) request.getAttribute("products");
+	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
 	
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
@@ -16,11 +18,11 @@
 	if (criteria == null)	criteria	= "";
 	if (searchWord == null)	searchWord	= "";
 	
-	int currentPage			= pageInfo.getPage();
-	int startPage			= pageInfo.getStartPage();
-	int endPage				= pageInfo.getEndPage();
-	int totalRows			= pageInfo.getTotalRows();
-	int totalPages			= pageInfo.getTotalPages();
+	int currentPage	= pageInfo.getPage();
+	int startPage	= pageInfo.getStartPage();
+	int endPage		= pageInfo.getEndPage();
+	int totalRows	= pageInfo.getTotalRows();
+	int totalPages	= pageInfo.getTotalPages();
 	
 	log.debug("productList.jsp criteria="		+ criteria);
 	log.debug("productList.jsp searchWord="		+ searchWord);
@@ -46,6 +48,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>상품 목록</title>
 </head>
+<header>
+<iframe src="header.do" height="150" width="800"></iframe>
+</header>
 <body>
 	<table>
 		<caption>상품 목록</caption>
@@ -61,7 +66,7 @@
 	int idNum = totalRows - (currentPage-1)*10;
 	for(ProductVO product: products) {	%>
 		<tr>
-			<td><%=idNum%></td>
+			<td><%=idNum%></td><!--   -->
 			<td><%=product.getCategory_idx()%></td>
 			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><img src="<%=product.getProduct_image()%>"></a></td>
 			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><%=product.getProduct_name()%></a></td>
@@ -116,6 +121,9 @@
 		</tr>
 	</table>
 	
-	<h3><a href="index.jsp">처음으로</a></h3>
+	<h3><a href="index.do">처음으로</a></h3> 
 </body>
+<footer>
+<iframe src="footer.do" height="150" width="800"></iframe>
+</footer>
 </html>

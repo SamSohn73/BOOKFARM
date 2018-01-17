@@ -4,12 +4,15 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.CategoryDAO;
 import gq.bookfarm.dao.ProductDAO;
+import gq.bookfarm.vo.CategoryVO;
 import gq.bookfarm.vo.PageVO;
 import gq.bookfarm.vo.ProductVO;
 
@@ -28,6 +31,17 @@ public class ProductListAction implements Action
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res)
 	{
 		log.debug("ProductListAction execute Start.");
+		
+		HttpSession			session		= req.getSession();
+		Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
+		if (categories == null) {
+			Vector<CategoryVO>	tmpCategories	= new Vector<CategoryVO>();
+			CategoryDAO			categoryDAO		= new CategoryDAO();
+			tmpCategories						= categoryDAO.categoryList();
+			categories							= tmpCategories;
+			session								.setAttribute("categories", categories);
+		}
+		
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
@@ -53,7 +67,7 @@ public class ProductListAction implements Action
 		log.debug("ProductListAction execute totalRows= "		+ totalRows);
 		log.debug("ProductListAction execute totalPages= "		+ totalPages);
 		log.debug("ProductListAction execute startPage= "		+ startPage);
-		log.debug("ProductListAction execute endPage= "		+ endPage);
+		log.debug("ProductListAction execute endPage= "			+ endPage);
 		log.debug("ProductListAction execute page= "			+ page);
 		
 		Vector<ProductVO>	products	= dao.productList(page, limit);

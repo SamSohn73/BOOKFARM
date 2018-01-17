@@ -35,6 +35,7 @@ public class AdminCustomerDeleteAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCustomerDeleteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
 		String current_page = req.getParameter("page");
@@ -43,7 +44,7 @@ public class AdminCustomerDeleteAction implements Action
 		CustomerDAO dao=new CustomerDAO();
 		int result=dao.delete(idx);
 
-		if(result==0) {
+		if(result <= 0) {
 			log.debug("AdminCustomerDeleteAction execute Failed.");
 			path="error.jsp"; 
 		}else {

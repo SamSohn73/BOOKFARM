@@ -33,23 +33,23 @@ public class AdminReviewsDeleteAction implements Action
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsDeleteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.jsp";
+			return new ActionForward(path, false);
 		}
 		
-		int		page			=	(int)req.getAttribute("page");
-		int		idx				=	(int)req.getAttribute("idx");
-		String	type			=	(String)req.getAttribute("type");
-		//String	typeView		=	(String)req.getAttribute("typeView");
-		int		products_idx	=	(int)req.getAttribute("products_idx");
+		int		idx				=	Integer.parseInt(req.getParameter("idx"));
+		int		products_idx	=	Integer.parseInt(req.getParameter("p"));
+		int		parent_idx		=	Integer.parseInt(req.getParameter("par"));
+		int		category_idx	=	Integer.parseInt(req.getParameter("cat"));
 		
 		ReviewDAO	dao			=	new	ReviewDAO();
 		int		result			=	dao.delete(idx);
 		
 		if(result>0) {
-			req.setAttribute("products_idx",products_idx);
-			req.setAttribute("type", type);
+				path			+=	"?products_idx="+products_idx
+									+"&parent_idx="+parent_idx+"&category_idx="+category_idx;
 		} else {
-			log.error("ReviewsDeleteAction error");
-			path			=	"";
+									log.error("ReviewsDeleteAction error");
+				path			=	"";
 		}	
 		
 		return new ActionForward(path, false);

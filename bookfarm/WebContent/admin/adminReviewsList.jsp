@@ -2,9 +2,6 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="gq.bookfarm.vo.ReviewVO" %>
 <%@ page import="gq.bookfarm.vo.CustomerVO" %>
-<%@ page import="gq.bookfarm.dao.ReviewDAO" %>
-<%@ page import="gq.bookfarm.dao.CustomerDAO" %>
-<%@ page import="gq.bookfarm.dao.CategoryDAO" %>
 <%@ page import="gq.bookfarm.vo.PageVO" %>
 <%@ page import="gq.bookfarm.vo.ProductVO" %>
 <%@ page import="gq.bookfarm.vo.CategoryVO" %>
@@ -17,7 +14,7 @@
 		Vector<CategoryVO> catVo1=	(Vector<CategoryVO>)request.getAttribute("catVo1");
 		Vector<CategoryVO> catVo2=	(Vector<CategoryVO>)request.getAttribute("catVo2");
 		Vector<ProductVO> VpVo	=	(Vector<ProductVO>)request.getAttribute("VpVo");
-		/* Vector<String>nameList	=	(Vector<String>)request.getAttribute("nameList"); */
+		Vector<String>nameList	=	(Vector<String>)request.getAttribute("nameList");
 		int		totalPages		=	info.getTotalPages();
 		int		currentPage		=	info.getPage();
 		int		startPage		=	info.getStartPage();
@@ -25,7 +22,7 @@
 		int		totalRows		=	info.getTotalRows();
 		
 		
-		CustomerDAO cDao		=	new CustomerDAO();
+		/* CustomerDAO cDao		=	new CustomerDAO(); */
 		String	searchCondition	=	(String)request.getAttribute("searchCondition");
 		String	searchWord		=	(String)request.getAttribute("searchWord");
 		
@@ -56,14 +53,26 @@
 			}
 				searchform.submit();
 		}
+		function selFuc1(obj)
+		{
+			obj.form.submit();
+		}
+		function selFuc2(obj)
+		{
+			obj.form.submit();
+		}
+		function selFuc3(obj)
+		{
+			obj.form.submit();
+		}
 	</script>
 </head>
 <body>
 <table	class="클래스_bottom_table1">
 			<tr>
 				<td class="클래스_btn_align1">
-					<form action="adminReviewsList.do?" method="post">
-						<select class="btn" name="parent_idx">
+					<form action="adminReviewsList.do" method="post" name=catForm>
+						<select class="btn" onchange="selFuc1(this)" name="parent_idx">
 							<option value="0">전체</option>
 						<% for(CategoryVO cat_Vo1 :catVo1){ %>
 							<option value="<%=cat_Vo1.getIdx()%>"
@@ -72,7 +81,7 @@
 							<%} %>
 						</select>
 						<%if(parent_idx!=0){ %>
-						<select class="btn" name="category_idx">
+						<select class="btn" onchange="selFuc2(this)" name="category_idx">
 							<option value="0">전체</option>
 						<% for(CategoryVO cat_Vo2 :catVo2){ %>
 							<option value="<%=cat_Vo2.getIdx()%>"
@@ -82,16 +91,15 @@
 						</select>
 						<%} 
 						  if(category_idx!=0){%>
-						<select class="btn" name="products_idx">
+						<select class="btn" onchange="selFuc3(this)" name="products_idx">
 							<option value="0">전체</option>
 						<% for(ProductVO pVo :VpVo){ %>
 							<option value="<%=pVo.getIdx()%>"
 							<%if(products_idx==pVo.getIdx()){%> selected<%}%>>
 							<%= pVo.getProduct_name()%></option>
 							<%} %>
-						<%} %>
 						</select>
-						<input type="submit" class="클래스_btn1" value="검색">
+						<%} %>
 					</form>
 				</td>
 				<td class="클래스_btn_align1">
@@ -126,7 +134,8 @@
 				<th >작성자</th>
 				<th >조회수</th>
 			</tr>
-			<%for(ReviewVO vo:list)
+			<%int nCount=0;
+			for(ReviewVO vo:list)
 				{%>
 				<tr class="클래스_tr_top1">
 					<td><%=vo.getDate_added()%></td>
@@ -134,10 +143,10 @@
 					&page=<%=currentPage%>&p=<%=products_idx%>&par=<%=parent_idx%>
 					&cat=<%=category_idx%>&con=<%=searchCondition%>&word=<%=searchWord%>">
 					<%=vo.getReview_title()%></a></td>
-					<td><%=cDao.getName(vo.getCustomers_idx())%></td>
+					<td><%=nameList.get(nCount)%></td>
 					<td><%=vo.getReviews_read()%></td>
 				</tr>
-				<%}%>
+				<%nCount++;}%>
 <tr>
 	<td colspan="4" align="center">
 		<%	if(searchWord == null)
@@ -228,7 +237,7 @@
 </tr>
 			<tr align="right">
 				<td align="right" colspan="4">
-				<a href="./admin/adminReviewsWrite.jsp?page=<%=currentPage%>
+				<a href="adminReviewsWrite.do?page=<%=currentPage%>
 				&products_idx=<%=products_idx %>&parent_idx=<%=parent_idx %>
 				&category_idx=<%=category_idx %>">[글쓰기]</a>
 				<a href="./admin/adminLogin.jsp">[메인으로]</a>

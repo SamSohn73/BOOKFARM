@@ -125,7 +125,7 @@ public class CategoryDAO
 		Connection			con		= getConnection();
 		
 		try {
-			log.debug("execute categoryInsert do the DB work Start.");
+			log.debug("execute categoryInsert DB work Start.");
 			con.setAutoCommit(false);
 			
 			String sql		= "insert into category (parent_idx, category_name) values (?,?)";
@@ -138,19 +138,19 @@ public class CategoryDAO
 			if (result > 0)	con.commit();
 			
 		} catch (Exception e) {
-			log.debug("execute categoryInsert do the DB work Failed!!!!!!!!!!");
+			log.debug("execute categoryInsert DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute categoryInsert do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute categoryInsert DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute categoryInsert do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute categoryInsert DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
 			close(con, pstmt);
 		}
-		log.debug("execute categoryInsert do the DB work End.");
+		log.debug("execute categoryInsert DB work End.");
 		return result;
 	}
 	
@@ -162,16 +162,16 @@ public class CategoryDAO
 		PreparedStatement	pstmt	= null;
 
 		try {
-			log.debug("execute categoryDelete do the DB work Start.");
+			log.debug("execute categoryDelete DB work Start.");
 			String sql = "delete from category where idx = ?";
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, idx);
 			
 			result = pstmt.executeUpdate();
-			log.debug("execute categoryDelete do the DB work End.");
+			log.debug("execute categoryDelete DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute categoryDelete do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute categoryDelete DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt);
@@ -189,7 +189,7 @@ public class CategoryDAO
 		String sql					= null;
 		
 		try {
-			log.debug("execute categoryUpdate do the DB work Start.");
+			log.debug("execute categoryUpdate DB work Start.");
 			con.setAutoCommit(false);
 
 			sql = "update category set parent_idx = ?, category_name = ? where idx = ?";
@@ -201,15 +201,15 @@ public class CategoryDAO
 			result			= pstmt.executeUpdate();
 			if (result > 0)	con.commit();
 			
-			log.debug("execute categoryUpdate do the DB work End.");
+			log.debug("execute categoryUpdate DB work End.");
 		} catch (Exception e) {
-			log.fatal("execute categoryUpdate do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute categoryUpdate DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 			try {
-				log.debug("execute categoryUpdate do the DB work rollbacked!!!!!!!!!!");
+				log.debug("execute categoryUpdate DB work rollbacked!!!!!!!!!!");
 				con.rollback();
 			} catch (SQLException e1) {
-				log.fatal("execute categoryUpdate do the DB work rollback failed!!!!!!!!!!");
+				log.fatal("execute categoryUpdate DB work rollback failed!!!!!!!!!!");
 				e1.printStackTrace();
 			}
 		} finally {
@@ -230,8 +230,8 @@ public class CategoryDAO
 		PreparedStatement	pstmt			= null;
 		
 		try {
-			log.debug("execute categoryList do the DB work Start.");
-			String sql	= "select * from category order by idx desc, parent_idx desc";
+			log.debug("execute categoryList DB work Start.");
+			String sql	= "select * from category order by idx asc, parent_idx asc";
 			pstmt		= con.prepareStatement(sql);
 			result		= pstmt.executeQuery();
 			
@@ -243,12 +243,12 @@ public class CategoryDAO
 				categoryList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute categoryList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute categoryList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute categoryList do the DB work End.");
+		log.debug("execute categoryList DB work End.");
 		return categoryList;
 	}
 	
@@ -264,8 +264,8 @@ public class CategoryDAO
 		PreparedStatement	pstmt		= null;
 		
 		try {
-			log.debug("execute categoryList do the DB work Start.");
-			String sql	= "select * from category order by idx desc, parent_idx desc limit ?,?";
+			log.debug("execute categoryList DB work Start.");
+			String sql	= "select * from category order by idx asc, parent_idx asc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
 			pstmt		.setInt(2, limit);
@@ -279,18 +279,18 @@ public class CategoryDAO
 				categoryList.add(list);
 			}
 		} catch (Exception e) {
-			log.fatal("execute categoryList do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute categoryList DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
 		}
-		log.debug("execute categoryList do the DB work End.");
+		log.debug("execute categoryList DB work End.");
 		return categoryList;
 	}
 	
 	public int categoryCountSearchingRows(String criteria, String searchWord)
 	{
-		log.debug("execute categoryCountSearchingRows do the DB work Start.");
+		log.debug("execute categoryCountSearchingRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -300,8 +300,7 @@ public class CategoryDAO
 		try {
 			sql	= "select count(*) from category " +
 //					"where " +  criteria + " like '%" + searchWord + "%' " +
-					"where " +  criteria + " like ? " +
-					"order by idx desc";
+					"where " +  criteria + " like ? ";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setString(1, "%" + searchWord + "%");
 			result		= pstmt.executeQuery();
@@ -310,7 +309,7 @@ public class CategoryDAO
 				total_rows	= result.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute categoryCountSearchingRows do the DB work failed!!!!!!!!!!");
+			log.fatal("execute categoryCountSearchingRows DB work failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, result);
@@ -337,7 +336,7 @@ public class CategoryDAO
 
 			String sql	= "select * " +
 							"where " +  criteria + " like ? " +
-							"order by idx desc limit ?, ?";
+							"order by idx asc limit ?, ?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setString(1, "%" + searchWord + "%");
 			pstmt		.setInt(2, start);
@@ -399,7 +398,7 @@ public class CategoryDAO
 	
 	public int totalRows()
 	{
-		log.debug("execute category totalRows do the DB work Start.");
+		log.debug("execute category totalRows DB work Start.");
 		int					total_rows	= 0;
 		Connection			con			= getConnection();
 		PreparedStatement	pstmt		= null;
@@ -415,13 +414,13 @@ public class CategoryDAO
 				total_rows	= rs.getInt(1);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			log.fatal("execute category totalRows do the DB work Failed!!!!!!!!!!");
+			log.fatal("execute category totalRows DB work Failed!!!!!!!!!!");
 			e.printStackTrace();
 		} finally {
 			close(con, pstmt, rs);
 		}
 		
-		log.debug("execute category totalRows do the DB work End. total_rows= " + total_rows);
+		log.debug("execute category totalRows DB work End. total_rows= " + total_rows);
 		
 		return total_rows;
 	}
@@ -458,5 +457,35 @@ public class CategoryDAO
 		log.debug("execute categoryGetTotalRow DB work End.");
 		
 		return list;
+	}
+	
+	
+	public int getParentIdx(int idx)
+	{
+		log.debug("execute category getParentIdx DB work Start.");
+		int					parent_idx	= 0;
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		String				sql			= null;
+		
+		try {
+			sql		= "select parent_idx from category where idx = ?";
+			pstmt	= con.prepareStatement(sql);
+			rs		= pstmt.executeQuery();
+			
+			if(rs.next())	
+				parent_idx	= rs.getInt(idx);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.fatal("execute category getParentIdx DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+		
+		log.debug("execute category getParentIdx DB work End.parent_idx= " + parent_idx);
+		
+		return parent_idx;
 	}
 }

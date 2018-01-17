@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.CustomerDAO;
 import gq.bookfarm.dao.ReviewDAO;
 import gq.bookfarm.vo.CustomerVO;
 import gq.bookfarm.vo.PageVO;
@@ -30,10 +31,13 @@ public class ReviewsListAction implements Action
 	{
 		int		page			=	1;
 		int		products_idx	=	0;
+		int		customers_idx	=	0;
 		String	type			=	req.getParameter("type");
 		HttpSession	session		=	req.getSession();
 		CustomerVO	vo			=	(CustomerVO)session.getAttribute("loggedInUserVO");
-		int		customers_idx	=	vo.getIdx();
+		
+		if(session.getAttribute("loggedInUserVO")!=null)
+				customers_idx	=	vo.getIdx();
 			
 		if(req.getParameter("products_idx")!=null)	
 					products_idx=	Integer.parseInt(req.getParameter("products_idx"));
@@ -62,9 +66,26 @@ public class ReviewsListAction implements Action
 			info.setStartPage(startPage);
 			info.setEndPage(endPage);
 			Vector<ReviewVO> list	=	dao.getList(products_idx, page, limit);
+			
+			CustomerDAO cDao	=	new CustomerDAO();
+			Vector<String>nameList= new Vector<String>();
+			for(ReviewVO rVo:list) {
+				if(rVo.getCustomers_idx()==0) {
+										nameList.add("관리자");
+				}else {
+					String	name	=	cDao.getName(rVo.getCustomers_idx());
+					System.out.println(name);
+					if(name==null)
+										nameList.add("이름 없음");
+					else
+										nameList.add(name);
+				}
+			}
+			
 			if(list!=null) {
 				req.setAttribute("list", list);
 				req.setAttribute("info", info);
+				req.setAttribute("nameList", nameList);
 				path		+=	"?type="+type+"&products_idx="+products_idx;
 			}else{ 
 				log.error("ReviewsListAction - 'list' error");
@@ -86,9 +107,26 @@ public class ReviewsListAction implements Action
 			info.setStartPage(startPage);
 			info.setEndPage(endPage);
 			Vector<ReviewVO> list	=	dao.getMyList(customers_idx, page, limit);
+			
+			CustomerDAO cDao	=	new CustomerDAO();
+			Vector<String>nameList= new Vector<String>();
+			for(ReviewVO rVo:list) {
+				if(rVo.getCustomers_idx()==0) {
+										nameList.add("관리자");
+				}else {
+					String	name	=	cDao.getName(rVo.getCustomers_idx());
+					System.out.println(name);
+					if(name==null)
+										nameList.add("이름 없음");
+					else
+										nameList.add(name);
+				}
+			}
+			
 			if(list!=null) {
 				req.setAttribute("list", list);
 				req.setAttribute("info", info);
+				req.setAttribute("nameList", nameList);
 				path		+=	"?type="+type+"&products_idx="+products_idx;
 			}else{ 
 				log.error("ReviewsListAction - 'myList' error :����Ʈ�� null");
@@ -98,8 +136,25 @@ public class ReviewsListAction implements Action
 			int		limit		=	5;
 		
 			Vector<ReviewVO> list	=	dao.getMyPageList(customers_idx, limit);
+			
+			CustomerDAO cDao	=	new CustomerDAO();
+			Vector<String>nameList= new Vector<String>();
+			for(ReviewVO rVo:list) {
+				if(rVo.getCustomers_idx()==0) {
+										nameList.add("관리자");
+				}else {
+					String	name	=	cDao.getName(rVo.getCustomers_idx());
+					System.out.println(name);
+					if(name==null)
+										nameList.add("이름 없음");
+					else
+										nameList.add(name);
+				}
+			}
+			
 			if(list!=null) {
 				req.setAttribute("list", list);
+				req.setAttribute("nameList", nameList);
 				path		+=	"?type="+type;
 			}else{ 
 				log.error("ReviewsListAction - 'myPage' error");
