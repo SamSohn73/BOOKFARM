@@ -12,8 +12,8 @@
 	Vector<ProductVO>	best6Products	= (Vector<ProductVO>) session.getAttribute("best6Products");
 	CustomerVO			userVO			= (CustomerVO)session.getAttribute("loggedInUserVO");
 
-	String				type			= request.getParameter("type");
-	if (type == null)	type			= "login";
+	/* String				type			= request.getParameter("type");
+	if (type == null)	type			= "login"; */
 
 
 %>
@@ -80,9 +80,6 @@
 							<a class="nav-link" href="./about.jsp">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./services.jsp">Services</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" href="./contact.jsp">Contact</a>
 						</li>
 <%	if (userVO == null) {	%>
@@ -112,7 +109,7 @@
 	<span onclick="document.getElementById('modalLogin').style.display='none'" class="close" title="Close Modal">&times;</span>
 
 	<!-- Modal Content -->
-	<form class="modal-content animate" name="pwdCheck" method="post" action="qCustomerIdPwdCheck.do?type=<%=type %>" target="_top">
+	<form class="modal-content animate" name="pwdCheck" method="post" action="qCustomerIdPwdCheck.do?type=login" target="_top">
 
 		<div class="container">
 			<label><b>Username</b></label>
