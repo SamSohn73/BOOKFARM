@@ -48,9 +48,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>상품 목록</title>
 </head>
-<header>
-<iframe src="header.do" height="150" width="800"></iframe>
-</header>
 <body>
 	<table>
 		<caption>상품 목록</caption>
@@ -68,8 +65,8 @@
 		<tr>
 			<td><%=idNum%></td>
 			<td><%=product.getCategory_idx()%></td>
-			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><img src="<%=product.getProduct_image()%>"></a></td>
-			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><%=product.getProduct_name()%></a></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>&cri=<%=criteria%>&word=<%=searchWord%>"><img src="<%=product.getProduct_image()%>"></a></td>
+			<td><a href = "productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>&cri=<%=criteria%>&word=<%=searchWord%>"><%=product.getProduct_name()%></a></td>
 			<td><%=product.getProduct_price()%></td>
 			<td><%=product.getProduct_quantity()%></td>
 		</tr>
@@ -121,10 +118,6 @@
 		</tr>
 	</table>
 	
-	<!-- <h3><a href="index.jsp">처음으로</a></h3> -->
-	<h3><a href="./hansol_main_example.jsp">처음으로</a></h3>
+	<h3><a href="index.do">처음으로</a></h3> 
 </body>
-<footer>
-<iframe src="footer.do" height="150" width="800"></iframe>
-</footer>
 </html>

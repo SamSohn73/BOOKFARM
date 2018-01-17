@@ -48,9 +48,6 @@
 <title>구매 내역 확인</title>
 </head>
 <%if(!type.equals("myPage")) {%>
-<header>
-<iframe src="header.do" height="150" width="800"></iframe>
-</header>
 <%} %>
 <body>
 	<table class="클래스_테이블1">
@@ -126,8 +123,5 @@ if(type.equals("myList"))
 %>
 </body>
 <%if(!type.equals("myPage")) {%>
-<footer>
-<iframe src="footer.do" height="150" width="800"></iframe>
-</footer>
 <%} %>
 </html>

@@ -19,6 +19,7 @@
 
 
 <a href='productList.do'> 상품 목록 </a>
+<a href='index.jsp'>처음으로</a>
 
 
 </body>

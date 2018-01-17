@@ -1,15 +1,11 @@
+<%@page import="gq.bookfarm.vo.CustomerVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	String	type	=	"login";
+	String		type			=	"login";
+	CustomerVO	vo				=	new CustomerVO();
 	if(request.getParameter("type")!=null)
-			type	=	request.getParameter("type");
-
-	//CSS
-	/*
-	login_btn
-	btn
-	*/
+				type			=	request.getParameter("type");
 %>
 <!DOCTYPE html>
 <html>
@@ -57,7 +53,7 @@
 		<%if(type.equals("login")){ %>
 		<tr>
 			<td>
-				<a href="regist_v2.jsp?type=insert" target="_top">
+				<a href="../CustomerRegistSetting.do?type=insert" target="_top">
 				<input type="button" class="btn" value="회원가입"></a>
 				<a href="findChk.jsp" target="_top">
 				<input type="button" class="btn" value="아이디/비번 확인"></a>

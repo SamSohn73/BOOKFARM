@@ -360,14 +360,29 @@ public class ProductDAO
 		try {
 			log.debug("execute productSearch DB work Start.");
 
-			String sql	= "select * from product" +
-							" where " +  criteria + " like ? " +
-							" order by idx desc limit ?, ?";
-			pstmt		= con.prepareStatement(sql);
-			pstmt		.setString(1, "%" + searchWord + "%");
-			pstmt		.setInt(2, start);
-			pstmt		.setInt(3, limit);
+			CategoryDAO	dao				= new CategoryDAO();
+			int			catParentIdx	= dao.getParentIdx(Integer.parseInt(searchWord));
 			
+			if (criteria.equals("category_idx") && catParentIdx != 0) {
+				String sql	= "select * from product" +
+						" where " +  criteria + " like ? or " + criteria + " like ?" +
+						" order by idx desc limit ?, ?";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setString(2, "%" + searchWord + "%");
+				pstmt		.setInt(3, start);
+				pstmt		.setInt(4, limit);
+			} else {
+				String sql	= "select * from product" +
+						" where " +  criteria + " like ? " +
+						" order by idx desc limit ?, ?";
+				pstmt		= con.prepareStatement(sql);
+				pstmt		.setString(1, "%" + searchWord + "%");
+				pstmt		.setInt(2, start);
+				pstmt		.setInt(3, limit);
+			}
+
+
 			log.debug("execute productSearch DB work... pstmt.toString()" + pstmt.toString());
 			
 			result		= pstmt.executeQuery();
@@ -520,5 +535,44 @@ public class ProductDAO
 		
 		log.debug("productExistanceCheck DB work End. total_rows= " + total_rows);
 		return total_rows;	
+	}
+	
+	
+	
+	public Vector<ProductVO> best6ProductList()
+	{
+		Vector<ProductVO> productList	= new Vector<ProductVO>();
+		
+		Connection			con			= getConnection();
+		ResultSet			result		= null;
+		PreparedStatement	pstmt		= null;
+		
+		try {
+			log.debug("execute productList DB work Start.");
+			String sql	= "select * from product order by idx desc limit ?,?";
+			pstmt		= con.prepareStatement(sql);
+			pstmt		.setInt(1, 60);
+			pstmt		.setInt(2, 6);
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+				ProductVO list = new ProductVO(result.getInt("idx"),
+											result.getInt("category_idx"),
+											result.getInt("product_quantity"),
+											result.getString("product_name"),
+											result.getString("product_image"),
+											result.getFloat("product_price"),
+											result.getString("product_desc"));
+				
+				productList.add(list);
+			}
+		} catch (Exception e) {
+			log.fatal("execute productList DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, result);
+		}
+		log.debug("execute productList DB work End.");
+		return productList;
 	}
 }

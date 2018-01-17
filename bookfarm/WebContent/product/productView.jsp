@@ -3,9 +3,16 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="gq.bookfarm.vo.ProductVO"%>
 <% 	 		
-	String				current_page	= (String)request.getParameter("page");
-	ProductVO			productVO		= (ProductVO)session.getAttribute("productVO");
+	int				current_page		= 1;
+		if(request.getParameter("page")!=null)
+					current_page		= Integer.parseInt(request.getParameter("page"));
+		else
+					current_page		= 1;
+	ProductVO			productVO		= (ProductVO)request.getAttribute("productVO");
 	Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
+	String criteria			= request.getParameter("cri");
+	String searchWord		= request.getParameter("word");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -15,11 +22,12 @@
 <script>	
 	function list_submit(){
 		//location.href="productList.do";
-		productForm.action = "productList.do";
+		productForm.action = "productSearch.do?criteria=<%=criteria%>&searchWord=<%=searchWord%>";
 		productForm.submit();
 	}
 	function buy_submit(){
-		productForm.action = "productBuy.do?idx=<%=productVO.getIdx()%>";
+		<%-- productForm.action = "productBuy.do?idx=<%=productVO.getIdx()%>"; --%>
+		productForm.action = "productSearch.do?criteria=<%=criteria%>&searchWord=<%=searchWord%>";
 		productForm.submit();
 	}
 	function basket_submit(){
@@ -30,11 +38,12 @@
 		productForm.action = "qReviewsLists.do?type=list&products_idx=<%=productVO.getIdx() %>";
 		productForm.submit();
 	}
+	function main_submit(){
+		productForm.action = "index.do";
+		productForm.submit();
+	}
 </script>
 </head>
-<header>
-<iframe src="header.do" height="150" width="800"></iframe>
-</header>
 <body>
 	<form method = "post"  name='productForm'>
 		<table>
@@ -90,14 +99,12 @@
 				<input type="button" value="목록" onClick="list_submit()">
 				<input type="hidden" name="page" value=<%=current_page %>>
 				<input type="button" value="리뷰보기" onClick="review_submit()">
+				<input type="button" value="메인으로" onClick="main_submit()">
 				</td>
 			</tr>
 		</table>
 	</form>
 </body>
-<footer>
-<iframe src="footer.do" height="150" width="800"></iframe>
-</footer>
 </html>
 
 
