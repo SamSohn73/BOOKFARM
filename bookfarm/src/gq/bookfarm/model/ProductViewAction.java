@@ -41,11 +41,7 @@ public class ProductViewAction implements Action
 		
 		if(productVO != null) {
 			req.setAttribute("productVO", productVO);
-<<<<<<< HEAD
-			path+= "?page=" + current_page;
-=======
 			path+= "?page=" + current_page+"&cri="+criteria+"&word="+searchWord;
->>>>>>> branch 'master' of https://github.com/SamSohn73/BOOKFARM.git
 			//req.setAttribute("page", current_page);
 		}
 	
