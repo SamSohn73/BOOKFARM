@@ -63,7 +63,7 @@
 							<a class="nav-link" href="qCustomerLogout.do">Logout</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./member/mypage.jsp">mypage</a>
+							<a class="nav-link" href="./member/mypage.jsp">Mypage</a>
 						</li>
 <%	}	%>
 						<li class="nav-item">
