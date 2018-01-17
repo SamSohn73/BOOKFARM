@@ -353,5 +353,6 @@ insert into product (category_idx, product_quantity, product_name, product_image
 
 
 
+
 --select * from category;
 --delete from category where idx > 0;

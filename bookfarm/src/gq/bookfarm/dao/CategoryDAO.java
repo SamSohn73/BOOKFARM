@@ -231,7 +231,7 @@ public class CategoryDAO
 		
 		try {
 			log.debug("execute categoryList DB work Start.");
-			String sql	= "select * from category order by idx desc, parent_idx desc";
+			String sql	= "select * from category order by idx asc, parent_idx asc";
 			pstmt		= con.prepareStatement(sql);
 			result		= pstmt.executeQuery();
 			
@@ -265,7 +265,7 @@ public class CategoryDAO
 		
 		try {
 			log.debug("execute categoryList DB work Start.");
-			String sql	= "select * from category order by idx desc, parent_idx desc limit ?,?";
+			String sql	= "select * from category order by idx asc, parent_idx asc limit ?,?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setInt(1, start);
 			pstmt		.setInt(2, limit);
@@ -300,8 +300,7 @@ public class CategoryDAO
 		try {
 			sql	= "select count(*) from category " +
 //					"where " +  criteria + " like '%" + searchWord + "%' " +
-					"where " +  criteria + " like ? " +
-					"order by idx desc";
+					"where " +  criteria + " like ? ";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setString(1, "%" + searchWord + "%");
 			result		= pstmt.executeQuery();
@@ -337,7 +336,7 @@ public class CategoryDAO
 
 			String sql	= "select * " +
 							"where " +  criteria + " like ? " +
-							"order by idx desc limit ?, ?";
+							"order by idx asc limit ?, ?";
 			pstmt		= con.prepareStatement(sql);
 			pstmt		.setString(1, "%" + searchWord + "%");
 			pstmt		.setInt(2, start);
@@ -458,5 +457,35 @@ public class CategoryDAO
 		log.debug("execute categoryGetTotalRow DB work End.");
 		
 		return list;
+	}
+	
+	
+	public int getParentIdx(int idx)
+	{
+		log.debug("execute category getParentIdx DB work Start.");
+		int					parent_idx	= 0;
+		Connection			con			= getConnection();
+		PreparedStatement	pstmt		= null;
+		ResultSet			rs			= null;
+		String				sql			= null;
+		
+		try {
+			sql		= "select parent_idx from category where idx = ?";
+			pstmt	= con.prepareStatement(sql);
+			rs		= pstmt.executeQuery();
+			
+			if(rs.next())	
+				parent_idx	= rs.getInt(idx);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			log.fatal("execute category getParentIdx DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+		
+		log.debug("execute category getParentIdx DB work End.parent_idx= " + parent_idx);
+		
+		return parent_idx;
 	}
 }

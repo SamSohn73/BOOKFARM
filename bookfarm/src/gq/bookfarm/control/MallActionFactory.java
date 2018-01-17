@@ -40,6 +40,7 @@ import gq.bookfarm.model.CustomerRegistAction;
 import gq.bookfarm.model.CustomerRegistSettingAction;
 import gq.bookfarm.model.FooterAction;
 import gq.bookfarm.model.HeaderAction;
+import gq.bookfarm.model.IndexAction;
 import gq.bookfarm.model.OrdersConfirmAction;
 import gq.bookfarm.model.ProductListAction;
 import gq.bookfarm.model.ProductSearchAction;
@@ -75,16 +76,23 @@ public class MallActionFactory
 	{
 		Action action = null;
 
+		// Welcome Action
+		if (cmd.equals("/index.do")) {
+			log.debug("index.do action create Start.");
+			action = new IndexAction("index2.jsp");
+			log.debug("index.do action create End.");
+		}
+		
 		// Admin Login Logout
 		if (cmd.equals("/adminLogin.do")) {
-			log.debug("AdminLogin.do action create Start.");
+			log.debug("adminLogin.do action create Start.");
 			action = new AdminLoginAction("admin/adminLogin.jsp");
-			log.debug("AdminLogin.do action create End.");
+			log.debug("adminLogin.do action create End.");
 		}
 		if (cmd.equals("/adminLogout.do")) {
-			log.debug("AdminLogout.do action create Start.");
+			log.debug("adminLogout.do action create Start.");
 			action = new AdminLogoutAction("index.jsp");
-			log.debug("AdminLogout.do action create End.");
+			log.debug("adminLogout.do action create End.");
 		}
 		// Admin Customer Management
 		if (cmd.equals("/adminCustomerList.do")) {
@@ -124,24 +132,24 @@ public class MallActionFactory
 			log.debug("adminProductViewAction action create End.");
 		}
 		if (cmd.equals("/adminProductModify.do")) {
-			log.debug("AdminProductModifyAction action create Start.");
+			log.debug("adminProductModify action create Start.");
 			action = new AdminProductModifyAction("adminProductList.do");
-			log.debug("AdminProductModifyAction action create End.");
+			log.debug("adminProductModify action create End.");
 		}
 		if (cmd.equals("/adminProductDelete.do")) {
-			log.debug("AdminProductDeleteAction action create Start.");
+			log.debug("adminProductDelete action create Start.");
 			action = new AdminProductDeleteAction("adminProductList.do");
-			log.debug("AdminProductDeleteAction action create End.");
+			log.debug("adminProductDelete action create End.");
 		}
 		if (cmd.equals("/adminProductInsert.do")) {
-			log.debug("AdminProductInsertAction action create Start.");
+			log.debug("adminProductInsert action create Start.");
 			action = new AdminProductInsertAction("adminProductList.do");
-			log.debug("AdminProductInsertAction action create End.");
+			log.debug("adminProductInsert action create End.");
 		}
 		if (cmd.equals("/adminProductSearch.do")) {
-			log.debug("AdminProductSearchAction action create Start.");
+			log.debug("adminProductSearch action create Start.");
 			action = new AdminProductSearchAction("admin/adminProductList.jsp");
-			log.debug("AdminProductSearchAction action create End.");
+			log.debug("adminProductSearch action create End.");
 		}
 		// Admin Orders Management
 		if (cmd.equals("/adminOrdersList.do")) {

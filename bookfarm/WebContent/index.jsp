@@ -23,9 +23,8 @@
 					<a href="hansol_main_example.jsp">비회원 로그인</a>
 				</td>
 			</tr>
-		
 		</table>
 	<a href='./productList.do'> 상품 목록 </a>
-	</form>
+	</form>	
 </body>
 </html>
