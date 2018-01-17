@@ -28,7 +28,8 @@
 		<title>BOOKFARM online bookstore</title>
 	
 		<!-- Bootstrap core CSS -->
-		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 	
 		<!-- Custom styles for this template -->
 		<link href="css/shop-homepage.css" rel="stylesheet">
@@ -196,7 +197,7 @@
 										<a href="productView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a>
 									</h4>
 									<h5><%=product.getProduct_price()%></h5>
-									<p class="card-text"><%=product.getProduct_desc()%></p>
+									<p class="card-text"><%=product.getProduct_desc().substring(0, 40)%> ...</p>
 								</div>
 								<div class="card-footer">
 									<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -226,8 +227,9 @@
 		</footer>
 	
 		<!-- Bootstrap core JavaScript -->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	
+		<!--<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+		<script src="vendor/jquery/jquery.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
 	</body>
 </html>
