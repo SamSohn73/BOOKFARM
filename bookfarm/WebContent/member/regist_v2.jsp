@@ -13,12 +13,9 @@
 	if(type.equals("modify") || type.equals("view"))
 				cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
 	
-	//CSS
-	/*
-	left
-	right
-	btn_align
-	*/
+	int year=0;
+	int month=0;
+	int day=0;
 %>
 <!DOCTYPE html>
 <html>
@@ -72,6 +69,16 @@
 			form.submit();
 		}
 	}
+	function selFuc(obj)
+	{
+		<%type="dateInsert";%>
+		obj.form.submit();
+	}
+	function selFuc_modi(obj)
+	{
+		<%type="dateModi";%>
+		obj.form.submit();
+	}
 </script>
 </head>
 <%if(type.equals("view") || type.equals("modify")){ %>
@@ -88,13 +95,21 @@
 <form action="../qCustomerRegist.do?type=<%=type %>" method="post">
 <table>
 		<caption>회원 정보 수정</caption>
-	<%	}else{ %>
+	<%	}else if(type.equals("insert")){ %>
 <form action="../qCustomerRegist.do?type=<%=type %>" method="post">
 <table>
 		<caption>회원가입</caption>
-	<%	} %>	
+	<%	}else if(type.equals("dateInsert")){ %>
+<form action="../CustomerRegistSetting.do?type=<%=type %>" method="post">
+<table>
+		<caption>회원가입</caption>	
+	<%	}else if(type.equals("dateModi")){ %>
+<form action="../CustomerRegistSetting.do?type=<%=type %>" method="post">
+<table>
+		<caption>회원가입</caption>	
+	<%	} %>
 	<tr>
-		<td><label>아이디</label>
+		<td><label>아이디</label></td>
 		<td><input type="text" name="username" placeholder="아이디"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getUsername() %>
@@ -106,7 +121,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>비밀번호</label>
+		<td><label>비밀번호</label></td>
 		<td><input type="password" name="password" placeholder="비밀번호"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getPassword() %>
@@ -118,7 +133,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>이름</label>
+		<td><label>이름</label></td>
 		<td><input type="text" name="firstname" placeholder="이름"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getFirstname() %>
@@ -130,7 +145,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td rowspan="2"><label>주소</label>
+		<td rowspan="2"><label>주소</label></td>
 		<td>
 		<input type="text" name="postcode" placeholder="postcode"
 		<%	if(type.equals("view")){ %>
@@ -157,7 +172,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>상세주소</label>
+		<td><label>상세주소</label></td>
 		<td><input type="text" name="address2" placeholder="상세주소"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getAddress2() %>
@@ -169,7 +184,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>연락처1</label>
+		<td><label>연락처1</label></td>
 		<td><input type="text" name="phone1" placeholder="연락처1"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getPhone1() %>
@@ -182,7 +197,7 @@
 	</tr>
 	<tr>
 		<td><label>생년월일</label>
-		<td><input type="text" name="birthday" placeholder="yyyy-mm-dd"
+		<%-- <td><input type="text" name="birthday" placeholder="yyyy-mm-dd"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getBirthday() %>
 		<%	}else if(type.equals("modify")){ %>
@@ -190,10 +205,40 @@
 		<%	}else{ %>
 		
 		<%	} %>
-		></td>
+		></td> --%>
+		<td class="클래스_btn_align1">
+					<select class="btn" onchange="selFuc(this)" name="year">
+							<option value="0">년도</option>
+						<% for(CategoryVO cat_Vo1 :catVo1){ %>
+							<option value="<%=cat_Vo1.getIdx()%>"
+							<%if(year==cat_Vo1.getIdx()){%> selected<%}%>>
+							<%= cat_Vo1.getCategory_name()%></option>
+							<%} %>
+						</select>
+						<%if(year!=0){ %>
+						<select class="btn" onchange="selFuc(this)" name="month">
+							<option value="0">월</option>
+						<% for(CategoryVO cat_Vo2 :catVo2){ %>
+							<option value="<%=cat_Vo2.getIdx()%>"
+							<%if(month==cat_Vo2.getIdx()){%> selected<%}%>>
+							<%= cat_Vo2.getCategory_name()%></option>
+							<%} %>
+						</select>
+						<%} 
+						  if(month!=0){%>
+						<select class="btn" onchange="selFuc(this)" name="day">
+							<option value="0">일</option>
+						<% for(ProductVO pVo :VpVo){ %>
+							<option value="<%=pVo.getIdx()%>"
+							<%if(day==pVo.getIdx()){%> selected<%}%>>
+							<%= pVo.getProduct_name()%></option>
+							<%} %>
+						</select>
+						<%} %>
+		</td>
 	</tr>
 	<tr>
-		<td><label>이메일</label>
+		<td><label>이메일</label></td>
 		<td><input type="email" name="email1" placeholder="이메일"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=cVo.getEmail1() %>
@@ -205,7 +250,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>성별</label>
+		<td><label>성별</label></td>
 		<td>
 		<%	
 			if(type.equals("view")){
@@ -236,7 +281,11 @@
 	<tr>
 		<td colspan="2" class="btn_align">
 			<input type="button" value="확인" onclick="register_check(this.form)">
+			<%if(!type.equals("insert")){ %>
 			<a href="../member/mypage.jsp"><input type="button" value="취소"></a>
+			<%}else{ %>
+			<a href="../hansol_main_example.jsp"><input type="button" value="취소"></a>
+			<%} %>
 		</td>
 	</tr>
 </table>

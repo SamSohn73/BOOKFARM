@@ -37,6 +37,7 @@ import gq.bookfarm.model.CustomerFindAction;
 import gq.bookfarm.model.CustomerIdPwdCheckAction;
 import gq.bookfarm.model.CustomerLogoutAction;
 import gq.bookfarm.model.CustomerRegistAction;
+import gq.bookfarm.model.CustomerRegistSettingAction;
 import gq.bookfarm.model.FooterAction;
 import gq.bookfarm.model.HeaderAction;
 import gq.bookfarm.model.OrdersConfirmAction;
@@ -270,6 +271,12 @@ public class MallActionFactory
 			log.debug("qCustomerLogout.do action create Start.");
 			action = new CustomerLogoutAction("index.jsp");
 			log.debug("qCustomerLogout.do action create End.");
+		}
+		else if (cmd.equals("/CustomerRegistSetting.do"))
+		{
+			log.debug("CustomerRegistSetting.do action create Start.");
+			action = new CustomerRegistSettingAction("./member/regist_v2.jsp");
+			log.debug("CustomerRegistSetting.do action create End.");
 		}
 		
 		//From here, I wrote the code for actions related OrdersConfirm... - hansol -
