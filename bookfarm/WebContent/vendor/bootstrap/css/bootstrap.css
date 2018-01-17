@@ -8371,4 +8371,11 @@ a.text-dark:focus, a.text-dark:hover {
 .invisible {
   visibility: hidden !important;
 }
+
+/* QQQQQQQQQQ Added by Sam Start */
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+/* QQQQQQQQQQ Added by Sam End */
 /*# sourceMappingURL=bootstrap.css.map */

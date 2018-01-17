@@ -80,9 +80,6 @@
 							<a class="nav-link" href="./about.jsp">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="./services.jsp">Services</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link" href="./contact.jsp">Contact</a>
 						</li>
 <%	if (userVO == null) {	%>
@@ -122,9 +119,9 @@
 			<input type="password" placeholder="Enter Password" name="password" required>
 
 			<button type="submit">Login</button>
-			<label>
+			<!--<label>
 				<input type="checkbox" checked="checked"> Remember me
-			</label>
+			</label>-->
 		</div>
 
 		<div class="container" style="background-color:#f1f1f1">
@@ -145,11 +142,12 @@
 					<div class="list-group">
 <%	for(CategoryVO category: categories) {	
 		if (category.getParent_idx() == 0) { %>
-						<a href="productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>" class="list-group-item"><%=category.getCategory_name()%></a>
+						<a href="productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>" class="list-group-item">
+							<%=category.getCategory_name()%>
+						</a>
+						<!--<a href="#" class="list-group-item">Category 2</a>	-->
 <%		}
 	}	%>
-				<!--	<a href="#" class="list-group-item">Category 2</a>
-						<a href="#" class="list-group-item">Category 3</a>	-->
 					</div>
 				</div>
 				<!-- /.col-lg-3 -->
