@@ -47,7 +47,7 @@ public class CustomerIdPwdCheckAction implements Action
 			LoginedVO	=	(CustomerVO)session.getAttribute("loggedInUserVO");
 			customerVO	=	dao.pwdCheck(username, password);
 			if(LoginedVO.getIdx()==customerVO.getIdx()) {
-				path	=	"./member/regist_v2.jsp";
+				path	=	"./CustomerRegistSetting.do?type=modify";
 				result	=	customerVO.getIdx();
 			}
 		}
@@ -88,7 +88,7 @@ public class CustomerIdPwdCheckAction implements Action
 				/*QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ End*/
 			} else {
 				log.error("CustomerIdPwdCheckAction error : DB can not get customer data");
-				path	=	"view/error.jsp?type=login";
+				path	=	"error.jsp?type=login";
 			}
 		}
 		

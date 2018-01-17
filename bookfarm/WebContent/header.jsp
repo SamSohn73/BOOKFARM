@@ -17,7 +17,7 @@
 	<a href="qCustomerLogout.do" target="_top">logout</a>
 	<%}else{ %>
 	<h2 align="right">비회원 로그인 입니다.</h2>
-	<a href="./member/regist_v2.jsp?type=insert" target="_top">회원가입</a>
+	<a href="./CustomerRegistSetting.do?type=insert" target="_top">회원가입</a>
 	<%} %>
 	
 </body>
