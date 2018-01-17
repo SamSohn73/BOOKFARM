@@ -265,7 +265,7 @@ public class MallActionFactory
 		else if (cmd.equals("/qCustomerRegist.do"))
 		{
 			log.debug("qCustomerRegist.do action create Start.");
-			action = new CustomerRegistAction("./index.jsp");
+			action = new CustomerRegistAction("index.do");
 			log.debug("qCustomerRegist.do action create End.");
 		}
 		else if (cmd.equals("/qCustomerFind.do"))
@@ -277,7 +277,7 @@ public class MallActionFactory
 		else if (cmd.equals("/qCustomerLogout.do"))
 		{
 			log.debug("qCustomerLogout.do action create Start.");
-			action = new CustomerLogoutAction("index.jsp");
+			action = new CustomerLogoutAction("index.do");
 			log.debug("qCustomerLogout.do action create End.");
 		}
 		else if (cmd.equals("/CustomerRegistSetting.do"))
