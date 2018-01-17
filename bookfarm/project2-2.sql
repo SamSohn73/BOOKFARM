@@ -1,5 +1,5 @@
 --
--- DWIT Class 3 Second java project for Small Shopping mall
+-- DWIT Class 3 Second java project for Small Shopping mall Bookfarm
 --
 DROP DATABASE IF EXISTS bookfarm;
 CREATE DATABASE bookfarm;
@@ -163,32 +163,7 @@ insert into category (category_name) values ("영화");
 insert into category (category_name) values ("공연");
 insert into category (category_name) values ("GIFT");
 insert into category (category_name) values ("중고");
-insert into category (parent_idx, category_name) values (1, "소설");
-insert into category (parent_idx, category_name) values (1, "인문");
-insert into category (parent_idx, category_name) values (1, "예술");
-insert into category (parent_idx, category_name) values (1, "사회");
-insert into category (parent_idx, category_name) values (1, "경제");
-insert into category (parent_idx, category_name) values (1, "경영");
-insert into category (parent_idx, category_name) values (1, "문학");
-insert into category (parent_idx, category_name) values (1, "역사");
-insert into category (parent_idx, category_name) values (1, "종교");
-insert into category (parent_idx, category_name) values (1, "과학");
-insert into category (parent_idx, category_name) values (1, "자기개발");
-insert into category (parent_idx, category_name) values (1, "만화");
-insert into category (parent_idx, category_name) values (1, "여행");
-insert into category (parent_idx, category_name) values (1, "어린이");
-insert into category (parent_idx, category_name) values (1, "청소년");
-insert into category (parent_idx, category_name) values (1, "요리");
-insert into category (parent_idx, category_name) values (1, "육아");
-insert into category (parent_idx, category_name) values (1, "가정살림");
-insert into category (parent_idx, category_name) values (1, "건강");
-insert into category (parent_idx, category_name) values (1, "취미");
-insert into category (parent_idx, category_name) values (1, "교재");
-insert into category (parent_idx, category_name) values (1, "외국어");
-insert into category (parent_idx, category_name) values (1, "IT");
-insert into category (parent_idx, category_name) values (1, "수험서");
-insert into category (parent_idx, category_name) values (1, "참고서");
-insert into category (parent_idx, category_name) values (1, "요리");
+
 insert into category (parent_idx, category_name) values (1, "소설");
 insert into category (parent_idx, category_name) values (1, "인문");
 insert into category (parent_idx, category_name) values (1, "예술");

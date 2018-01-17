@@ -8372,10 +8372,10 @@ a.text-dark:focus, a.text-dark:hover {
   visibility: hidden !important;
 }
 
-/* QQQQQQQQQQ Added by Sam Start */
-.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0;
+/* Added by Sam Sohn Start */
+.dropdown:hover>.dropdown-menu {
+  display: block;
+      margin-top: 0;
 }
-/* QQQQQQQQQQ Added by Sam End */
+/* Added by Sam Sohn End */
 /*# sourceMappingURL=bootstrap.css.map */

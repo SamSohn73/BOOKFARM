@@ -58,6 +58,7 @@
 					form.submit();
 				}
 			}
+			
 		</script>
 	</head>
 	
@@ -139,16 +140,25 @@
 				<div class="col-lg-3">
 		
 					<h1 class="my-4">책팜</h1>
-					<div class="list-group">
+					<!-- <div class="dropdown"> -->
 <%	for(CategoryVO category: categories) {	
 		if (category.getParent_idx() == 0) { %>
-						<a href="productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>" class="list-group-item">
-							<%=category.getCategory_name()%>
-						</a>
-						<!--<a href="#" class="list-group-item">Category 2</a>	-->
+						<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" onclick="location.href='productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>' ">
+							<%=category.getCategory_name()%> <b class="caret"></b>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right">
 <%		}
-	}	%>
-					</div>
+		int catIdx = category.getIdx();
+		for(CategoryVO subCategory: categories) {
+			if (catIdx == subCategory.getParent_idx()) { %>
+							<a class="dropdown-item" tabindex="-1" href="productSearch.do?criteria=category_idx&searchWord=<%=subCategory.getIdx()%>"><%=subCategory.getCategory_name()%></a>
+<%			}
+		}
+		if (category.getParent_idx() == 0) { %>
+						</div>
+<%		}
+	}%>
+					<!-- </div> -->
 				</div>
 				<!-- /.col-lg-3 -->
 		
