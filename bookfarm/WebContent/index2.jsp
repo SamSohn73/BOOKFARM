@@ -12,8 +12,8 @@
 	Vector<ProductVO>	best6Products	= (Vector<ProductVO>) session.getAttribute("best6Products");
 	CustomerVO			userVO			= (CustomerVO)session.getAttribute("loggedInUserVO");
 
-	String				type			= request.getParameter("type");
-	if (type == null)	type			= "login";
+	/* String				type			= request.getParameter("type");
+	if (type == null)	type			= "login"; */
 
 
 %>
@@ -115,7 +115,7 @@
 	<span onclick="document.getElementById('modalLogin').style.display='none'" class="close" title="Close Modal">&times;</span>
 
 	<!-- Modal Content -->
-	<form class="modal-content animate" name="pwdCheck" method="post" action="qCustomerIdPwdCheck.do?type=<%=type %>" target="_top">
+	<form class="modal-content animate" name="pwdCheck" method="post" action="qCustomerIdPwdCheck.do?type=login" target="_top">
 
 		<div class="container">
 			<label><b>Username</b></label>
