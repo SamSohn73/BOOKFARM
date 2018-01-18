@@ -334,7 +334,7 @@ public class CategoryDAO
 		try {
 			log.debug("execute categorySearch DB work Start.");
 
-			String sql	= "select * " +
+			String sql	= "select * from category " +
 							"where " +  criteria + " like ? " +
 							"order by idx asc limit ?, ?";
 			pstmt		= con.prepareStatement(sql);

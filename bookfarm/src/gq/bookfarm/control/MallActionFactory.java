@@ -9,6 +9,7 @@ import gq.bookfarm.model.AdminCategoryDeleteAction;
 import gq.bookfarm.model.AdminCategoryListAction;
 import gq.bookfarm.model.AdminCategoryModifyAction;
 import gq.bookfarm.model.AdminCategoryModifyViewAction;
+import gq.bookfarm.model.AdminCategorySearchAction;
 import gq.bookfarm.model.AdminCustomerDeleteAction;
 import gq.bookfarm.model.AdminCustomerListAction;
 import gq.bookfarm.model.AdminCustomerModifyAction;
@@ -194,6 +195,11 @@ public class MallActionFactory
 			log.debug("adminCategoryDelete.do action create Start.");
 			action = new AdminCategoryDeleteAction("/adminCategoryList.do");
 			log.debug("adminCategoryDelete.do action create End.");
+		}
+		if (cmd.equals("/adminCategorySearch.do")) {
+			log.debug("adminCategorySearch.do action create Start.");
+			action = new AdminCategorySearchAction("admin/adminCategoryList.jsp");
+			log.debug("adminCategorySearch.do action create End.");
 		}
 		// Admin review Management
 		//hansol's administrator control commend list....

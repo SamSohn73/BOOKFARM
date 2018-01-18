@@ -169,7 +169,7 @@
 					<table>
 						<tr>
 							<td class="td_align">
-								<form action='AdminCategorySearch.do' method='post' name='searchform'>
+								<form action='adminCategorySearch.do' method='post' name='searchform'>
 									<select name='criteria'>
 										<option value='idx'				<%if(criteria.equals("idx"))			out.print("selected");%>>인덱스</option>
 										<option value='parent_idx'		<%if(criteria.equals("parent_idx"))		out.print("selected");%>>부모인덱스</option>

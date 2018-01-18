@@ -35,7 +35,7 @@ public class AdminCustomerSearchAction implements Action
 		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
-			log.info("AdminCustomerModifyViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
+			log.info("AdminCustomerSearch execute Authorization Fail!!!!!!!!!!!!!!!!");
 			path="error.html";
 			return new ActionForward(path, false);
 		}
