@@ -142,7 +142,7 @@
 					<div class="list-group">
 <%	for(CategoryVO category: categories) {	
 		if (category.getParent_idx() == 0) { %>
-						<a href="productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>" class="list-group-item"><%=category.getCategory_name()%></a>
+						<a href="productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>" onmouseover="productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>" class="list-group-item"><%=category.getCategory_name()%></a>
 <%		}
 	}	%>
 				<!--	<a href="#" class="list-group-item">Category 2</a>
