@@ -31,7 +31,7 @@
 <title>리뷰 등록</title>
 <script>
 	function returnList(){
-		location.href="../adminReviewsList.do";
+		location.href="./adminReviewsList.do";
 	}
 	function selFuc(obj)
 	{

@@ -199,6 +199,14 @@
 			idNum++;
 		}
 	}	%>
+<<<<<<< HEAD
+	</table>
+	합 계 : <%=total%>
+
+	<h3><a href="./index.do">처음으로</a></h3>
+</body>
+</html>
+=======
 					</table>
 					합 계 : <%=total%>
 		
@@ -231,3 +239,4 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script> -->
 	</body>
 </html>
+>>>>>>> branch 'master' of https://github.com/SamSohn73/BOOKFARM.git

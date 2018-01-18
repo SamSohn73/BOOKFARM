@@ -78,7 +78,7 @@ public class OrdersConfirmAction implements Action
 					path	+=	"?type="+type;
 				} else { 
 					log.error("OrdersConfirmAction - 'myPage' error");
-					path="error.jsp";
+					path="error.html";
 				}
 		}
 		else if(type.equals("singleList"))

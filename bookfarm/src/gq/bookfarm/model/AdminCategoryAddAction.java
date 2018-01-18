@@ -34,7 +34,7 @@ public class AdminCategoryAddAction implements Action
 		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryAddAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -52,7 +52,7 @@ public class AdminCategoryAddAction implements Action
 		}
 		else {
 			log.debug("AdminCategoryAddAction execute Failed!!!!!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 		}
 
 		log.debug("AdminCategoryAddAction execute End.");

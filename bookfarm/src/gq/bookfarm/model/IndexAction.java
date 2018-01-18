@@ -43,14 +43,14 @@ public class IndexAction implements Action
 		// if result failed change path here
 		else {
 			log.error("IndexAction execute categories Vector value null");
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		Vector<ProductVO>	best6Products	= pdtDAO.best6ProductList();
 		if (best6Products != null)			session.setAttribute("best6Products", best6Products);
 		else {
 			log.error("IndexAction execute products Vector value null");
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		log.debug("IndexAction execute End.");

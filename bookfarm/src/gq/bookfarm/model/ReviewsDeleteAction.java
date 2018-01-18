@@ -36,7 +36,7 @@ public class ReviewsDeleteAction implements Action
 			req.setAttribute("type", type);
 		}else{
 			log.error("ReviewsDeleteAction error");
-			path				=	"error.jsp";
+			path				=	"error.html";
 		}	
 		
 		return new ActionForward(path, false);

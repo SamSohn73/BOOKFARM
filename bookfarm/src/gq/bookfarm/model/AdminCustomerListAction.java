@@ -38,7 +38,7 @@ public class AdminCustomerListAction implements Action
 		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCustomerListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -73,7 +73,7 @@ public class AdminCustomerListAction implements Action
 		Vector<CustomerVO>	customers	= dao.customerList(page, limit);
 		if (customers != null)			req.setAttribute("customers", customers);
 		// if result failed change path here
-		else					path="error.jsp";
+		else					path="error.html";
 		
 		log.debug("AdminCustomerListAction execute End.");
 		return new ActionForward(path, false);

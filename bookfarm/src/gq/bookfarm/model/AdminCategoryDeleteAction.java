@@ -33,7 +33,7 @@ public class AdminCategoryDeleteAction implements Action
 		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCategoryDeleteAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -45,7 +45,7 @@ public class AdminCategoryDeleteAction implements Action
 
 		if(result <= 0) {
 			log.debug("AdminCategoryDeleteAction execute Failed.");
-			path="error.jsp"; 
+			path="error.html"; 
 		}else {
 			path+="?page="+current_page;
 		}

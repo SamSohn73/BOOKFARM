@@ -72,7 +72,7 @@ public class CustomerRegistAction implements Action
 		} else {
 										log.error("CustomerRegistAction error :"
 										+ " type can not be recogized => "+type);
-						path		=	"error.jsp";
+						path		=	"error.html";
 		}
 		
 		//result check
@@ -80,7 +80,7 @@ public class CustomerRegistAction implements Action
 										log.info("Successfully inserted...");
 		else {
 										log.error("CustomerRegistAction error :customerDB was not updated.. ");
-						path		=	"error.jsp";
+						path		=	"error.html";
 		}
 		
 		return new ActionForward(path, true);

@@ -57,7 +57,7 @@ public class ReviewsViewAction implements Action
 				
 			}else{
 				log.error("ReviewsViewAction error : vo is empty");
-				path =	"error.jsp";
+				path =	"error.html";
 			}
 		}
 		

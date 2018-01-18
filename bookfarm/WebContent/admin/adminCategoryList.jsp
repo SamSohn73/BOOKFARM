@@ -8,8 +8,9 @@
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
 
 <%
-	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
-	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
+	PageVO				pageInfo			= (PageVO) request.getAttribute("pageInfo");
+	Vector<CategoryVO>	sessionCategories	= (Vector<CategoryVO>) session.getAttribute("categories");
+	Vector<CategoryVO>	categories			= (Vector<CategoryVO>) request.getAttribute("categories");
 	//request.setAttribute("categories", categories);
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
@@ -23,13 +24,13 @@
 	int totalRows	= pageInfo.getTotalRows();
 	int totalPages	= pageInfo.getTotalPages();
 	
-	log.debug("adminCustomerList.jsp criteria="		+ criteria);
-	log.debug("adminCustomerList.jsp searchWord="	+ searchWord);
-	log.debug("adminCustomerList.jsp currentPage="	+ currentPage);
-	log.debug("adminCustomerList.jsp startPage="	+ startPage);
-	log.debug("adminCustomerList.jsp endPage="		+ endPage);
-	log.debug("adminCustomerList.jsp totalRows="	+ totalRows);
-	log.debug("adminCustomerList.jsp totalPages="	+ totalPages);
+	log.debug("adminCategoryList.jsp criteria="		+ criteria);
+	log.debug("adminCategoryList.jsp searchWord="	+ searchWord);
+	log.debug("adminCategoryList.jsp currentPage="	+ currentPage);
+	log.debug("adminCategoryList.jsp startPage="	+ startPage);
+	log.debug("adminCategoryList.jsp endPage="		+ endPage);
+	log.debug("adminCategoryList.jsp totalRows="	+ totalRows);
+	log.debug("adminCategoryList.jsp totalPages="	+ totalPages);
 %>
 <!DOCTYPE>
 <html>
@@ -70,7 +71,11 @@
 				</a>
 			</td>
 			<td><%=idNum%></td>
-			<td><%=category.getParent_idx()%></td>
+<%		if (category.getParent_idx() == 0) { %>
+			<td>최상위</td>
+<%		} else { %>
+			<td><%=sessionCategories.get(sessionCategories.indexOf(new CategoryVO(category.getParent_idx()))).getCategory_name()%></td>
+<%		} %>
 			<td><%=category.getIdx()%></td>
 			<td><%=category.getCategory_name()%></td>
 		</tr>
@@ -96,7 +101,7 @@
 			%>
 			<%//[next] display
 				if (currentPage <= endPage && currentPage < totalPages) {
-					out.print("<a href=../adminCategoryList.do?page=" + (currentPage + 1) + ">");
+					out.print("<a href=adminCategoryList.do?page=" + (currentPage + 1) + ">");
 					out.print(" [next]</a>");
 				}
 			%>

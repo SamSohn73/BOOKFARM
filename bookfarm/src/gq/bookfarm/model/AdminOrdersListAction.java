@@ -38,7 +38,7 @@ public class AdminOrdersListAction implements Action
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminOrdersList execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -75,7 +75,7 @@ public class AdminOrdersListAction implements Action
 		if (orders != null)			req.setAttribute("orders", orders);
 		else {
 			log.debug("AdminCustomerListAction execute orders Vector value null");
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		log.debug("AdminOrdersList execute End.");

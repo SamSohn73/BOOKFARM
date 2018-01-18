@@ -88,7 +88,7 @@ public class CustomerIdPwdCheckAction implements Action
 				/*QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ End*/
 			} else {
 				log.error("CustomerIdPwdCheckAction error : DB can not get customer data");
-				path	=	"error.jsp?type=login";
+				path	=	"error.html?type=login";
 			}
 		}
 		
@@ -99,7 +99,7 @@ public class CustomerIdPwdCheckAction implements Action
 		else {
 			log.error("CustomerIdPwdCheckAction error :"
 			+ " DB can not get customer data or customer's id,pass were wrong..");
-			path		=	"error.jsp";	
+			path		=	"error.html";	
 		}
 			
 		return new ActionForward(path, true);
