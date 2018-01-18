@@ -8371,4 +8371,15 @@ a.text-dark:focus, a.text-dark:hover {
 .invisible {
   visibility: hidden !important;
 }
+
+/* Added by Sam Sohn Start */
+.dropdown:hover>.dropdown-menu {
+	display: block;
+	margin-top: 0;
+}
+.dropdown > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+/* Added by Sam Sohn End */
 /*# sourceMappingURL=bootstrap.css.map */

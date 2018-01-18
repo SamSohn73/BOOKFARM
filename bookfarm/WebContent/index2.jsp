@@ -12,8 +12,8 @@
 	Vector<ProductVO>	best6Products	= (Vector<ProductVO>) session.getAttribute("best6Products");
 	CustomerVO			userVO			= (CustomerVO)session.getAttribute("loggedInUserVO");
 
-	String				type			= request.getParameter("type");
-	if (type == null)	type			= "login";
+	/* String				type			= request.getParameter("type");
+	if (type == null)	type			= "login"; */
 
 
 %>
@@ -28,7 +28,8 @@
 		<title>BOOKFARM online bookstore</title>
 	
 		<!-- Bootstrap core CSS -->
-		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 	
 		<!-- Custom styles for this template -->
 		<link href="css/shop-homepage.css" rel="stylesheet">
@@ -57,6 +58,12 @@
 					form.submit();
 				}
 			}
+			$('body').on('mouseenter mouseleave','.dropdown',function(e){
+				  var _d=$(e.target).closest('.dropdown');_d.addClass('show');
+				  setTimeout(function(){
+				    _d[_d.is(':hover')?'addClass':'removeClass']('show');
+				  },300);
+				});
 		</script>
 	</head>
 	
@@ -77,9 +84,6 @@
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="./about.jsp">About</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="./services.jsp">Services</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="./contact.jsp">Contact</a>
@@ -111,7 +115,7 @@
 	<span onclick="document.getElementById('modalLogin').style.display='none'" class="close" title="Close Modal">&times;</span>
 
 	<!-- Modal Content -->
-	<form class="modal-content animate" name="pwdCheck" method="post" action="qCustomerIdPwdCheck.do?type=<%=type %>" target="_top">
+	<form class="modal-content animate" name="pwdCheck" method="post" action="qCustomerIdPwdCheck.do?type=login" target="_top">
 
 		<div class="container">
 			<label><b>Username</b></label>
@@ -121,9 +125,9 @@
 			<input type="password" placeholder="Enter Password" name="password" required>
 
 			<button type="submit">Login</button>
-			<label>
+			<!--<label>
 				<input type="checkbox" checked="checked"> Remember me
-			</label>
+			</label>-->
 		</div>
 
 		<div class="container" style="background-color:#f1f1f1">
@@ -141,15 +145,25 @@
 				<div class="col-lg-3">
 		
 					<h1 class="my-4">책팜</h1>
-					<div class="list-group">
 <%	for(CategoryVO category: categories) {	
 		if (category.getParent_idx() == 0) { %>
-						<a href="productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>" class="list-group-item"><%=category.getCategory_name()%></a>
+					<div class="dropdown">
+						<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" onclick="location.href='productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>' ">
+							<%=category.getCategory_name()%> <b class="caret"></b>
+						</button>
+						<div class="dropdown-menu dropdown-menu-right">
 <%		}
-	}	%>
-				<!--	<a href="#" class="list-group-item">Category 2</a>
-						<a href="#" class="list-group-item">Category 3</a>	-->
+		int catIdx = category.getIdx();
+		for(CategoryVO subCategory: categories) {
+			if (catIdx == subCategory.getParent_idx()) { %>
+							<a class="dropdown-item" href="productSearch.do?criteria=category_idx&searchWord=<%=subCategory.getIdx()%>"><%=subCategory.getCategory_name()%></a>
+<%			}
+		}
+		if (category.getParent_idx() == 0) { %>
+						</div>
 					</div>
+<%		}
+	}%>
 				</div>
 				<!-- /.col-lg-3 -->
 		
@@ -196,7 +210,7 @@
 										<a href="productView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a>
 									</h4>
 									<h5><%=product.getProduct_price()%></h5>
-									<p class="card-text"><%=product.getProduct_desc()%></p>
+									<p class="card-text"><%=product.getProduct_desc().substring(0, 40)%> ...</p>
 								</div>
 								<div class="card-footer">
 									<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
@@ -226,8 +240,13 @@
 		</footer>
 	
 		<!-- Bootstrap core JavaScript -->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	
+		<!--<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+		<!--<script src="vendor/jquery/jquery.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>  -->
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 	</body>
 </html>

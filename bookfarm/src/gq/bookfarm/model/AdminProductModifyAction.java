@@ -60,7 +60,7 @@ public class AdminProductModifyAction implements Action
 		String	product_image	= "";
 		String	product_desc	= "";
 		int		result			= 0;
-		
+
 		try {
 			MultipartRequest multi = new MultipartRequest(req, 
 															uploadPath,

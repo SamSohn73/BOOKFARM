@@ -1,6 +1,7 @@
 use bookfarm;
 
 select * from admin;
+
 select * from customer;
 
 select * from product;
@@ -9,8 +10,6 @@ select * from product order by idx ;
 select * from product order by idx desc limit 1,10;
 
 select * from category;
-
-select * from customer;
 
 select * from basket;
 

@@ -71,7 +71,16 @@ span.psw {
         width: 100%;
     }
 }
-
+/* Added by Sam Sohn Start */
+.dropdown:hover>.dropdown-menu {
+	display: block;
+	margin-top: 0;
+}
+.dropdown > .dropdown-toggle:active {
+    /*Without this, clicking will make it sticky*/
+    pointer-events: none;
+}
+/* Added by Sam Sohn End */
 
 
 
@@ -136,3 +145,4 @@ span.psw {
     from {transform: scale(0)} 
     to {transform: scale(1)}
 }
+

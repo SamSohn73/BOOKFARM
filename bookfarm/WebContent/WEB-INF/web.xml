@@ -12,4 +12,13 @@
     <welcome-file>index.do</welcome-file>
   </welcome-file-list>
   
+  
+  <mime-mapping>
+    <extension>css</extension>
+    <mime-type>text/css</mime-type>
+  </mime-mapping>
+  <mime-mapping>
+    <extension>xml</extension>
+    <mime-type>text/xml</mime-type>
+  </mime-mapping>
 </web-app>
