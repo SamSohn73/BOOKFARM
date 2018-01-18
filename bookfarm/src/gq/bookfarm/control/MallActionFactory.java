@@ -41,6 +41,7 @@ import gq.bookfarm.model.CustomerRegistSettingAction;
 import gq.bookfarm.model.FooterAction;
 import gq.bookfarm.model.HeaderAction;
 import gq.bookfarm.model.IndexAction;
+import gq.bookfarm.model.OrderProductsAction;
 import gq.bookfarm.model.OrdersConfirmAction;
 import gq.bookfarm.model.ProductListAction;
 import gq.bookfarm.model.ProductSearchAction;
@@ -363,11 +364,11 @@ public class MallActionFactory
 			log.debug("basketDelete.do action create End.");
 		}
 		
-		//header, footer
-		if (cmd.equals("/header.do")) {
-			log.debug("header.do action create Start.");
-			action = new HeaderAction("header.jsp");
-			log.debug("header.do action create End.");
+		// hansol...
+		if (cmd.equals("/OrderProducts.do")) {
+			log.debug("OrderProducts.do action create Start.");
+			action = new OrderProductsAction("index.do");
+			log.debug("OrderProducts.do action create End.");
 		}
 		if (cmd.equals("/footer.do")) {
 			log.debug("footer.do action create Start.");
