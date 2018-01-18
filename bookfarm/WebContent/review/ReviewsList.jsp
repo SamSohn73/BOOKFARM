@@ -52,11 +52,7 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 		<meta name="description" content="Online Bookstore Bookfarm">
 		<meta name="author" content="BookFarmer">
 <title>리뷰창</title>
-		<!-- Bootstrap core CSS -->
-		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
 		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-	
-		<!-- Custom styles for this template -->
 		<link href="css/shop-homepage.css" rel="stylesheet">
 		<link href="css/login.css" rel="stylesheet">
 	<script>
@@ -474,7 +470,8 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 					else
 					{
 						%>
-						<a href="qReviewsLists.do?customers_idx=<%=customers_idx %>&type=myList" target="_top">[더보기]</a>
+						<a href="qReviewsLists.do?customers_idx=<%=customers_idx %>&type=myList" target="_top">
+						<input type="button" class="btn" value="더보기"></a>
 						<%
 					}
 					
@@ -558,9 +555,6 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 			<!-- /.container -->
 		</footer>
 <%} %>	
-		<!-- Bootstrap core JavaScript -->
-		<!--<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
 		<script src="vendor/jquery/jquery.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
 </body>

@@ -144,10 +144,10 @@
 
 		<div class="container">
 			<label><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="username" required>
+			<input type="text" class="input-hansol" placeholder="Enter Username" name="username" required>
 
 			<label><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="password" required>
+			<input type="password" class="input-hansol" placeholder="Enter Password" name="password" required>
 
 			<button type="submit">Login</button>
 			<!--<label>
@@ -192,7 +192,7 @@
 				</div>
 				<!-- /.col-lg-3 -->
 		
-				<div class="col-lg-9">
+				<div class="col-lg-9 my-5">
 					<div class="row">
 <%	for(ProductVO product: products) {	%>
 						<div class="col-lg-4 col-md-6 mb-4">

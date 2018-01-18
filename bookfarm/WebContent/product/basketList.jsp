@@ -117,10 +117,10 @@
 
 		<div class="container">
 			<label><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="username" required>
+			<input type="text" class="input-hansol" placeholder="Enter Username" name="username" required>
 
 			<label><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="password" required>
+			<input type="password" class="input-hansol" placeholder="Enter Password" name="password" required>
 
 			<button type="submit">Login</button>
 			<!--<label>
@@ -165,9 +165,9 @@
 				</div>
 				<!-- /.col-lg-3 -->
 		
-				<div class="col-lg-9">
-					<table>
-						<caption>장바구니 목록</caption>
+				<div class="col-lg-9 my-5">
+				<h2 class="my-2">장바구니 목록</h2>
+					<table class="table">
 						<tr>
 							<th>삭제</th>
 							<th>No.</th>
@@ -184,11 +184,11 @@
 				if (basket.getProduct_idx() == product.getIdx()) { %>
 						<tr>
 							<td>
-								<a href="basketDelete.do?idx=<%=basket.getIdx()%>"><input type='button' value="삭제"></a>
+								<a href="basketDelete.do?idx=<%=basket.getIdx()%>"><input type='button' class="btn" value="삭제"></a>
 							</td>
 							<td><%=idNum%></td>
 							<td><a href = "productView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a></td>
-							<td><a href = "productView.do?idx=<%=product.getIdx()%>"><img src="<%=product.getProduct_image()%>"></a></td>
+							<td><a href = "productView.do?idx=<%=product.getIdx()%>"><img src="<%=product.getProduct_image()%> " alt="350x200"></a></td>
 							<td><%=basket.getQuantity()%></td>
 							<td><%=basket.getFinal_price()%></td>
 						</tr>
@@ -199,17 +199,18 @@
 			idNum++;
 		}
 	}	%>
-					</table>
-					합 계 : <%=total%>
-		
-				</div>
-				<!-- /.col-lg-9 -->
-		
-			</div>
-			<!-- /.row -->
-	
-		</div>
-		<!-- /.container -->
+	</table>
+	<h4>합 계 : <%=total%></h4>
+	<a href="./index.do"><input type='button' class="btn" value="처음으로"></a>
+	<a href="./OrderProducts.do"><input type='button' class="btn" value="구매하기"></a>
+	</div>
+	<!-- /.col-lg-9 -->
+	</div>
+	<!-- /.row -->
+	</div>
+	<!-- /.container -->
+
+
 	
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">

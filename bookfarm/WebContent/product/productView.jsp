@@ -66,7 +66,7 @@
 			}
 			function buy_submit(){
 				<%-- productForm.action = "productBuy.do?idx=<%=productVO.getIdx()%>"; --%>
-				productForm.action = "productSearch.do?criteria=<%=criteria%>&searchWord=<%=searchWord%>";
+				productForm.action = "OrderProducts.do?criteria=<%=criteria%>&searchWord=<%=searchWord%>";
 				productForm.submit();
 			}
 			function basket_submit(){
