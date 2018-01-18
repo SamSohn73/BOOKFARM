@@ -159,7 +159,7 @@
 							%>
 							<%//[next] display
 								if (currentPage <= endPage && currentPage < totalPages) {
-									out.print("<a href=../adminCategoryList.do?page=" + (currentPage + 1) + ">");
+									out.print("<a href=adminCategoryList.do?page=" + (currentPage + 1) + ">");
 									out.print(" [next]</a>");
 								}
 							%>
