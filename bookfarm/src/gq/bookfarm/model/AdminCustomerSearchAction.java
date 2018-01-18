@@ -57,7 +57,7 @@ public class AdminCustomerSearchAction implements Action
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
-		int limit			= 10;
+		int limit			= 20;
 
 		CustomerDAO dao		= new CustomerDAO();
 		

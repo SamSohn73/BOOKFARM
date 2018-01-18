@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="org.apache.log4j.Logger"%>
 <%@ page import="java.util.Vector"%>
+<%@ page import="gq.bookfarm.vo.CategoryVO" %>
 <%@ page import="gq.bookfarm.vo.CustomerVO" %>
 <%@ page import="gq.bookfarm.vo.ProductVO" %>
-<%@ page import="gq.bookfarm.vo.CategoryVO" %>
 
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
 
@@ -14,8 +14,6 @@
 
 	/* String				type			= request.getParameter("type");
 	if (type == null)	type			= "login"; */
-
-
 %>
 <!DOCTYPE html>
 <html>
@@ -148,7 +146,7 @@
 <%	for(CategoryVO category: categories) {	
 		if (category.getParent_idx() == 0) { %>
 					<div class="dropdown">
-						<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false" onclick="location.href='productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>' ">
+						<button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="location.href='productSearch.do?criteria=category_idx&searchWord=<%=category.getIdx()%>' ">
 							<%=category.getCategory_name()%> <b class="caret"></b>
 						</button>
 						<div class="dropdown-menu dropdown-menu-right">
@@ -199,7 +197,6 @@
 					</div>
 		
 					<div class="row">
-		
 <%	for(ProductVO product: best6Products) {	%>
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">
@@ -242,11 +239,11 @@
 		<!-- Bootstrap core JavaScript -->
 		<!--<script src="vendor/jquery/jquery.min.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
-		<!--<script src="vendor/jquery/jquery.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>  -->
+		<script src="vendor/jquery/jquery.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
 		
-		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script> -->
 	</body>
 </html>
