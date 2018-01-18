@@ -49,7 +49,7 @@ public class AdminProductListAction implements Action
 		ProductDAO			dao		= new ProductDAO();
 		
 		int totalRows				= dao.totalRows();
-		int limit					= 10;
+		int limit					= 9;
 		
 		int totalPages				= (int) ((double) totalRows / limit + 0.999999);
 		int startPage				= (((int) ((double) page / 10 + 0.9)) -1) * 10 + 1;

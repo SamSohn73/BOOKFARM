@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="org.apache.log4j.Logger"%>
 <%@ page import="java.util.Vector"%>
+<%@ page import="gq.bookfarm.vo.CategoryVO" %>
 <%@ page import="gq.bookfarm.vo.CustomerVO" %>
 <%@ page import="gq.bookfarm.vo.ProductVO" %>
-<%@ page import="gq.bookfarm.vo.CategoryVO" %>
 
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
 
@@ -14,8 +14,6 @@
 
 	/* String				type			= request.getParameter("type");
 	if (type == null)	type			= "login"; */
-
-
 %>
 <!DOCTYPE html>
 <html>
@@ -72,7 +70,7 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 			<div class="container">
-				<a class="navbar-brand" href="#">Bookfarm - Online Bookstore</a>
+				<a class="navbar-brand" href="index.do">Bookfarm - Online Bookstore</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -200,7 +198,6 @@
 					</div>
 		
 					<div class="row">
-		
 <%	for(ProductVO product: best6Products) {	%>
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">

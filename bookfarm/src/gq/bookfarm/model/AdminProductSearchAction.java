@@ -62,7 +62,7 @@ public class AdminProductSearchAction implements Action
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
-		int limit			= 10;
+		int limit			= 9;
 
 		ProductDAO dao		= new ProductDAO();
 		
