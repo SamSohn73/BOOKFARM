@@ -136,7 +136,8 @@
 						<td colspan = "17">
 							<%//[prev] display
 								if (currentPage > 1) {
-									out.print("<a href=adminProductList.do?page=" + (currentPage-1) + ">");
+									if (criteria == "")		out.print("<a href=adminProductList.do?page=" + (currentPage-1) + ">");
+									else					out.print("<a href=adminProductSearch.do?page=" + (currentPage-1) + "&criteria=" + criteria + "&searchWord=" + searchWord + ">");
 									out.print("[prev] </a>");
 								}
 							%>
@@ -145,14 +146,16 @@
 									if (i == currentPage) {
 										out.print("[" +  i + "] ");
 									} else {
-										out.print("<a href=adminProductList.do?page=" + i +">");
+										if (criteria == "")		out.print("<a href=adminProductList.do?page=" + i +">");
+										else					out.print("<a href=adminProductSearch.do?page=" + i + "&criteria=" + criteria + "&searchWord=" + searchWord + ">");
 										out.print(i + " </a>");
 									}
 								}
 							%>
 							<%//[next] display
 								if (currentPage <= endPage && currentPage < totalPages) {
-									out.print("<a href=adminProductList.do?page=" + (currentPage + 1) + ">");
+									if (criteria == "")		out.print("<a href=adminProductList.do?page=" + (currentPage + 1) + ">");
+									else					out.print("<a href=adminProductSearch.do?page=" + (currentPage + 1) + "&criteria=" + criteria + "&searchWord=" + searchWord + ">");
 									out.print(" [next]</a>");
 								}
 							%>
