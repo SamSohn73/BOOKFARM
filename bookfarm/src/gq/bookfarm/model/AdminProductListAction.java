@@ -63,8 +63,8 @@ public class AdminProductListAction implements Action
 		int limit					= 9;
 		
 		int totalPages				= (int) ((double) totalRows / limit + 0.999999);
-		int startPage				= (((int) ((double) page / 10 + 0.9)) -1) * 10 + 1;
-		int endPage					= startPage + 10 -1;
+		int startPage				= (((int) ((double) page / 9 + 0.9)) -1) * 9 + 1;
+		int endPage					= startPage + 9 -1;
 		if (endPage > totalPages)	endPage = totalPages;
 		
 		PageVO pageInfo				= new PageVO();

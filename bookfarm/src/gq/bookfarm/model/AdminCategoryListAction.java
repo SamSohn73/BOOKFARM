@@ -58,7 +58,7 @@ public class AdminCategoryListAction implements Action
 		CategoryDAO			dao		= new CategoryDAO();
 		
 		int totalRows				= dao.totalRows();
-		int limit					= 20;
+		int limit					= 10;
 		
 		int totalPages				= (int) ((double) totalRows / limit + 0.999999);
 		int startPage				= (((int) ((double) page / 10 + 0.9)) -1) * 10 + 1;

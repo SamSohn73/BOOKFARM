@@ -275,7 +275,7 @@ public class ProductDAO
 	public Vector<ProductVO> productList(int page, int limit)
 	{
 		// Calc start record through page;
-		int start						= (page - 1) * 10; 
+		int start						= (page - 1) * 9; 
 		
 		Vector<ProductVO> productList	= new Vector<ProductVO>();
 		
@@ -353,18 +353,19 @@ public class ProductDAO
 		Connection			con			= getConnection();
 		ResultSet			result		= null;
 		PreparedStatement	pstmt		= null;
+		int					catParentIdx= 0;
 		
 		// Calc start record through page;
-		int start					= (page - 1) * 10; 
+		int start					= (page - 1) * 9; 
 		
 		try {
 			log.debug("execute productSearch DB work Start.");
 
 			CategoryDAO	dao				= new CategoryDAO();
-			int			catParentIdx	= dao.getParentIdx(Integer.parseInt(searchWord));
+			if (criteria.equals("category_idx"))	catParentIdx = dao.getParentIdx(Integer.parseInt(searchWord));
 			
 			if (criteria.equals("category_idx") && catParentIdx != 0) {
-				String sql	= "select * from product" +
+				String sql	= "select * from product " +
 						" where " +  criteria + " like ? or " + criteria + " like ?" +
 						" order by idx desc limit ?, ?";
 				pstmt		= con.prepareStatement(sql);
@@ -373,7 +374,7 @@ public class ProductDAO
 				pstmt		.setInt(3, start);
 				pstmt		.setInt(4, limit);
 			} else {
-				String sql	= "select * from product" +
+				String sql	= "select * from product " +
 						" where " +  criteria + " like ? " +
 						" order by idx desc limit ?, ?";
 				pstmt		= con.prepareStatement(sql);
@@ -381,8 +382,6 @@ public class ProductDAO
 				pstmt		.setInt(2, start);
 				pstmt		.setInt(3, limit);
 			}
-
-
 			log.debug("execute productSearch DB work... pstmt.toString()" + pstmt.toString());
 			
 			result		= pstmt.executeQuery();

@@ -68,8 +68,8 @@ public class AdminProductSearchAction implements Action
 		
 		int totalRows		= dao.productCountSearchingRows(criteria, searchWord);
 		int totalPages		= (int) ((double)totalRows / limit + 0.99999);
-		int startPage		= (((int) ((double) page / 10 + 0.9)) -1) * 10 + 1;
-		int endPage			= startPage + 10 - 1;
+		int startPage		= (((int) ((double) page / 9 + 0.9)) -1) * 9 + 1;
+		int endPage			= startPage + 9 - 1;
 		if (endPage > totalPages)	endPage = totalPages;
 		
 		log.debug("AdminProductSearchAction execute SearchAction (double)totalRows / limit + 0.99999= " + (double)totalRows / limit + 0.99999);

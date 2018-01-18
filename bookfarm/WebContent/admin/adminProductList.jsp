@@ -109,36 +109,29 @@
 		
 		
 				<div class="col-lg-9">
+					<div class="row">
+<%	for(ProductVO product: products) {	%>
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<a href="adminProductView.do?idx=<%=product.getIdx()%>">
+									<img class="card-img-top" src="<%=product.getProduct_image()%>" alt="700x400"></a>
+								<div class="card-body">
+									<h4 class="card-title">
+										<a href="adminProductView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a>
+									</h4>
+									<h5><%=product.getProduct_price()%></h5>
+									<p class="card-text"><%=product.getProduct_desc().substring(0, 40)%> ...</p>
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+								</div>
+							</div>
+						</div>
+<%	}	%>
+					</div>
+					<!-- /.row -->	
+	
 					<table>
-						<caption>상품 목록</caption>
-						<tr>
-							<th>No.</th>
-							<th>카테고리</th>
-							<th>이미지</th>
-							<th>제목</th>
-							<th>가격</th>
-							<th>재고수량</th>
-							<th>설명</th>
-						</tr>
-<%	
-	int idNum = totalRows - (currentPage-1)*10;
-	for(ProductVO product: products) {	%>
-						<tr>
-							<td><%=idNum%></td>
-							<td><%=categories.get(categories.indexOf(new CategoryVO(product.getCategory_idx()))).getCategory_name()%></td>
-							<td><a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
-								<img src="<%=product.getProduct_image()%>"></a>
-							</td>
-							<td>
-								<a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
-								<%=product.getProduct_name()%></a>
-							</td>
-							<td><%=product.getProduct_price()%></td>
-							<td><%=product.getProduct_quantity()%></td>
-							<td><%=product.getProduct_desc() %></td>
-						</tr>
-<%		idNum--;
-	} %>
 						<tr>
 						<td colspan = "17">
 							<%//[prev] display
@@ -186,9 +179,6 @@
 									<input type='button' value='검색' onclick="search()">
 								</form>
 							</td>
-						</tr>
-						<tr>
-							<td align='right'><a href="admin/adminProductInsert.jsp?page=<%=currentPage%>">[상품 추가]</a></td>
 						</tr>
 					</table>
 				</div>

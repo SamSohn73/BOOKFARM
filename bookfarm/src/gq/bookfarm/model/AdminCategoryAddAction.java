@@ -1,5 +1,7 @@
 package gq.bookfarm.model;
 
+import java.util.Vector;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
 import gq.bookfarm.dao.CategoryDAO;
 import gq.bookfarm.vo.AdminVO;
+import gq.bookfarm.vo.CategoryVO;
 
 public class AdminCategoryAddAction implements Action
 {
@@ -48,6 +51,9 @@ public class AdminCategoryAddAction implements Action
 		result					=	dao.categoryInsert(parent_idx, category_name);
 			
 		if(result>0) {
+			Vector<CategoryVO>	categories	= dao.categoryList();
+			if (categories != null)			req.setAttribute("categories", categories);
+			
 			path += "?page=" + curPage;
 		}
 		else {

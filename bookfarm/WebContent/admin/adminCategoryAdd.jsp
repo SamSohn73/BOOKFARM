@@ -106,9 +106,11 @@
 								<td><label>상위 카테고리</label>
 								<td>
 									<select name='partent_idx'>
-<%	for(CategoryVO category: categories) {	%>
-										<option value="<%=category.getParent_idx()%>"><%=category.getCategory_name()%></option>
-<%	} %>
+<%	for(CategoryVO category: categories) {	
+		if (category.getParent_idx() == 0) {%>
+										<option value="<%=category.getIdx()%>"><%=category.getCategory_name()%></option>
+<%		}
+	} %>
 									</select>
 								</td>
 							</tr>
