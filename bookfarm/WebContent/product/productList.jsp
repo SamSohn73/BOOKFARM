@@ -197,11 +197,11 @@
 <%	for(ProductVO product: products) {	%>
 						<div class="col-lg-4 col-md-6 mb-4">
 							<div class="card h-100">
-								<a href="productView.do?idx=<%=product.getIdx()%>">
+								<a href="productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
 									<img class="card-img-top" src="<%=product.getProduct_image()%>" alt="700x400"></a>
 								<div class="card-body">
 									<h4 class="card-title">
-										<a href="productView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a>
+										<a href="productView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>"><%=product.getProduct_name()%></a>
 									</h4>
 									<h5><%=product.getProduct_price()%></h5>
 									<p class="card-text"><%=product.getProduct_desc().substring(0, 40)%> ...</p>
@@ -278,7 +278,7 @@
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">
 			<div class="container">
-				<p class="m-0 text-center text-white">Copyright &copy; Team Bookfarmer 2018</p>
+				<p class="m-0 text-center text-white">Copyleft &copy; Team Bookfarmer 2018</p>
 				<p class="m-0 text-center text-white">DWIT Class3 - Team 책농부</p>
 			</div>
 			<!-- /.container -->

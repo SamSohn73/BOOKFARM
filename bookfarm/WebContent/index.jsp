@@ -24,7 +24,7 @@
 			<caption>Welcome to BookFarm!!!</caption>
 			<tr>
 			<% if(session.getAttribute("loggedInUserVO")!=null){%>
-				<td>	
+				<td>
 					<p><%=cVo.getFirstname() %> 님 환영합니다</p>
 				</td>
 			</tr>

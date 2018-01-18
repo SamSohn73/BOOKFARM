@@ -236,7 +236,7 @@
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">
 			<div class="container">
-				<p class="m-0 text-center text-white">Copyright &copy; Team Bookfarmer 2018</p>
+				<p class="m-0 text-center text-white">Copyleft &copy; Team Bookfarmer 2018</p>
 				<p class="m-0 text-center text-white">DWIT Class3 - Team 책농부</p>
 			</div>
 			<!-- /.container -->
