@@ -36,7 +36,7 @@ public class AdminReviewsViewAction implements Action
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		

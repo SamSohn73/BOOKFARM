@@ -37,7 +37,7 @@ public class CustomerLogoutAction implements Action
 			session.invalidate();
 			log.info("Successfully logout...");
 		} else {
-			path	=	"error.jsp";
+			path	=	"error.html";
 		}
 		
 		return new ActionForward(path, true);

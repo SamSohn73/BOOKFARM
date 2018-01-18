@@ -55,7 +55,7 @@ public class ReviewsHitUpdateAction implements Action
 			}
 		}else{
 			log.error("ReviewsHitUpdateAction error");
-			path			=	"error.jsp";
+			path			=	"error.html";
 		}
 		return new ActionForward(path, false);
 	}

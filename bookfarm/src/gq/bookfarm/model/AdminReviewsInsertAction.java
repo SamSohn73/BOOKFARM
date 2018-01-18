@@ -32,7 +32,7 @@ public class AdminReviewsInsertAction implements Action
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminReviewsInsertAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -44,7 +44,7 @@ public class AdminReviewsInsertAction implements Action
 		int		products_idx	=	Integer.parseInt(req.getParameter("products_idx"));
 		if (products_idx == 0) {
 			log.info("AdminReviewsInsertAction can not optain product_idx !!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 		}
 		int		result			=	0;
 		

@@ -39,7 +39,7 @@ public class AdminLoginAction implements Action
 			session				.setMaxInactiveInterval(60*30);
 		}else {
 			log.debug("AdminLoginAction execute Admin user_name, password not found. username, password=" + user_name + "," + user_pass);
-			path="error.jsp";
+			path="error.html";
 		}
 
 		log.debug("AdminLoginAction execute End.");

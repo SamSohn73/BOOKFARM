@@ -89,7 +89,7 @@ public class ReviewsListAction implements Action
 				path		+=	"?type="+type+"&products_idx="+products_idx;
 			}else{ 
 				log.error("ReviewsListAction - 'list' error");
-				path="error.jsp";
+				path="error.html";
 			}
 		}else if(type.equals("myList")){
 			int		totalRows	=	dao.oneCustomersTotalRows(customers_idx);
@@ -130,7 +130,7 @@ public class ReviewsListAction implements Action
 				path		+=	"?type="+type+"&products_idx="+products_idx;
 			}else{ 
 				log.error("ReviewsListAction - 'myList' error :����Ʈ�� null");
-				path="error.jsp";
+				path="error.html";
 			}
 		}else if(type.equals("myPage")){
 			int		limit		=	5;
@@ -158,7 +158,7 @@ public class ReviewsListAction implements Action
 				path		+=	"?type="+type;
 			}else{ 
 				log.error("ReviewsListAction - 'myPage' error");
-				path="error.jsp";
+				path="error.html";
 			}
 		}		
 		return new ActionForward(path, false);

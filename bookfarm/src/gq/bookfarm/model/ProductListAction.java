@@ -74,7 +74,7 @@ public class ProductListAction implements Action
 		if (products != null)			req.setAttribute("products", products);
 		else {
 			log.debug("ProductListAction execute products Vector value null");
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		log.debug("ProductListAction execute End.");

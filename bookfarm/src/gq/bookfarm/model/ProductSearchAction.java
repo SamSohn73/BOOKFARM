@@ -84,7 +84,7 @@ public class ProductSearchAction implements Action
 		if (products != null)		req.setAttribute("products", products);
 		else {
 			log.fatal("ProductSearchAction execute SearchAction page= " + page);
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		log.debug("ProductSearchAction execute SearchAction End.");

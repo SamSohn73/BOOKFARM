@@ -148,7 +148,7 @@ public class ReviewsSearchAction implements Action
 				path		+=	"?type="+type+"&customers_idx="+customers_idx;
 			}else{ 
 				log.error("ReviewsSearchAction - 'myList' error");
-				path="error.jsp";
+				path="error.html";
 			}
 		}
 		return new ActionForward(path, false);
