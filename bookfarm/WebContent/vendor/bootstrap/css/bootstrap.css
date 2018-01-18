@@ -8382,4 +8382,19 @@ a.text-dark:focus, a.text-dark:hover {
     pointer-events: none;
 }
 /* Added by Sam Sohn End */
+/* hansol's add */
+  .input-hansol{
+  	width: 100%;
+  	padding: 12px 20px;
+  	border: 1px solid #ccc;
+  }
+  input[type=text], input[type=password] {
+    /* width: 100%;
+    padding: 12px 20px; */
+    margin: 8px 0;
+    display: inline-block;
+    /* border: 1px solid #ccc; */
+    box-sizing: border-box;
+}
+/* hansol's add ends */
 /*# sourceMappingURL=bootstrap.css.map */
