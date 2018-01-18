@@ -36,7 +36,7 @@ public class AdminCustomerSearchAction implements Action
 		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCustomerModifyViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -57,7 +57,7 @@ public class AdminCustomerSearchAction implements Action
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
-		int limit			= 10;
+		int limit			= 20;
 
 		CustomerDAO dao		= new CustomerDAO();
 		
@@ -94,7 +94,7 @@ public class AdminCustomerSearchAction implements Action
 		// if result failed change path here
 		else {
 			log.fatal("AdminCustomerSearch execute SearchAction page= " + page);
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		log.debug("AdminCustomerSearch execute SearchAction End.");

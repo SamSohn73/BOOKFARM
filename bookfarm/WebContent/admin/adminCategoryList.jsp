@@ -8,8 +8,9 @@
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
 
 <%
-	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
-	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
+	PageVO				pageInfo			= (PageVO) request.getAttribute("pageInfo");
+	Vector<CategoryVO>	sessionCategories	= (Vector<CategoryVO>) session.getAttribute("categories");
+	Vector<CategoryVO>	categories			= (Vector<CategoryVO>) request.getAttribute("categories");
 	//request.setAttribute("categories", categories);
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
@@ -70,7 +71,11 @@
 				</a>
 			</td>
 			<td><%=idNum%></td>
-			<td><%=category.getParent_idx()%></td>
+<%		if (category.getParent_idx() == 0) { %>
+			<td>최상위</td>
+<%		} else { %>
+			<td><%=sessionCategories.get(sessionCategories.indexOf(new CategoryVO(category.getParent_idx()))).getCategory_name()%></td>
+<%		} %>
 			<td><%=category.getIdx()%></td>
 			<td><%=category.getCategory_name()%></td>
 		</tr>

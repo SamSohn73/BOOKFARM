@@ -51,7 +51,7 @@ public class ReviewsInsertAction implements Action
 				path		+=	"?type="+type+"&products_idx="+products_idx+"&page="+page;
 			}else{
 				log.debug("ReviewsInsertAction Insert error");
-				path = "error.jsp";
+				path = "error.html";
 			}
 		}else if(typeView.equals("modify")){
 			idx				=	Integer.parseInt(req.getParameter("idx"));
@@ -66,7 +66,7 @@ public class ReviewsInsertAction implements Action
 				path			=	"qReviewsView.do";
 			}else{
 				log.debug("ReviewsInsertAction Insert error");
-				path = "error.jsp";
+				path = "error.html";
 			}
 		}
 		

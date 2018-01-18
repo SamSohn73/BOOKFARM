@@ -46,7 +46,7 @@ public class BasketDeleteAction implements Action
 		
 		if (baskets == null) {
 			log.error("BasketDeleteAction execute Failed. No basket information.");
-			path="error.jsp"; 
+			path="error.html"; 
 			return new ActionForward(path, false);
 		}
 		
@@ -60,7 +60,7 @@ public class BasketDeleteAction implements Action
 					
 					if(result <= 0) {
 						log.error("BasketDeleteAction execute Failed.");
-						path="error.jsp"; 
+						path="error.html"; 
 					}
 				}
 				baskets.remove(basket);

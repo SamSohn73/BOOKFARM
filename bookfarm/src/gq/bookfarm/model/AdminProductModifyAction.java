@@ -43,7 +43,7 @@ public class AdminProductModifyAction implements Action
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminProductListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -94,7 +94,7 @@ public class AdminProductModifyAction implements Action
 		}
 
 		// if result failed change path here
-		if (result <= 0)	path="view/error.jsp";
+		if (result <= 0)	path="view/error.html";
 		else				path+= "?page=" + curPage;
 		
 		log.debug("AdminProductModifyAction execute End.");

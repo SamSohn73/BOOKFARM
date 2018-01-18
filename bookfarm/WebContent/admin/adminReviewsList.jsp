@@ -89,7 +89,7 @@
 							<%= cat_Vo2.getCategory_name()%></option>
 							<%} %>
 						</select>
-						<%} 
+						<%}
 						  if(category_idx!=0){%>
 						<select class="btn" onchange="selFuc3(this)" name="products_idx">
 							<option value="0">전체</option>

@@ -59,7 +59,7 @@ public class BasketAddAction implements Action
 		
 		if (productVO == null) {
 			log.error("BasketAddAction Product null Error");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -84,7 +84,7 @@ public class BasketAddAction implements Action
 			products.add(productVO);		session.setAttribute("products", products);
 		} else {
 			log.error("BasketAddAction execute Failed!!!!!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 		}
 
 		log.debug("BasketAddAction execute End.");

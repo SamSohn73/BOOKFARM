@@ -2,6 +2,7 @@
 <%@page import="java.util.Vector"%>
 <%@page import="gq.bookfarm.vo.PageVO"%>
 <%@page import="gq.bookfarm.vo.AdminVO"%>
+<%@page import="gq.bookfarm.vo.CategoryVO"%>
 <%@page import="gq.bookfarm.vo.ProductVO"%>
 <%@page import="org.apache.log4j.Logger"%>
 
@@ -10,6 +11,7 @@
 <%
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
 	Vector<ProductVO>	products	= (Vector<ProductVO>) request.getAttribute("products");
+	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
 	
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");
@@ -64,7 +66,7 @@
 	for(ProductVO product: products) {	%>
 		<tr>
 			<td><%=idNum%></td>
-			<td><%=product.getCategory_idx()%></td>
+			<td><%=categories.get(categories.indexOf(new CategoryVO(product.getCategory_idx()))).getCategory_name()%></td>
 			<td><a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
 				<img src="<%=product.getProduct_image()%>"></a>
 			</td>
@@ -117,8 +119,12 @@
 						<option value='product_quantity'		<%if(criteria.equals("product_quantity"))out.print("selected");%>>재고수량</option>
 						<option value='product_desc'			<%if(criteria.equals("product_desc"))	out.print("selected");%>>내용</option>
 					</select>
+<%	if (criteria.equals("category_idx")) {%>
+					<input type='text' name='searchWord' value="<%=categories.get(categories.indexOf(new CategoryVO(Integer.parseInt(searchWord)))).getCategory_name()%>">
+<%	} else { %>
 					<input type='text' name='searchWord' value="<%=searchWord%>">
-					<input type='button' value='검색' onclick="search()">						
+<%	}	%>
+					<input type='button' value='검색' onclick="search()">
 				</form>
 			</td>
 		</tr>

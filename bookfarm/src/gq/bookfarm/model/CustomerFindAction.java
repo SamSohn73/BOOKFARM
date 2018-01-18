@@ -35,7 +35,7 @@ public class CustomerFindAction implements Action
 			log.error("CustomerFindAction error :"
 			+ " There is no search customer in DB who has same phone, "
 			+ "firstname which you typed....");
-			path		=	"view/error.jsp?type=find";
+			path		=	"view/error.html?type=find";
 		}
 		
 		return new ActionForward(path, false);

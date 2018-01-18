@@ -33,7 +33,7 @@ public class AdminCustomerModifyViewAction implements Action
 		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCustomerModifyViewAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -49,12 +49,12 @@ public class AdminCustomerModifyViewAction implements Action
 			path+="?page="+current_page;
 		} else {
 			log.debug("AdminCustomerModifyViewAction execute Failed.");
-			path="error.jsp"; 
+			path="error.html"; 
 		}
 		
 		/*if(result <= 0) {
 			log.debug("AdminCustomerModifyAction execute Failed.");
-			path="error.jsp"; 
+			path="error.html"; 
 		}else {
 			path+="?page="+current_page;
 		}*/

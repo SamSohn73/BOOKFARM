@@ -52,7 +52,7 @@ public class ProductSearchAction implements Action
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
-		int limit			= 10;
+		int limit			= 9;
 
 		ProductDAO dao		= new ProductDAO();
 		
@@ -84,7 +84,7 @@ public class ProductSearchAction implements Action
 		if (products != null)		req.setAttribute("products", products);
 		else {
 			log.fatal("ProductSearchAction execute SearchAction page= " + page);
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		log.debug("ProductSearchAction execute SearchAction End.");

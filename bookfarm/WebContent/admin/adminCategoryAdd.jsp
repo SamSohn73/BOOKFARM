@@ -7,7 +7,7 @@
 
 <%
 	String				currentPage	= request.getParameter("page");
-	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
+	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
 %>
 
 <!DOCTYPE>
@@ -39,9 +39,9 @@
 				<td><label>상위 카테고리</label>
 				<td>
 					<select name='partent_idx'>
-<%					for(CategoryVO category: categories) {	%>
+<%	for(CategoryVO category: categories) {	%>
 						<option value="<%=category.getParent_idx()%>"><%=category.getCategory_name()%></option>
-<%					} %>
+<%	} %>
 					</select>
 				</td>
 			</tr>

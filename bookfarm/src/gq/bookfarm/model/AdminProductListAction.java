@@ -11,8 +11,10 @@ import org.apache.log4j.Logger;
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.AdminDAO;
+import gq.bookfarm.dao.CategoryDAO;
 import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.vo.AdminVO;
+import gq.bookfarm.vo.CategoryVO;
 import gq.bookfarm.vo.PageVO;
 import gq.bookfarm.vo.ProductVO;
 
@@ -38,7 +40,16 @@ public class AdminProductListAction implements Action
 		AdminDAO	adminDAO= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminProductListAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
+			return new ActionForward(path, false);
+		}
+		
+		CategoryDAO			catDAO		= new CategoryDAO();
+		Vector<CategoryVO>	categories	= catDAO.categoryList();
+		if (categories != null)			session.setAttribute("categories", categories);
+		else {
+			log.error("IndexAction execute categories Vector value null");
+			path ="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -49,7 +60,7 @@ public class AdminProductListAction implements Action
 		ProductDAO			dao		= new ProductDAO();
 		
 		int totalRows				= dao.totalRows();
-		int limit					= 10;
+		int limit					= 9;
 		
 		int totalPages				= (int) ((double) totalRows / limit + 0.999999);
 		int startPage				= (((int) ((double) page / 10 + 0.9)) -1) * 10 + 1;
@@ -74,7 +85,7 @@ public class AdminProductListAction implements Action
 		if (products != null)			req.setAttribute("products", products);
 		else {
 			log.debug("AdminProductListAction execute products Vector value null");
-			path="error.jsp";
+			path="error.html";
 		}
 		
 		log.debug("AdminProductListAction execute End.");

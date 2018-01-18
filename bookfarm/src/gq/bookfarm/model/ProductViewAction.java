@@ -28,6 +28,7 @@ public class ProductViewAction implements Action
 		if(req.getParameter("page")!=null)
 				current_page	= Integer.parseInt(req.getParameter("page"));
 		int		idx				= Integer.parseInt(req.getParameter("idx"));
+		
 		String criteria			= req.getParameter("cri");
 		String searchWord		= req.getParameter("word");
 		if(req.getParameter("cri")==null || req.getParameter("word")==null) {
@@ -37,11 +38,10 @@ public class ProductViewAction implements Action
 		
 		ProductVO	productVO	= dao.productGetRow(idx);
 		
-		System.out.println("정한솔 ㅈㄷㄱㅈㄹㅈㄷ: "+criteria+"//"+searchWord);
-		
 		if(productVO != null) {
-			req.setAttribute("productVO", productVO);
-			path+= "?page=" + current_page+"&cri="+criteria+"&word="+searchWord;
+			HttpSession	session		= req.getSession();
+			session					.setAttribute("productVO", productVO);
+			path += "?page=" + current_page+"&cri="+criteria+"&word="+searchWord;
 			//req.setAttribute("page", current_page);
 		}
 	

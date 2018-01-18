@@ -33,7 +33,7 @@ public class AdminCustomerUpdateAction implements Action
 		AdminDAO	adminDAO	= new AdminDAO();
 		if (adminDAO.isAdmin(adminVO) == null) {
 			log.info("AdminCustomerUpdateAction execute Authorization Fail!!!!!!!!!!!!!!!!");
-			path="error.jsp";
+			path="error.html";
 			return new ActionForward(path, false);
 		}
 		
@@ -47,7 +47,7 @@ public class AdminCustomerUpdateAction implements Action
 
 		if(result <= 0) {
 			log.debug("AdminCustomerUpdateAction execute Failed.");
-			path="error.jsp"; 
+			path="error.html"; 
 		}else {
 			path+="?page="+current_page;
 		}

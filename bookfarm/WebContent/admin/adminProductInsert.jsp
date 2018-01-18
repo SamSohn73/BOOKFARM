@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Vector"%>
+<%@ page import="gq.bookfarm.vo.CategoryVO"%>
 <%	
-	String current_page 			=	request.getParameter("page");
+	String				current_page	= request.getParameter("page");
+	Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
 %>
 <!DOCTYPE html>
 <html>
@@ -10,13 +13,17 @@
 
 </head>
 <body>
-	<form action="../adminProductInsert.do" method="post" enctype="multipart/form-data">	
+	<form action="../adminProductInsert.do" method="post" enctype="multipart/form-data">
 		<table>
 			<caption>상품 등록</caption>
 			<tr>
-				<td class="td_left"><label for="category_idx">카테고리</label></td>					
+				<td class="td_left"><label for="category_idx">카테고리</label></td>
 				<td class="td_right">
-					<input type="text" name="category_idx" size="50" maxlength='100' required="required">
+					<select name='category_idx'>
+<%	for(CategoryVO category: categories) {	%>
+						<option value="<%=category.getIdx()%>"><%=category.getCategory_name()%></option>
+<%	} %>
+					</select>
 				</td>
 			</tr>
 			<tr>
