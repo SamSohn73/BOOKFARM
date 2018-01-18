@@ -117,10 +117,10 @@
 
 		<div class="container">
 			<label><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="username" required>
+			<input type="text" class="input-hansol" placeholder="Enter Username" name="username" required>
 
 			<label><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="password" required>
+			<input type="password" class="input-hansol" placeholder="Enter Password" name="password" required>
 
 			<button type="submit">Login</button>
 			<!--<label>
@@ -165,7 +165,7 @@
 				</div>
 				<!-- /.col-lg-3 -->
 		
-				<div class="col-lg-9">
+				<div class="col-lg-9 my-5">
 					<table>
 						<caption>장바구니 목록</caption>
 						<tr>
@@ -199,14 +199,12 @@
 			idNum++;
 		}
 	}	%>
-<<<<<<< HEAD
 	</table>
 	합 계 : <%=total%>
 
 	<h3><a href="./index.do">처음으로</a></h3>
 </body>
 </html>
-=======
 					</table>
 					합 계 : <%=total%>
 		
@@ -239,4 +237,3 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script> -->
 	</body>
 </html>
->>>>>>> branch 'master' of https://github.com/SamSohn73/BOOKFARM.git
