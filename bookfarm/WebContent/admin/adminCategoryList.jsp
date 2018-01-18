@@ -23,13 +23,13 @@
 	int totalRows	= pageInfo.getTotalRows();
 	int totalPages	= pageInfo.getTotalPages();
 	
-	log.debug("adminCustomerList.jsp criteria="		+ criteria);
-	log.debug("adminCustomerList.jsp searchWord="	+ searchWord);
-	log.debug("adminCustomerList.jsp currentPage="	+ currentPage);
-	log.debug("adminCustomerList.jsp startPage="	+ startPage);
-	log.debug("adminCustomerList.jsp endPage="		+ endPage);
-	log.debug("adminCustomerList.jsp totalRows="	+ totalRows);
-	log.debug("adminCustomerList.jsp totalPages="	+ totalPages);
+	log.debug("adminCategoryList.jsp criteria="		+ criteria);
+	log.debug("adminCategoryList.jsp searchWord="	+ searchWord);
+	log.debug("adminCategoryList.jsp currentPage="	+ currentPage);
+	log.debug("adminCategoryList.jsp startPage="	+ startPage);
+	log.debug("adminCategoryList.jsp endPage="		+ endPage);
+	log.debug("adminCategoryList.jsp totalRows="	+ totalRows);
+	log.debug("adminCategoryList.jsp totalPages="	+ totalPages);
 %>
 <!DOCTYPE>
 <html>
@@ -96,7 +96,7 @@
 			%>
 			<%//[next] display
 				if (currentPage <= endPage && currentPage < totalPages) {
-					out.print("<a href=../adminCategoryList.do?page=" + (currentPage + 1) + ">");
+					out.print("<a href=adminCategoryList.do?page=" + (currentPage + 1) + ">");
 					out.print(" [next]</a>");
 				}
 			%>

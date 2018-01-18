@@ -222,7 +222,7 @@
 					if (i == currentPage) {
 						out.print("[" +  i + "] ");
 					} else {
-						out.print("<a href=productList.do?page=" + i +">");
+						out.print("<a href=productList.do?page=" + i + ">");
 						out.print(i + " </a>");
 					}
 				}

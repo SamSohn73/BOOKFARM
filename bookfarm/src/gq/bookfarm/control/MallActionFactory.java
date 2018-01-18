@@ -91,7 +91,7 @@ public class MallActionFactory
 		}
 		if (cmd.equals("/adminLogout.do")) {
 			log.debug("adminLogout.do action create Start.");
-			action = new AdminLogoutAction("index.jsp");
+			action = new AdminLogoutAction("index.do");
 			log.debug("adminLogout.do action create End.");
 		}
 		// Admin Customer Management
