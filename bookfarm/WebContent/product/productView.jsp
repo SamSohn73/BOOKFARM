@@ -65,8 +65,8 @@
 				productForm.submit();
 			}
 			function buy_submit(){
-				<%-- productForm.action = "productBuy.do?idx=<%=productVO.getIdx()%>"; --%>
-				productForm.action = "OrderProducts.do?criteria=<%=criteria%>&searchWord=<%=searchWord%>";
+				productForm.action = "./OrderProducts.do?product_idx=<%=productVO.getIdx()%>";
+				<%-- productForm.action = "OrderProducts.do?criteria=<%=criteria%>&searchWord=<%=searchWord%>"; --%>
 				productForm.submit();
 			}
 			function basket_submit(){
@@ -142,10 +142,10 @@
 
 		<div class="container">
 			<label><b>Username</b></label>
-			<input type="text" placeholder="Enter Username" name="username" required>
+			<input type="text" class="input-hansol" placeholder="Enter Username" name="username" required>
 
 			<label><b>Password</b></label>
-			<input type="password" placeholder="Enter Password" name="password" required>
+			<input type="password" class="input-hansol" placeholder="Enter Password" name="password" required>
 
 			<button type="submit">Login</button>
 			<!--<label>
@@ -190,7 +190,7 @@
 				</div>
 				<!-- /.col-lg-3 -->
 		
-				<div class="col-lg-9">
+				<div class="col-lg-9 my-5">
 					<form method = "post"  name='productForm'>
 						<table>
 						<caption>상품 보기</caption>

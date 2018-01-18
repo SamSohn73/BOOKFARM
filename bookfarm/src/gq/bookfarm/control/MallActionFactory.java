@@ -41,6 +41,7 @@ import gq.bookfarm.model.CustomerRegistSettingAction;
 import gq.bookfarm.model.FooterAction;
 import gq.bookfarm.model.HeaderAction;
 import gq.bookfarm.model.IndexAction;
+import gq.bookfarm.model.OrderFinishAction;
 import gq.bookfarm.model.OrderProductsAction;
 import gq.bookfarm.model.OrdersConfirmAction;
 import gq.bookfarm.model.ProductListAction;
@@ -367,13 +368,13 @@ public class MallActionFactory
 		// hansol...
 		if (cmd.equals("/OrderProducts.do")) {
 			log.debug("OrderProducts.do action create Start.");
-			action = new OrderProductsAction("index.do");
+			action = new OrderProductsAction("./product/ProductOrder.jsp");
 			log.debug("OrderProducts.do action create End.");
 		}
-		if (cmd.equals("/footer.do")) {
-			log.debug("footer.do action create Start.");
-			action = new FooterAction("footer.jsp");
-			log.debug("footer.do action create End.");
+		if (cmd.equals("/OrderFinish.do")) {
+			log.debug("OrderFinish.do action create Start.");
+			action = new OrderFinishAction("index.do");
+			log.debug("OrderFinish.do action create End.");
 		}
 		
 		return action;

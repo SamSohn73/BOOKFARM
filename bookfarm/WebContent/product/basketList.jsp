@@ -188,7 +188,7 @@
 							</td>
 							<td><%=idNum%></td>
 							<td><a href = "productView.do?idx=<%=product.getIdx()%>"><%=product.getProduct_name()%></a></td>
-							<td><a href = "productView.do?idx=<%=product.getIdx()%>"><img src="<%=product.getProduct_image()%> " alt="350x200"></a></td>
+							<td><a href = "productView.do?idx=<%=product.getIdx()%>"><img class="card-img-top" src="<%=product.getProduct_image()%> " alt="350x200"></a></td>
 							<td><%=basket.getQuantity()%></td>
 							<td><%=basket.getFinal_price()%></td>
 						</tr>

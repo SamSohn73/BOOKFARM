@@ -629,4 +629,29 @@ public class OrdersDAO
 		log.debug("execute single_Customer's_orders_List DB work End.");
 		return ordersList;
 	}
+	
+	public int getMaxIdx() {
+		int					idx		= 0;
+		Connection			con		= getConnection();
+		ResultSet			result	= null;
+		PreparedStatement	pstmt	= null;
+		
+		try {
+			log.debug("execute getMaxIdx DB work Start.");
+			String sql	= "select max(idx) from orders;";
+			pstmt		= con.prepareStatement(sql);
+			result		= pstmt.executeQuery();
+			
+			while (result.next()) {
+							idx		= result.getInt(1);
+			}
+		} catch (Exception e) {
+			log.fatal("execute sgetMaxIdx DB work Failed!!!!!!!!!!");
+			e.printStackTrace();
+		} finally {
+			close(con, pstmt, result);
+		}
+		log.debug("execute getMaxIdx DB work End.");
+		return idx;
+	}
 }
