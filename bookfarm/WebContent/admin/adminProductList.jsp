@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="java.util.Vector"%>
-<%@page import="gq.bookfarm.vo.PageVO"%>
-<%@page import="gq.bookfarm.vo.AdminVO"%>
-<%@page import="gq.bookfarm.vo.CategoryVO"%>
-<%@page import="gq.bookfarm.vo.ProductVO"%>
-<%@page import="org.apache.log4j.Logger"%>
+<%@ page import="org.apache.log4j.Logger"%>
+<%@ page import="gq.bookfarm.vo.AdminVO"%>
+<%@ page import="java.util.Vector"%>
+<%@ page import="gq.bookfarm.vo.PageVO"%>
+<%@ page import="gq.bookfarm.vo.AdminVO"%>
+<%@ page import="gq.bookfarm.vo.CategoryVO"%>
+<%@ page import="gq.bookfarm.vo.ProductVO"%>
 
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
 
 <%
+	AdminVO				adminVO		= (AdminVO)session.getAttribute("adminVO");
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
 	Vector<ProductVO>	products	= (Vector<ProductVO>) request.getAttribute("products");
 	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
@@ -24,115 +26,193 @@
 	int endPage		= pageInfo.getEndPage();
 	int totalRows	= pageInfo.getTotalRows();
 	int totalPages	= pageInfo.getTotalPages();
-	
-	log.debug("adminProductList.jsp criteria=" + criteria);
-	log.debug("adminProductList.jsp searchWord=" + searchWord);
-	log.debug("adminProductList.jsp currentPage=" + currentPage);
-	log.debug("adminProductList.jsp startPage=" + startPage);
-	log.debug("adminProductList.jsp endPage=" + endPage);
-	log.debug("adminProductList.jsp totalRows=" + totalRows);
-	log.debug("adminProductList.jsp totalPages=" + totalPages);
 %>
-<!DOCTYPE>
+
+<!DOCTYPE html>
 <html>
-<head>
-	<script type="text/javascript">
-		function search(){
-			if(searchform.searchWord.value==""){
-				alert('검색어를 넣으세요');
-				searchform.searchWord.focus();
-				return;
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="Online Bookstore Bookfarm">
+		<meta name="author" content="BookFarmer">
+	
+		<title>BOOKFARM Product List</title>
+	
+		<!-- Bootstrap core CSS -->
+		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+	
+		<!-- Custom styles for this template -->
+		<link href="css/shop-homepage.css" rel="stylesheet">
+
+		<script type="text/javascript">
+			function search(){
+				if(searchform.searchWord.value==""){
+					alert('검색어를 넣으세요');
+					searchform.searchWord.focus();
+					return;
+				}
+				searchform.submit();
 			}
-			searchform.submit();
-		}
-	</script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>상품 관리</title>
-</head>
-<body>
-	<table>
-		<caption>상품 목록</caption>
-		<tr>
-			<th>No.</th>
-			<th>카테고리</th>
-			<th>이미지</th>
-			<th>제목</th>
-			<th>가격</th>
-			<th>재고수량</th>
-			<th>설명</th>
-		</tr>
+		</script>
+	</head>
+	
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="index.do">Bookfarm - Admin Page</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="index.do">Home
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">	
+							<a class="nav-link" href="adminCustomerList.do">고객관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="adminProductList.do">상품관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="adminOrdersList.do">주문관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="adminCategoryList.do">카테고리관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="adminReviewsList.do">리뷰관리</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="adminLogout.do">로그아웃</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Page Content -->
+		<div class="container">
+	
+			<div class="row">
+	
+				<div class="col-lg-3">
+		
+					<h1 class="my-4">책팜</h1>
+
+				</div>
+				<!-- /.col-lg-3 -->
+		
+		
+				<div class="col-lg-9">
+					<table>
+						<caption>상품 목록</caption>
+						<tr>
+							<th>No.</th>
+							<th>카테고리</th>
+							<th>이미지</th>
+							<th>제목</th>
+							<th>가격</th>
+							<th>재고수량</th>
+							<th>설명</th>
+						</tr>
 <%	
 	int idNum = totalRows - (currentPage-1)*10;
 	for(ProductVO product: products) {	%>
-		<tr>
-			<td><%=idNum%></td>
-			<td><%=categories.get(categories.indexOf(new CategoryVO(product.getCategory_idx()))).getCategory_name()%></td>
-			<td><a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
-				<img src="<%=product.getProduct_image()%>"></a>
-			</td>
-			<td>
-				<a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
-				<%=product.getProduct_name()%></a>
-			</td>
-			<td><%=product.getProduct_price()%></td>
-			<td><%=product.getProduct_quantity()%></td>
-			<td><%=product.getProduct_desc() %></td>
-		</tr>
+						<tr>
+							<td><%=idNum%></td>
+							<td><%=categories.get(categories.indexOf(new CategoryVO(product.getCategory_idx()))).getCategory_name()%></td>
+							<td><a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
+								<img src="<%=product.getProduct_image()%>"></a>
+							</td>
+							<td>
+								<a href="adminProductView.do?idx=<%=product.getIdx()%>&page=<%=currentPage%>">
+								<%=product.getProduct_name()%></a>
+							</td>
+							<td><%=product.getProduct_price()%></td>
+							<td><%=product.getProduct_quantity()%></td>
+							<td><%=product.getProduct_desc() %></td>
+						</tr>
 <%		idNum--;
 	} %>
-		<tr>
-		<td colspan = "17">
-			<%//[prev] display
-				if (currentPage > 1) {
-					out.print("<a href=adminProductList.do?page=" + (currentPage-1) + ">");
-					out.print("[prev] </a>");
-				}
-			%>
-			<%//page numbers display
-				for (int i = startPage; i <= endPage; i++) {
-					if (i == currentPage) {
-						out.print("[" +  i + "] ");
-					} else {
-						out.print("<a href=adminProductList.do?page=" + i +">");
-						out.print(i + " </a>");
-					}
-				}
-			%>
-			<%//[next] display
-				if (currentPage <= endPage && currentPage < totalPages) {
-					out.print("<a href=adminProductList.do?page=" + (currentPage + 1) + ">");
-					out.print(" [next]</a>");
-				}
-			%>
-		</td>
-	</tr>
-	</table>
-
-	<table>
-		<tr>
-			<td class="td_align">
-				<form action='adminProductSearch.do' method='post' name='searchform'>
-					<select name='criteria'>
-						<option value='product_category_idx'	<%if(criteria.equals("category_idx"))	out.print("selected");%>>카테고리</option>
-						<option value='product_name'			<%if(criteria.equals("product_name"))	out.print("selected");%>>제목</option>
-						<option value='product_price'			<%if(criteria.equals("product_price"))	out.print("selected");%>>가격</option>
-						<option value='product_quantity'		<%if(criteria.equals("product_quantity"))out.print("selected");%>>재고수량</option>
-						<option value='product_desc'			<%if(criteria.equals("product_desc"))	out.print("selected");%>>내용</option>
-					</select>
+						<tr>
+						<td colspan = "17">
+							<%//[prev] display
+								if (currentPage > 1) {
+									out.print("<a href=adminProductList.do?page=" + (currentPage-1) + ">");
+									out.print("[prev] </a>");
+								}
+							%>
+							<%//page numbers display
+								for (int i = startPage; i <= endPage; i++) {
+									if (i == currentPage) {
+										out.print("[" +  i + "] ");
+									} else {
+										out.print("<a href=adminProductList.do?page=" + i +">");
+										out.print(i + " </a>");
+									}
+								}
+							%>
+							<%//[next] display
+								if (currentPage <= endPage && currentPage < totalPages) {
+									out.print("<a href=adminProductList.do?page=" + (currentPage + 1) + ">");
+									out.print(" [next]</a>");
+								}
+							%>
+						</td>
+					</tr>
+					</table>
+				
+					<table>
+						<tr>
+							<td class="td_align">
+								<form action='adminProductSearch.do' method='post' name='searchform'>
+									<select name='criteria'>
+										<option value='product_category_idx'	<%if(criteria.equals("category_idx"))	out.print("selected");%>>카테고리</option>
+										<option value='product_name'			<%if(criteria.equals("product_name"))	out.print("selected");%>>제목</option>
+										<option value='product_price'			<%if(criteria.equals("product_price"))	out.print("selected");%>>가격</option>
+										<option value='product_quantity'		<%if(criteria.equals("product_quantity"))out.print("selected");%>>재고수량</option>
+										<option value='product_desc'			<%if(criteria.equals("product_desc"))	out.print("selected");%>>내용</option>
+									</select>
 <%	if (criteria.equals("category_idx")) {%>
-					<input type='text' name='searchWord' value="<%=categories.get(categories.indexOf(new CategoryVO(Integer.parseInt(searchWord)))).getCategory_name()%>">
+									<input type='text' name='searchWord' value="<%=categories.get(categories.indexOf(new CategoryVO(Integer.parseInt(searchWord)))).getCategory_name()%>">
 <%	} else { %>
-					<input type='text' name='searchWord' value="<%=searchWord%>">
+									<input type='text' name='searchWord' value="<%=searchWord%>">
 <%	}	%>
-					<input type='button' value='검색' onclick="search()">
-				</form>
-			</td>
-		</tr>
-		<tr>
-			<td align='right'><a href="admin/adminProductInsert.jsp?page=<%=currentPage%>">[상품 추가]</a></td>
-		</tr>
-	</table>
+									<input type='button' value='검색' onclick="search()">
+								</form>
+							</td>
+						</tr>
+						<tr>
+							<td align='right'><a href="admin/adminProductInsert.jsp?page=<%=currentPage%>">[상품 추가]</a></td>
+						</tr>
+					</table>
+				</div>
+				<!-- /.col-lg-9 -->
+		
+			</div>
+			<!-- /.row -->
 	
-	<h3><a href="admin/adminLogin.jsp">처음으로</a></h3>
-</body>
+		</div>
+		<!-- /.container -->
+	
+		<!-- Footer -->
+		<footer class="py-5 bg-dark">
+			<div class="container">
+				<p class="m-0 text-center text-white">Copyright &copy; Team Bookfarmer 2018</p>
+				<p class="m-0 text-center text-white">DWIT Class3 - Team 책농부</p>
+			</div>
+			<!-- /.container -->
+		</footer>
+	
+		<!-- Bootstrap core JavaScript -->
+		<!--<script src="vendor/jquery/jquery.min.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
+		<script src="vendor/jquery/jquery.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+	</body>
 </html>
