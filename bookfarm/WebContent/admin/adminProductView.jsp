@@ -90,7 +90,7 @@
 				<!-- /.col-lg-3 -->
 		
 		
-				<div class="col-lg-9">
+				<div class="col-lg-9 my-5">
 				<form action="./adminProductModify.do" method="post" enctype="multipart/form-data">
 					<table>
 						<caption>상품 보기</caption>

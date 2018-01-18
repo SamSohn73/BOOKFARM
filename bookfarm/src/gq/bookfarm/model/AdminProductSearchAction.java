@@ -78,7 +78,7 @@ public class AdminProductSearchAction implements Action
 		log.debug("AdminProductSearchAction execute SearchAction endPage= " + endPage);
 		log.debug("AdminProductSearchAction execute SearchAction page= " + page);
 		
-		Vector<ProductVO> products = dao.productSearch(criteria, searchWord, startPage, limit);
+		Vector<ProductVO> products = dao.productSearch(criteria, searchWord, page, limit);
 		
 		PageVO pageInfo	= new PageVO();
 		pageInfo		.setPage(page);

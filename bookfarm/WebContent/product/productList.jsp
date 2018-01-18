@@ -254,8 +254,6 @@
 									<select name='criteria'>
 										<option value='product_category_idx'	<%if(criteria.equals("category_idx"))	out.print("selected");%>>카테고리</option>
 										<option value='product_name'			<%if(criteria.equals("product_name"))	out.print("selected");%>>제목</option>
-										<option value='product_price'			<%if(criteria.equals("product_price"))	out.print("selected");%>>가격</option>
-										<option value='product_quantity'		<%if(criteria.equals("product_quantity"))out.print("selected");%>>재고수량</option>
 										<option value='product_desc'			<%if(criteria.equals("product_desc"))	out.print("selected");%>>내용</option>
 									</select>
 <%	if (criteria.equals("category_idx")) {%>

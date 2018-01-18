@@ -16,7 +16,8 @@
 	String				searchWord		= request.getParameter("word");
 
 	int					current_page	= 1;
-	if(request.getParameter("page") != null)	current_page = Integer.parseInt(request.getParameter("page"));
+	if(request.getParameter("page") != null)	
+		current_page = Integer.parseInt(request.getParameter("page"));
 %>
 <!DOCTYPE html>
 <html>

@@ -52,8 +52,8 @@ public class ProductSearchAction implements Action
 		int page = 1;
 		if (req.getParameter("page") != null)
 			page = Integer.parseInt(req.getParameter("page"));
+		log.debug("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQq curPage=" + page);
 		int limit			= 9;
-
 		ProductDAO dao		= new ProductDAO();
 		
 		int totalRows		= dao.productCountSearchingRows(criteria, searchWord);
@@ -68,7 +68,7 @@ public class ProductSearchAction implements Action
 		log.debug("ProductSearchAction execute SearchAction endPage= " + endPage);
 		log.debug("ProductSearchAction execute SearchAction page= " + page);
 		
-		Vector<ProductVO> products = dao.productSearch(criteria, searchWord, startPage, limit);
+		Vector<ProductVO> products = dao.productSearch(criteria, searchWord, page, limit);
 		
 		PageVO pageInfo	= new PageVO();
 		pageInfo		.setPage(page);
