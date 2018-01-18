@@ -79,7 +79,9 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 				modal.style.display = "none";
 			}
 		}
+		<%	if(type.equals("myPage")) {%>
 		
+		<%}else{%>
 		function register_check(form){
 			if(form.username.value.length==0){
 				alert('아이디를 확인해 주세요');
@@ -99,9 +101,16 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 			    _d[_d.is(':hover')?'addClass':'removeClass']('show');
 			  },300);
 			});
+		<%}%>
 	</script>
 </head>
 <body>
+<%	if(type.equals("myPage")) {%>
+	<div>
+		<div>
+			<div class="col-lg-12">
+				<div class="">	
+<%}else{%>
 <!-- Navigation -->
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 			<div class="container">
@@ -202,6 +211,7 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 				
 				<div class="col-lg-9">
 				<div class="my-5">
+<%} %>
 				<h2>
 						<%if(type.equals("list")){%>
 								리뷰 게시판
@@ -478,9 +488,7 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 			%>
 			<table	class="table">
 						<tr>
-							<td>
-							</td>
-							<td colspan="4" class="" align="center">
+							<td colspan="5" class="" align="center">
 								<form action="qReviewsSearch.do?products_idx=<%=products_idx %>&type=<%=type%>"
 								method="post" name="searchform">
 									<select class="btn" name="searchCondition">
@@ -495,7 +503,7 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 										selected<%}%>>글내용</option>
 									</select>
 									<input type="text" class="" size="15" name="searchWord" required="required"/>
-									<input type="button" class="" value="검색" onclick="search()">
+									<input type="button" class="btn" value="검색" onclick="search()">
 								</form>
 							</td>
 							<td>
@@ -506,15 +514,18 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 							</td>
 							<%
 							if(type.equals("list") )
-							{	if(session.getAttribute("loggedInUserVO")!=null){
-							%>
+							{%>
 							<td align="right">
+								<%if(session.getAttribute("loggedInUserVO")!=null){
+							%>
 							<a href="./review/ReviewsWrite.jsp?page=<%=currentPage%>
 							&products_idx=<%=products_idx %>
 							&type=<%=type%>
-							&typeView=insert"> [글쓰기] </a>
+							&typeView=insert">
+							 <input type="button" class="btn" value="글쓰기"> </a>
 							<%} %>
-							<a href="index.do"> [메인으로] </a>
+							<a href="index.do"> 
+							<input type="button" class="btn" value="메인으로"> </a>
 							</td>
 							<%
 							}
@@ -522,7 +533,8 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 							{
 							%>
 							<td align="right">
-							<a href="./member/mypage.jsp">[마이페이지]</a>
+							<a href="./member/mypage.jsp">
+							<input type="button" class="btn" value="마이페이지"></a>
 							</td>
 							<%} %>
 						</tr>
@@ -535,8 +547,8 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 	</div>
 </div>
 
-
-
+<%	if(type.equals("myPage")) {%>
+<%}else{ %>
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">
 			<div class="container">
@@ -545,7 +557,7 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 			</div>
 			<!-- /.container -->
 		</footer>
-	
+<%} %>	
 		<!-- Bootstrap core JavaScript -->
 		<!--<script src="vendor/jquery/jquery.min.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->

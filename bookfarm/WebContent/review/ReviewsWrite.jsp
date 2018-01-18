@@ -29,34 +29,35 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 		currentPage		=	Integer.parseInt(request.getParameter("page"));
 		products_idx	=	reviewVO.getProducts_idx();
 	}
-	else if(typeView.equals("insert"))
+	else if(typeView.equals("insert")){
 			products_idx		=	Integer.parseInt(request.getParameter("products_idx"));
+	}
 
 %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="Online Bookstore Bookfarm">
 		<meta name="author" content="BookFarmer">
-		
-		
+
+<%	if(typeView.equals("insert")) {%>
+		<link href="../vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="../css/shop-homepage.css" rel="stylesheet">
+		<link href="../css/login.css" rel="stylesheet">
+<%	} else {%>
+		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="css/shop-homepage.css" rel="stylesheet">
+		<link href="css/login.css" rel="stylesheet">
+<%	}%>
+
 <title>
 <%	if(typeView.equals("view")) {%>				리뷰 보기
 <%	} else if(typeView.equals("modify")) {%>	리뷰 수정
 <%	} else {%>									리뷰 등록
 <%	}%>
 </title>
-
-		<!-- Bootstrap core CSS -->
-		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
-		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-	
-		<!-- Custom styles for this template -->
-		<link href="css/shop-homepage.css" rel="stylesheet">
-		<link href="css/login.css" rel="stylesheet">
-
 <script>
 	function returnList1(){
 		location.href="../qReviewsLists.do?page=<%=currentPage%>&type=<%=type%>&products_idx=<%=products_idx%>";
