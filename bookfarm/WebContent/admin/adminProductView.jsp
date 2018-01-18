@@ -2,19 +2,21 @@
 <%@page import="java.util.Vector"%>
 <%@page import="gq.bookfarm.vo.PageVO"%>
 <%@page import="gq.bookfarm.vo.ProductVO"%>
+<%@page import="gq.bookfarm.vo.CategoryVO"%>
 <%@page import="org.apache.log4j.Logger"%>
 
 <%! private final Logger log = Logger.getLogger(this.getClass()); %>
-<% 	 		
-	ProductVO		productVO		=		(ProductVO)request.getAttribute("productVO");	
-	String			current_page 	=		request.getParameter("page");
+<%
+	Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
+	ProductVO			productVO		= (ProductVO)request.getAttribute("productVO");
+	String				current_page	= request.getParameter("page");
 %>
 <!DOCTYPE html >
 <html>
 <head>
 <meta charset="UTF-8">
 <title>상품 보기</title>
-<script>	
+<script>
 	function delete_list(){
 		location.href="adminProductDelete.do?idx=<%=productVO.getIdx()%>&page=<%=current_page%>";
 	}
@@ -24,25 +26,29 @@
 		<table>
 			<caption>상품 보기</caption>
 			<tr>
-				<td class="td_left">번 호</td>					
+				<td class="td_left">번 호</td>
 				<td class="td_right">
-				<input type='text' name='idx' size="64" readonly value="<%=productVO.getIdx() %>">								
+				<input type='text' name='idx' size="64" readonly value="<%=productVO.getIdx() %>">
 				</td>
 			</tr>
 			<tr>
-				<td class="td_left">category_idx</td>					
+				<td class="td_left">카테고리</td>
 				<td class="td_right">
-				<input type='text' name='category_idx' size="64" value="<%=productVO.getCategory_idx() %>">						
+					<select name='category_idx'>
+<%	for(CategoryVO category: categories) {%>
+						<option value="<%=category.getIdx()%>" <%if(productVO.getCategory_idx() == category.getIdx()) out.print("selected");%>><%=category.getCategory_name()%></option>
+<%	} %>
+					</select>
 				</td>
 			</tr>
 			<tr>
-				<td class="td_left">product_name</td>					
+				<td class="td_left">상품명</td>
 				<td class="td_right">
-				<input type='text' name='product_name' size="64" value="<%=productVO.getProduct_name() %>">						
+				<input type='text' name='product_name' size="64" value="<%=productVO.getProduct_name() %>">
 				</td>
 			</tr>
 			<tr>
-				<td class="td_left">product_image</td>					
+				<td class="td_left">상품 이미지</td>
 				<td class="file_td">
 				<%
 				String fileName = productVO.getProduct_image();
@@ -57,19 +63,19 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="td_left">product_quantity</td>					
+				<td class="td_left">재고 수량</td>
 				<td class="td_right">
 					<input type='text' name='product_quantity' size="64" value="<%=productVO.getProduct_quantity() %>">
 				</td>
 			</tr>
 			<tr>
-				<td class="td_left">product_price</td>					
+				<td class="td_left">가격</td>
 				<td class="td_right">
 					<input type='text' name='product_price' size="64" value="<%=productVO.getProduct_price() %>">
 				</td>
 			</tr>
 			<tr>
-				<td class="td_left">product_desc</td>					
+				<td class="td_left">제품 설명</td>
 				<td class="td_right">
 					<textarea name='product_desc' cols='65' rows='15' ><%=productVO.getProduct_desc() %></textarea>
 				</td>

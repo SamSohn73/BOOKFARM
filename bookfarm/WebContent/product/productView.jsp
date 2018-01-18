@@ -197,7 +197,7 @@
 							<tr>
 								<td class="td_left">카테고리</td>
 								<td class="td_right">
-									<%=productVO.getCategory_idx()%>
+									<%=categories.get(categories.indexOf(new CategoryVO(productVO.getCategory_idx()))).getCategory_name()%>
 								</td>
 							</tr>
 							<tr>

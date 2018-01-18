@@ -255,7 +255,11 @@
 										<option value='product_quantity'		<%if(criteria.equals("product_quantity"))out.print("selected");%>>재고수량</option>
 										<option value='product_desc'			<%if(criteria.equals("product_desc"))	out.print("selected");%>>내용</option>
 									</select>
+<%	if (criteria.equals("category_idx")) {%>
+									<input type='text' name='searchWord' value="<%=categories.get(categories.indexOf(new CategoryVO(Integer.parseInt(searchWord)))).getCategory_name()%>">
+<%	} else { %>
 									<input type='text' name='searchWord' value="<%=searchWord%>">
+<%	}	%>
 									<input type='button' value='검색' onclick="search()">
 								</form>
 							</td>

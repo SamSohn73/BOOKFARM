@@ -9,7 +9,7 @@
 
 <%
 	PageVO				pageInfo	= (PageVO) request.getAttribute("pageInfo");
-	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
+	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
 	//request.setAttribute("categories", categories);
 	String criteria			= request.getParameter("criteria");
 	String searchWord		= request.getParameter("searchWord");

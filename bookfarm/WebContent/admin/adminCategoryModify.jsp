@@ -7,7 +7,7 @@
 
 <%
 	String				currentPage	= request.getParameter("page");
-	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) request.getAttribute("categories");
+	Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
 	CategoryVO			category	= (CategoryVO) request.getAttribute("category");
 %>
 
