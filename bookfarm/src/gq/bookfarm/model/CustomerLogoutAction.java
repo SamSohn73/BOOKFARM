@@ -31,7 +31,7 @@ public class CustomerLogoutAction implements Action
 		int				idx		=	vo.getIdx();
 		session					=	req.getSession(false);
 						
-		if(session.getAttribute("loggedInUserVO") != null) {			
+		if(session.getAttribute("loggedInUserVO") != null) {
 			CustomerDAO	dao		=	new	CustomerDAO();
 			dao.logout(idx);
 			session.invalidate();

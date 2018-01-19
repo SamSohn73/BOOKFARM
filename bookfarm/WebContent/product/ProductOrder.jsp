@@ -12,7 +12,7 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 	int				quantity		=	0;
 	Vector<BasketVO> VbVo			=	new Vector<BasketVO>();
 	Vector<ProductVO> VpVo			=	new Vector<ProductVO>();
-	String			type			=	"";
+	String			bchk			=	"p";
 
 	if(request.getAttribute("pVo")!=null && request.getAttribute("quantity")!=null) {
 					pVo				=	(ProductVO)request.getAttribute("pVo");
@@ -28,6 +28,7 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 	}else{
 					VbVo			=	(Vector<BasketVO>)session.getAttribute("baskets");
 					VpVo			=	(Vector<ProductVO>)request.getAttribute("VpVo");
+					bchk			=	"b";
 	}
 
 	if(session.getAttribute("loggedInUserVO")!=null){
@@ -191,7 +192,7 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 	}%>
 				</div>
 				<!-- /.col-lg-3 -->
-				<div class="my-5">
+				<div class="col-lg-9 my-5">
 					<form name="form1" method="post" action="./OrderFinish.do" target="_top">
 					<h3>구매자 정보</h3>
 					<table class="table">
@@ -262,10 +263,7 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 				<h4>합 계 : <%=total%></h4>
 				<%=VbVo.get(0).getProduct_idx() %>
 				<input type="hidden" name="total" value="<%=total %>">
-				<%
-				request.setAttribute("VpVo", VpVo);
-				request.setAttribute("VbVo", VbVo);
-				%>
+				<input type="hidden" name="bchk" value="<%=bchk %>">
 				<a href="./index.do"><input type='button' class="btn" value="처음으로"></a>
 				<input type='button' class="btn" value="구매하기" onClick="buy_submit()">
 				</div>

@@ -170,7 +170,7 @@ Vector<ProductVO> VpVo				=	(Vector<ProductVO>)request.getAttribute("VpVo");
 				<!-- /.col-lg-3 -->
 				
 				
-				<div class="my-5">
+				<div class="col-lg-9 my-5">
 					<h2 class="my-4">결제가 완료되었습니다</h2>
 					<p class="my-4">구매해 주셔서 감사합니다. 아래 내역을 확인해 주세요.</p>
 				<form class="my-5">

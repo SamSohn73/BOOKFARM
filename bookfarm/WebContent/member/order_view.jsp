@@ -230,8 +230,8 @@
 							</tr>
 				</table>
 				
+				<h3>구매 내역 확인</h3>
 				<table class="table">
-						<caption>구매 내역 확인</caption>
 						<%
 						int	oclIdx	=	0;
 						%>

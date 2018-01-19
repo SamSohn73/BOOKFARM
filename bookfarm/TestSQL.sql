@@ -25,3 +25,4 @@ select * from review where (products_idx=1 or products_idx=2) and (customers_idx
 select * from review;
 select * from orders;
 select max(idx) from orders;
+select * from orders_product;

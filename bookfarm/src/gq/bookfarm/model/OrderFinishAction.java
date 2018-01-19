@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
+import gq.bookfarm.dao.BasketDAO;
 import gq.bookfarm.dao.OrdersDAO;
 import gq.bookfarm.dao.OrdersProductDAO;
 import gq.bookfarm.dao.ProductDAO;
@@ -36,12 +37,13 @@ public class OrderFinishAction implements Action {
 		Vector<ProductVO> VpVo			=	(Vector<ProductVO>)session.getAttribute("VpVo");
 		Vector<OrdersProductVO> VopVo	=	new Vector<OrdersProductVO>();
 		ProductDAO		pDao			=	new ProductDAO();
+		BasketDAO		bDao			=	new BasketDAO();
 		Vector<ProductVO> VpVo1			=	new Vector<ProductVO>();
 		int				result			=	0;
 		int				result1			=	0;
 		int				order_idx		=	0;
 		
-		String			username		=	req.getParameter("username");
+		String			bchk			=	req.getParameter("bchk");
 		String			firstname		=	req.getParameter("firstname");
 		String			phone			=	req.getParameter("phone");
 		String			email			=	req.getParameter("email");
@@ -69,8 +71,6 @@ public class OrderFinishAction implements Action {
 		}
 		
 						order_idx		=	oDao.getMaxIdx();
-		System.out.println("구매직전 정한솔 idx확인 : "+order_idx);
-		System.out.println("구매직전 정한솔 확인 : "+VbVo.get(0).getProduct_idx());
 		
 		for(BasketVO bVo:VbVo) {
 						result1			=	opDao.ordersProductInsert(order_idx,
@@ -94,6 +94,13 @@ public class OrderFinishAction implements Action {
 											req.setAttribute("total", total);
 											req.setAttribute("add1", add1);
 											req.setAttribute("add2", add2);
+											
+											session.removeAttribute("VpVo");
+											session.removeAttribute("VbVo");
+			if(bchk.equals("b")) {
+											session.removeAttribute("baskets");
+											session.removeAttribute("products");
+			}
 		}else {
 											log.error("OrderFinishAction Error!!!!구매직전 에러->OrderDB에 삽입 안됨!!");
 						path			=	"error.jsp";
