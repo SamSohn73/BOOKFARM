@@ -77,8 +77,8 @@ CREATE TABLE orders (
 	delivery_phone1			varchar(64)		NOT NULL,
 	delivery_phone2			varchar(64),
 	delivery_phone3			varchar(64),
-	delivery_email1			varchar(64)		NOT NULL UNIQUE,
-	delivery_email2			varchar(64)		UNIQUE,
+	delivery_email1			varchar(64)		NOT NULL,
+	delivery_email2			varchar(64),
 	
 	billing_name			varchar(255)	NOT NULL,
 	billing_postcode		varchar(64)		NOT NULL,
@@ -87,8 +87,8 @@ CREATE TABLE orders (
 	billing_phone1			varchar(64)		NOT NULL,
 	billing_phone2			varchar(64),
 	billing_phone3			varchar(64),
-	billing_email1			varchar(64)		NOT NULL UNIQUE,
-	billing_email2			varchar(64)		UNIQUE,  
+	billing_email1			varchar(64)		NOT NULL,
+	billing_email2			varchar(64),
 	
 	payment_method			varchar(255)	NOT NULL,
 	final_price				decimal(15,4)	NOT NULL,
@@ -96,7 +96,7 @@ CREATE TABLE orders (
 	last_modified			date,
 	date_purchased			date,
 	orders_status			int(5)			NOT NULL,
-	orders_date_finished	date,
+	orders_date_finished	date
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 

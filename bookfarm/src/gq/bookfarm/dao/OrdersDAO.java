@@ -146,8 +146,8 @@ public class OrdersDAO
 								"delivery_phone2, delivery_phone3, delivery_email1, delivery_email2," + 
 								"billing_name, billing_postcode, billing_address1, " + 
 								"billing_address2, billing_phone1, billing_phone2, billing_phone3, " + 
-								"billing_email1, billing_email2, payment_method, final_price, last_modified, date_purchased) " + 
-								"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now())";
+								"billing_email1, billing_email2, payment_method, final_price, last_modified, date_purchased,orders_status,orders_date_finished) " + 
+								"values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,now(),now(),1,now())";
 			pstmt			= con.prepareStatement(sql);
 			
 			pstmt.setInt		(1,customers_idx);

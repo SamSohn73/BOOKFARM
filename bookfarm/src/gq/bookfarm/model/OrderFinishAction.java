@@ -12,8 +12,10 @@ import gq.bookfarm.action.Action;
 import gq.bookfarm.action.ActionForward;
 import gq.bookfarm.dao.OrdersDAO;
 import gq.bookfarm.dao.OrdersProductDAO;
+import gq.bookfarm.dao.ProductDAO;
 import gq.bookfarm.vo.BasketVO;
 import gq.bookfarm.vo.CustomerVO;
+import gq.bookfarm.vo.OrdersProductVO;
 import gq.bookfarm.vo.ProductVO;
 
 public class OrderFinishAction implements Action {
@@ -29,10 +31,15 @@ public class OrderFinishAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
-		Vector<BasketVO> VbVo			=	(Vector<BasketVO>)req.getAttribute("VbVo");
-		Vector<ProductVO> VpVo			=	(Vector<ProductVO>)req.getAttribute("VpVo");
+		HttpSession		session			=	req.getSession();
+		Vector<BasketVO> VbVo			=	(Vector<BasketVO>)session.getAttribute("VbVo");
+		Vector<ProductVO> VpVo			=	(Vector<ProductVO>)session.getAttribute("VpVo");
+		Vector<OrdersProductVO> VopVo	=	new Vector<OrdersProductVO>();
+		ProductDAO		pDao			=	new ProductDAO();
+		Vector<ProductVO> VpVo1			=	new Vector<ProductVO>();
 		int				result			=	0;
 		int				result1			=	0;
+		int				order_idx		=	0;
 		
 		String			username		=	req.getParameter("username");
 		String			firstname		=	req.getParameter("firstname");
@@ -46,7 +53,6 @@ public class OrderFinishAction implements Action {
 		OrdersDAO		oDao			=	new OrdersDAO();
 		OrdersProductDAO opDao			=	new OrdersProductDAO();
 		
-		HttpSession		session			=	req.getSession();
 		if(session.getAttribute("loggedInUserVO")!=null) {
 		CustomerVO		cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
 											
@@ -62,20 +68,32 @@ public class OrderFinishAction implements Action {
 											phone, "", "", email, "", "", total);
 		}
 		
-		
-		System.out.println("구매직전 정한솔 idx확인 : "+oDao.getMaxIdx());
+						order_idx		=	oDao.getMaxIdx();
+		System.out.println("구매직전 정한솔 idx확인 : "+order_idx);
+		System.out.println("구매직전 정한솔 확인 : "+VbVo.get(0).getProduct_idx());
 		
 		for(BasketVO bVo:VbVo) {
-						result1			=	opDao.ordersProductInsert(oDao.getMaxIdx(),
+						result1			=	opDao.ordersProductInsert(order_idx,
 											bVo.getProduct_idx(), bVo.getQuantity(), bVo.getFinal_price());
-			if(result1>0) {
+			if(result1<=0) {
 											log.error("OrderFinishAction Error!!!!구매직전 에러->OrderProductDB에 삽입 안됨!!");
 						path			=	"error.jsp";
 			}
 		}
-		
 		if(result>0) {
-			
+						VopVo			=	opDao.ordersProductGetRowsbyOrders(order_idx);
+						
+		
+			for(OrdersProductVO opVo: VopVo) {
+											VpVo1.add(pDao.productGetRow(opVo.getProducts_idx()));
+			}
+											req.setAttribute("VopVo", VopVo);
+											req.setAttribute("VpVo", VpVo1);
+											req.setAttribute("order_idx", order_idx);
+											req.setAttribute("firstname", firstname);
+											req.setAttribute("total", total);
+											req.setAttribute("add1", add1);
+											req.setAttribute("add2", add2);
 		}else {
 											log.error("OrderFinishAction Error!!!!구매직전 에러->OrderDB에 삽입 안됨!!");
 						path			=	"error.jsp";

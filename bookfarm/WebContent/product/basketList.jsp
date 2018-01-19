@@ -25,13 +25,11 @@
 	
 		<title>BOOKFARM Shopping Cart</title>
 	
-		<!-- Bootstrap core CSS -->
-		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+		
 		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-	
-		<!-- Custom styles for this template -->
 		<link href="css/shop-homepage.css" rel="stylesheet">
 		<link href="css/login.css" rel="stylesheet">
+		
 		<script>
 			// Get the modal
 			var modal = document.getElementById('modalLogin');

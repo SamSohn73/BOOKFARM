@@ -1,48 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="gq.bookfarm.vo.CategoryVO" %>
-<%@ page import="gq.bookfarm.vo.CustomerVO" %>
+<%@ page import="java.util.Vector" %>
+<%@ page import="gq.bookfarm.vo.OrdersProductVO" %>
 <%@ page import="gq.bookfarm.vo.ProductVO" %>
-<%@ page import="gq.bookfarm.vo.BasketVO"%>
-<%@ page import="java.util.Vector"%>
+<%@ page import="gq.bookfarm.vo.CustomerVO" %>
+<%@ page import="gq.bookfarm.vo.CategoryVO" %>
 <%
-Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categories");
+Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
+Vector<OrdersProductVO> VopVo		=	(Vector<OrdersProductVO>)request.getAttribute("VopVo");
+Vector<ProductVO> VpVo				=	(Vector<ProductVO>)request.getAttribute("VpVo");
 	CustomerVO		cVo				=	new CustomerVO();
-	ProductVO		pVo				=	new ProductVO();
-	int				quantity		=	0;
-	Vector<BasketVO> VbVo			=	new Vector<BasketVO>();
-	Vector<ProductVO> VpVo			=	new Vector<ProductVO>();
-	String			type			=	"";
 
-	if(request.getAttribute("pVo")!=null && request.getAttribute("quantity")!=null) {
-					pVo				=	(ProductVO)request.getAttribute("pVo");
-					quantity		=	(int)request.getAttribute("quantity");
-	float			final_price		=	pVo.getProduct_price()*quantity;
+	int				order_idx		=	(int)request.getAttribute("order_idx");
+	String			firstname		=	(String)request.getAttribute("firstname");
+	int				total			=	(int)request.getAttribute("total");
+	String			add1			=	(String)request.getAttribute("add1");
+	String			add2			=	(String)request.getAttribute("add2");
 	
-	BasketVO		bVo				=	new BasketVO();
-										bVo.setProduct_idx(pVo.getIdx());
-										bVo.setQuantity(quantity);
-										bVo.setFinal_price(final_price);
-										VbVo.add(bVo);
-										VpVo.add(pVo);
-	}else{
-					VbVo			=	(Vector<BasketVO>)session.getAttribute("baskets");
-					VpVo			=	(Vector<ProductVO>)request.getAttribute("VpVo");
-	}
+	if(session.getAttribute("loggedInUserVO")!=null)
+		cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
 
-	if(session.getAttribute("loggedInUserVO")!=null){
-					cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
-	}else{
-										cVo.setUsername("");
-										cVo.setFirstname("");
-										cVo.setPhone1("");
-										cVo.setEmail1("");
-										cVo.setAddress1("");
-										cVo.setAddress2("");
-	}
 
-										session.setAttribute("VpVo", VpVo);
-										session.setAttribute("VbVo", VbVo);
 %>
 <!DOCTYPE html>
 <html>
@@ -51,16 +29,15 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="Online Bookstore Bookfarm">
 		<meta name="author" content="BookFarmer">
+		
 <title>Insert title here</title>
 
 		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 		<link href="css/shop-homepage.css" rel="stylesheet">
 		<link href="css/login.css" rel="stylesheet">
 
+
 	<script>
-		function buy_submit(){
-			form1.submit();
-		}
 		//Get the modal
 		var modal = document.getElementById('modalLogin');
 		
@@ -191,88 +168,67 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 	}%>
 				</div>
 				<!-- /.col-lg-3 -->
+				
+				
 				<div class="my-5">
-					<form name="form1" method="post" action="./OrderFinish.do" target="_top">
-					<h3>구매자 정보</h3>
-					<table class="table">
-						<tr class="">
-							<td class="">이름</td>
-							<td class="">
-							<input type="text" name="firstname" placeholder="이름"value=<%=cVo.getFirstname()%>>
-							</td>
-						</tr>
-						<tr class="">
-							<td class="">휴대폰번호</td>
-							<td class="">
-							<input type="text" name="phone" placeholder="휴대폰번호"value=<%=cVo.getPhone1() %>>
-							</td>
-							<td class="">이메일</td>
-							<td class="">
-							<input type="text" name="email" placeholder="이메일"value=<%=cVo.getEmail1() %>>
-							</td>
-						</tr>
-						<tr class="">
-							<td class="">우편번호</td>
-							<td class="">
-							<input type="text" name="postcode" placeholder="postcode" value=<%=cVo.getPostcode() %>>
-							</td>
-						</tr>
-						<tr class="">
-							<td class="" rowspan="2">주소</td>
-							<td colspan="3" class="">
-							<input type="text" name="add1" placeholder="주소"value=<%=cVo.getAddress1() %>>
-							</td>
-						</tr>
-						<tr class="">
-							<td colspan="3" class="">
-							<input type="text" name="add2" placeholder="상세 주소"value=<%=cVo.getAddress2() %>>
-							</td>
-						</tr>
-					</table>
-			
-				<!-- /.col-lg-3 -->
-				<div class="col-lg-9 my-5">
-				<h2 class="my-2">장바구니 목록</h2>
-					<table class="table">
-						<tr>
-							<th>삭제</th>
-							<th>상품명</th>
-							<th>이미지</th>
-							<th>수량</th>
-							<th>가격</th>
-						</tr>
-			<%int total = 0;
-			  int num	= 0;
-				if (VbVo != null && VpVo != null) {
-					for(BasketVO basket: VbVo) {%>
-								<tr>
-									<td>
-										<a href="basketDelete.do?idx=<%=basket.getIdx()%>"><input type='button' class="btn" value="삭제"></a>
-									</td>
-									<td><a href = "productView.do?idx=<%=basket.getProduct_idx()%>"><%=VpVo.get(num).getProduct_name()%></a></td>
-									<td><a href = "productView.do?idx=<%=basket.getProduct_idx()%>"><img class="card-img-top" src="<%=VpVo.get(num).getProduct_image()%> " alt="350x200"></a></td>
-									<td><%=basket.getQuantity()%></td>
-									<td><%=basket.getFinal_price()%></td>
-								</tr>
-							<%total += basket.getFinal_price();
-							  num++;
-					}
-				}%>
+					<h2 class="my-4">결제가 완료되었습니다</h2>
+					<p class="my-4">구매해 주셔서 감사합니다. 아래 내역을 확인해 주세요.</p>
+				<form class="my-5">
+				<table class="table">
+					<tr>
+						<th >구매자이름</th>
+						<th >송장번호</th>
+					</tr>
+					<tr>
+						<td><%=firstname %></td>
+						<td><%=order_idx %></td>
+					</tr>
+					<tr>
+						<td colspan="2">주소</td>
+					</tr>
+					<tr>
+						<td><%=add1 %></td>
+						<td><%=add2 %></td>
+					</tr>
 				</table>
-				<h4>합 계 : <%=total%></h4>
-				<%=VbVo.get(0).getProduct_idx() %>
-				<input type="hidden" name="total" value="<%=total %>">
-				<%
-				request.setAttribute("VpVo", VpVo);
-				request.setAttribute("VbVo", VbVo);
-				%>
-				<a href="./index.do"><input type='button' class="btn" value="처음으로"></a>
-				<input type='button' class="btn" value="구매하기" onClick="buy_submit()">
-				</div>
+				</form>
+				
+				
+				
+				<form class="my-5">
+				<table class="table">
+					<tr>
+						<th>상품명</th>
+						<th>갯수</th>
+						<th>판매가</th>
+						<th>합계가격</th>
+					</tr>
+					<%int num=0;
+					for(OrdersProductVO opVo :VopVo){
+						if(opVo.getProducts_idx()==VpVo.get(num).getIdx()){%>
+					<tr>
+						<td><%=VpVo.get(num).getProduct_name() %></td>
+						<td><%=opVo.getProducts_quantity() %></td>
+						<td><%=VpVo.get(num).getProduct_price() %></td>
+						<td><%=opVo.getFinal_price() %></td>
+					</tr>
+					<%num++;}
+					} %>
+					<tr>
+						<td colspan="2" align="left">총결제금액</td>
+						<td colspan="2" align="right"><%=total %></td>
+					</tr>
+					<tr>
+						<td colspan="4" align="right">
+						<a href="index.do"><input type="button" class="btn" value="확인"></a>
+						</td>
+					</tr>
+				</table>
 				</form>
 			</div>
 		</div>
 	</div>
+
 
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">

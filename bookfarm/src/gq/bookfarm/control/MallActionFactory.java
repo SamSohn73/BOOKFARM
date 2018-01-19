@@ -379,7 +379,7 @@ public class MallActionFactory
 		}
 		if (cmd.equals("/OrderFinish.do")) {
 			log.debug("OrderFinish.do action create Start.");
-			action = new OrderFinishAction("index.do");
+			action = new OrderFinishAction("./orderFinished.jsp");
 			log.debug("OrderFinish.do action create End.");
 		}
 		
