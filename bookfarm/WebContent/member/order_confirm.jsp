@@ -216,8 +216,8 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 				<th >주문금액</th>
 				<th >날짜</th>
 			</tr>
-			<%for(OrdersVO vo:list){
-				int	csCount	=	0;
+			<%int	csCount	=	0;
+			for(OrdersVO vo:list){
 			%>
 				<tr class="클래스_tr_top1">
 					<td class="클래스_td_align1">

@@ -22,6 +22,7 @@
 	Vector<OrdersProductVO>	opList	=	(Vector<OrdersProductVO>)request.getAttribute("opList");
 	Vector<String>			nameList=	(Vector<String>)request.getAttribute("nameList");
 	PageVO					info	=	(PageVO)request.getAttribute("info");
+	int						idx		=	Integer.parseInt(request.getParameter("idx"));
 	
 	int					total_page	=	info.getTotalPages();
 	int					current_page=	info.getPage();
@@ -195,7 +196,6 @@
 							</tr>
 						</table>
 						<table class="table">
-							<caption>구매 내역 확인</caption>
 							<tr class="">
 								<th >주문번호</th>
 								<th >상품정보</th>
@@ -241,7 +241,8 @@
 								<th	>상품갯수</th>
 								<th >주문금액</th>
 							</tr>
-							<%for(OrdersProductVO opVo:opList){int nCount=0;%>
+							<%int nCount=0;
+							for(OrdersProductVO opVo:opList){%>
 							<tr class="">
 									<td class="">
 									<%if(oclIdx != opVo.getIdx()){ %>
@@ -260,7 +261,8 @@
 						<%
 							if(current_page<=1){
 							}else{
-								out.print("<a href=./qOrdersConfirm.do?type="+type+"&page="+(current_page-1)+">");
+								out.print("<a href=./qOrderView.do?type=singleList&page="+(current_page-1));
+								out.print("&idx="+idx+"&cs="+cs+">");
 								out.print(" [이전] </a>");
 							}
 						
@@ -268,13 +270,15 @@
 								if(i==current_page){
 									out.print(" "+i+" ");
 								}else{
-									out.print(" <a href=qOrdersConfirm.do?type="+type+"&page="+i+"> "+i+" </a> ");
+									out.print(" <a href=./qOrderView.do?type=singleList&page="+i+"&idx="+idx+"&cs="+cs);
+									out.print("> "+i+" </a> ");
 								}
 							}
 							
 							if(current_page>=total_page){
 							}else{
-								out.print("<a href=qOrdersConfirm.do?type="+type+"&page="+(current_page+1)+">");
+								out.print("<a href=./qOrderView.do?type=singleList&page="+(current_page+1));
+								out.print("&idx="+idx+"&cs="+cs+">");
 								out.print(" [다음] </a>");
 							}%>
 					</td>

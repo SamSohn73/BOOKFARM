@@ -89,6 +89,10 @@ public class OrdersConfirmAction implements Action
 			int						limit	=	10;
 
 			OrdersVO				oList	=	dao.ordersGetRow(idx);
+			System.out.println("역기 ㅎ확인 : "+idx);
+			System.out.println("역기 ㅎ확인 : "+oList.getIdx());
+			System.out.println("역기 ㅎ확인 : "+page);
+			System.out.println("역기 ㅎ확인 : "+limit);
 			Vector<OrdersProductVO>	opList	=	opDao.ordersProductGetRowsbyOrders(oList.getIdx(),page,limit);
 				
 			int					totalRows	=	opDao.SingleOrderTotalRows(oList.getIdx());
@@ -118,7 +122,7 @@ public class OrdersConfirmAction implements Action
 				req.setAttribute("opList", opList);
 				req.setAttribute("info", info);
 				req.setAttribute("nameList", nameList);
-				path	+=	"?type="+type;
+				path	+=	"?type="+type+"&idx="+idx;
 			} else { 
 				log.error("OrdersConfirmAction - 'singleList' error");
 				//path="";

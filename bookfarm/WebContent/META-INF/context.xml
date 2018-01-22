@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<Resource name="jdbc/MySQL" auth="Container" type="javax.sql.DataSource"
+			<Resource name="jdbc/MySQL" auth="Container" type="javax.sql.DataSource"
 			maxTotal="100" maxIdle="30" maxWaitMillis="10000"
 			username="root" password="B2bAEB3Bybf" driverClassName="com.mysql.jdbc.Driver"
-			url="jdbc:mysql://bookfarm.gq:3306/bookfarm"/>
+			url="jdbc:mysql://bookfarm.gq:3306/bookfarm"/> 
+			
+		<!-- 이건 웹에서 DB받지 않을 때 사용
+		
+		 <Resource name="jdbc/MySQL" auth="Container" type="javax.sql.DataSource"
+			maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+			username="root" password="12345" driverClassName="com.mysql.jdbc.Driver"
+			url="jdbc:mysql://localhost:3306/bookfarm"/> -->
 </Context>

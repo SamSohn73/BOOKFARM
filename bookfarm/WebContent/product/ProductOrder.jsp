@@ -38,6 +38,7 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 										cVo.setFirstname("");
 										cVo.setPhone1("");
 										cVo.setEmail1("");
+										cVo.setPostcode("");
 										cVo.setAddress1("");
 										cVo.setAddress2("");
 	}
@@ -114,7 +115,7 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 						<li class="nav-item">
 							<a class="nav-link" href="./contact.jsp">Contact</a>
 						</li>
-<%	if (cVo == null) {	%>
+<%	if (session.getAttribute("loggedInUserVO")==null) {	%>
 						<li class="nav-item">
 							<a class="nav-link" href="#" onclick="document.getElementById('modalLogin').style.display='block'">Login</a>
 						</li>

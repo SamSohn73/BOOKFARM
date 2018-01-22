@@ -36,6 +36,7 @@ public class OrderFinishAction implements Action {
 		Vector<BasketVO> VbVo			=	(Vector<BasketVO>)session.getAttribute("VbVo");
 		Vector<ProductVO> VpVo			=	(Vector<ProductVO>)session.getAttribute("VpVo");
 		Vector<OrdersProductVO> VopVo	=	new Vector<OrdersProductVO>();
+		CustomerVO		cVo				=	new CustomerVO();
 		ProductDAO		pDao			=	new ProductDAO();
 		BasketDAO		bDao			=	new BasketDAO();
 		Vector<ProductVO> VpVo1			=	new Vector<ProductVO>();
@@ -56,7 +57,7 @@ public class OrderFinishAction implements Action {
 		OrdersProductDAO opDao			=	new OrdersProductDAO();
 		
 		if(session.getAttribute("loggedInUserVO")!=null) {
-		CustomerVO		cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
+						cVo				=	(CustomerVO)session.getAttribute("loggedInUserVO");
 											
 						result			=	oDao.ordersInsert(cVo.getIdx(), cVo.getFirstname(),
 											cVo.getPostcode(), cVo.getAddress1(), cVo.getAddress2(),
@@ -97,7 +98,8 @@ public class OrderFinishAction implements Action {
 											
 											session.removeAttribute("VpVo");
 											session.removeAttribute("VbVo");
-			if(bchk.equals("b")) {
+			if(bchk.equals("b") && session.getAttribute("loggedInUserVO")!=null) {
+											bDao.basketDeleteByCustomer_idx(cVo.getIdx());
 											session.removeAttribute("baskets");
 											session.removeAttribute("products");
 			}
