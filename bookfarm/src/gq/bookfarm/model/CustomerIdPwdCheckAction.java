@@ -55,6 +55,8 @@ public class CustomerIdPwdCheckAction implements Action
 			customerVO	=	dao.pwdCheck(username, password);
 			if(customerVO != null) {
 				session	.setAttribute("loggedInUserVO", customerVO);
+				session	.setMaxInactiveInterval(60*30);
+				
 				result	= dao.login(customerVO.getIdx());
 				/*QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ Start*/
 				log.debug("CustomerIdPwdCheckAction basket management start.");

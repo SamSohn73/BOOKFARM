@@ -39,7 +39,10 @@ public class IndexAction implements Action
 		ProductDAO		pdtDAO		= new ProductDAO();
 		
 		Vector<CategoryVO>	categories	= catDAO.categoryList();
-		if (categories != null)			session.setAttribute("categories", categories);
+		if (categories != null) {
+			session.setAttribute("categories", categories);
+			session.setMaxInactiveInterval(60*30);
+		}
 		// if result failed change path here
 		else {
 			log.error("IndexAction execute categories Vector value null");

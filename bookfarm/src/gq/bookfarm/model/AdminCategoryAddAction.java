@@ -32,6 +32,7 @@ public class AdminCategoryAddAction implements Action
 	{
 		log.debug("AdminCategoryAddAction execute Start.");
 
+		
 		HttpSession	session		= req.getSession();
 		AdminVO		adminVO		= (AdminVO) session.getAttribute("adminVO");
 		AdminDAO	adminDAO	= new AdminDAO();

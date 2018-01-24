@@ -82,6 +82,7 @@ public class BasketAddAction implements Action
 		if (customerVO == null || (customerVO != null && result > 0)) {
 			baskets.add(basketVO);			session.setAttribute("baskets", baskets);
 			products.add(productVO);		session.setAttribute("products", products);
+			session.setMaxInactiveInterval(60*30);
 		} else {
 			log.error("BasketAddAction execute Failed!!!!!!!!!!!!!!!!!!!!");
 			path="error.html";
