@@ -12,14 +12,15 @@
 Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("categories");
 		Vector<ReviewVO> list	=	(Vector<ReviewVO>)request.getAttribute("list");
 		Vector<String>nameList	=	(Vector<String>)request.getAttribute("nameList");
-		int		totalPages		= 1;
-		int		currentPage		= 1;
-		int		startPage		= 1;
-		int		endPage			= 1;
-		int		totalRows		= 1;		
+		PageVO	info			=	new PageVO();
+		int		totalPages		=	1;
+		int		currentPage		=	1;
+		int		startPage		=	1;
+		int		endPage			=	1;
+		int		totalRows		=	1;		
 		
 		if(request.getAttribute("info")!=null){
-		PageVO	info			=	(PageVO)request.getAttribute("info");
+				info			=	(PageVO)request.getAttribute("info");
 				totalPages		=	info.getTotalPages();
 				currentPage		=	info.getPage();
 				startPage		=	info.getStartPage();
@@ -275,7 +276,7 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 			<tr>
 				<td colspan="5" class="hr" align="center">
 					<%
-					if(type.equals("list"))
+					if(type.equals("list") && info.getTotalRows()>9)
 					{
 						if(searchWord == null)
 						{
@@ -368,7 +369,7 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 							}
 						}
 					}
-					else if(type.equals("myList"))
+					else if(type.equals("myList") && info.getTotalRows()>9)
 					{
 						if(searchWord == null)
 						{
@@ -466,15 +467,12 @@ Vector<CategoryVO>	categories		= (Vector<CategoryVO>) session.getAttribute("cate
 									out.print(" [다음] </a>");
 							}
 						}
-					}
-					else
-					{
+					}else if(type.equals("myPage")){
 						%>
 						<a href="qReviewsLists.do?customers_idx=<%=customers_idx %>&type=myList" target="_top">
 						<input type="button" class="btn" value="더보기"></a>
 						<%
-					}
-					
+					}else{}
 					%>
 				</td>
 			</tr>

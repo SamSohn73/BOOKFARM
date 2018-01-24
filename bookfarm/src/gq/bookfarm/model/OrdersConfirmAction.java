@@ -83,27 +83,26 @@ public class OrdersConfirmAction implements Action
 		}
 		else if(type.equals("singleList"))
 		{
+			int						nPage	=	1;
 			if(req.getParameter("page")!=null)
 				page		=	Integer.parseInt(req.getParameter("page"));
+			if(req.getParameter("nPage")!=null)
+				nPage		=	Integer.parseInt(req.getParameter("nPage"));
 			PageVO					info	=	new PageVO();
 			int						limit	=	10;
-
+			
 			OrdersVO				oList	=	dao.ordersGetRow(idx);
-			System.out.println("역기 ㅎ확인 : "+idx);
-			System.out.println("역기 ㅎ확인 : "+oList.getIdx());
-			System.out.println("역기 ㅎ확인 : "+page);
-			System.out.println("역기 ㅎ확인 : "+limit);
-			Vector<OrdersProductVO>	opList	=	opDao.ordersProductGetRowsbyOrders(oList.getIdx(),page,limit);
-				
+			Vector<OrdersProductVO>	opList	=	opDao.ordersProductGetRowsbyOrders(oList.getIdx(),nPage,limit);
+			
 			int					totalRows	=	opDao.SingleOrderTotalRows(oList.getIdx());
 			int					totalPages	=	(int)((double)totalRows/limit+0.95);
-			int					startPage	=	((int)((double)page/10+0.9)-1)*10+1;
+			int					startPage	=	((int)((double)nPage/10+0.9)-1)*10+1;
 			int					endPage		=	startPage+10-1;
 	
 			if(endPage>totalPages)
 				endPage		=	totalPages;
 			
-			info.setPage(page);
+			info.setPage(nPage);
 			info.setTotalPages(totalPages);
 			info.setTotalRows(totalRows);
 			info.setStartPage(startPage);

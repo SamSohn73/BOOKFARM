@@ -77,7 +77,7 @@ public class OrderFinishAction implements Action {
 						result1			=	opDao.ordersProductInsert(order_idx,
 											bVo.getProduct_idx(), bVo.getQuantity(), bVo.getFinal_price());
 			if(result1<=0) {
-											log.error("OrderFinishAction Error!!!!구매직전 에러->OrderProductDB에 삽입 안됨!!");
+											log.error("OrderFinishAction Error!!!!援щℓ吏곸쟾 �뿉�윭->OrderProductDB�뿉 �궫�엯 �븞�맖!!");
 						path			=	"error.jsp";
 			}
 		}
@@ -98,13 +98,16 @@ public class OrderFinishAction implements Action {
 											
 											session.removeAttribute("VpVo");
 											session.removeAttribute("VbVo");
-			if(bchk.equals("b") && session.getAttribute("loggedInUserVO")!=null) {
-											bDao.basketDeleteByCustomer_idx(cVo.getIdx());
+											
+			if(bchk.equals("b")) {
 											session.removeAttribute("baskets");
 											session.removeAttribute("products");
+											
+				if(session.getAttribute("loggedInUserVO")!=null)
+											bDao.basketDeleteByCustomer_idx(cVo.getIdx());
 			}
 		}else {
-											log.error("OrderFinishAction Error!!!!구매직전 에러->OrderDB에 삽입 안됨!!");
+											log.error("OrderFinishAction Error!!!!援щℓ吏곸쟾 �뿉�윭->OrderDB�뿉 �궫�엯 �븞�맖!!");
 						path			=	"error.jsp";
 		}
 		

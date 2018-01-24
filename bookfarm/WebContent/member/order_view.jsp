@@ -254,33 +254,34 @@
 									<%=nameList.get(nCount) %></a></td>
 									<td><%=opVo.getProducts_quantity() %></td>
 									<td><%=opVo.getFinal_price() %></td>
-								</tr>
+							</tr>
 							<%nCount++;}%>
 				<tr>
-					<td colspan="4">
-						<%
+					<td colspan="4" align="center">
+						<%if(info.getTotalRows()>9){
 							if(current_page<=1){
 							}else{
-								out.print("<a href=./qOrderView.do?type=singleList&page="+(current_page-1));
+								out.print("<a href=./qOrderView.do?type=singleList&page="+Page+"&nPage="+(current_page-1));
 								out.print("&idx="+idx+"&cs="+cs+">");
 								out.print(" [이전] </a>");
 							}
 						
 							for(int i=startPage;i<=endPage;i++){
 								if(i==current_page){
-									out.print(" "+i+" ");
+									out.print(" ["+i+"] ");
 								}else{
-									out.print(" <a href=./qOrderView.do?type=singleList&page="+i+"&idx="+idx+"&cs="+cs);
+									out.print(" <a href=./qOrderView.do?type=singleList&page="+Page+"&nPage="+i+"&idx="+idx+"&cs="+cs);
 									out.print("> "+i+" </a> ");
 								}
 							}
 							
 							if(current_page>=total_page){
 							}else{
-								out.print("<a href=./qOrderView.do?type=singleList&page="+(current_page+1));
+								out.print("<a href=./qOrderView.do?type=singleList&page="+Page+"&nPage="+(current_page+1));
 								out.print("&idx="+idx+"&cs="+cs+">");
 								out.print(" [다음] </a>");
-							}%>
+							}
+						}%>
 					</td>
 				</tr>
 				</table>
@@ -289,6 +290,8 @@
 								<td align="right">
 								<a href="./member/mypage.jsp">
 								<input type="button" class="btn" value="마이페이지"></a>
+								<a href="./qOrdersConfirm.do?type=myList&page=<%=Page %>">
+								<input type="button" class="btn" value="구매 내역 리스트"></a>
 								</td>
 							</tr>
 				</table>
