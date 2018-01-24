@@ -61,15 +61,14 @@ public class CategoryVO
 	@Override
 	public boolean equals(Object obj)
 	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if (this == obj)					return true;
+		
+		if (obj == null)					return false;
+		if (getClass() != obj.getClass())	return false;
+		
 		CategoryVO other = (CategoryVO) obj;
-		if (idx != other.idx)
-			return false;
+		if (idx != other.idx)				return false;
+		
 		return true;
 	}
 	
