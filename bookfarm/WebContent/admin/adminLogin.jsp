@@ -16,14 +16,21 @@
 	
 		<title>BOOKFARM online bookstore</title>
 	
-		<!-- Bootstrap core CSS -->
-		<!--<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">-->
+		
 		<link href="../vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
-	
-		<!-- Custom styles for this template -->
 		<link href="../css/shop-homepage.css" rel="stylesheet">
 
 		<script>
+			// Get the modal
+			var modal = document.getElementById('modalLogin');
+			
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+			
 			function register_check(form){
 				if(form.username.value.length==0){
 					alert('아이디를 확인해 주세요');
@@ -55,20 +62,37 @@
 	</head>
 	
 	<body>
+
+	
+	
 <%if(adminVO == null) {%>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+			<div class="container">
+				<a class="navbar-brand" href="../index.do">Bookfarm - Admin Page</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</nav>
+
 		<form method="post" action="../adminLogin.do">
-			<table>
+		<div class="container"  align="center">
+			<div class="col-lg-3 my-4">
+			<table class="table">
 				<tr>
-					<td><input type="text"  name="user_name" placeholder="아이디" required></td>
+					<td><input type="text" name="user_name" placeholder="아이디" required></td>
 		
-					<td><input type="password"  name="user_pass" placeholder="비밀번호" required></td>
+					<td><input type="password" name="user_pass" placeholder="비밀번호" required></td>
 				</tr>
 				<tr>
 					<td rowspan="2">
-						<button type="button" onclick="check(this.form);">로그인</button>
+						<button type="button" class="btn" onclick="check(this.form);">로그인</button>
 					</td>
 				</tr>
-			</table>	
+			</table>
+			</div>
+		</div>	
 		</form>
 <%}else{%>
 		<!-- Navigation -->
@@ -132,6 +156,8 @@
 		</div>
 		<!-- /.container -->
 	
+
+<%}%>
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">
 			<div class="container">
@@ -144,12 +170,7 @@
 		<!-- Bootstrap core JavaScript -->
 		<!--<script src="vendor/jquery/jquery.min.js"></script>
 		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>-->
-		<script src="../vendor/jquery/jquery.js"></script>
-		<script src="../vendor/bootstrap/js/bootstrap.bundle.js"></script>
-		
-		<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script> -->
-<%}%>
+		<script src="vendor/jquery/jquery.js"></script>
+		<script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
 	</body>
 </html>

@@ -102,18 +102,16 @@
 	
 			<div class="row">
 	
-				<div class="col-lg-3">
-		
+				<div class="col-lg-3">		
 					<h1 class="my-4">책팜</h1>
-
 				</div>
 				<!-- /.col-lg-3 -->
 		
 		
-				<div class="col-lg-9">
-					<table>
-						<caption>회원 목록</caption>
-						<tr>
+				<div class="col-lg-9" align="center">
+					<h2 class="my-4" align="left">회원 목록</h2>
+					<table class="table">						
+						<tr class="text-justify">
 							<th>수정/삭제</th>
 							<th>No.</th>
 							<th>아이디</th>
@@ -122,21 +120,26 @@
 							<th>주소1</th>
 							<th>주소2</th>
 							<th>전화번호 1</th>
-							<th>전화번호 2</th>
-							<th>전화번호 3</th>
+						</tr>
+						<tr class="text-justify">
+							<th colspan="2"></th>
 							<th>이메일 1</th>
-							<th>이메일 2</th>
 							<th>성별</th>
 							<th>생일</th>
-							<th>등급</th>
-							<th>마지막 로그인</th>
-							<th>로그인 카운트</th>
+							<th>마지막<br> 로그인</th>
+							<th>로그인<br> 카운트</th>
 							<th>계정 생성일</th>
 						</tr>
+						<tr><th colspan="9"></th></tr>
 <%	
 	int idNum = totalRows - (currentPage-1)*10;
-	for(CustomerVO customer: customers) {	%>
-						<tr>
+	int count = 1;
+	for(CustomerVO customer: customers) {
+			if(count%2 != 0){%>
+						<tr class="table-secondary">
+						<%}else{ %>
+						<tr class="bg-light">
+						<%} %>
 							<td>
 								<a href="adminCustomerModifyView.do?idx=<%=customer.getIdx() %>&page=<%=currentPage %>">
 									<input type='button' value="수정">
@@ -147,26 +150,28 @@
 							</td>
 							<td><%=idNum%></td>
 							<td><%tmpValue = customer.getUsername()		!= null ?	customer.getUsername():"";%><%=tmpValue%></td>
-						<!--<td><%=customer.getLastname()%></td>  -->
 							<td><%tmpValue = customer.getFirstname()	!= null ?	customer.getFirstname():"";%>	<%=tmpValue%></td>
 							<td><%tmpValue = customer.getPostcode()		!= null ?	customer.getPostcode():"";%>	<%=tmpValue%></td>
 							<td><%tmpValue = customer.getAddress1()		!= null ?	customer.getAddress1():"";%>	<%=tmpValue%></td>
 							<td><%tmpValue = customer.getAddress2()		!= null ?	customer.getAddress2():"";%>	<%=tmpValue%></td>
 							<td><%tmpValue = customer.getPhone1()		!= null ?	customer.getPhone1():"";%>		<%=tmpValue%></td>
-							<td><%tmpValue = customer.getPhone2()		!= null ?	customer.getPhone2():"";%>		<%=tmpValue%></td>
-							<td><%tmpValue = customer.getPhone3()		!= null ?	customer.getPhone3():"";%>		<%=tmpValue%></td>
+						</tr>
+			<%if(count%2 != 0){%>
+						<tr class="table-secondary">
+						<%}else{ %>
+						<tr class="bg-light">
+						<%} %>
+							<td colspan="2"></td>
 							<td><%tmpValue = customer.getEmail1()		!= null ?	customer.getEmail1():"";%>		<%=tmpValue%></td>
-							<td><%tmpValue = customer.getEmail2()		!= null ?	customer.getEmail2():"";%>		<%=tmpValue%></td>
 							<td><%tmpValue = customer.getGender()		!= null ?	customer.getGender() != "m" ? "남성":"여성":"";%><%=tmpValue%></td>
 							<td><%tmpValue = customer.getBirthday()		!= null ?	df.format(customer.getBirthday()):"";%><%=tmpValue%></td>
-							<td><%=customer.getGrade()%></td>
 							<td><%tmpValue = customer.getLast_login()	!= null ?	df.format(customer.getLast_login()):"";%><%=tmpValue%></td>	
 							<td><%=customer.getLogin_cnt()%></td>
 							<td><%tmpValue = customer.getAccount_created()!= null ?	df.format(customer.getAccount_created()):"";%><%=tmpValue%></td>
 						</tr>
-<%		idNum--;	
+<%		idNum--; count++;	
 	} %>
-						<tr>
+						<tr align="center">
 						<td colspan = "17">
 							<%//[prev] display
 								if (currentPage > 1) {
@@ -194,8 +199,8 @@
 					</tr>
 					</table>
 					
-					<table>
-						<tr>
+					<table class="table">
+						<tr align="center">
 							<td class="td_align">
 								<form action='adminCustomerSearch.do' method='post' name='searchform'>
 									<select name='criteria'>
@@ -208,7 +213,7 @@
 										<option value='grade'		<%if(criteria.equals("grade"))		out.print("selected");%>>등급</option>
 									</select>
 									<input type='text' name='searchWord' value="<%=searchWord%>">
-									<input type='button' value='검색' onclick="search()">
+									<input type='button' class="btn" value='검색' onclick="search()">
 								</form>
 							</td>
 							<!--  <td align='right'><a href="admin/admin_add.jsp?page=<%=currentPage%>">[사용자 추가]</a></td>  -->

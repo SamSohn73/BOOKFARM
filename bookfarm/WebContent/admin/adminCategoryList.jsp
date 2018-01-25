@@ -107,9 +107,9 @@
 		
 		
 				<div class="col-lg-9">
-					<table>
-						<caption>카테고리 목록</caption>
-						<tr>
+					<h2 class="my-4">카테고리 목록</h2>
+					<table class="table">						
+						<tr class="text-justify, table-secondary">
 							<th>수정/삭제</th>
 							<th>No.</th>
 							<th>상위 카테고리</th>
@@ -139,7 +139,7 @@
 						</tr>
 				<%		idNum--;
 					} %>
-						<tr>
+						<tr align="center">
 						<td colspan = "17">
 							<%//[prev] display
 								if (currentPage > 1) {
@@ -166,9 +166,13 @@
 						</td>
 					</tr>
 					</table>
-					<table>
-						<tr>
-							<td class="td_align">
+					<table class="table">
+						<tr align="right">
+							<td align='right'><a href="adminCategoryAddView.do?page=<%=currentPage%>">
+							<input type='button' class="btn" value='카테고리 추가'></a></td>
+						</tr>
+						<tr align="center">
+							<td class="td_align" align="center">
 								<form action='adminCategorySearch.do' method='post' name='searchform'>
 									<select name='criteria'>
 										<option value='idx'				<%if(criteria.equals("idx"))			out.print("selected");%>>인덱스</option>
@@ -176,10 +180,9 @@
 										<option value='category_name'	<%if(criteria.equals("category_name"))	out.print("selected");%>>카테고리명</option>
 									</select>
 									<input type='text' name='searchWord' value="<%=searchWord%>">
-									<input type='button' value='검색' onclick="search()">						
+									<input type='button' class="btn" value='검색' onclick="search()">						
 								</form>
-							</td>
-							<td align='right'><a href="adminCategoryAddView.do?page=<%=currentPage%>">[카테고리 추가]</a></td>
+							</td>							
 						</tr>	
 					</table>
 				</div>

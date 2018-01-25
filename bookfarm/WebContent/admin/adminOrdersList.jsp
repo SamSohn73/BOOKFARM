@@ -106,75 +106,81 @@
 		
 		
 				<div class="col-lg-9">
-					<table>
-						<caption>주문 목록</caption>
-						<tr>
-							<th>No.</th>
-							<th>주문자</th>
-							<th>수신인</th>
-							<th>우편번호</th>
-							<th>주소1</th>
-							<th>주소2</th>
-							<th>전화번호 1</th>
-							<th>전화번호 2</th>
-							<th>전화번호 3</th>
-							<th>이메일 1</th>
-							<th>이메일 2</th>
-							<th>결재자</th>
-							<th>수신인</th>
-							<th>우편번호</th>
-							<th>주소1</th>
-							<th>주소2</th>
-							<th>전화번호 1</th>
-							<th>전화번호 2</th>
-							<th>전화번호 3</th>
-							<th>이메일 1</th>
-							<th>이메일 2</th>
-							<th>결재방법</th>
-							<th>결재가격</th>
-							<th>최종수정일</th>
-							<th>구매일</th>
-							<th>주문상태</th>
-							<th>주문환료일</th>
-						</tr>
+					<h2 class="my-4">주문 목록</h2>
+					<table class="table">
 <%
 	int idNum = totalRows - (currentPage-1)*10;
-	for(OrdersVO order: orders) {	%>
+	for(OrdersVO order: orders) {%>
+						<tr align="left">
+							<td class="table-secondary">No.</td>
+							<td class="bg-light" colspan="5"><%=idNum%></td>
+						</tr>
+						<tr align="left">
 						<tr>
-							<td>
-								<a href="adminOrdersProductList.do?idx=<%=order.getIdx()%>&page=<%=currentPage%>">
-									<%=idNum%>
-								</a>
+							<td class="table-secondary">주문자 idx</td>
+							<td class="bg-light" colspan="2"><%=order.getCustomers_idx()%></a>
 							</td>
-							<td>
-								<a href="adminCustomerModifyView.do?idx=<%=order.getCustomers_idx()%>&page=<%=currentPage%>">
-									<%=order.getCustomers_idx()%>
-								</a>
-							</td>
-							<td><%=order.getDelivery_name()%></td>
-							<td><%=order.getDelivery_postcode()%></td>
-							<td><%=order.getDelivery_address1()%></td>
-							<td><%=order.getDelivery_address2()%></td>
-							<td><%=order.getDelivery_phone1()%></td>
-							<td><%=order.getDelivery_phone2()%></td>
-							<td><%=order.getDelivery_phone3()%></td>
-							<td><%=order.getDelivery_email1()%></td>
-							<td><%=order.getDelivery_email2()%></td>
-							<td><%=order.getBilling_name()%></td>
-							<td><%=order.getBilling_postcode()%></td>
-							<td><%=order.getBilling_address1()%></td>
-							<td><%=order.getBilling_address2()%></td>
-							<td><%=order.getBilling_phone1()%></td>
-							<td><%=order.getBilling_phone2()%></td>
-							<td><%=order.getBilling_phone3()%></td>
-							<td><%=order.getBilling_email1()%></td>
-							<td><%=order.getBilling_email2()%></td>
-							<td><%=order.getPayment_method()%></td>
-							<td><%=order.getFinal_price()%></td>
-							<td><%=order.getLast_modified()%></td>
-							<td><%=order.getDate_purchased()%></td>
-							<td><%=order.getOrders_status()%></td>
-							<td><%=order.getOrders_date_finished()%></td>
+							<td class="table-secondary">수신인</td>
+							<td class="bg-light" colspan="2"><%=order.getDelivery_name()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">우편번호</td>
+							<td class="bg-light" colspan="5"><%=order.getDelivery_postcode()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">주소1</td>
+							<td class="bg-light" colspan="5"><%=order.getDelivery_address1()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">주소2</td>
+							<td class="bg-light" colspan="5"><%=order.getDelivery_address2()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">전화번호 1</td>
+							<td class="bg-light" colspan="2"><%=order.getDelivery_phone1()%></td>
+							<td class="table-secondary">이메일 1</td>
+							<td class="bg-light" colspan="2"><%=order.getDelivery_email1()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">결재자</td>
+							<td class="bg-light" colspan="5"><%=order.getBilling_name()%></td>
+						</tr>
+						<tr>							
+							<td class="table-secondary">우편번호</td>
+							<td class="bg-light" colspan="5"><%=order.getBilling_postcode()%></td>
+						</tr>
+						<tr>	
+							<td class="table-secondary">주소1</td>							
+							<td class="bg-light" colspan="5"><%=order.getBilling_address1()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">주소2</td>							
+							<td class="bg-light" colspan="5"><%=order.getBilling_address2()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">전화번호 1</td>
+							<td class="bg-light" colspan="2"><%=order.getBilling_phone1()%></td>							
+							<td class="table-secondary">이메일 1</td>
+							<td class="bg-light" colspan="2"><%=order.getBilling_email1()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">결재방법</td>
+							<td class="bg-light"><%=order.getPayment_method()%></td>							
+							<td class="table-secondary">결재가격</td>
+							<td class="bg-light"><%=order.getFinal_price()%></td>
+							<th class="table-secondary">주문상태</th>
+							<td class="bg-light"><%=order.getOrders_status()%></td>
+						</tr>
+						<tr>
+							<td class="table-secondary">구매일</td>
+							<td class="bg-light"><%=order.getDate_purchased()%></td>
+							<td class="table-secondary">최종수정일</td>
+							<td class="bg-light"><%=order.getLast_modified()%></td>							
+							<td class="table-secondary">주문완료일</d>
+							<td class="bg-light"><%=order.getOrders_date_finished()%></td>							
+						</tr>
+						<tr>
+						<td colspan="6"></td>
 						</tr>
 <%		idNum--;
 	} %>

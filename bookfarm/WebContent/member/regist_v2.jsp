@@ -214,7 +214,7 @@
 	<%}%>
 <table class="table">
 	<tr>
-		<td><label>아이디</label></td>
+		<td class="table-secondary"><label>아이디</label></td>
 		<td><input type="text" name="username" placeholder="아이디"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=vo.getUsername() %>
@@ -227,7 +227,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>비밀번호</label></td>
+		<td class="table-secondary"><label>비밀번호</label></td>
 		<td><input type="password" name="password" placeholder="비밀번호"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=vo.getPassword() %>
@@ -238,7 +238,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>이름</label></td>
+		<td class="table-secondary"><label>이름</label></td>
 		<td><input type="text" name="firstname" placeholder="이름"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=vo.getFirstname() %>
@@ -249,7 +249,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td rowspan="2"><label>주소</label></td>
+		<td class="table-secondary" rowspan="2"><label>주소</label></td>
 		<td>
 		<input type="text" name="postcode" placeholder="postcode"
 		<%	if(type.equals("view")){ %>
@@ -274,7 +274,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>상세주소</label></td>
+		<td class="table-secondary"><label>상세주소</label></td>
 		<td><input type="text" name="address2" placeholder="상세주소"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=vo.getAddress2() %>
@@ -285,7 +285,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>연락처1</label></td>
+		<td class="table-secondary"><label>연락처1</label></td>
 		<td><input type="text" name="phone1" placeholder="연락처1"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=vo.getPhone1() %>
@@ -296,7 +296,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>생년월일</label>
+		<td class="table-secondary"><label>생년월일</label>
 		<td class="">
 					<select class="btn" onchange="selFuc(this)" name="year">
 							<option value="0">년도</option>
@@ -329,7 +329,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><label>이메일</label></td>
+		<td class="table-secondary"><label>이메일</label></td>
 		<td><input type="email" name="email1" placeholder="이메일"
 		<%	if(type.equals("view")){ %>
 		readonly="readonly"value=<%=vo.getEmail1() %>
@@ -340,7 +340,7 @@
 		></td>
 	</tr>
 	<tr>
-		<td><label>성별</label></td>
+		<td class="table-secondary"><label>성별</label></td>
 		<td>
 		<%	
 			if(type.equals("view")){
