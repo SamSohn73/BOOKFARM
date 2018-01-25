@@ -53,7 +53,9 @@ Vector<CategoryVO>	categories	= (Vector<CategoryVO>) session.getAttribute("categ
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="Online Bookstore Bookfarm">
 		<meta name="author" content="BookFarmer">
-<title>Insert title here</title>
+		<link rel="shortcut icon" href="../favicon.ico">
+		
+<title>상품 주문</title>
 
 		<link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
 		<link href="css/shop-homepage.css" rel="stylesheet">
